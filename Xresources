@@ -1,0 +1,64 @@
+! ---Colors Definition---
+
+! Black
+*color0:	#393939
+*color8:	#AF875F
+! Red
+*color1:	#E04613
+!#BF1E2D
+*color9:	#E7212A
+! Green
+*color2:	#9DBA3A
+*color10:	#A9C938
+! Yellow
+*color3:	#F5B915
+*color11:	#F7D325
+! Blue
+*color4:	#6C9EAB
+!#1CA1DB
+*color12:	#00AFDA
+! Magenta
+*color5:	#652F90
+*color13:	#894E9F
+! Cyan
+*color6:	#EA7D24
+*color14:	#F79321
+! White
+*color7:	#E7E8E9
+*color15:	#F3F3F4
+
+! Text Colour
+*foreground:	#FAFAFA
+
+! Background Colour
+
+! Lana Background
+!*background:	[90]#272521
+
+! Elegant Brit Background (Dark)
+URxvt*background: [90]#262729
+screen*background: [90]#262729
+Xterm*background: [90]#262729
+
+! ---URxvt Configuration---
+
+URxvt.depth: 32
+URxvt.scrollstyle: rxvt
+URxvt.scrollBar: off
+URxvt.font: xft:Envy Code R:size=10
+URxvt.boldFont: xft:Envy Code R:size=10
+URxvt.italicFont: xft:Envy Code R:size=10
+URxvt.boldItalicFont: xft:Envy Code R:size=10
+URxvt*perl-ext-common: default,matcher,clipboard
+
+! Zenburn color-scheme
+! urxvt*background: [90]#3f3f3f
+! urxvt*foreground: [95]#dcdccc
+
+! Lana Color Scheme for Openbox
+!urxvt*background: [90]#272521
+!urxvt*foreground: [95]#dcdccc
+
+! Light Colour Scheme for Openbox
+!urxvt*background: [90]#eeeeee
+!urxvt*foreground: [95]#3f3f3f

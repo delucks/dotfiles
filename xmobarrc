@@ -1,0 +1,25 @@
+-- Xmobar Configuration, part of the great panel wars of 2013
+-- Jamie Luck, jluck@udel.edu
+-- Hopefully this ought to do better than that (very nice) POS tint2 ;)
+--										, Run Com "/home/jamie/Scripts/romandate" [] "date" 6000
+
+Config { font = "xft:Envy Code R:size=9"
+			 , bgColor = "#262729"
+			 , fgColor = "#F5B915"
+			 , position = Static { xpos = 0 , ypos = 0 , width = 1920 , height = 16 }
+			 , persistent = True
+			 , commands = [ Run Com "/home/jamie/Scripts/bar.sh" [] "wlan0" 30
+			 							, Run Cpu ["-L","3","-H","50","--normal","#9dba3a","--high","#e04613"] 10
+										, Run Com "uname" ["-n"] "" 0
+										, Run Memory ["-t","Mem: <usedratio>%","-H","75","--normal","#9dba3a","--high","#e04613"] 10
+										, Run Com "date" ["+%X"] "time" 10
+										, Run Com "mpc" ["current"] "" 10
+										, Run Com "date" ["+%m%d%y"] "" 6000
+										, Run Com "/home/jamie/Scripts/battstate.sh" [] "acpi" 30
+										, Run BatteryP ["BAT0"] ["-t", "<left>%","-L","20","-H","80","-h","#9dba3a","-l","#e04613"] 600
+										, Run Com "/home/jamie/Scripts/volume.sh" [] "vol" 30
+										]
+			 , sepChar = "%"
+			 , alignSep = "}{"
+			 , template = " <fc=#e04613>%uname%</fc> - %cpu% - %memory% - Bat: %battery% - Vol: %vol% }{ %wlan0% | %mpc% | <fc=#e04613>%date%</fc> | <fc=#e04613>%time% </fc>"
+			 }
