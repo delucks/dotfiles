@@ -14,76 +14,6 @@ servers = (
   }
 );
 
-chatnets = {
-  IRCnet = {
-    type = "IRC";
-    max_kicks = "4";
-    max_msgs = "5";
-    max_whois = "4";
-    max_query_chans = "5";
-  };
-  EFNet = { 
-    type = "IRC";
-    max_kicks = "4";
-    max_msgs = "3";
-    max_whois = "1";
-  };
-  Undernet = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  DALnet = {
-    type = "IRC";
-    max_kicks = "4";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  QuakeNet = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  OFTC = { 
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  GameSurge = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  WebChat = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  Rizon = { 
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  LinkNet = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  SILC = { type = "SILC"; };
-  fn = {
-    type = "IRC";
-    nick = "delucks";
-  };
-  dtella = { type = "IRC"; };
-};
-
 channels = (
   { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
   { name = "silc"; chatnet = "silc"; autojoin = "No"; },
@@ -254,12 +184,13 @@ statusbar = {
   };
 };
 settings = {
-  core = { real_name = "Unknown"; user_name = "jamie"; nick = "jamie"; };
+  core = { real_name = "Unknown"; user_name = "jamie"; nick = "delucks"; };
   "fe-text" = { actlist_sort = "refnum"; };
-  "fe-common/core" = { use_status_window = "yes"; };
+  "fe-common/core" = { use_status_window = "yes"; theme = "beastie"; };
 };
 ignores = (
   { mask = "parts"; level = "ALL"; },
   { mask = "quits"; level = "ALL"; },
   { mask = "joins"; level = "ALL"; }
 );
+chatnets = { fn = { type = "IRC"; }; dtella = { type = "IRC"; }; };

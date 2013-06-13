@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# File to be sourced whenever dmenu is run.
+source ~/.colors/currentvars # Get the colors we'll need from the theme
+
+DMENU="dmenu -i -h 20 -nb $bg -nf $cy -sb $bg -sf $mg"
+DMENUR="dmenu_run -i -h 20 -nb $bg -nf $cy -sb $bg -sf $mg"

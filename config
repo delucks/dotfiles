@@ -1,0 +1,85 @@
+# NcMpCpp Settings
+# Jamie Luck (jluck@udel.edu)
+
+# MPD Settings
+mpd_music_dir = "~/music/"
+
+# Format
+#
+# Options are %: 
+# l (length), f (filename), D (dir), a (artist), A (album artist)
+# t (title), b (album), y (year), n (track no.), N (full track info)
+# g (genre), c (composer), p (performer), d (disk), C (comment)
+# And $R for begin of right alignment
+#
+# Colors are $:
+# 0 (default), 1 (black), 2 (red), 3 (green), 4 (yellow), 5 (blue)
+# 6 (magenta), 7 (cyan), 8 (white), 9 (end current color)
+# 
+# Other options:
+# {} (optional tag), b (bold), u (UL), r (reverse colors), a (alt char.)
+
+song_list_format = "$6%a $4»$7»$4» $7{%t}|{%f} (%l) $R{$4%b}{ « $7%y$9}{ « $6%g}"
+song_columns_list_format=" (40)[yellow]{f} (6)[green]{l} (35)[red]{a} (30)[green]{b} "
+song_status_format = "$4%a $7» $3%b $7» $8%t$1"
+#song_window_title_format = ""
+#browser_playlist_prefix = ""
+#selected_item_prefix = ""
+#selected_item_suffix = ""
+#alternative_header_first_line_format = ""
+alternative_header_second_line_format = "$6%a$9 - $4%b$9{ - $7%y}"
+
+#now_playing_prefix = "$b$4»$7»$4» "
+now_playing_prefix = "$b"
+now_playing_suffix = "$9$/b"
+#now_playing_suffix = "$9 «$/b"
+#now_playing_suffix = "$/b"
+#song_library_format = ""
+
+# Progressbar Settings
+progressbar_look = "» «"
+statusbar_visibility = "yes"
+statusbar_color = "black" 
+
+# Colors
+colors_enabled = "yes"
+header_window_color = "white"
+volume_color = "white"
+
+# Stuff to Display
+playlist_show_remaining_time = "yes"
+playlist_shorten_total_times = "no"
+playlist_display_mode = "classic"
+browser_display_mode = "columns"
+search_engine_display_mode = "classic"
+user_interface = "alternative"
+autocenter_mode = "yes"
+header_visibility = "yes"
+display_bitrate = "yes"
+display_volume_level = "no"
+display_remaining_time = "no"
+display_screens_numbers_on_start = "no"
+display_remaining_time = "no"
+
+# Misc Settings
+default_find_mode = "wrapped"
+default_space_mode = "add"
+incremental_seeking = "yes"
+default_place_to_search_in = "database"
+regular_expressions = "extended"
+message_delay_time = "1"
+search_engine_default_search_mode = "2"
+header_text_scrolling = "yes"
+external_editor = /bin/vim
+playlist_disable_highlight_delay = "1"
+centered_cursor = "yes"
+titles_visibility = "no"
+mouse_support = "no"
+discard_colors_if_item_is_selected = "no"
+
+# Visualizer
+visualizer_fifo_path = "/tmp/mpd.fifo"
+visualizer_output_name = "my_fifo"
+visualizer_sync_interval = "30"
+visualizer_type = "wave" (spectrum/wave)
+visualizer_in_stereo = "yes"

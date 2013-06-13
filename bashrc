@@ -9,6 +9,7 @@
 
 export UDIR='/home/jamie/Dropbox/Documents/UD'
 export EDITOR='vim'
+export PAGER='less'
 
 # Aliases ------------------------------------------------------------------
 
@@ -20,7 +21,6 @@ alias mkdir='mkdir -p'
 alias arduino='sudo chmod 777 /run/lock && arduino'
 alias music='ncmpcpp'
 alias nitronicrush='cd ~/.wine/drive_c/Program\ Files/Digipen/Nitronic\ Rush/ && primusrun wine NitronicRush.exe'
-alias minecraft='cd /usr/share/minecraft/ && ./MC4gig.sh'
 alias valgrinder='valgrind --tool=memcheck $@ --leak-check=full'
 alias zipc='zip $1 *.cpp *.h *.txt'
 
@@ -41,9 +41,6 @@ alias ......='cd ../../../../..'
 
 # WM Specific Aliases
 alias vconf='vim ~/.vimrc'
-#alias atheme='vim /home/jamie/.config/awesome/themes/zenburn/theme.lua'
-#alias aconf='vim /home/jamie/.config/awesome/rc.lua'
-alias redwm='cd ~/.dwm; makepkg -g >> PKGBUILD; makepkg -efi --noconfirm; killall dwm'
 
 # Removable Media
 alias usbme='sudo dd bs=4M if=$1 of=/dev/sdb'
@@ -69,12 +66,25 @@ alias lds='echo "Crazy Mormon Morons"'
 # Miscellany
 alias todo='vim ~/Dropbox/Documents/UD/todo.txt'
 alias poweroff='shutdown now -hP'
-alias rmspc="find -name '* *' -type $1 | perl-rename 's/ /_/g'" #Change to type f for files
+alias rmspc="find -name '* *' -type f | perl-rename 's/ /_/g'" #Change to type f for files
 alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
 alias sizer='du -hs "$@" * | sort -h'
 alias volume="amixer | grep '\[*\]' | awk '{print $5}' | head -n 1"
+alias nam='apr $@'
 
 # Functions ----------------------------------------------------------------
+
+# search and browse manpages interactively
+function apr {
+    err="usage: $FUNCNAME [object]"
+    test $# -ne 1 && echo $err && return 1
+
+    IFS=$'\n' manpgs=( $(apropos $1 | grep ^$1) )
+    select line in ${manpgs[@]}; do
+        n=${line%%) *}; n=${n#* (}
+        man ${n} ${line%% *}
+    done
+}
 
 ex() { #Because I can never remember all that xjf garbage
   if [ -f $1 ] ; then
@@ -152,7 +162,7 @@ psgrep() {
 }
 
 cfat() {
-	sudo mount -t vfat /dev/sdc1 /mnt/vfat
+	sudo mount -t vfat /dev/sdb1 /mnt/vfat
 	echo "Mounted."
 	sudo cp $@ /mnt/vfat/
 	echo "Copied."
@@ -172,3 +182,5 @@ swg() {
 # PS1 Settings -------------------------------------------------------------
 #PS1='[\u@\h \W]\$ '
 PS1="\[\033[0;37m\]\342\224\214\342\224\200\$([[ \$? != 0 ]] && echo \"[\[\033[0;31m\]\342\234\227\[\033[0;37m\]]\342\224\200\")[$(if [[ ${EUID} == 0 ]]; then echo '\[\033[0;31m\]\h'; else echo '\[\033[0;33m\]\u\[\033[0;37m\]@\[\033[0;96m\]\h'; fi)\[\033[0;37m\]]\342\224\200[\[\033[0;32m\]\w\[\033[0;37m\]]\n\[\033[0;37m\]\342\224\224\342\224\200\342\224\200\342\225\274 \[\033[0m\]"
+
+cat ~/.motd
