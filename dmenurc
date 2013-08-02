@@ -3,5 +3,5 @@
 # File to be sourced whenever dmenu is run.
 source ~/.colors/currentvars # Get the colors we'll need from the theme
 
-DMENU="dmenu -i -h 20 -nb $bg -nf $cy -sb $bg -sf $mg"
-DMENUR="dmenu_run -i -h 20 -nb $bg -nf $cy -sb $bg -sf $mg"
+DMENU="dmenu -i -h 13 -nb $bg -nf $fg -sb $bg -sf $yl1 -fn bitocra13"
+DMENUR="dmenu_run -i -h 13 -nb $bg -nf $fg -sb $bg -sf $yl1 -fn bitocra13"

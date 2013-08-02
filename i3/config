@@ -1,21 +1,21 @@
-set $bg #111111
-set $fg #babdb6
-set $bk #060203
-set $rd #C54200
-set $gr #667B24
-set $yl #E3A100
-set $bl #3856B8
-set $mg #961FB5
-set $cy #2E8FAC
-set $wh #C5E0E1
-set $bk1 #444444
-set $rd1 #DB703A
-set $gr1 #70880B
-set $yl1 #E5BE21
-set $bl1 #4179CF
-set $mg1 #B550D0
-set $cy1 #48A0B8
-set $wh1 #D9FDFF
+set $bg #181512
+set $fg #f0f0f0
+set $bk #373737
+set $rd #CC4141
+set $gr #43803D
+set $yl #dbab3b
+set $bl #7882bf
+set $mg #BF849C
+set $cy #6AA9B0
+set $wh #E39036
+set $bk1 #474747
+set $rd1 #BA2929
+set $gr1 #2F632A
+set $yl1 #c79520
+set $bl1 #596196
+set $mg1 #B06A86
+set $cy1 #4D8B91
+set $wh1 #C97820
 
 # -----
 # Jamie Luck's i3 config file
@@ -27,6 +27,7 @@ set $wh1 #D9FDFF
 
 set $mod Mod1
 set $mod4 Mod4
+set $modr Mode_switch
 floating_modifier $mod
 
 # -----
@@ -34,7 +35,9 @@ floating_modifier $mod
 # ISO 10646 = Unicode
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 #font -misc-envy code r-medium-r-normal--9-*-*-*-*-*-*-iso10646-*
-font xft:Envy Code R 9
+#font xft:Envy Code R 9
+#font -misc-tamsyn-medium-*-*--*-101-*-*-*-*-*
+font -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
 
 # -----
 # Colors
@@ -50,7 +53,7 @@ hide_edge_borders none
 #bindsym $mod4+4 border pixel 3
 
 # Class											border		backgr.		text		indicator
-client.focused 							$bg				$mg				$bg			$bk1
+client.focused 							$bg				$fg				$bg			$bk1
 client.focused_inactive			$bg				$bg				$cy			$bk1
 client.unfocused						$bg				$bg				$cy			$mg
 client.urgent 							$bg				$mg				$rd			$mg
@@ -69,8 +72,8 @@ assign [class="Firefox"] 2:s
 assign [class="Opera"] 2:s
 assign [class="Abiword"] 3:d
 assign [class="Eclipse"] 3:d
-assign [class="net-minecraft-LauncherFrame"] 4:f
-assign [class="Steam"] 4:f
+assign [class="net-minecraft-LauncherFrame"] 5:g
+assign [class="Steam"] 5:g
 
 for_window [class="net-minecraft-LauncherFrame"] floating enable
 for_window [class="MPlayer"] floating enable
@@ -80,8 +83,10 @@ for_window [class="Steam"] floating enable
 for_window [class="Event Tester"] floating enable
 for_window [class="mirage"] floating enable
 for_window [class="feh"] floating enable
+for_window [class="rdesktop"] floating enable
 
 for_window [class="Firefox"] border none
+for_window [class="^dwb$"] border none
 for_window [class="feh"] border normal
 
 # -----
@@ -96,7 +101,7 @@ for_window [class="feh"] border normal
 # Insert Mode (default)
 
 # Mode Changing
-bindsym grave mode "normal"
+#bindsym grave mode "normal"
 bindsym $mod+r mode "resize"
 
 # Special Keys
@@ -125,6 +130,7 @@ bindsym $mod4+i exec urxvt -e vim ~/.i3/config
 bindsym $mod4+Escape exec urxvt -e htop
 bindsym $mod+comma exec quickswitch.py
 bindsym $mod4+m exec urxvt -e ~/scripts/tmux_attach
+bindsym $mod4+d exec dwb
 
 # All muh Alt+Fn Menus
 bindsym $mod+F1 exec ~/scripts/dmenu_man
@@ -155,23 +161,23 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h move left 20px
+bindsym $mod+Shift+j move down 20px
+bindsym $mod+Shift+k move up 20px
+bindsym $mod+Shift+l move right 20px
 
 bindsym $mod+apostrophe fullscreen
 bindsym $mod+m floating toggle
 bindsym $mod+Shift+m focus mode_toggle
 bindsym $mod+c move position center
 
-bindsym $mod+Down split v
 bindsym $mod+Up split v
 bindsym $mod+Left split h
-bindsym $mod+Right split h
+
 bindsym $mod+bracketleft layout toggle
 bindsym $mod+bracketright layout toggle split
-#bindsym $mod+p focus parent
+
+bindsym $mod+e focus parent
 #bindsym $mod+d focus child
 
 # Tmux
@@ -200,6 +206,10 @@ bindsym $mod+Shift+s move container to workspace 2:s
 bindsym $mod+Shift+d move container to workspace 3:d
 bindsym $mod+Shift+f move container to workspace 4:f
 bindsym $mod+Shift+g move container to workspace 5:g
+
+#bindsym $mod+g exec i3-input -F 'rename workspace to %s' -l 1 -P 'New name: ' bindsym $mod+Shift+f exec i3-input -F 'move container to workspace %s' -l 1 -P 'Move to workspace: '
+#bindsym $mod+f exec i3-input -F 'workspace %s' -l 1 -P 'Jump to workspace: '
+#bindsym XF86Launch2 exec i3-input -F 'workspace %s' -l 1 -P 'Jump to workspace: ' 
 
 bindsym $mod+minus scratchpad show
 bindsym $mod+Shift+minus move scratchpad
@@ -306,6 +316,7 @@ mode "resize" {
 	# Mode Changes
 	bindsym i mode "default"
 	bindsym grave mode "normal"
+	bindsym Escape mode "default"
 
 	# Window Changes
   bindsym h resize shrink width 20 px or 10 ppt
@@ -338,13 +349,13 @@ bar {
 	colors {
 		# These are set to single values
 		background $bg
-		statusline $cy
+		statusline $fg
 		separator $bk1
 
 		# These are triplets of border, background, text
-		focused_workspace $mg $bg $mg
+		focused_workspace $fg $bg $fg
 		active_workspace $wh $cy
-		inactive_workspace $cy $bg $cy
+		inactive_workspace $bk $bg $bk
 		urgent_workspace $bg $rd
 	}
 }

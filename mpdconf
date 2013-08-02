@@ -17,7 +17,7 @@ music_directory		"/home/jamie/music/"
 # playlist files not created by the server but only if they are in the MPD
 # format. This setting defaults to playlist saving being disabled.
 #
-playlist_directory		"/home/jamie/.music/playlists"
+playlist_directory		"/home/jamie/playlists"
 #
 # This setting sets the location of the MPD database. This file is used to
 # load the database at server start up and store the database while the 
@@ -267,17 +267,17 @@ audio_output {
 #
 # An example of a httpd output (built-in HTTP streaming server):
 #
-#audio_output {
-#	type		"httpd"
-#	name		"HTTP Stream"
-#	encoder		"vorbis"		# optional, vorbis or lame
-#	port		"8000"
+audio_output {
+	type		"httpd"
+	name		"HTTP Stream"
+	encoder		"vorbis"		# optional, vorbis or lame
+	port		"8000"
 #	bind_to_address	"0.0.0.0"		# optional, IPv4 or IPv6
-##	quality		"5.0"			# do not define if bitrate is defined
-#	bitrate		"128"			# do not define if quality is defined
-#	format		"44100:16:1"
-#	max_clients	"0"			# optional 0=no limit
-#}
+#	quality		"5.0"			# do not define if bitrate is defined
+	bitrate		"128"			# do not define if quality is defined
+	format		"44100:16:1"
+	max_clients	"0"			# optional 0=no limit
+}
 #
 # An example of a pulseaudio output (streaming to a remote pulseaudio server)
 #

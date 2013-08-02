@@ -17,9 +17,9 @@ servers = (
 channels = (
   { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
   { name = "silc"; chatnet = "silc"; autojoin = "No"; },
-  { name = "##unixporn"; chatnet = "fn"; autojoin = "yes"; },
-  { name = "#archlinux"; chatnet = "fn"; autojoin = "yes"; },
-  { name = "#archlinux-offtopic"; chatnet = "fn"; autojoin = "yes"; }
+  { name = "##unixporn"; chatnet = "fn"; autojoin = "no"; },
+  { name = "#archlinux"; chatnet = "fn"; autojoin = "no"; },
+  { name = "#archlinux-offtopic"; chatnet = "fn"; autojoin = "no"; }
 );
 
 aliases = {
@@ -186,7 +186,7 @@ statusbar = {
 settings = {
   core = { real_name = "Unknown"; user_name = "jamie"; nick = "delucks"; };
   "fe-text" = { actlist_sort = "refnum"; };
-  "fe-common/core" = { use_status_window = "yes"; theme = "beastie"; };
+  "fe-common/core" = { use_status_window = "yes"; theme = "zebra"; };
 };
 ignores = (
   { mask = "parts"; level = "ALL"; },

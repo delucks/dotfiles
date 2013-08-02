@@ -1,7 +1,7 @@
 execute pathogen#infect()
 syntax on
-"Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans
-colorscheme desert
+"Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish
+colorscheme oceandeep
 "set relativenumber
 set number
 set nocompatible
@@ -16,13 +16,22 @@ set hlsearch
 set filetype
 set splitright
 set autowrite
+set splitbelow
+set splitright
 set ft=zsh ts=4 sw=4
 
 " Custom kep mappings
 nmap j gj
 nmap k gk
-nmap ; :
-nmap <C-h> :b#<CR>
+map ; :
+" nmap <C-h> :b#<CR>
+" Buffer Manipulation
+nmap <C-h> <C-w><C-h>
+nmap <C-j> <C-w><C-j>
+nmap <C-k> <C-w><C-k>
+nmap <C-l> <C-w><C-l>
+nmap <C-=> <C-w><C-=>
+
 nmap <F8> :TagbarToggle<CR>
 cmap w!! %!sudo tee > /dev/null %
 nmap <F6> :r!xclip -o <CR>
