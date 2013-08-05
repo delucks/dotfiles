@@ -33,15 +33,14 @@ alias archey='archey --config=~/.config/archey3.cfg'
 alias arduino='sudo chmod 777 /run/lock && arduino'
 alias color='~/Scripts/colors'
 
-alias work='ssh -p 22 jluck@128.175.21.173'
-alias todo='vim ~/Dropbox/Documents/UD/todo.txt'
-alias dpub='dropbox puburl $@'
+source ~/.ssh_aliases
+
 alias sizer='du -hs "$@" | sort -h'
 alias valgrinder='valgrind --tool=memcheck $@ --leak-check=full'
 alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
 
-alias 0n='encfs ~/.enc/ ~/Pictures/random/'
-alias 0ff='fusermount -u ~/Pictures/random/'
+alias 0n='encfs ~/.enc/ ~/pictures/random/'
+alias 0ff='fusermount -u ~/pictures/random/'
 
 alias webcam='mplayer tv://'
 
