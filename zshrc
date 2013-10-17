@@ -12,6 +12,13 @@ ZSH_THEME="jluck"
 export EDITOR="vim"
 
 # Aliases
+alias g9up='svn update ~/dev/class/CISC275/group9'
+alias sup='svn update'
+alias sch='svn checkout $@'
+alias ss='svn status'
+alias sadd='svn add $@'
+alias scm='svn commit'
+
 alias ls='ls -aChkopl --group-directories-first --color=auto'
 alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
 alias l='ls -alG'
@@ -19,6 +26,11 @@ alias l='ls -alG'
 alias rconf='vim ~/.config/ranger/rc.conf'
 alias ra='ranger'
 alias ranger='ranger 2> /dev/null'
+alias kwf='kill -9 $(pgrep "$1")'
+alias ipwd='sudo ip link set dev wlan0 down'
+alias stog='amixer set Speaker toggle'
+alias hc='herbstclient'
+alias violet='wmname LG3D && violet'
 
 alias y='yaourt'
 alias orphan='pacman -Qtdq'
@@ -117,5 +129,12 @@ esac
 #        man ${n} ${line%% *}
 #    done
 #}
+
+function musicopy {
+	cd ~/music/
+	mpc search "$@" | while read line; do
+		sudo cp $line /mnt/vfat
+	done
+}
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

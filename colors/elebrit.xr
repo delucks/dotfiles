@@ -1,0 +1,28 @@
+!-----------------------------
+!Tema:    Elegit
+!Autor:   Deckon
+!Fecha:   31-07-2011
+!-----------------------------
+
+!---------
+! Colores
+!---------
+*background: [95]#111111
+*foreground: #babdb6
+
+*color0:  #060203
+*color1:  #C54200
+*color2:  #667B24
+*color3:  #E3A100
+*color4:  #3856B8
+*color5:  #961FB5
+*color6:  #2E8FAC
+*color7:  #C5E0E1
+*color8:  #444444
+*color9:  #DB703A
+*color10: #70880B
+*color11: #E5BE21
+*color12: #4179CF
+*color13: #B550D0
+*color14: #48A0B8
+*color15: #D9FDFF

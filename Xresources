@@ -5,16 +5,17 @@
 ! ---URxvt Configuration---
 
 XTerm*background: rgb:18/15/12
-! XTerm*font: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
-! XTerm*boldFont: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
-
 URxvt.depth: 32
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
-*font:	-misc-tamsyn-medium-*-*--*-101-*-*-*-*-*
-XTerm*font:	-misc-tamsyn-medium-*-*--*-101-*-*-*-*-*
-*boldFont:	-misc-tamsyn-medium-*-*--*-101-*-*-*-*-*
-XTerm*boldFont:	-misc-tamsyn-medium-*-*--*-101-*-*-*-*-*
+
+!*font:	-misc-tamsyn-medium-*-*--*-101-*-*-*-*-*
+!XTerm*font:	-misc-tamsyn-medium-*-*--*-101-*-*-*-*-*
+!*boldFont:	-misc-tamsyn-medium-*-*--*-101-*-*-*-*-*
+!XTerm*boldFont:	-misc-tamsyn-medium-*-*--*-101-*-*-*-*-*
+
+*font: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
+*boldFont: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
 
 !URxvt*font: -artwiz-cure-medium-r-normal--12-110-75-75-p-90-iso8859-1.
 !URxvt*font: -*-freemono-*-*-*-*-*-*-*-*-*-*-*-*
@@ -24,4 +25,5 @@ XTerm*boldFont:	-misc-tamsyn-medium-*-*--*-101-*-*-*-*-*
 !URxvt.boldItalicFont: xft:Envy Code R:size=10
 !URxvt*perl-ext-common: default,matcher,clipboard
 *.cursorUnderline: False
+URxvt*termName: rxvt
 URxvt*internalBorder: 0

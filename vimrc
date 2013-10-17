@@ -1,10 +1,11 @@
+set nocompatible
 execute pathogen#infect()
 syntax on
 "Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish
-colorscheme oceandeep
-"set relativenumber
+"let g:hybrid_use_Xresources = 1
+colorscheme calmbreeze
 set number
-set nocompatible
+"set relativenumber
 set ic
 set autoindent
 set ruler
@@ -61,7 +62,8 @@ autocmd FileType html
 autocmd FileType java
   \ setlocal shiftwidth=4 |
   \ setlocal tabstop=4 |
-  \ map <C-c> :call CommentLineToEnd ('// ')<CR>
+  \ map <C-c> :call CommentLineToEnd ('// ')<CR> |
+	\ map <F9> :!javac "%:p" <CR>
 autocmd BufRead *i3*
 	\ map <C-c> :call CommentLineToEnd ('#')<CR>
 

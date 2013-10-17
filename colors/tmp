@@ -1,4 +1,4 @@
-set $bg #262626
+set $bg 626
 set $fg #A8A8A8
 set $bk #303030
 set $rd #D370A3
@@ -42,9 +42,9 @@ font -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
 # -----
 # Colors
 
-new_window pixel 3
+new_window pixel 2
 #new_window normal
-new_float pixel 3
+new_float pixel 2
 hide_edge_borders none
 
 #bindsym $mod4+1 border normal
@@ -53,7 +53,7 @@ hide_edge_borders none
 #bindsym $mod4+4 border pixel 3
 
 # Class											border		backgr.		text		indicator
-client.focused 							$bg				$bl				$bg			$bk1
+client.focused 							$bg				$wh				$bg			$bk1
 client.focused_inactive			$bg				$bg				$wh			$bk1
 client.unfocused						$bg				$bg				$wh			$mg
 client.urgent 							$bg				$mg				$rd			$mg
