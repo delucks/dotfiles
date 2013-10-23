@@ -3,7 +3,7 @@ execute pathogen#infect()
 syntax on
 "Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish
 "let g:hybrid_use_Xresources = 1
-colorscheme calmbreeze
+colorscheme eclipse
 set number
 "set relativenumber
 set ic

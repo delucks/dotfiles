@@ -1,6 +1,9 @@
 !---Colors Definition---
 
-#include "/home/jamie/.colors/current"
+!#include "/home/jamie/.colors/current"
+#include "/home/jamie/.colorsX"
+*background: #262626
+*foreground: #A8A8A8
 
 ! ---URxvt Configuration---
 
