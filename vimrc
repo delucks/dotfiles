@@ -4,6 +4,7 @@ syntax on
 "Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish
 "let g:hybrid_use_Xresources = 1
 colorscheme eclipse
+" colorscheme evening
 set number
 "set relativenumber
 set ic

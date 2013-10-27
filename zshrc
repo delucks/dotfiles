@@ -12,12 +12,14 @@ ZSH_THEME="jluck"
 export EDITOR="vim"
 
 # Aliases
-alias g9up='svn update ~/dev/class/CISC275/group9'
+alias g9up='cd /home/jamie/dev/class/CISC275/group9 && svn up'
+alias g9='cd /home/jamie/dev/class/CISC275/group9'
 alias sup='svn update'
 alias sch='svn checkout $@'
 alias ss='svn status'
 alias sadd='svn add $@'
 alias scm='svn commit'
+
 
 alias ls='ls -aChkopl --group-directories-first --color=auto'
 alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
@@ -31,6 +33,7 @@ alias ipwd='sudo ip link set dev wlan0 down'
 alias stog='amixer set Speaker toggle'
 alias hc='herbstclient'
 alias violet='wmname LG3D && violet'
+alias wp='/home/jamie/wp/wp'
 
 alias y='yaourt'
 alias orphan='pacman -Qtdq'
@@ -50,9 +53,6 @@ source ~/.ssh_aliases
 alias sizer='du -hs "$@" | sort -h'
 alias valgrinder='valgrind --tool=memcheck $@ --leak-check=full'
 alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
-
-alias 0n='encfs ~/.enc/ ~/pictures/random/'
-alias 0ff='fusermount -u ~/pictures/random/'
 
 alias webcam='mplayer tv://'
 

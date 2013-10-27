@@ -14,6 +14,11 @@ systemd --user
 #exec dwm
 #sh /usr/bin/startdwm.sh
 
+#export PANEL_FIFO=/home/lumo/.tmp/bspwm-fifo
+#[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+#mkfifo "$PANEL_FIFO"
+#exec bspwm -s "$PANEL_FIFO" -p W -c /home/jamie/.config/bspwm/bspwmrc 
+
 wmswap & wmpid=$!
 sh ~/.fehbg &
 mpd &
