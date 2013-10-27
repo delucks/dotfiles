@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Jamie Luck's Herbstluftwm config file
 # Started on July 4, 2013. MURRICA
 
 function hc() {
