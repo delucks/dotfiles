@@ -3,7 +3,7 @@ execute pathogen#infect()
 syntax on
 "Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish
 "let g:hybrid_use_Xresources = 1
-colorscheme eclipse
+colorscheme elflord
 " colorscheme evening
 set number
 "set relativenumber
@@ -21,6 +21,8 @@ set autowrite
 set splitbelow
 set splitright
 set ft=zsh ts=4 sw=4
+
+set completefunc
 
 " Custom kep mappings
 nmap j gj

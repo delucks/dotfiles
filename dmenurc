@@ -3,5 +3,5 @@
 # File to be sourced COLOR4enever dmenu is run.
 source ~/.colors # Get the colors we'll need from the theme
 
-DMENU="dmenu -i -h 13 -nb $COLOR16 -nf $COLOR17 -sb $COLOR16 -sf $COLOR4 -fn bitocra13"
-DMENUR="dmenu_run -i -h 13 -nb $COLOR16 -nf $COLOR17 -sb $COLOR16 -sf $COLOR4 -fn bitocra13"
+DMENU="dmenu -i -h 13 -nb $COLOR16 -nf $COLOR9 -sb $COLOR16 -sf $COLOR4 -fn bitocra13"
+DMENUR="dmenu_run -i -h 13 -nb $COLOR16 -nf $COLOR9 -sb $COLOR16 -sf $COLOR4 -fn bitocra13"
