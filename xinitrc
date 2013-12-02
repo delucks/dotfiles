@@ -20,6 +20,6 @@ systemd --user
 #exec bspwm -s "$PANEL_FIFO" -p W -c /home/jamie/.config/bspwm/bspwmrc 
 
 wmswap & wmpid=$!
-sh ~/.fehbg &
-mpd &
+#sh ~/.fehbg &
+#mpd &
 wait $wmpid

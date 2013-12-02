@@ -1,12 +1,10 @@
 set nocompatible
 execute pathogen#infect()
 syntax on
-"Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish
-"let g:hybrid_use_Xresources = 1
-colorscheme elflord
-" colorscheme evening
+"Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish, elflord
+colorscheme jellybeans
 set number
-"set relativenumber
+" set relativenumber
 set ic
 set autoindent
 set ruler

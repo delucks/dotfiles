@@ -1,3 +1,6 @@
 [user]
 	name = delucks
 	emaill = jamie.delucks@gmail.com
+	email = jamie.delucks@gmail.com
+[credential]
+	helper = cache

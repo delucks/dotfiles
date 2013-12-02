@@ -20,7 +20,6 @@ alias ss='svn status'
 alias sadd='svn add $@'
 alias scm='svn commit'
 
-
 alias ls='ls -aChkopl --group-directories-first --color=auto'
 alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
 alias l='ls -alG'
@@ -46,7 +45,7 @@ alias bvr='beet version'
 
 alias archey='archey --config=~/.config/archey3.cfg'
 alias arduino='sudo chmod 777 /run/lock && arduino'
-alias color='~/Scripts/colors'
+alias color='~/scripts/colors'
 
 source ~/.ssh_aliases
 
