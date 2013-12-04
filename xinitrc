@@ -11,8 +11,6 @@ systemd --user
 #exec gnome-session
 #Fuck dat setxkbmap -option terminate:ctrl_alt_bksp &
 #exec awesome
-#exec dwm
-#sh /usr/bin/startdwm.sh
 
 #export PANEL_FIFO=/home/lumo/.tmp/bspwm-fifo
 #[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
@@ -20,6 +18,4 @@ systemd --user
 #exec bspwm -s "$PANEL_FIFO" -p W -c /home/jamie/.config/bspwm/bspwmrc 
 
 wmswap & wmpid=$!
-#sh ~/.fehbg &
-#mpd &
 wait $wmpid

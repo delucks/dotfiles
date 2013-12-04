@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+	<menu id="apps-accessories-menu" label="Accessories">
+		<item label="Calculator">
+			<action name="Execute">
+				<command>gnome-calculator</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="GEdit">
+			<action name="Execute">
+				<execute>gedit</execute>
+			</action>
+		</item>
+		<item label="Geany">
+			<action name="Execute">
+				<execute>geany</execute>
+			</action>
+		</item>
+		<item label="Redshift">
+			<action name="Execute">
+				<execute>redshiftgui</execute>
+			</action>
+		</item>
+		<item label="Virtualbox">
+			<action name="Execute">
+				<execute>virtualbox</execute>
+			</action>
+		</item>
+	</menu>
+	<menu id="apps-development-menu" label="Development">
+		<item label="Eclipse C++">
+			<action name="Execute">
+				<execute>~/Downloads/eclipse/eclipse</execute>
+			</action>
+		</item>
+		<item label="Open Workspace">
+			<action name="Execute">
+				<execute>thunar /home/jamie/workspace</execute>
+			</action>
+		</item>
+		<item label="Code::Blocks">
+			<action name="Execute">
+				<execute>codeblocks</execute>
+			</action>
+		</item>
+		<item label="Eclipse">
+			<action name="Execute">
+				<execute>eclipse</execute>
+			</action>
+		</item>
+		<item label="Sublime Text 2">
+			<action name="Execute">
+				<execute>subl</execute>
+			</action>
+		</item>
+	</menu>
+	<menu id="None-52017" label="Filesharing and P2P">
+		<item label="Linux DC++">
+			<action name="Execute">
+				<execute>linuxdcpp</execute>
+			</action>
+		</item>
+		<item label="SABnzbd+">
+			<action name="Execute">
+				<execute>sh /opt/sabnzbd/addnzb.sh %u</execute>
+			</action>
+		</item>
+		<item label="Transmission">
+			<action name="Execute">
+				<execute>transmission-gtk</execute>
+			</action>
+		</item>
+	</menu>
+	<menu id="apps-fun-menu" label="Fun &amp; Games">
+		<item label="FTL">
+			<action name="Execute">
+				<execute>sh /home/jamie/Games/FTL.sh</execute>
+			</action>
+		</item>
+		<item label="Google Earth">
+			<action name="Execute">
+				<execute>/opt/google/earth/free/google-earth %f</execute>
+			</action>
+		</item>
+		<item label="Grand Theft Auto III">
+			<action name="Execute">
+				<execute>wine /home/jamie/Games/GTA3/gta3.exe</execute>
+			</action>
+		</item>
+		<item label="Minecraft">
+			<action name="Execute">
+				<execute>java -Xmx4096M -Xms4096M -jar /usr/share/minecraft/minecraft.jar</execute>
+			</action>
+		</item>
+		<item label="Nitronic Rush">
+			<action name="Execute">
+				<execute>primusrun wine /home/jamie/.wine/drive_c/Program\ Files/Digipen/Nitronic\ Rush/NitronicRush.exe</execute>
+			</action>
+		</item>
+		<item label="Powder Toy">
+			<action name="Execute">
+				<execute>powder toy</execute>
+			</action>
+		</item>
+	</menu>
+	<menu id="apps-term-menu" label="Terminals">
+		<item label="FISh">
+			<action name="Execute">
+				<execute>urxvt -e fish</execute>
+			</action>
+		</item>
+		<item label="Rxvt Unicode">
+			<action name="Execute">
+				<command>urxvt</command>
+			</action>
+		</item>
+		<item label="Tmux in Urxvt">
+			<action name="Execute">
+				<execute>urxvt -e bash -c &quot;tmux a&quot;</execute>
+			</action>
+		</item>
+		<item label="Xterm">
+			<action name="Execute">
+				<command>xterm</command>
+			</action>
+		</item>
+	</menu>
+	<menu id="apps-net-menu" label="Internet">
+		<item label="Firefox">
+			<action name="Execute">
+				<command>firefox</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+					<wmclass>Firefox</wmclass>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="Opera">
+			<action name="Execute">
+				<command>opera</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+					<wmclass>Opera</wmclass>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="Luakit">
+			<action name="Execute">
+				<execute>luakit</execute>
+			</action>
+		</item>
+		<separator/>
+		<item label="Irssi">
+			<action name="Execute">
+				<execute>urxvt -e bash -c &quot;irssi&quot;</execute>
+			</action>
+		</item>
+		<item label="Skype">
+			<action name="Execute">
+				<execute>skype</execute>
+			</action>
+		</item>
+	</menu>
+	<menu id="apps-office-menu" label="Office">
+		<item label="Abiword">
+			<action name="Execute">
+				<execute>abiword</execute>
+			</action>
+		</item>
+		<item label="OpenOffice Base">
+			<action name="Execute">
+				<command>ooffice -base</command>
+			</action>
+		</item>
+		<item label="OpenOffice Calc">
+			<action name="Execute">
+				<command>ooffice -calc</command>
+			</action>
+		</item>
+		<item label="OpenOffice Draw">
+			<action name="Execute">
+				<command>ooffice -draw</command>
+			</action>
+		</item>
+		<item label="OpenOffice Impress">
+			<action name="Execute">
+				<command>ooffice -impress</command>
+			</action>
+		</item>
+		<item label="OpenOffice Math">
+			<action name="Execute">
+				<command>ooffice -math</command>
+			</action>
+		</item>
+		<item label="OpenOffice Printer Administration">
+			<action name="Execute">
+				<command>ooffice-printeradmin</command>
+			</action>
+		</item>
+		<item label="OpenOffice Writer">
+			<action name="Execute">
+				<command>ooffice -writer</command>
+			</action>
+		</item>
+	</menu>
+	<menu id="apps-multimedia-menu" label="Multimedia">
+		<item label="Audacity">
+			<action name="Execute">
+				<execute>audacity</execute>
+			</action>
+		</item>
+		<item label="NcMpC++">
+			<action name="Execute">
+				<execute>urxvt -e bash -c &quot;ncmpcpp&quot;</execute>
+			</action>
+		</item>
+		<item label="Rhythmbox">
+			<action name="Execute">
+				<command>rhythmbox</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="VLC Media Player">
+			<action name="Execute">
+				<execute>vlc</execute>
+			</action>
+		</item>
+		<separator/>
+		<item label="Calibre">
+			<action name="Execute">
+				<execute>calibre</execute>
+			</action>
+		</item>
+	</menu>
+	<menu id="apps-fileman-menu" label="File Managers">
+		<item label="PCmanFM">
+			<action name="Execute">
+				<execute>pcmanfm</execute>
+			</action>
+		</item>
+		<item label="Thunar">
+			<action name="Execute">
+				<command>Thunar</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="SpaceFM">
+			<action name="Execute">
+				<execute>spacefm</execute>
+			</action>
+		</item>
+	</menu>
+	<menu id="apps-graphics-menu" label="Graphics">
+		<item label="Browse Wallpapers">
+			<action name="Execute">
+				<execute>thunar /home/jamie/Pictures/wallpaper</execute>
+			</action>
+		</item>
+		<item label="Mirage">
+			<action name="Execute">
+				<execute>mirage</execute>
+			</action>
+		</item>
+		<item label="Gimp">
+			<action name="Execute">
+				<command>gimp</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="Dia Diagram Editor">
+			<action name="Execute">
+				<command>dia</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+	</menu>
+	<menu id="system-menu" label="System">
+		<item label="HTOP System Monitor">
+			<action name="Execute">
+				<execute>urxvt -e bash -c &quot;htop&quot;</execute>
+			</action>
+		</item>
+		<item label="GParted">
+			<action name="Execute">
+				<execute>gksudo gparted</execute>
+			</action>
+		</item>
+		<item label="GTK Theme Switcher">
+			<action name="Execute">
+				<execute>lxappearance</execute>
+			</action>
+		</item>
+		<item label="Manage Cups Printers">
+			<action name="Execute">
+				<command>xdg-open http://localhost:631/</command>
+				<startupnotify>
+					<enabled>no</enabled>
+					<icon>cups</icon>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="UNetbootin">
+			<action name="Execute">
+				<execute>/usr/bin/unetbootin</execute>
+			</action>
+		</item>
+		<separator/>
+		<item label="Openbox Configuration Manager">
+			<action name="Execute">
+				<command>obconf</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="Openbox Menu Editor">
+			<action name="Execute">
+				<execute>obmenu</execute>
+			</action>
+		</item>
+		<item label="Tint2 Configuration Editor">
+			<action name="Execute">
+				<execute>tint2conf</execute>
+			</action>
+		</item>
+		<item label="Vim: rc.xml">
+			<action name="Execute">
+				<execute>urxvt -e bash -c &quot;vim ~/.config/openbox/rc.xml&quot;</execute>
+			</action>
+		</item>
+		<item label="Reconfigure Openbox">
+			<action name="Reconfigure"/>
+		</item>
+	</menu>
+	<menu id="root-menu" label="Openbox 3">
+		<separator label="Applications"/>
+		<menu id="apps-accessories-menu"/>
+		<menu id="apps-development-menu"/>
+		<menu id="apps-fun-menu"/>
+		<menu id="apps-graphics-menu"/>
+		<menu id="apps-net-menu"/>
+		<menu id="apps-office-menu"/>
+		<menu id="apps-multimedia-menu"/>
+		<menu id="apps-term-menu"/>
+		<menu id="apps-fileman-menu"/>
+		<separator label="System"/>
+		<menu id="system-menu"/>
+		<separator/>
+		<item label="Log Out">
+			<action name="Exit">
+				<prompt>yes</prompt>
+			</action>
+		</item>
+		<item label="Restart">
+			<action name="Restart"/>
+		</item>
+	</menu>
+</openbox_menu>
