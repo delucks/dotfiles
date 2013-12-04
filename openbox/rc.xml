@@ -125,7 +125,7 @@
       <name>Work</name>
       <name>Fun</name>
     </names>
-    <popupTime>200</popupTime>
+    <popupTime>300</popupTime>
     <!-- The number of milliseconds to show the popup for when switching
        desktops.  Set this to 0 to disable the popup. -->
   </desktops>
@@ -150,7 +150,7 @@
      Many programs reserve space automatically, but you can use this in other
      cases. -->
   <margins>
-    <top>0</top>
+    <top>16</top>
     <bottom>0</bottom>
     <left>0</left>
     <right>0</right>
@@ -246,8 +246,8 @@
     </keybind>
     <keybind key="A-g">
       <action name="GoToDesktop">
-				<to>5</to>
-			</action>
+        <to>5</to>
+      </action>
     </keybind>
     <keybind key="W-Tab">
       <action name="DesktopNext">
@@ -264,7 +264,7 @@
       </action>
     </keybind>
     <!-- Keybindings for windows -->
-    <keybind key="A-c">
+    <keybind key="A-Shift-q">
       <action name="Close"/>
     </keybind>
     <keybind key="A-Escape">
@@ -272,7 +272,7 @@
       <action name="FocusToBottom"/>
       <action name="Unfocus"/>
     </keybind>
-    <keybind key="A-space">
+    <keybind key="W-space">
       <action name="ShowMenu">
         <menu>client-menu</menu>
       </action>
@@ -282,6 +282,9 @@
     </keybind>
     <keybind key="A-Shift-e">
       <action name="Exit"/>
+    </keybind>
+    <keybind key="A-apostrophe">
+      <action name="ToggleMaximize"/>
     </keybind>
     <!-- Keybindings for window switching -->
     <keybind key="A-Tab">
@@ -439,12 +442,12 @@
     <!-- Keybindings for audio and multimedia -->
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
-        <command>amixer set Master 5%+</command>
+        <command>~/scripts/dvol -i 5</command>
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
-        <command>amixer set Master 5%-</command>
+        <command>~/scripts/dvol -d 5</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMute">
@@ -472,6 +475,16 @@
         <command>ncmpcpp stop</command>
       </action>
     </keybind>
+		<keybind key="A-bracketright">
+			<action name="Execute">
+				<command>~/scripts/dmenu_mpc_search</command>
+			</action>
+		</keybind>
+		<keybind key="A-F10">
+			<action name="Execute">
+				<command>amixer set Speaker toggle</command>
+			</action>
+		</keybind>
     <!-- Misc Keybindings -->
     <!-- Changed from gmrun 013013-->
     <keybind key="A-F7">
