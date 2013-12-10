@@ -49,7 +49,7 @@ hc keybind XF86AudioPrev spawn mpc prev
 hc keybind XF86AudioStop spawn mpc stop
 hc keybind XF86Calculator spawn ~/scripts/dmenu_calc
 hc keybind XF86Launch1 spawn mplayer tv://
-# hc keybind XF86Launch6
+hc keybind XF86Launch6 spawn i3lock -c 262626
 
 # Mod+Fx
 hc keybind $mod-F1 spawn ~/scripts/dmenu_man
@@ -67,6 +67,9 @@ hc keybind $mod-F10 spawn amixer set Speaker toggle
 hc keybind $mod-F11 cycle_value frame_padding 0 5 20
 # hc keybind $mod-F12 spawn ~/scripts/
 hc keybind $mod-F12 cycle_value window_border_active_color $COLOR0 $COLOR1 $COLOR2 $COLOR3 $COLOR4 $COLOR5 $COLOR6 $COLOR7 $COLOR8 $COLOR9 
+
+
+hc keybind $mod-bracketright spawn ~/scripts/dmenu_mpc_search
 
 # tags
 TAG_NAMES=( a s d f g )
@@ -157,12 +160,12 @@ hc set frame_bg_transparent 1
 # hc set frame_border_inner_width
 
 # Windows
-hc set window_border_active_color $COLOR4
-hc set window_border_normal_color $COLOR9
+hc set window_border_active_color $COLOR1
+hc set window_border_normal_color $COLOR16
 hc set window_border_urgent_color $rd
 hc set window_border_inner_width 0
 # hc set window_border_inner_color $COLOR16
-hc set window_border_width 1
+hc set window_border_width 5
 
 hc set always_show_frame 0
 hc set frame_gap 0
@@ -215,9 +218,9 @@ for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
 done
 
 # and autostart
-# hc spawn compton &
-# hc spawn mpd &
-# hc spawn dropbox start &
-#hc spawn sh ~/.fehbg &
+hc spawn compton &
+hc spawn mpd &
+hc spawn dropbox start &
+hc spawn sh ~/.fehbg &
 hc spawn xsetroot -solid #262626 
 hc spawn unclutter -idle 1 -root

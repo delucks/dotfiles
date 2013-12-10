@@ -12,10 +12,6 @@ systemd --user
 #Fuck dat setxkbmap -option terminate:ctrl_alt_bksp &
 #exec awesome
 
-#export PANEL_FIFO=/home/lumo/.tmp/bspwm-fifo
-#[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
-#mkfifo "$PANEL_FIFO"
-#exec bspwm -s "$PANEL_FIFO" -p W -c /home/jamie/.config/bspwm/bspwmrc 
-
+#~/scripts/lemonbar.sh &
 wmswap & wmpid=$!
 wait $wmpid
