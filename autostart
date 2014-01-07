@@ -187,9 +187,6 @@ hc unrule -F
 hc rule focus=off # normally do not focus new clients
 
 #hc rule class=XTerm tag=3 # move all xterms to tag 3
-hc rule class=Firefox tag=s
-hc rule class=Opera tag=s
-hc rule class=Steam tag=g
 hc rule class=Lxappearance pseudotile=on
 
 # give focus to most common terminals
@@ -219,8 +216,6 @@ done
 
 # and autostart
 hc spawn compton &
-hc spawn mpd &
-hc spawn dropbox start &
+hc spawn dropboxd &
 hc spawn sh ~/.fehbg &
-hc spawn xsetroot -solid #262626 
-hc spawn unclutter -idle 1 -root
+#hc spawn unclutter -idle 1 -root
