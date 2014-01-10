@@ -32,7 +32,7 @@ alias ipwd='sudo ip link set dev wlan0 down'
 alias stog='amixer set Speaker toggle'
 alias hc='herbstclient'
 alias violet='wmname LG3D && violet'
-alias wp='/home/jamie/wp/wp'
+alias wp='/home/jamie/dev/wp/wp'
 
 alias y='yaourt'
 alias orphan='pacman -Qtdq'
