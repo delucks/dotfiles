@@ -136,4 +136,13 @@ function musicopy {
 	done
 }
 
+vim()
+{
+	if [ $# -eq 1 ] && [[ ${1} =~ \.$ ]] && [ ! -f ${1} ] && ls ${1}* > /dev/null 2>&1; then
+		command vim ${1}*
+	else
+		command vim "$@"
+	fi  
+}
+
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
