@@ -7,6 +7,8 @@ systemd --user
 
 exec herbstluftwm
 #exec openbox
+#sxhkd &
+#exec bspwm
 
 #wmswap & wmpid=$!
 #wait $wmpid
