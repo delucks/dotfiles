@@ -32,7 +32,7 @@ function usage {
 	echo
 	echo "Options:"
 	echo "    -i, --incremental - Not yet implemented, don't use"
-	echo "    -h, --headless    - Install everything not X-specific"
+	echo "    -l, --headless    - Install everything not X-specific"
 	echo "    -x, --xorg        - Install everything"
 	echo "    -h, --help        - Show this help message"
 	echo "    -v, --version     - Show a quick version summary"
@@ -54,7 +54,7 @@ homeDotfiles=("Xcolors" "Xmodmap" "Xresources" "abcde.conf" "bashrc" "compton.co
 headlessHomeDotfiles=("bashrc" "irssi" "tmux.conf" "vim" "vimrc" "zshrc")
 
 case "$1" in
-	'-h'|'--headless')
+	'-l'|'--headless')
 		for i in "${headlessHomeDotfiles[@]}"
 		do
 			linkOrMove $i

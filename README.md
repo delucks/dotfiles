@@ -10,5 +10,5 @@ I hope people can find useful bits of information among the files in here!
 setup
 -----
 
-Run ./setup.sh, with either -h for a headless install or -x for an xorg install.
+Run ./setup.sh, with either -l for a headless install or -x for an xorg install.
 For more information, see ./setup.sh -h
