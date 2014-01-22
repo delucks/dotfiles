@@ -25,7 +25,7 @@ set completefunc
 " Custom kep mappings
 nmap j gj
 nmap k gk
-map ; :
+"map ; :
 " nmap <C-h> :b#<CR>
 " Buffer Manipulation
 nmap <C-h> <C-w><C-h>
@@ -33,6 +33,8 @@ nmap <C-j> <C-w><C-j>
 nmap <C-k> <C-w><C-k>
 nmap <C-l> <C-w><C-l>
 nmap <C-=> <C-w><C-=>
+
+nnoremap <Space> :
 
 nmap <F8> :TagbarToggle<CR>
 cmap w!! %!sudo tee > /dev/null %
