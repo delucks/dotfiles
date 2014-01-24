@@ -1,10 +1,10 @@
 set nocompatible
-execute pathogen#infect()
+"execute pathogen#infect()
 syntax on
 "Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish, elflord
-colorscheme zmrok
+colorscheme habilight
 set number
-" set relativenumber
+"set relativenumber
 set ic
 set autoindent
 set ruler
@@ -19,6 +19,7 @@ set autowrite
 set splitbelow
 set splitright
 set ft=zsh ts=4 sw=4
+set shortmess=a
 
 set completefunc
 

@@ -3,7 +3,7 @@ ZSH=/usr/share/oh-my-zsh/
 
 # Set name of the theme to load.
 # dpoggi is cool, kphoen, jnrowe, mortalscumbag, nanotech, nebirhos, pygmalion, gnzh
-ZSH_THEME="kphoen"
+ZSH_THEME="jluck"
 #autoload -U promptinit
 #promptinit
 

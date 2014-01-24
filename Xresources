@@ -1,9 +1,8 @@
 !---Colors Definition---
 
-!#include "/home/jamie/.colors/current"
-#include "/home/jamie/.colorsX"
-*background: #262626
-*foreground: #A8A8A8
+!#include "/home/jamie/.colorsX"
+!*background: #262626
+!*foreground: #A8A8A8
 
 ! ---URxvt Configuration---
 
@@ -12,21 +11,51 @@ URxvt.depth: 32
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 
-!*font:	-misc-tamsyn-medium-*-*--*-101-*-*-*-*-*
-!XTerm*font:	-misc-tamsyn-medium-*-*--*-101-*-*-*-*-*
-!*boldFont:	-misc-tamsyn-medium-*-*--*-101-*-*-*-*-*
-!XTerm*boldFont:	-misc-tamsyn-medium-*-*--*-101-*-*-*-*-*
+!*font:	-misc-tamsyn-medium-r-normal-*-15-*-*-*-*-*-*-*
+!*boldFont:	-misc-tamsyn-medium-r-normal-*-15-*-*-*-*-*-*-*
+!*font: -lucy-tewi-medium-r-normal--11-*-*-*-*-*-*-*
+!*boldFont: -lucy-tewi-medium-r-normal--11-*-*-*-*-*-*-*
+!*font: -*-5thelement-medium-r-normal--17-*-*-*-*-*-*-*
+!*boldFont: -*-5thelement-medium-r-normal--17-*-*-*-*-*-*-*
+URxvt*perl-ext-common: default,matcher,clipboard
 
-*font: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
-*boldFont: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
+*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
+*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-*-1
 
-!URxvt*font: -artwiz-cure-medium-r-normal--12-110-75-75-p-90-iso8859-1.
-!URxvt*font: -*-freemono-*-*-*-*-*-*-*-*-*-*-*-*
-!URxvt.font: xft:Envy Code R:size=10
-!URxvt.boldFont: xft:Envy Code R:size=10
-!URxvt.italicFont: xft:Envy Code R:size=10
-!URxvt.boldItalicFont: xft:Envy Code R:size=10
-!URxvt*perl-ext-common: default,matcher,clipboard
+!*font: -*-meslo lg s-medium-r-*-*-11-*-*-*-*-*-iso8859-*
+!*boldFont: -*-meslo lg l-medium-r-*-*-17-*-*-*-*-*-*-*
+
+!*font: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
+!*boldFont: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
+
 *.cursorUnderline: False
 URxvt*termName: rxvt
-URxvt*internalBorder: 0
+URxvt*internalBorder: 2
+
+*background: #EDE2C2
+*foreground: #232323
+
+!black
+*color0:  #505050
+*color8:  #505050
+!red
+*color1:  #ac4142
+*color9:  #ac4142
+!green
+*color2:  #90a959
+*color10: #90a959
+!yellow
+*color3:  #f4bf75
+*color11: #f4bf75
+!blue
+*color4:  #6a9fb5
+*color12: #6a9fb5
+!magenta
+*color5:  #aa759f
+*color13: #aa759f
+!cyan
+*color6:  #75b5aa
+*color14: #75b5aa
+!white
+*color7:  #f0f0f0
+*color15: #f0f0f0
