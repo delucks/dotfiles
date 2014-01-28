@@ -70,6 +70,9 @@ autocmd FileType java
 	\ map <F9> :!javac "%:p" <CR>
 autocmd BufRead *i3*
 	\ map <C-c> :call CommentLineToEnd ('#')<CR>
+autocmd BufRead /home/jamie/.Xresources
+	\ map <C-c> :call CommentLineToEnd ('!')<CR> |
+	\ map <F9> :!xrdb -merge ~/.Xresources <CR>
 
 augroup CursorLine
 	au!

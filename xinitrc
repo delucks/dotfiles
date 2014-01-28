@@ -3,10 +3,11 @@
 xrdb -merge .Xresources
 xmodmap ~/.Xmodmap
 setxkbmap -option caps:escape &
-systemd --user
+#systemd --user
+asus-kbd-backlight allowusers
 
 exec herbstluftwm
-#exec openbox
+
 #sxhkd &
 #exec bspwm
 
