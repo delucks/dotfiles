@@ -14,9 +14,13 @@ panel_width=${geometry[2]}
 panel_height=16
 #font="-*-fixed-medium-*-*-*-12-*-*-*-*-*-*-*"
 font="-misc-tamsyn-medium-r-normal-*-15-*-*-*-*-*-*-*"
+# Typically background
 bgcolor=$(hc get frame_border_normal_color)
+# Typically a color
 selbg=$(hc get window_border_active_color)
-selfg='#ede2c2'
+selfg=$(hc get window_border_normal_color)
+# Typically a foreground
+textfg=$(hc get window_border_urgent_color)
 
 ####
 # Try to find textwidth binary.
@@ -66,7 +70,7 @@ hc pad $monitor $panel_height
     while true ; do
         # "date" output is checked once a second, but an event is only
         # generated if the output changed compared to the previous run.
-        date +$'date\t^fg(#232323)%H:%M^fg(#111111), %Y-%m-^fg(#232323)%d'
+        date +$'date\t^fg($textfg)%H:%M^fg($textfg), %Y-%m-^fg($textfg)%d'
         sleep 1 || break
     done > >(uniq_linebuffered) &
     childpid=$!
@@ -95,7 +99,7 @@ hc pad $monitor $panel_height
                     echo -n "^bg(#9CA668)^fg(#141414)"
                     ;;
                 ':')
-                    echo -n "^bg()^fg(#232323)"
+                    echo -n "^bg()^fg($textfg)"
                     ;;
                 '!')
                     echo -n "^bg(#FF0675)^fg(#141414)"
@@ -182,4 +186,4 @@ hc pad $monitor $panel_height
 
 } 2> /dev/null | dzen2 -w $panel_width -x $x -y $y -fn "$font" -h $panel_height \
     -e 'button3=' \
-    -ta l -bg "$bgcolor" -fg '#232323'
+    -ta l -bg "$bgcolor" -fg "$textfg"

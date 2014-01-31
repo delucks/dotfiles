@@ -2,7 +2,7 @@ set nocompatible
 "execute pathogen#infect()
 syntax on
 "Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish, elflord
-colorscheme habilight
+colorscheme herald
 set number
 "set relativenumber
 set ic
