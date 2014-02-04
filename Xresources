@@ -7,8 +7,7 @@
 ! ---URxvt Configuration---
 
 !XTerm*background: rgb:237/226/194
-XTerm*background: #ede2c2
-!URxvt.depth: 32
+URxvt.depth: 32
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 

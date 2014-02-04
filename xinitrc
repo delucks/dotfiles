@@ -6,7 +6,8 @@ setxkbmap -option caps:escape &
 #systemd --user
 asus-kbd-backlight allowusers
 
-exec herbstluftwm
+#exec herbstluftwm
+exec wmaker
 
 #sxhkd &
 #exec bspwm

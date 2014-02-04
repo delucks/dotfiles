@@ -31,6 +31,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 #############
 
 export EDITOR="vim"
+export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
@@ -56,10 +57,15 @@ alias ss='svn status'
 alias sadd='svn add $@'
 alias scm='svn commit'
 
+# GIT Aliases
+alias gp='git pull'
+alias gc='git commit'
+alias gs='git status'
+
 # LS Aliases
-alias ls='ls -aChkopl --group-directories-first --color=auto'
+alias la='ls -aChkopl --group-directories-first --color=auto'
 alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
-alias l='ls -alG'
+alias l='ls -G'
 
 # PACKAGE MANAGEMENT Aliases
 alias y='yaourt'
@@ -83,6 +89,7 @@ alias sizer='du -hs "$@" | sort -h'
 alias valgrinder='valgrind --tool=memcheck $@ --leak-check=full'
 alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
 alias webcam='mplayer tv://'
+alias manp='python2 manage.py'
 
 # SUFFIX Aliases
 alias -g G="| grep"

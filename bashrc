@@ -9,6 +9,7 @@
 
 export EDITOR='vim'
 export PAGER='less'
+export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
 
 # Aliases ------------------------------------------------------------------
 
