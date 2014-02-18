@@ -1,0 +1,140 @@
+default_color = "-1";
+info_eol = "false";
+replaces = { "[]" = "%g$*%n"; };
+
+abstracts = {
+  indent_default = "";
+  line_start = "";
+  timestamp = "";
+  hilight = "%_$*%_";
+  error = "%R$*%n";
+  channel = "%b$*%n";
+  nick = "";
+  nickhost = "%g$*";
+  server = "%_$*%_";
+  comment = "%n(%b\"$*\"%n);";
+  reason = "{comment $*}";
+  mode = "{comment $*}";
+  channick_hilight = "%g$*%N";
+  chanhost_hilight = "{nickhost $*}";
+  channick = "$*";
+  chanhost = "{nickhost $*}";
+  channelhilight = "%g$*%n";
+  ban = "$*";
+  msgnick = "%K%N $1 %K│  %N";
+  ownmsgnick = "{msgnick $0 $1}";
+  ownnick = "%Y$*%n";
+  pubmsgnick = "{msgnick $0 $1}";
+  pubnick = "%N$*%n";
+  pubmsghinick = "{msgnick $0 $1}%r";
+  menick = "%R$*%n";
+  msgchannel = "%K:%m$*%n";
+  privmsg = "$0=%b\"$1-\"%n ";
+  ownprivmsg = "$0=%b\"$1-\"%n ";
+  privmsgnick = " %g<%N ";
+  ownprivmsgnick = " %r>%N ";
+  action_core = " %n$* │";
+  action = "{action_core $*} ";
+  ownaction = "{action %p$*}";
+  ownaction_target = "{action_core $0}%Y:%c$1%n ";
+  pvtaction = "%y (*) $*%n ";
+  pvtaction_query = "{action $* }";
+  pubaction = "{action $*}";
+  whois = "%#    $[8]0 = $1-;";
+  ownnotice = "%NNote n = %Mnew%n $0 ($1-) ";
+  notice = "%M$*%n ";
+  pubnotice_channel = " %N($*)";
+  pvtnotice_host = " %N($*)";
+  servernotice = " %N($*)";
+  ownctcp = "%NCTCP c = %Mnew%n $0 ($1-) ";
+  ctcp = "%N$*%n";
+  wallop = "%K$*%n: ";
+  wallop_nick = "%n$*";
+  wallop_action = "%K * $*%n ";
+  netsplit = "       %Knsplit %R│ %b\"$*\"%n";
+  netjoin = "        %Knjoin %G│ %b\"$*\"%n";
+  names_prefix = "             %Y│%n ";
+  names_nick = "%_$2$0%_%n$1- ";
+  names_nick_op = "{names_nick $* %R}";
+  names_nick_halfop = "{names_nick $* %C}";
+  names_nick_voice = "{names_nick $* %K}";
+  names_users = "             %Y│%n $1";
+  names_channel = "\"%b$*\"%n";
+  dcc = "%g$*%n";
+  dccfile = "%_$*%_";
+  dccownmsg = "%g /* $0 ($1-) */";
+  dccownnick = "$*%n";
+  dccownquerynick = "$*%n";
+  dccownaction = "{action $*}";
+  dccownaction_target = "{action $*}";
+  dccmsg = "%g/* $1- ($0) */";
+  dccquerynick = "%g$*%n";
+  dccaction = "{action $*}";
+  sb_background = "%9";
+  sb_prompt_bg = "%n";
+  sbstart = "";
+  sbend = "";
+  topicsbstart = "%BChannel: %b\"$*";
+  topicsbend = "$*%b\"";
+  prompt = " %r» %n ";
+  sb = "[$*]";
+  sbmode = " %K[%g%g+%n$*%K]";
+  sbaway = " %g/* zZzZ */%n";
+  sbservertag = ":%g$0%n";
+  sbnickmode = "$0";
+  sb_usercount = "{sb %_$0%_ nicks ($1-)}";
+  sb_uc_ircops = "%_*%_$*";
+  sb_uc_ops = "%_@%r$*%n";
+  sb_uc_halfops = "%_%%%g$*%n";
+  sb_uc_voices = "%_+%y$*%n";
+  sb_uc_normal = "%w$*%n";
+  sb_uc_space = " ";
+  sb_act_sep = " ";
+  sb_act_text = "%K%9$*%n";
+  sb_act_msg = "%Y%9$*%n";
+  sb_act_hilight = "%R%9$*%n";
+  sb_act_hilight_color = "%R%9$1-%n";
+};
+
+formats = {
+  "fe-common/core" = {
+    line_start = "{line_start}";
+    line_start_irssi = "{line_start}";
+
+    join = "        join %g│ %n {channick $0}";
+    part = "        part %r│ %n {channick $0}";
+    kick = "      kicked %r│ %n {channick $0}";
+    quit = "        quit %r│ %n {channick $0}";
+    quit_once = "{channel $3} {channick $0} {chanhost $1} %kquit {reason %C$2}";
+
+    nick_changed = "%K{channick $[-13]0}%G│ %n {channick $1}";
+    your_nick_changed = "%K         you %G│ %n {channick $1}";
+
+    pubmsg = "{pubmsgnick $2 {pubnick \00304$[-11]0}}$1";
+
+    own_msg = "{ownmsgnick $2 {ownnick $[-11]0}}$1";
+    own_msg_channel = "{ownmsgnick $3 {ownnick $[-11]0}{msgchannel $1}}$2";
+    own_msg_private_query = "{ownprivmsgnick {ownprivnick $[-11]2}}$1";
+
+    pubmsg_me = "{pubmsghinick $2 {menick $[-11]0}}$1";
+    pubmsg_me_channel = "{pubmsghinick $3 {menick $[-11]0}{msgchannel $1}}$2";
+
+    pubmsg_hilight = "{pubmsghinick $3 {menick $[-11]1}}$2";
+    pubmsg_hilight_channel = "{pubmsghinick $0 $[-11]1$4{msgchannel $2}}$3";
+
+    pubmsg_channel = "{pubmsgnick {pubnick %G$[-11]0}$2}$1";
+    msg_private_query = "{privmsgnick $[-11]0}$2";
+    new_topic = "       %ctopic %K│  %B'$2' %non %b$1%n%K[set by {nick %y$0}]";
+
+    endofnames = "       names %Y│%m  Total: {hilight $2} ops, {hilight $3} halfops, {hilight $4} voices, {hilight $5} normal%n";
+  };
+  "fe-common/irc" = {
+    chanmode_change = "        mode %y│ %n {channick $1}";
+    server_chanmode_change = "%        mode %y│ %n {channick $1}";
+
+    own_action = "{ownaction $[-11]0} $1";
+    action_private = "{pvtaction $[-11]0}$1";
+    action_private_query = "{pvtaction_query $[-11]0} $2";
+    action_public = "{pubaction $[-11]0}$1";
+  };
+};

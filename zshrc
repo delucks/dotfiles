@@ -95,6 +95,7 @@ alias manp='python2 manage.py'
 alias -g G="| grep"
 alias -g L="| less"
 alias -g LC='| wc -l'
+alias -g C="| column -t"
 
 ###############
 ##### FUNCTIONS
