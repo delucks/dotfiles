@@ -3,9 +3,10 @@
 xrdb -merge .Xresources
 xmodmap ~/.Xmodmap
 setxkbmap -option caps:escape &
-#systemd --user
-asus-kbd-backlight allowusers
+sudo asus-kbd-backlight allowusers &
+compton &
 
+#exec gnome-session
 exec herbstluftwm
 #exec wmaker
 

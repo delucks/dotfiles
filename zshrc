@@ -63,6 +63,7 @@ alias gc='git commit'
 alias gs='git status'
 
 # LS Aliases
+alias ls+='ls -lah | ~/scripts/coloredls'
 alias la='ls -aChkopl --group-directories-first --color=auto'
 alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
 alias l='ls -G'
@@ -90,6 +91,7 @@ alias valgrinder='valgrind --tool=memcheck $@ --leak-check=full'
 alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
 alias webcam='mplayer tv://'
 alias manp='python2 manage.py'
+alias wgot='wget -e robots=off -r -nc -np '
 
 # SUFFIX Aliases
 alias -g G="| grep"

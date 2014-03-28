@@ -1,33 +1,41 @@
-!---Colors Definition---
+! Colors Definition
 
 #include "/home/jamie/.colorsX"
-!*background: #262626
-!*foreground: #A8A8A8
 
-! ---URxvt Configuration---
+! XTerm Configuration
 
-!XTerm*background: rgb:237/226/194
+XTerm*background: #1c1c1c
+XTerm*foreground: #A8A8A8
+
+! URxvt Configuration
+
+URxvt*background: #1c1c1c
+URxvt*foreground: #A8A8A8
+
 URxvt.depth: 32
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
+URxvt.cursorBlink: True
 
-!*font:	-misc-tamsyn-medium-r-normal-*-15-*-*-*-*-*-*-*
-!*boldFont:	-misc-tamsyn-medium-r-normal-*-15-*-*-*-*-*-*-*
-!*font: -lucy-tewi-medium-r-normal--11-*-*-*-*-*-*-*
-!*boldFont: -lucy-tewi-medium-r-normal--11-*-*-*-*-*-*-*
-!*font: -*-5thelement-medium-r-normal--17-*-*-*-*-*-*-*
-!*boldFont: -*-5thelement-medium-r-normal--17-*-*-*-*-*-*-*
 URxvt*perl-ext-common: default,matcher,clipboard
-
-*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
-*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-*-1
-
-!*font: -*-meslo lg s-medium-r-*-*-11-*-*-*-*-*-iso8859-*
-!*boldFont: -*-meslo lg l-medium-r-*-*-17-*-*-*-*-*-*-*
-
-!*font: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
-!*boldFont: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
 
 *.cursorUnderline: False
 URxvt*termName: rxvt
 URxvt*internalBorder: 2
+
+! Fonts
+
+!*font:	-misc-tamsyn-medium-r-normal-*-15-*-*-*-*-*-*-*
+!*boldFont:	-misc-tamsyn-medium-r-normal-*-15-*-*-*-*-*-*-*
+!*font: -*-5thelement-medium-r-normal--17-*-*-*-*-*-*-*
+!*boldFont: -*-5thelement-medium-r-normal--17-*-*-*-*-*-*-*
+!*font: -*-meslo lg s-medium-r-*-*-11-*-*-*-*-*-iso8859-*
+!*boldFont: -*-meslo lg l-medium-r-*-*-17-*-*-*-*-*-*-*
+!*font: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
+!*boldFont: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
+
+URxvt*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
+URxvt*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-*-1
+
+XTerm*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
+XTerm*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-*-1

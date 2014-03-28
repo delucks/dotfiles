@@ -54,19 +54,19 @@ hc keybind XF86Launch6 spawn i3lock -c 262626
 # Mod+Fx
 hc keybind $mod-F1 spawn ~/scripts/dmenu_man
 hc keybind $mod-F2 spawn ~/scripts/dmenu_run_enhanced
-hc keybind $mod-F3 spawn ~/scripts/dmenu_openwith
+hc keybind $mod-F3 spawn ~/scripts/dmenu_ssh
 hc keybind $mod-F4 spawn ~/scripts/dmenu_nmcli
 hc keybind $mod-F5 spawn ~/scripts/rscontrol -i
 hc keybind $mod-F6 spawn ~/scripts/rscontrol -d
-# hc keybind $mod-F7 spawn ~/scripts/
+hc keybind $mod-F7 spawn ~/scripts/dmenu_openwith
 # hc keybind $mod-F8 spawn ~/scripts/
-hc keybind $mod-F9 cycle_value window_border_width 0 1 2 5
+#hc keybind $mod-F9 cycle_value window_border_width 0 1 2 5
 # hc keybind $mod-F9 spawn ~/scripts/
 hc keybind $mod-F10 spawn amixer set Speaker toggle
 # hc keybind $mod-F11 spawn ~/scripts/
 hc keybind $mod-F11 cycle_value frame_padding 0 5 20
 # hc keybind $mod-F12 spawn ~/scripts/
-hc keybind $mod-F12 cycle_value window_border_active_color $COLOR0 $COLOR1 $COLOR2 $COLOR3 $COLOR4 $COLOR5 $COLOR6 $COLOR7 $COLOR8 $COLOR9 
+#hc keybind $mod-F12 cycle_value window_border_active_color $COLOR0 $COLOR1 $COLOR2 $COLOR3 $COLOR4 $COLOR5 $COLOR6 $COLOR7 $COLOR8 $COLOR9 
 
 
 hc keybind $mod-bracketright spawn ~/scripts/dmenu_mpc_search
@@ -160,7 +160,7 @@ hc set frame_bg_transparent 1
 # hc set frame_border_inner_width
 
 # Windows
-hc set window_border_active_color $COLOR2
+hc set window_border_active_color $COLOR4
 hc set window_border_normal_color $COLOR16
 hc set window_border_urgent_color $COLOR17
 hc set window_border_inner_width 0
@@ -187,6 +187,7 @@ hc unrule -F
 hc rule focus=off # normally do not focus new clients
 
 #hc rule class=XTerm tag=3 # move all xterms to tag 3
+hc rule class=Steam tag=g
 hc rule class=Lxappearance pseudotile=on
 
 # give focus to most common terminals

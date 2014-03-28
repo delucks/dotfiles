@@ -2,10 +2,11 @@ set nocompatible
 "execute pathogen#infect()
 syntax on
 "Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish, elflord
-colorscheme herald
+colorscheme manxome
 set number
 "set relativenumber
 set ic
+set cursorcolumn
 set autoindent
 set ruler
 set history=100
@@ -13,6 +14,7 @@ set showcmd
 set showmode
 set incsearch
 set hlsearch
+set lazyredraw
 set filetype
 set splitright
 set autowrite

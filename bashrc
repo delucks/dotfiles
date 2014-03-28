@@ -25,6 +25,7 @@ alias valgrinder='valgrind --tool=memcheck $@ --leak-check=full'
 alias zipc='zip $1 *.cpp *.h *.txt'
 
 # LS Alias Tree
+alias ls+='ls -lah | ~/scripts/coloredls'
 alias l='ls -t'
 alias ll='ls -aChkopl --group-directories-first --color=auto'
 alias lll='ls -aChkopl --group-directories-first --color=auto | less'
