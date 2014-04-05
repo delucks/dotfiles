@@ -1,12 +1,13 @@
+" ~/.vimrc, sourced by vim for opts
+
 set nocompatible
-"execute pathogen#infect()
 syntax on
-"Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish, elflord
-colorscheme manxome
+" Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish, elflord, pablo
+"colorscheme ElegantBritWhite
 set number
 "set relativenumber
 set ic
-set cursorcolumn
+"set cursorcolumn
 set autoindent
 set ruler
 set history=100
@@ -22,14 +23,21 @@ set splitbelow
 set splitright
 set ft=zsh ts=4 sw=4
 set shortmess=a
-
 set completefunc
+
+" Tab Width
+set shiftwidth=2
+set tabstop=2
 
 " Custom kep mappings
 nmap j gj
 nmap k gk
-"map ; :
-" nmap <C-h> :b#<CR>
+nnoremap <Space> :
+nmap <F8> :TagbarToggle<CR>
+cmap w!! %!sudo tee > /dev/null %
+nmap <F6> :r!xclip -o <CR>
+vmap <F6> :!xclip -f -sel clip<CR>
+
 " Buffer Manipulation
 nmap <C-h> <C-w><C-h>
 nmap <C-j> <C-w><C-j>
@@ -37,18 +45,10 @@ nmap <C-k> <C-w><C-k>
 nmap <C-l> <C-w><C-l>
 nmap <C-=> <C-w><C-=>
 
-nnoremap <Space> :
-
-nmap <F8> :TagbarToggle<CR>
-cmap w!! %!sudo tee > /dev/null %
-nmap <F6> :r!xclip -o <CR>
-vmap <F6> :!xclip -f -sel clip<CR>
-" Compilation / Runner Commands
+" Compilation / Auto Commands
 autocmd FileType cpp map <F9> :!g++ -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
 autocmd FileType c map <F9> :!gcc -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
-" Tab Width and Commenting
-set shiftwidth=2
-set tabstop=2
+
 autocmd FileType cpp 
   \ setlocal shiftwidth=2 |
   \ setlocal tabstop=2 |

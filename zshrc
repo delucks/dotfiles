@@ -63,10 +63,10 @@ alias gc='git commit'
 alias gs='git status'
 
 # LS Aliases
-alias ls+='ls -lah | ~/scripts/coloredls'
+alias l='ls -lh | ~/scripts/coloredls'
 alias la='ls -aChkopl --group-directories-first --color=auto'
 alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
-alias l='ls -G'
+alias ll='ls -G'
 
 # PACKAGE MANAGEMENT Aliases
 alias y='yaourt'
