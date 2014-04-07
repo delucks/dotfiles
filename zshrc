@@ -48,7 +48,7 @@ export LESS=-r
 
 # SSH Aliases
 
-source ~/.ssh_aliases
+alias tunnel='ssh -D 8080 apollo'
 
 # SVN Aliases
 alias sup='svn update'

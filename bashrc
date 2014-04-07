@@ -47,9 +47,6 @@ alias vconf='vim ~/.vimrc'
 alias usbme='sudo dd bs=4M if=$1 of=/dev/sdb'
 alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
 
-# SSH, SCP, FTP
-#source ~/.ssh_aliases
-
 # Pacman Aliases
 alias y='yaourt'
 alias orphan='pacman -Qtdq'

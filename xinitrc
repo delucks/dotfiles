@@ -6,8 +6,8 @@ setxkbmap -option caps:escape &
 sudo asus-kbd-backlight allowusers &
 compton &
 
-exec herbstluftwm
-#exec subtle
+#exec herbstluftwm
+exec subtle
 
 #exec gnome-session
 #exec openbox
