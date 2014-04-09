@@ -49,6 +49,7 @@ export LESS=-r
 # SSH Aliases
 
 alias tunnel='ssh -D 8080 apollo'
+source ~/.ssh/aliases
 
 # SVN Aliases
 alias sup='svn update'
@@ -92,6 +93,7 @@ alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
 alias webcam='mplayer tv://'
 alias manp='python2 manage.py'
 alias wgot='wget -e robots=off -r -nc -np '
+alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
 
 # SUFFIX Aliases
 alias -g G="| grep"

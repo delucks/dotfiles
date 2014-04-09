@@ -1,4 +1,4 @@
-# Jamie Luck's Subtle Config File
+# delucks' Subtle Config File
 # Started on 04/05/2014
 
 #
