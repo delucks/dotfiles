@@ -12,10 +12,13 @@ XTerm*foreground: #A8A8A8
 URxvt*background: #1c1c1c
 URxvt*foreground: #A8A8A8
 
-URxvt.depth: 32
+URxvt*depth: 32
+URxvt*shading: 100
+URxvt*transparent: false
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 URxvt.cursorBlink: True
+URxvt.letterSpace: 0
 
 URxvt*perl-ext-common: default,matcher,clipboard
 
@@ -36,6 +39,8 @@ URxvt*internalBorder: 2
 
 URxvt*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
 URxvt*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-*-1
+!URxvt*font:-*-ubuntu mono-bold-r-normal-*-*-*-*-*-*-*-ascii-*
+!URxvt*boldFont:-*-ubuntu mono-bold-r-normal-*-*-*-*-*-*-*-ascii-*
 
 XTerm*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
 XTerm*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-*-1

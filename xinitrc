@@ -4,7 +4,7 @@ xrdb -merge .Xresources
 xmodmap ~/.Xmodmap
 setxkbmap -option caps:escape &
 sudo asus-kbd-backlight allowusers &
-compton &
+#compton &
 
 exec herbstluftwm
 #exec subtle
