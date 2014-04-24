@@ -19,8 +19,8 @@ hc emit_hook reload
 hc keyunbind --all
 
 # Keybindings
-mod=Mod1
-mod4=Mod4
+mod=Mod4
+mod4=Mod1
 
 hc keybind $mod-Shift-e quit
 hc keybind $mod-Shift-r reload
@@ -39,7 +39,8 @@ hc keybind $mod4-t spawn ~/scripts/browserswap
 hc keybind XF86KbdBrightnessUp spawn asus-kbd-backlight up
 hc keybind XF86KbdBrightnessDown spawn asus-kbd-backlight down
 hc keybind XF86TouchpadToggle spawn ~/scripts/touchpadtoggle
-hc keybind XF86WebCam spawn scrot -q 100 '%Y-%m-%d_%H-%M-%S_$wx$h.png' -e 'mv $f ~/pictures/screenshot'
+#hc keybind XF86WebCam spawn scrot -q 100 '%Y-%m-%d_%H-%M-%S_$wx$h.png' -e 'mv $f ~/pictures/screenshot'
+hc keybind XF86WebCam spawn byzanz-record --delay=3 -d 15 /home/jamie/recording.gif
 hc keybind XF86AudioRaiseVolume spawn ~/scripts/dvol -i 5
 hc keybind XF86AudioLowerVolume spawn ~/scripts/dvol -d 5
 hc keybind XF86AudioMute spawn ~/scripts/dvol -t
@@ -49,7 +50,7 @@ hc keybind XF86AudioPrev spawn mpc prev
 hc keybind XF86AudioStop spawn mpc stop
 hc keybind XF86Calculator spawn ~/scripts/dmenu_calc
 hc keybind XF86Launch1 spawn mplayer tv://
-hc keybind XF86Launch6 spawn i3lock -c 262626
+hc keybind XF86Launch6 spawn ~/scripts/block
 
 # Mod+Fx
 hc keybind $mod-F1 spawn ~/scripts/dmenu_man
@@ -72,6 +73,7 @@ hc keybind $mod-F11 cycle_value frame_padding 0 5 20
 hc keybind $mod-bracketright spawn ~/scripts/dmenu_mpc_search
 
 # tags
+#TAG_NAMES=( ⠈ ⠊ ⠎ ⠫ ⠻ )
 TAG_NAMES=( a s d f g )
 TAG_KEYS=( a s d f g )
 
@@ -160,7 +162,7 @@ hc set frame_bg_transparent 1
 # hc set frame_border_inner_width
 
 # Windows
-hc set window_border_active_color $COLOR4
+hc set window_border_active_color $COLOR2
 hc set window_border_normal_color $COLOR16
 hc set window_border_urgent_color $COLOR17
 hc set window_border_inner_width 0
@@ -175,7 +177,7 @@ hc set frame_padding 10
 # hc set always_show_frame 
 # hc set default_frame_layout 
 # hc set focus_stealing_prevention 
-# hc set frame_active_opacity 100 # Makes the current frame opaque!
+#hc set frame_active_opacity 100 # Makes the current frame opaque!
 hc set smart_window_surroundings 0
 hc set smart_frame_surroundings 1
 hc set mouse_recenter_gap 0
@@ -208,15 +210,17 @@ herbstclient set tree_style ''
 # hc detect_monitors
 
 # find the panel
-panel=~/.config/herbstluftwm/panel.sh
-[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
-for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
-    # start it on each monitor
-    $panel $monitor &
-done
+#panel=~/.config/herbstluftwm/panel.sh
+#[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+#for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
+#    # start it on each monitor
+#    $panel $monitor &
+#done
+hc spawn xmobar &
+hc pad ${1:-0} 16
 
 # and autostart
-# hc spawn compton &
-# hc spawn dropboxd &
+hc spawn compton &
+hc spawn dropboxd &
 hc spawn sh ~/.fehbg &
 hc spawn unclutter -idle 1 -root

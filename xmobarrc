@@ -3,20 +3,20 @@
 -- Hopefully this ought to do better than that (very nice) POS tint2 ;)
 --										, Run Com "/home/jamie/Scripts/romandate" [] "date" 6000
 
-Config { font = "-aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*"
+Config { font = "-*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1"
 			 , bgColor = "#262626"
-			 , fgColor = "#d0ad6f"
-			 , position = Static { xpos = 0 , ypos = 0 , width = 1920 , height = 20 }
+			 , fgColor = "#a8a8a8"
+			 , position = Static { xpos = 0 , ypos = 0 , width = 1920 , height = 15 }
 			 , persistent = True
 			 , commands = [ Run Com "herbstclient" ["tag_status"] "herbst" 1
-			 							, Run Cpu ["-L","3","-H","50","--normal","#9dba3a","--high","#e04613"] 10
+			 							, Run Cpu ["-L","3","-H","50","--normal","#bcbcaf","--high","#8c5b3e"] 10
 										, Run Com "uname" ["-n"] "" 0
-										, Run Memory ["-t","Mem: <usedratio>%","-H","75","--normal","#9dba3a","--high","#e04613"] 10
+										, Run Memory ["-t","Mem: <usedratio>%","-H","75","--normal","#bcbcaf","--high","#8c5b3e"] 10
 										, Run Com "date" ["+%X"] "time" 10
 										, Run Com "date" ["+%m%d%y"] "" 6000
-										, Run BatteryP ["BAT0"] ["-t", "<left>%","-L","20","-H","80","-h","#9dba3a","-l","#e04613"] 600
+										, Run BatteryP ["BAT0"] ["-t", "<left>%","-L","20","-H","80","-h","#bcbcaf","-l","#8c5b3e"] 600
 										]
 			 , sepChar = "%"
 			 , alignSep = "}{"
-			 , template = " <fc=#e04613>%herbst%</fc> - %cpu% - %memory% - Bat: %battery% }{ %uname% | <fc=#e04613>%date%</fc> | <fc=#e04613>%time% </fc>"
+			 , template = " <fc=#8c5b3e>%herbst%</fc> - %cpu% - %memory% - Bat: %battery% }{ %uname% | <fc=#8c5b3e>%date%</fc> | <fc=#8c5b3e>%time% </fc>"
 			 }

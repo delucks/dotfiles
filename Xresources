@@ -12,9 +12,10 @@ XTerm*foreground: #A8A8A8
 URxvt*background: #1c1c1c
 URxvt*foreground: #A8A8A8
 
-URxvt*depth: 32
+URxvt*depth: 0
 URxvt*shading: 100
 URxvt*transparent: false
+URxvt*transparency: false
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 URxvt.cursorBlink: True
