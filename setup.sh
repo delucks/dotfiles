@@ -3,7 +3,20 @@
 # File to add in all the necessary stuffs for my dotfiles
 # Dat automation
 
-# Author: James Luck (jluck@udel.edu)
+# Author: delucks
+
+function wallpapers {
+	echo ":: Downloading wallpapers pack..."
+	if [ $(which wget) ]; then
+		wget -nc -c -O /tmp/wall.tar.gz http://delucks.blinkenshell.org/wall.tar.gz
+	else
+		curl http://delucks.blinkenshell.org/wall.tar.gz -o /tmp/wall.tar.gz
+	fi
+	echo ":: Extracting wallpapers pack to ~/dev/wp & ~/wallpapers..."
+	cd
+	tar xvf /tmp/wall.tar.gz
+	echo ":: Done."
+}
 
 function linkOrMove {
 	echo ":: Processing ~/dotfiles/$1 to ~/.$1"
@@ -36,6 +49,7 @@ function usage {
 	echo "    -x, --xorg        - Install everything"
 	echo "    -h, --help        - Show this help message"
 	echo "    -v, --version     - Show a quick version summary"
+	echo "    -w, --wallpaper   - Bootstrap my current wallpaper & colors"
 	exit
 }
 
@@ -72,6 +86,9 @@ case "$1" in
 		;;
 	'-h'|'--help')
 		usage
+		;;
+	'-w'|'--wallpapers')
+		wallpapers
 		;;
 	'-v'|'--version')
 		version
