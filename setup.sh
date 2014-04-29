@@ -5,12 +5,14 @@
 
 # Author: delucks
 
+set -e
+
 function wallpapers {
 	echo ":: Downloading wallpapers pack..."
 	if [ $(which wget) ]; then
-		wget -nc -c -O /tmp/wall.tar.gz http://delucks.blinkenshell.org/wall.tar.gz
+		wget -nc -c -O /tmp/wall.tar.gz http://www.jamesluck.com/raw/wall.tar.gz
 	else
-		curl http://delucks.blinkenshell.org/wall.tar.gz -o /tmp/wall.tar.gz
+		curl http://www.jamesluck.com/raw/wall.tar.gz -o /tmp/wall.tar.gz
 	fi
 	echo ":: Extracting wallpapers pack to ~/dev/wp & ~/wallpapers..."
 	cd

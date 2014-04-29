@@ -38,10 +38,23 @@ URxvt*internalBorder: 2
 !*font: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
 !*boldFont: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
 
-URxvt*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
-URxvt*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-*-1
+URxvt*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-*-*
+URxvt*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-*-*
 !URxvt*font:-*-ubuntu mono-bold-r-normal-*-*-*-*-*-*-*-ascii-*
 !URxvt*boldFont:-*-ubuntu mono-bold-r-normal-*-*-*-*-*-*-*-ascii-*
 
 XTerm*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
 XTerm*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-*-1
+
+xclock*background:      #1d1d1d
+xclock*face:            Archivo Narrow-16
+xclock*foreground:      #cef318
+xclock*hourColor:       #ffffff
+xclock*minuteColor:     #ffffff
+xclock*secondColor:     #ffffff
+xclock*majorColor:      #1d1d1d
+xclock*minorColor:      #1d1d1d
+xclock*analog:          true
+xclock*geometry:        120x120+1790+950
+xclock*strftime:        %a %d/%m   %H:%M
+xclock*update:          1
