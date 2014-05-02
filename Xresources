@@ -18,7 +18,7 @@ URxvt*transparent: false
 URxvt*transparency: false
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
-URxvt.cursorBlink: True
+*cursorBlink: True
 URxvt.letterSpace: 0
 
 URxvt*perl-ext-common: default,matcher,clipboard

@@ -134,6 +134,17 @@ esac
 #    done
 #}
 
+function wiki {
+	if [ $# -eq 1 ]; then
+		foo=4
+	else
+		foo=$2
+	fi
+
+	curl -s -L -d "search=$1" http://en.wikipedia.org/w/index.php | grep '<p>\|<h3>\|<h2>' | head -n$foo | w3m -T text/html -dump | sed 's/(Listen.*)//g'
+	#curl -s -L -d "search=Linux" http://en.wikipedia.org/w/index.php | grep '<p>' | head -n2 | w3m -T text/html -dump | sed 's/\^\[.*\]//g'
+}
+
 function musicopy {
 	cd ~/music/
 	mpc search "$@" | while read line; do
