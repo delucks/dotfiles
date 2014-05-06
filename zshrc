@@ -32,6 +32,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 export EDITOR="vim"
 export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
+#export LC_ALL="en_US.UTF-8"
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
@@ -95,6 +96,7 @@ alias webcam='mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/vid
 alias manp='python2 manage.py'
 alias wgot='wget -e robots=off -r -nc -np '
 alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
+alias iploc="curl ipinfo.io/$(dig $1 +short)"
 
 # SUFFIX Aliases
 alias -g G="| grep"

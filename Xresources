@@ -44,7 +44,7 @@ URxvt*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medi
 !URxvt*boldFont:-*-ubuntu mono-bold-r-normal-*-*-*-*-*-*-*-ascii-*
 
 XTerm*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
-XTerm*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-*-1
+XTerm*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
 
 xclock*background:      #1d1d1d
 xclock*face:            Archivo Narrow-16

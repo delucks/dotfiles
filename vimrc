@@ -25,6 +25,13 @@ set ft=zsh ts=4 sw=4
 set shortmess=a
 set completefunc
 
+" Vundle
+call vundle#rc()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'kien/ctrlp.vim'
+
+filetype plugin indent on     " required! 
+
 " Tab Width
 set shiftwidth=2
 set tabstop=2
