@@ -3,8 +3,8 @@
 #############################
 
 ZSH=/usr/share/oh-my-zsh/
-ZSH_THEME="jluck"
-plugins=(git)
+ZSH_THEME="delucks"
+plugins=(git, catimg, pip, systemd)
 source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -32,7 +32,8 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 export EDITOR="vim"
 export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
-#export LC_ALL="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export TERM=xterm-256color
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
@@ -74,6 +75,7 @@ alias ll='ls -G'
 alias y='yaourt'
 alias orphan='pacman -Qtdq'
 alias owner='pacman -Qo $(which $1)'
+alias hist='history|grep "pacman\ -S\ "'
 
 # BEET Aliases
 alias bim='beet im'
@@ -82,6 +84,7 @@ alias brm='beet remove'
 alias bvr='beet version'
 
 # MISC Aliases
+alias ixit='curl -F "f:1=<-" ix.io'
 alias ranger='ranger 2> /dev/null'
 alias stog='amixer set Speaker toggle'
 alias hc='herbstclient'

@@ -20,28 +20,29 @@ URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 *cursorBlink: True
 URxvt.letterSpace: 0
+URxvt*imLocale: en_US.UTF-8
 
 URxvt*perl-ext-common: default,matcher,clipboard
 
 *.cursorUnderline: False
-URxvt*termName: rxvt
+!URxvt*termName: rxvt
 URxvt*internalBorder: 2
 
 ! Fonts
 
-!*font:	-misc-tamsyn-medium-r-normal-*-15-*-*-*-*-*-*-*
-!*boldFont:	-misc-tamsyn-medium-r-normal-*-15-*-*-*-*-*-*-*
+URxvt*font:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
+URxvt*boldFont:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
 !*font: -*-5thelement-medium-r-normal--17-*-*-*-*-*-*-*
 !*boldFont: -*-5thelement-medium-r-normal--17-*-*-*-*-*-*-*
 !*font: -*-meslo lg s-medium-r-*-*-11-*-*-*-*-*-iso8859-*
 !*boldFont: -*-meslo lg l-medium-r-*-*-17-*-*-*-*-*-*-*
-!*font: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
-!*boldFont: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
+!URxvt*font: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
+!URxvt*boldFont: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
 
-URxvt*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-*-*
-URxvt*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-*-*
-!URxvt*font:-*-ubuntu mono-bold-r-normal-*-*-*-*-*-*-*-ascii-*
-!URxvt*boldFont:-*-ubuntu mono-bold-r-normal-*-*-*-*-*-*-*-ascii-*
+!URxvt*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*
+!URxvt*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*
+!URxvt*font:-*-ubuntu mono-bold-r-normal-*-*-*-*-*-*-*-iso10646-*
+!URxvt*boldFont:-*-ubuntu mono-bold-r-normal-*-*-*-*-*-*-*-iso10646-*
 
 XTerm*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
 XTerm*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1

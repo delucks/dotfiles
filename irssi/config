@@ -186,7 +186,7 @@ statusbar = {
 settings = {
   core = { real_name = "Unknown"; user_name = "jamie"; nick = "delucks"; };
   "fe-text" = { actlist_sort = "refnum"; };
-  "fe-common/core" = { use_status_window = "yes"; theme = "berk"; };
+  "fe-common/core" = { use_status_window = "yes"; theme = "bst"; };
 };
 ignores = (
   { mask = "parts"; level = "ALL"; },

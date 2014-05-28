@@ -1,4 +1,4 @@
-" ~/.vimrc, sourced by vim for opts
+" delucks' ~/.vimrc
 
 set nocompatible
 syntax on
@@ -9,28 +9,42 @@ set number
 set ic
 "set cursorcolumn
 set autoindent
-set ruler
+set noruler
 set history=100
-set showcmd
-set showmode
+set noshowcmd
+set noshowmode
 set incsearch
 set hlsearch
 set lazyredraw
 set filetype
-set splitright
 set autowrite
 set splitbelow
 set splitright
 set ft=zsh ts=4 sw=4
 set shortmess=a
 set completefunc
+set clipboard^=unnamedplus
+
+if !has('gui_running')
+	set t_Co=256
+endif
 
 " Vundle
 call vundle#rc()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
+Plugin 'justinmk/vim-sneak'
+Plugin 'scrooloose/syntastic'
+Plugin 'itchyny/lightline.vim'
 
-filetype plugin indent on     " required! 
+filetype plugin indent on
+
+" Lightline
+set laststatus=2
+set noshowmode
+let g:lightline = {
+  \ 'colorscheme' : 'powerline'
+  \ }
 
 " Tab Width
 set shiftwidth=2
