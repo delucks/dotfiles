@@ -7,10 +7,13 @@
 XTerm*background: #1c1c1c
 XTerm*foreground: #A8A8A8
 
+URxvt*background:       	#DADADA
+URxvt*foreground:       	#8F8F8F
+
 ! URxvt Configuration
 
-URxvt*background: #1c1c1c
-URxvt*foreground: #A8A8A8
+!URxvt*background: #1c1c1c
+!URxvt*foreground: #A8A8A8
 
 URxvt*depth: 0
 URxvt*shading: 100

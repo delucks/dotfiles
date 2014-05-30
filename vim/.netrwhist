@@ -1,11 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/home/jamie/.local/share/Steam/SteamApps/jamie_delucks/Team Fortress 2/hl2'
-let g:netrw_dirhist_2='/home/jamie/.irssi'
-let g:netrw_dirhist_3='/home/jamie/dev/Bicho/bicho/backends'
-let g:netrw_dirhist_4='/home/jamie/dev/hophack/course_lists'
-let g:netrw_dirhist_5='/home/jamie/dev/hophack/coursr/courselist'
-let g:netrw_dirhist_6='scp://adv/'
-let g:netrw_dirhist_7='scp://adv/var/'
-let g:netrw_dirhist_8='scp://zeus/'
-let g:netrw_dirhist_9='scp://zeus/.ansible/'
+let g:netrw_dirhist_cnt =0

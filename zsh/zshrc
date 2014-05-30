@@ -84,6 +84,8 @@ alias brm='beet remove'
 alias bvr='beet version'
 
 # MISC Aliases
+alias d='date +%R'
+alias bar="~/dev/bar/bar -p -f '-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*' -B #dadada -F #8f8f8f"
 alias ixit='curl -F "f:1=<-" ix.io'
 alias ranger='ranger 2> /dev/null'
 alias stog='amixer set Speaker toggle'
