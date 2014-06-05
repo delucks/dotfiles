@@ -22,6 +22,8 @@ URxvt*transparency: false
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 *cursorBlink: True
+*cursorColor: #8f8f8f
+*cursorColor2: #dadada
 URxvt.letterSpace: 0
 URxvt*imLocale: en_US.UTF-8
 

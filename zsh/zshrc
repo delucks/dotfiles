@@ -34,6 +34,7 @@ export EDITOR="vim"
 export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
 export LC_ALL="en_US.UTF-8"
 export TERM=xterm-256color
+export BUG_PROJECT="/home/jamie/.todo.bug"
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
@@ -49,7 +50,6 @@ export LESS=-r
 #############
 
 # SSH Aliases
-
 alias tunnel='ssh -D 8080 apollo'
 source ~/.ssh/aliases
 
@@ -70,6 +70,7 @@ alias l='ls -lh --group-directories-first | ~/scripts/coloredls'
 alias la='ls -aChkopl --group-directories-first --color=auto'
 alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
 alias ll='ls -G'
+alias sl='/usr/bin/sl'
 
 # PACKAGE MANAGEMENT Aliases
 alias y='yaourt'
@@ -84,6 +85,7 @@ alias brm='beet remove'
 alias bvr='beet version'
 
 # MISC Aliases
+alias whereami='uname -n'
 alias d='date +%R'
 alias bar="~/dev/bar/bar -p -f '-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*' -B #dadada -F #8f8f8f"
 alias ixit='curl -F "f:1=<-" ix.io'
@@ -166,4 +168,15 @@ vim()
 	else
 		command vim "$@"
 	fi  
+}
+
+say() {
+	if [[ "${1}" =~ -[a-z]{2} ]]; then
+		local lang=${1#-};
+		local text="${*#$1}";
+	else 
+		local lang=${LANG%_*};
+		local text="$*";
+	fi;
+	mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ;
 }

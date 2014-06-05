@@ -223,15 +223,15 @@ abstracts = {
 
   # text at the beginning of statusbars. sb-item already puts
   # space there,so we don't use anything by default.
-  sbstart = "%K╒┅┅━━";
+  sbstart = "%K╒┅┅━━━━━━━━━━━┙";
   # text at the end of statusbars. Use space so that it's never
   # used for anything.
   sbend = "";
 
-  topicsbstart = "└╼ %K$N on $C: $S%N$*";
+  topicsbstart = "╘┅┅━━━━━━━━━━━┑  %K$N on $C: $S%N$*";
   topicsbend = "$*";
 
-  prompt = "%K└──╼ %n ";
+  prompt = "%K└──╼ %n";
 
   sb = "%K$*%N ";
   sbmode = " %K[%g+%n$*%K]";
