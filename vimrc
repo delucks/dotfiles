@@ -32,6 +32,7 @@ endif
 " Vundle
 call vundle#rc()
 Plugin 'gmarik/Vundle.vim'
+Plugin 'arecarn/crunch'
 Plugin 'kien/ctrlp.vim'
 Plugin 'justinmk/vim-sneak'
 Plugin 'scrooloose/syntastic'

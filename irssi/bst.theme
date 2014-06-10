@@ -228,7 +228,7 @@ abstracts = {
   # used for anything.
   sbend = "";
 
-  topicsbstart = "╘┅┅━━━━━━━━━━━┑  %K$N on $C: $S%N$*";
+  topicsbstart = "%K╘┅┅━━━━━━━━━━━┑  %K$N on $C: $S%N$*";
   topicsbend = "$*";
 
   prompt = "%K└──╼ %n";
