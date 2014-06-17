@@ -3,7 +3,7 @@
 set nocompatible
 syntax on
 " Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish, elflord, pablo
-colorscheme pyte
+"colorscheme pyte
 set number
 "set relativenumber
 set ic
@@ -25,9 +25,9 @@ set shortmess=a
 set completefunc
 set clipboard^=unnamedplus
 
-if !has('gui_running')
-	set t_Co=256
-endif
+"if !has('gui_running')
+"	set t_Co=256
+"endif
 
 " Vundle
 call vundle#rc()
@@ -43,9 +43,6 @@ filetype plugin indent on
 " Lightline
 set laststatus=2
 set noshowmode
-let g:lightline = {
-  \ 'colorscheme' : 'powerline'
-  \ }
 
 " Tab Width
 set shiftwidth=2

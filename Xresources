@@ -7,15 +7,12 @@
 !XTerm*background: #1c1c1c
 !XTerm*foreground: #A8A8A8
 
-!URxvt*background:       	#DADADA
-!URxvt*foreground:       	#8F8F8F
-
 ! URxvt Configuration
 
 !URxvt*background: #1c1c1c
 !URxvt*foreground: #A8A8A8
-!
-URxvt*background:    #1C1C1C
+
+URxvt*background:    [50]#1C1C1C
 URxvt*foreground:    #c5c5c5
 
 URxvt*depth: 0
@@ -25,15 +22,13 @@ URxvt*transparency: false
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 *cursorBlink: True
-*cursorColor: #8f8f8f
-!*cursorColor2: #dadada
 URxvt.letterSpace: 0
 URxvt*imLocale: en_US.UTF-8
 
 URxvt*perl-ext-common: default,matcher,clipboard
 
 *.cursorUnderline: False
-!URxvt*termName: rxvt
+URxvt*termName: xterm
 URxvt*internalBorder: 2
 
 ! Fonts
