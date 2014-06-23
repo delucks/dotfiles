@@ -16,13 +16,13 @@ set noshowmode
 set incsearch
 set hlsearch
 set lazyredraw
-set filetype
+"set filetype
 set autowrite
 set splitbelow
 set splitright
 set ft=zsh ts=4 sw=4
 set shortmess=a
-set completefunc
+"set completefunc
 set clipboard^=unnamedplus
 
 if !has('gui_running')
