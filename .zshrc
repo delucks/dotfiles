@@ -99,7 +99,7 @@ alias webcam='mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/vid
 alias manp='python2 manage.py'
 alias wgot='wget -e robots=off -r -nc -np '
 alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
-alias iploc="curl ipinfo.io/$(dig $1 +short)"
+alias iploc='curl ipinfo.io/$(dig $1 +short)'
 
 # SUFFIX Aliases
 alias -g G="| grep"
