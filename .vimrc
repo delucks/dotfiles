@@ -35,7 +35,6 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'arecarn/crunch'
 Plugin 'kien/ctrlp.vim'
-Plugin 'justinmk/vim-sneak'
 Plugin 'scrooloose/syntastic'
 Plugin 'itchyny/lightline.vim'
 call vundle#end()
