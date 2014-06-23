@@ -25,19 +25,20 @@ set shortmess=a
 set completefunc
 set clipboard^=unnamedplus
 
-"if !has('gui_running')
-"	set t_Co=256
-"endif
+if !has('gui_running')
+	set t_Co=256
+endif
 
 " Vundle
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'arecarn/crunch'
 Plugin 'kien/ctrlp.vim'
 Plugin 'justinmk/vim-sneak'
 Plugin 'scrooloose/syntastic'
 Plugin 'itchyny/lightline.vim'
-
+call vundle#end()
 filetype plugin indent on
 
 " Lightline
@@ -52,7 +53,6 @@ set tabstop=2
 nmap j gj
 nmap k gk
 nnoremap <Space> :
-nmap <F8> :TagbarToggle<CR>
 cmap w!! %!sudo tee > /dev/null %
 nmap <F6> :r!xclip -o <CR>
 vmap <F6> :!xclip -f -sel clip<CR>
