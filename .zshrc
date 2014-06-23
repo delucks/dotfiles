@@ -2,11 +2,11 @@
 ##### GLOBAL OH-MY-ZSH CONFIG
 #############################
 
-ZSH=/usr/share/oh-my-zsh/
+ZSH=~/.oh-my-zsh
 ZSH_THEME="delucks"
 plugins=(git, catimg, pip, systemd)
 source $ZSH/oh-my-zsh.sh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 #################
 ##### ZSH OPTIONS
@@ -48,10 +48,6 @@ export LESS=-r
 #############
 ##### ALIASES
 #############
-
-# SSH Aliases
-alias tunnel='ssh -D 8080 apollo'
-source ~/.ssh/aliases
 
 # SVN Aliases
 alias sup='svn update'
