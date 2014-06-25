@@ -1,0 +1,15 @@
+---
+- hosts: targets
+  remote_user: jamie
+  vars:
+    software_list:
+      - bash
+      - git
+      - tmux
+      - vim
+      - htop
+      - curl
+      - zsh
+  tasks:
+    - include: tasks/install.yml
+    - include: tasks/dotfiles.yml
