@@ -48,6 +48,14 @@ function version {
 	exit
 }
 
+function githubwrapper {
+	# In case you don't have git available, or it's under some kind of restriction
+	# Depends on wget because I'm tired and until someone complains, it does
+	git clone https://github.com/$1 $2 || {
+		wget -O /tmp/master.zip https://github.com/$1/archive/master.zip && unzip /tmp/master.zip -d $2
+	}
+}
+
 case "$1" in
 	'-l'|'--headless')
 		dotfiles=(".bashrc" ".irssi" ".tmux.conf" ".vim" ".vimrc" ".zshrc" ".abcde.conf" ".gitconfig" ".ncmpcpp")
@@ -70,11 +78,11 @@ case "$1" in
 esac
 
 echo "Installing delucks/scripts repo"
-git clone https://github.com/delucks/scripts ~/scripts
+githubwrapper "delucks/scripts" "~/scripts"
 echo "Installing oh-my-zsh"
-git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+githubwrapper "robbyrussell/oh-my-zsh.git" "~/.oh-my-zsh"
 echo "Installing zsh-syntax-highlighting"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/zsh-syntax-highlighting
+githubwrapper "zsh-users/zsh-syntax-highlighting" "~/.oh-my-zsh/zsh-syntax-highlighting"
 
 for item in "${dotfiles[@]}"
 do
@@ -86,6 +94,6 @@ mkdir -p ~/.config
 cp -R ~/dotfiles/ranger/ ~/.config/ranger
 
 echo "Installing Vundle"
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+githubwrapper "gmarik/Vundle.vim.git" "~/.vim/bundle/Vundle.vim"
 echo "Installing vim plugins managed by Vundle"
 vim +PluginInstall! +qall
