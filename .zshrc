@@ -35,6 +35,7 @@ export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
 export LC_ALL="en_US.UTF-8"
 export TERM=xterm-256color
 export BUG_PROJECT="/home/jamie/.todo.bug"
+export PATH="/home/jamie/bin:$PATH"
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
