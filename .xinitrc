@@ -8,7 +8,8 @@ setxkbmap -option caps:escape &
 sudo asus-kbd-backlight allowusers &
 #compton &
 
-exec herbstluftwm
+#exec herbstluftwm
+exec i3
 #exec openbox
 
 #exec subtle
