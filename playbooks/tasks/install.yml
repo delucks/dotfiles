@@ -11,6 +11,6 @@
   with_items: "{{ software_list }}"
 - name: Install on CentOS
   sudo: yes
-  when: ansible_distribution == 'CentOS'  
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' 
   yum: name={{ item }} state=latest
   with_items: "{{ software_list }}"
