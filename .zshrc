@@ -86,7 +86,6 @@ alias whereami='uname -n'
 alias d='date +%R'
 alias bar="~/dev/bar/bar -p -f '-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*' -B #dadada -F #8f8f8f"
 alias ixit='curl -F "f:1=<-" ix.io'
-alias ranger='ranger 2> /dev/null'
 alias stog='amixer set Speaker toggle'
 alias hc='herbstclient'
 alias violet='wmname LG3D && violet'
@@ -177,3 +176,9 @@ say() {
 	fi;
 	mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ;
 }
+
+PATH="/home/jamie/perl5/bin${PATH+:}$PATH"; export PATH;
+PERL5LIB="/home/jamie/perl5/lib/perl5${PERL5LIB+:}$PERL5LIB"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/jamie/perl5${PERL_LOCAL_LIB_ROOT+:}$PERL_LOCAL_LIB_ROOT"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/jamie/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/jamie/perl5"; export PERL_MM_OPT;
