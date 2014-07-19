@@ -1,79 +1,32 @@
 #!/bin/bash
 
-# Jamie Luck's Herbstluftwm config file
-# Started on July 4, 2013. MURRICA
+#-------------------------------------------------------#
+#     __           __       __  __     _____             
+#    / /  ___ ____/ /  ___ / /_/ /_ __/ _/ /__    ____ _ 
+#   / _ \/ -_) __/ _ \(_-</ __/ / // / _/ __/ |/|/ /  ' \
+#  /_//_/\__/_/ /_.__/___/\__/_/\_,_/_/ \__/|__,__/_/_/_/
+#
+
+#-------------------------------------------------------#
+# Setup
 
 function hc() {
     herbstclient "$@"
 }
 
-# get color variables from xres
-source ~/.colors
-
 hc emit_hook reload
-
-# background
-#xsetroot -solid '#e8e9ca'
-
-# remove all existing keybindings
 hc keyunbind --all
 
-# Keybindings
+#-------------------------------------------------------#
+# Variables
+
+source ~/.colors #get colors from xres
 mod=Mod4
 mod4=Mod1
 
-hc keybind $mod-Shift-e quit
-hc keybind $mod-Shift-r reload
-hc keybind $mod4-Shift-e spawn killall wmswap
+#-------------------------------------------------------#
+# Tags
 
-# Close a window
-hc keybind $mod-Shift-q close
-
-# program launchers
-hc keybind $mod-t spawn urxvt
-hc keybind $mod4-Shift-b spawn ~/scripts/miscWall.sh
-hc keybind $mod4-Shift-v spawn ~/scripts/dmenu_wallpaper
-hc keybind $mod4-t spawn ~/scripts/browserswap
-
-# Special Keys
-hc keybind XF86KbdBrightnessUp spawn asus-kbd-backlight up
-hc keybind XF86KbdBrightnessDown spawn asus-kbd-backlight down
-hc keybind XF86TouchpadToggle spawn ~/scripts/touchpadtoggle
-#hc keybind XF86WebCam spawn scrot -q 100 '%Y-%m-%d_%H-%M-%S_$wx$h.png' -e 'mv $f ~/pictures/screenshot'
-hc keybind XF86WebCam spawn byzanz-record --delay=3 -d 15 /home/jamie/recording.gif
-hc keybind XF86AudioRaiseVolume spawn ~/scripts/dvol -i 5
-hc keybind XF86AudioLowerVolume spawn ~/scripts/dvol -d 5
-hc keybind XF86AudioMute spawn ~/scripts/dvol -t
-hc keybind XF86AudioPlay spawn mpc toggle
-hc keybind XF86AudioNext spawn mpc next
-hc keybind XF86AudioPrev spawn mpc prev
-hc keybind XF86AudioStop spawn mpc stop
-hc keybind XF86Calculator spawn ~/scripts/dmenu_calc
-hc keybind XF86Launch1 spawn mplayer tv://
-hc keybind XF86Launch6 spawn ~/scripts/block
-
-# Mod+Fx
-hc keybind $mod-F1 spawn ~/scripts/dmenu_man
-hc keybind $mod-F2 spawn ~/scripts/dmenu_run_enhanced
-hc keybind $mod-F3 spawn ~/scripts/dmenu_ssh
-hc keybind $mod-F4 spawn ~/scripts/dmenu_nmcli
-hc keybind $mod-F5 spawn ~/scripts/rscontrol -i
-hc keybind $mod-F6 spawn ~/scripts/rscontrol -d
-hc keybind $mod-F7 spawn ~/scripts/dmenu_openwith
-# hc keybind $mod-F8 spawn ~/scripts/
-#hc keybind $mod-F9 cycle_value window_border_width 0 1 2 5
-# hc keybind $mod-F9 spawn ~/scripts/
-hc keybind $mod-F10 spawn amixer set Speaker toggle
-# hc keybind $mod-F11 spawn ~/scripts/
-hc keybind $mod-F11 cycle_value frame_padding 0 5 20
-# hc keybind $mod-F12 spawn ~/scripts/
-#hc keybind $mod-F12 cycle_value window_border_active_color $COLOR0 $COLOR1 $COLOR2 $COLOR3 $COLOR4 $COLOR5 $COLOR6 $COLOR7 $COLOR8 $COLOR9 
-
-
-hc keybind $mod-bracketright spawn ~/scripts/dmenu_mpc_search
-
-# tags
-#TAG_NAMES=( ⠈ ⠊ ⠎ ⠫ ⠻ )
 TAG_NAMES=( a s d f g )
 TAG_KEYS=( a s d f g )
 
@@ -87,31 +40,52 @@ for i in ${!TAG_NAMES[@]} ; do
     fi
 done
 
+#-------------------------------------------------------#
+# Layouts
+
+# Dominant window on right, two split on left
+#hc keybind $mod-Shift-o load '(split horizontal:0.500000:0 (split vertical:0.500000:1 (clients vertical:0 0x80000b) (clients vertical:0 0xc0000b)) (clients vertical:0 0x100000b))'
+# Dominant window on bottom, two split on top
+#hc keybind $mod-Shift-u load '(split vertical:0.500000:0 (split horizontal:0.500000:0 (clients vertical:0 0xc0000b) (clients vertical:0 0x100000b)) (clients vertical:0 0x80000b))'
+#hc keybind $mod-Shift-i load '(split horizontal:0.650000:0 (clients vertical:0 0x140000b) (split vertical:0.200000:1 (clients vertical:0 0x100000b) (clients vertical:0 0xa0000b)))'
+#hc keybind $mod-Shift-y load '(split horizontal:0.750000:0 (split vertical:0.700000:0 (clients vertical:0 0x80000b) (clients vertical:0 0xa0000b)) (clients vertical:0 0x100000b))'
+
+#-------------------------------------------------------#
+# Keybindings
+
+hc keybind $mod-Shift-e quit
+hc keybind $mod-Shift-r reload
+hc keybind $mod4-Shift-e spawn killall wmswap
+hc keybind $mod-Shift-q close
+
+# Basics
+hc keybind $mod-h focus left
+hc keybind $mod-j focus down
+hc keybind $mod-k focus up
+hc keybind $mod-l focus right
+
+hc keybind $mod-Shift-h shift left
+hc keybind $mod-Shift-j shift down
+hc keybind $mod-Shift-k shift up
+hc keybind $mod-Shift-l shift right
+
 # cycle through tags
 hc keybind $mod-w use_index +1 --skip-visible
 hc keybind $mod-b  use_index -1 --skip-visible
 
-# layouting
+# Layouting
 hc keybind $mod-r remove
 hc keybind $mod-space chain , lock , rotate , unlock
 hc keybind $mod-Shift-space cycle_layout 1
 hc keybind $mod-u split vertical 0.5
+hc keybind $mod-Shift-u split vertical 0.25
 hc keybind $mod-o split horizontal 0.5
+hc keybind $mod-Shift-o split horizontal 0.25
 hc keybind $mod-m floating toggle
 hc keybind $mod-apostrophe fullscreen toggle
 hc keybind $mod-p pseudotile toggle
 
-# Dominant window on right, two split on left
-hc keybind $mod-Shift-o load '(split horizontal:0.500000:0 (split vertical:0.500000:1 (clients vertical:0 0x80000b) (clients vertical:0 0xc0000b)) (clients vertical:0 0x100000b))'
-# Dominant window on bottom, two split on top
-hc keybind $mod-Shift-u load '(split vertical:0.500000:0 (split horizontal:0.500000:0 (clients vertical:0 0xc0000b) (clients vertical:0 0x100000b)) (clients vertical:0 0x80000b))'
-hc keybind $mod-Shift-i load '(split horizontal:0.650000:0 (clients vertical:0 0x140000b) (split vertical:0.200000:1 (clients vertical:0 0x100000b) (clients vertical:0 0xa0000b)))'
-hc keybind $mod-Shift-y load '(split horizontal:0.750000:0 (split vertical:0.700000:0 (clients vertical:0 0x80000b) (clients vertical:0 0xa0000b)) (clients vertical:0 0x100000b))'
-
-
-hc keybind $mod-i chain , split vertical 0.7 , shift_edge u , split vertical 0.7
-
-# resizing
+# Resizing
 RESIZESTEP=0.05
 SMALLERRESIZESTEP=0.025
 hc keybind $mod-Control-h resize left +$RESIZESTEP
@@ -124,103 +98,219 @@ hc keybind $mod-Control-Shift-j resize down +$SMALLERRESIZESTEP
 hc keybind $mod-Control-Shift-k resize up +$SMALLERRESIZESTEP
 hc keybind $mod-Control-Shift-l resize right +$SMALLERRESIZESTEP
 
-# mouse
-hc mouseunbind --all
-hc mousebind $mod-Button1 spawn ~/scripts/dvol -i 5
-# hc mousebind $mod-Button2 resize
-# hc mousebind $mod-Button3 zoom
-
-# focus
-# hc keybind $mod-BackSpace   cycle_monitor
+# Cycle through windows in current tag
 hc keybind $mod-Tab         cycle_all +1
 hc keybind $mod-Shift-Tab   cycle_all -1
-hc keybind $mod-c cycle
-hc keybind $mod-h focus left
-hc keybind $mod-j focus down
-hc keybind $mod-k focus up
-hc keybind $mod-l focus right
-#hc keybind $mod-i jumpto urgent
-hc keybind $mod-Shift-h shift left
-hc keybind $mod-Shift-j shift down
-hc keybind $mod-Shift-k shift up
-hc keybind $mod-Shift-l shift right
 
-# hc keybind $mod-F11 set frame_padding 5
-# hc keybind $mod-F12 set frame_padding 20
+# Program launchers
+hc keybind $mod-t spawn urxvt
 
+# Mod+Fx
+hc keybind $mod-F1 spawn ~/scripts/dmenu_man
+hc keybind $mod-F2 spawn ~/scripts/dmenu_run_enhanced
+hc keybind $mod-F3 spawn ~/scripts/dmenu_ssh
+hc keybind $mod-F4 spawn ~/scripts/dmenu_nmcli
+hc keybind $mod-F5 spawn ~/scripts/rscontrol -i
+hc keybind $mod-F6 spawn ~/scripts/rscontrol -d
+hc keybind $mod-F7 spawn ~/scripts/dmenu_openwith
+#hc keybind $mod-F8 
+#hc keybind $mod-F9
+hc keybind $mod-F10 spawn amixer set Speaker toggle
+#hc keybind $mod-F11
+#hc keybind $mod-F12
 
-# Frames
-hc set frame_border_normal_color $COLOR16
-hc set frame_border_active_color $COLOR16
-hc set frame_border_width 0
+# Special Keys
+hc keybind XF86KbdBrightnessUp spawn asus-kbd-backlight up
+hc keybind XF86KbdBrightnessDown spawn asus-kbd-backlight down
+hc keybind XF86TouchpadToggle spawn ~/scripts/touchpadtoggle
+hc keybind XF86WebCam spawn byzanz-record --delay=3 -d 15 /home/jamie/recording.gif
+hc keybind XF86AudioRaiseVolume spawn ~/scripts/dvol -i 5
+hc keybind XF86AudioLowerVolume spawn ~/scripts/dvol -d 5
+hc keybind XF86AudioMute spawn ~/scripts/dvol -t
+hc keybind XF86AudioPlay spawn mpc toggle
+hc keybind XF86AudioNext spawn mpc next
+hc keybind XF86AudioPrev spawn mpc prev
+hc keybind XF86AudioStop spawn mpc stop
+hc keybind XF86Calculator spawn ~/scripts/dmenu_calc
+hc keybind XF86Launch1 spawn mplayer tv://
+hc keybind XF86Launch6 spawn ~/scripts/block
 
-hc set frame_bg_normal_color $COLOR16
-hc set frame_bg_active_color $COLOR16
-hc set frame_bg_transparent 1
+#-------------------------------------------------------#
+# Mousebinds
+hc mouseunbind --all
+hc mousebind $mod-Button1 move
+hc mousebind $mod-Shift-Button1 resize
+hc mousebind $mod4-Button1 zoom
 
-# hc set frame_border_inner_color
-# hc set frame_border_inner_width
+#-------------------------------------------------------#
+# Theming
 
-# Windows
-hc set window_border_active_color $COLOR8
-hc set window_border_normal_color $COLOR16
-hc set window_border_urgent_color $COLOR17
-hc set window_border_inner_width 0
-# hc set window_border_inner_color $COLOR16
-hc set window_border_width 5
+# background
+xsetroot -solid $COLOR16
 
-hc set always_show_frame 0
-hc set frame_gap 0
-hc set window_gap 0
-hc set frame_padding 10
+# base theme
+hc attr theme.reset 1
+hc attr theme.background_color
+hc attr theme.border_width							8
+hc attr theme.color											$COLOR16
+hc attr theme.inner_color								$COLOR16
+hc attr theme.inner_width								6
+hc attr theme.outer_color
+hc attr theme.outer_width
+hc attr theme.padding_bottom						0
+hc attr theme.padding_top								0
+hc attr theme.padding_left							0
+hc attr theme.padding_right							0
 
-# hc set always_show_frame 
-# hc set default_frame_layout 
-# hc set focus_stealing_prevention 
-#hc set frame_active_opacity 100 # Makes the current frame opaque!
-hc set smart_window_surroundings 0
-hc set smart_frame_surroundings 1
-hc set mouse_recenter_gap 0
-hc set focus_follows_mouse 0
-hc set raise_in_click 0
+# selected window
+hc attr theme.active.reset 1
+hc attr theme.active.background_color
+hc attr theme.active.border_width				8
+hc attr theme.active.color							$COLOR1
+hc attr theme.active.inner_color				$COLOR16
+hc attr theme.active.inner_width				6
+hc attr theme.active.outer_color
+hc attr theme.active.outer_width
+hc attr theme.active.padding_bottom			0
+hc attr theme.active.padding_top 				0
+hc attr theme.active.padding_left				0
+hc attr theme.active.padding_right			0
 
+# nonselected, nonurgent windows
+hc attr theme.normal.reset 1
+hc attr theme.normal.background_color
+hc attr theme.normal.border_width				8
+hc attr theme.normal.color							$COLOR16
+hc attr theme.normal.inner_color				$COLOR16
+hc attr theme.normal.inner_width				6
+hc attr theme.normal.outer_color
+hc attr theme.normal.outer_width
+hc attr theme.normal.padding_bottom			0
+hc attr theme.normal.padding_top				0
+hc attr theme.normal.padding_left				0
+hc attr theme.normal.padding_right			0
+
+# urgent windows
+hc attr theme.urgent.reset 1
+hc attr theme.urgent.background_color
+hc attr theme.urgent.border_width				20
+hc attr theme.urgent.color							$COLOR7
+hc attr theme.urgent.inner_color				$COLOR16
+hc attr theme.urgent.inner_width				6
+hc attr theme.urgent.outer_color
+hc attr theme.urgent.outer_width
+hc attr theme.urgent.padding_bottom			0
+hc attr theme.urgent.padding_top				0
+hc attr theme.urgent.padding_left				0
+hc attr theme.urgent.padding_right			0
+
+# not sure
+#hc attr theme.minimal.reset 1
+#hc attr theme.minimal.background_color
+#hc attr theme.minimal.border_width
+#hc attr theme.minimal.color
+#hc attr theme.minimal.inner_color
+#hc attr theme.minimal.inner_width
+#hc attr theme.minimal.outer_color
+#hc attr theme.minimal.outer_width
+#hc attr theme.minimal.padding_bottom
+#hc attr theme.minimal.padding_top
+#hc attr theme.minimal.padding_left
+#hc attr theme.minimal.padding_right
+
+# floating windows
+#hc attr theme.floating.reset 1
+#hc attr theme.floating.background_color
+#hc attr theme.floating.border_width
+#hc attr theme.floating.color
+#hc attr theme.floating.inner_color
+#hc attr theme.floating.inner_width
+#hc attr theme.floating.outer_color
+#hc attr theme.floating.outer_width
+#hc attr theme.floating.padding_bottom
+#hc attr theme.floating.padding_top
+#hc attr theme.floating.padding_left
+#hc attr theme.floating.padding_right
+
+# tiling windows
+#hc attr theme.tiling.reset 1
+#hc attr theme.tiling.background_color
+#hc attr theme.tiling.border_width
+#hc attr theme.tiling.color
+#hc attr theme.tiling.inner_color
+#hc attr theme.tiling.inner_width
+#hc attr theme.tiling.outer_color
+#hc attr theme.tiling.outer_width
+#hc attr theme.tiling.padding_bottom
+#hc attr theme.tiling.padding_top
+#hc attr theme.tiling.padding_left
+#hc attr theme.tiling.padding_right
+
+# frames
+hc attr settings.frame_border_normal_color $COLOR16
+hc attr settings.frame_border_active_color $COLOR16
+hc attr settings.frame_border_width 0
+hc attr settings.frame_bg_normal_color $COLOR16
+hc attr settings.frame_bg_active_color $COLOR16
+hc attr settings.frame_bg_transparent 1
+
+#-------------------------------------------------------#
+# settings
+
+hc attr settings.frame_padding 8
+hc attr settings.snap_gap 10
+hc attr settings.snap_distance 30
+hc attr settings.always_show_frame 0
+hc attr settings.frame_gap 0
+hc attr settings.window_gap 0
+hc attr settings.update_dragged_clients 1
+hc attr settings.smart_window_surroundings 0
+hc attr settings.smart_frame_surroundings 1
+hc attr settings.mouse_recenter_gap 0
+hc attr settings.focus_follows_mouse 0
+hc attr settings.raise_on_click 0
+#hc attr settings.frame_active_opacity 100
+hc attr settings.tree_style '╾│ ├└╼─┐'
+
+#-------------------------------------------------------#
 # rules
+
 hc unrule -F
 hc rule focus=off # normally do not focus new clients
 
-#hc rule class=XTerm tag=3 # move all xterms to tag 3
 hc rule class=Steam tag=g
 hc rule class=Lxappearance pseudotile=on
 
-# give focus to most common terminals
-hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off
 
-# unlock, just to be sure
-hc unlock
-
-# herbstclient set tree_style '╾│ ├└╼─┐'
-herbstclient set tree_style ''
+#-------------------------------------------------------#
+# multi-monitor
 
 # do multi monitor setup here, e.g.:
 # hc set_monitors 1280x1024+0+0 1280x1024+1280+0
 # or simply:
 # hc detect_monitors
 
-# find the panel
+#-------------------------------------------------------#
+# panel
+
 #panel=~/.config/herbstluftwm/panel.sh
 #[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
 #for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
 #    # start it on each monitor
 #    $panel $monitor &
 #done
-hc spawn xmobar &
-hc pad ${1:-0} 16
+#hc spawn xmobar &
+hc pad ${1:-0} 0
 
-# and autostart
-hc spawn compton &
-hc spawn dropboxd &
-hc spawn sh ~/.fehbg &
+#-------------------------------------------------------#
+# program launch
+
+#hc spawn compton &
+#hc spawn dropboxd &
+#hc spawn sh ~/.fehbg &
 hc spawn unclutter -idle 1 -root
+
+hc unlock
