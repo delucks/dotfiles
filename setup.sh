@@ -79,6 +79,7 @@ case "$1" in
 		;;
 	'-r'|'--rhel')
 		rhel
+		exit 0
 		;;
 	*)
 		echo "Unrecognized option '$1', see --help"
