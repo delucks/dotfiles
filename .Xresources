@@ -9,11 +9,14 @@
 
 ! URxvt Configuration
 
-!URxvt*background: #1c1c1c
+URxvt*background: #1f1f1f
+URxvt*foreground: #c0b18b
+
+!URxvt*background: #232323
 !URxvt*foreground: #A8A8A8
 
-URxvt*background:    [50]#1C1C1C
-URxvt*foreground:    #c5c5c5
+!URxvt*background:    #1C1C1C
+!URxvt*foreground:    #c5c5c5
 
 URxvt*depth: 0
 URxvt*shading: 100

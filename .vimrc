@@ -3,7 +3,7 @@
 set nocompatible
 syntax on
 " Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish, elflord, pablo
-"colorscheme pyte
+colorscheme midnight
 set number
 "set relativenumber
 set ic
@@ -12,7 +12,7 @@ set autoindent
 set noruler
 set history=100
 set noshowcmd
-set noshowmode
+set showmode
 set incsearch
 set hlsearch
 set lazyredraw
@@ -36,13 +36,13 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'arecarn/crunch'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'itchyny/lightline.vim'
+"Plugin 'itchyny/lightline.vim'
 call vundle#end()
 filetype plugin indent on
 
 " Lightline
-set laststatus=2
-set noshowmode
+"set laststatus=2
+set showmode
 
 " Tab Width
 set shiftwidth=2
