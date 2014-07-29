@@ -35,7 +35,7 @@ export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
 export LC_ALL="en_US.UTF-8"
 export TERM=xterm-256color
 export BUG_PROJECT="/home/jamie/.todo.bug"
-export PATH="/home/jamie/bin:$PATH"
+export PATH="/home/jamie/bin:/usr/pkg/bin:/usr/local/bin:$PATH"
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
@@ -148,13 +148,6 @@ function wiki {
 
 	curl -s -L -d "search=$1" http://en.wikipedia.org/w/index.php | grep '<p>\|<h3>\|<h2>' | head -n$foo | w3m -T text/html -dump | sed 's/(Listen.*)//g'
 	#curl -s -L -d "search=Linux" http://en.wikipedia.org/w/index.php | grep '<p>' | head -n2 | w3m -T text/html -dump | sed 's/\^\[.*\]//g'
-}
-
-function musicopy {
-	cd ~/music/
-	mpc search "$@" | while read line; do
-		sudo cp $line /mnt/vfat
-	done
 }
 
 vim()
