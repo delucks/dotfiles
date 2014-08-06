@@ -27,6 +27,7 @@
     - .i3
     - .irssi
     - .ncmpcpp
+    - .profile
     - .redshiftgrc
     - .tmux.conf
     - .vim
