@@ -26,6 +26,12 @@ function linkOrMove {
 	fi
 }
 
+function rhel {
+	rpm -Uvh http://dl.fedoraproject.org/pub/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm
+	sudo yum update
+	sudo yum install ansible
+}
+
 function usage {
 	echo "usage: setup.sh [option]"
 	echo
@@ -70,6 +76,10 @@ case "$1" in
 		;;
 	'-v'|'--version')
 		version
+		;;
+	'-r'|'--rhel')
+		rhel
+		exit 0
 		;;
 	*)
 		echo "Unrecognized option '$1', see --help"
