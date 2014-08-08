@@ -3,16 +3,12 @@
   git: repo=https://github.com/delucks/dotfiles dest=~/dotfiles update=yes
 - name: install scripts
   git: repo=https://github.com/delucks/scripts dest=~/scripts update=yes
-- name: install oh-my-zsh
-  git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest=~/.oh-my-zsh
 - name: install zsh-syntax-highlighting
-  git: repo=https://github.com/zsh-users/zsh-syntax-highlighting dest=~/.oh-my-zsh/zsh-syntax-highlighting
+  git: repo=https://github.com/zsh-users/zsh-syntax-highlighting dest=~/.zsh-syntax-highlighting
 - name: copy ranger config
   copy: src=~/dotfiles/ranger/ dest=~/.config/ranger/
 - name: copy herbstluftwm config
   copy: src=~/dotfiles/herbstluftwm/ dest=~/.config/herbstluftwm/
-- name: copy delucks zsh theme
-  copy: src=~/dotfiles/delucks.zsh-theme dest=~/.oh-my-zsh/themes/
 - name: symlink dotfiles
   file: src=~/dotfiles/{{ item }}
     dest=~/{{item}}
@@ -27,7 +23,6 @@
     - .i3
     - .irssi
     - .ncmpcpp
-    - .profile
     - .redshiftgrc
     - .tmux.conf
     - .vim
