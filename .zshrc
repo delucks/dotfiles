@@ -16,6 +16,7 @@ autoload -U compinit
 compinit
 
 setopt completealiases
+setopt completeinword
 setopt chaselinks
 setopt pathdirs
 setopt correct
