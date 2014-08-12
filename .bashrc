@@ -13,23 +13,28 @@ export PAGER='less'
 ### ALIASES
 
 # Platform Detection & Specific Aliases
-OS=$(uname)
-if [[ "$OS" == "FreeBSD" ]]; then
-	alias ineedsomebsdspecificaliases=''
-elif [[ "$OS" == "Linux" ]]; then
-	alias archey='archey --config=~/.config/archey3.cfg'
-	#alias steam='LD_PRELOAD="libpthread.so.0 libGL.so.1" __GL_THREADED_OPTIMIZATIONS=1 STEAM_RUNTIME=0 primusrun steam'
-	alias arduino='sudo chmod 777 /run/lock && arduino'
-	alias valgrinder='valgrind --tool=memcheck $@ --leak-check=full'
-	alias ls+='ls -lah | ~/scripts/coloredls'
-	alias y='yaourt'
-	alias orphan='pacman -Qtdq'
-	alias update='sudo pacman -Syu'
-	alias reinstall='sudo pacman -Rc $1 && sudo pacman -S $1'
-	alias owner='pacman -Qo $(which $1)'
-	alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
-	alias webcam='xawtv -c /dev/video0'
-fi		
+case "$OSTYPE" in
+	"darwin"*)
+		alias macsucks=''
+		;;
+	"freebsd"*)
+		alias ineedsomebsdspecificaliases=''
+		;;
+	"linux-gnu")
+		alias archey='archey --config=~/.config/archey3.cfg'
+		#alias steam='LD_PRELOAD="libpthread.so.0 libGL.so.1" __GL_THREADED_OPTIMIZATIONS=1 STEAM_RUNTIME=0 primusrun steam'
+		alias arduino='sudo chmod 777 /run/lock && arduino'
+		alias valgrinder='valgrind --tool=memcheck $@ --leak-check=full'
+		alias ls+='ls -lah | ~/scripts/coloredls'
+		alias y='yaourt'
+		alias orphan='pacman -Qtdq'
+		alias update='sudo pacman -Syu'
+		alias reinstall='sudo pacman -Rc $1 && sudo pacman -S $1'
+		alias owner='pacman -Qo $(which $1)'
+		alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
+		alias webcam='xawtv -c /dev/video0'
+		;;
+esac
 
 alias grep='grep --color=auto'
 alias mkdir='mkdir -p'
