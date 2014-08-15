@@ -56,6 +56,11 @@ cmap w!! %!sudo tee > /dev/null %
 nmap <F6> :r!xclip -o <CR>
 vmap <F6> :!xclip -f -sel clip<CR>
 nnoremap <silent> <Leader>r :let [&nu, &rnu] = [&nu+&rnu==0, &nu]<CR>
+nnoremap <silent> <Leader>b :bn<CR>
+nnoremap <silent> <Leader><Up> :sp<CR>
+nnoremap <silent> <Leader><Down> :sp<CR>
+nnoremap <silent> <Leader><Left> :vsp<CR>
+nnoremap <silent> <Leader><Right> :vsp<CR>
 
 " Buffer Manipulation
 nmap <C-h> <C-w><C-h>
