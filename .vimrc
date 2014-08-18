@@ -57,17 +57,22 @@ nmap <F6> :r!xclip -o <CR>
 vmap <F6> :!xclip -f -sel clip<CR>
 nnoremap <silent> <Leader>r :let [&nu, &rnu] = [&nu+&rnu==0, &nu]<CR>
 nnoremap <silent> <Leader>b :bn<CR>
+nnoremap <silent> <Leader>w :bp<CR>
 nnoremap <silent> <Leader><Up> :sp<CR>
 nnoremap <silent> <Leader><Down> :sp<CR>
 nnoremap <silent> <Leader><Left> :vsp<CR>
 nnoremap <silent> <Leader><Right> :vsp<CR>
 
 " Buffer Manipulation
-nmap <C-h> <C-w><C-h>
-nmap <C-j> <C-w><C-j>
-nmap <C-k> <C-w><C-k>
-nmap <C-l> <C-w><C-l>
-nmap <C-=> <C-w><C-=>
+nmap <Leader>h <C-w><C-h>
+nmap <Leader>j <C-w><C-j>
+nmap <Leader>k <C-w><C-k>
+nmap <Leader>l <C-w><C-l>
+nmap <Leader><S-h> :winc H<CR>
+nmap <Leader><S-j> :winc J<CR>
+nmap <Leader><S-k> :winc K<CR>
+nmap <Leader><S-l> :winc L<CR>
+nmap <Leader>= <C-w><C-=>
 
 " Compilation / Auto Commands
 autocmd FileType cpp map <F9> :!g++ -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
