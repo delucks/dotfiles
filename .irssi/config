@@ -11,14 +11,24 @@ servers = (
     address = "irc.dhirc.com";
     chatnet = "dtella";
     autoconnect = "no";
-  }
+  },
+	{
+		address = "irc.blinkenshell.org";
+		chatnet = "blink";
+		autoconnect = "no";
+		use_ssl = "yes";
+		port = "6697";
+	}
 );
 
 channels = (
-  { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
-  { name = "silc"; chatnet = "silc"; autojoin = "No"; },
-  { name = "##unixporn"; chatnet = "fn"; autojoin = "no"; },
-  { name = "#archlinux"; chatnet = "fn"; autojoin = "no"; },
+  { name = "#blinkenshell"; chatnet = "blink"; autojoin = "yes"; },
+  { name = "#freebsd"; chatnet = "fn"; autojoin = "yes"; },
+  { name = "#tortib"; chatnet = "fn"; autojoin = "yes"; },
+  { name = "#novaha"; chatnet = "fn"; autojoin = "yes"; },
+  { name = "#freebsd-ports"; chatnet = "fn"; autojoin = "yes"; },
+  { name = "#redports"; chatnet = "fn"; autojoin = "yes"; },
+  { name = "#redports-builds"; chatnet = "fn"; autojoin = "yes"; },
   { name = "#archlinux-offtopic"; chatnet = "fn"; autojoin = "no"; }
 );
 
@@ -184,7 +194,7 @@ statusbar = {
   };
 };
 settings = {
-  core = { real_name = "Unknown"; user_name = "jamie"; nick = "delucks"; };
+  core = { real_name = "Unknown"; user_name = "Unknown"; nick = "delucks"; };
   "fe-text" = { actlist_sort = "refnum"; };
   "fe-common/core" = { use_status_window = "yes"; theme = "bst"; };
 };
@@ -193,4 +203,8 @@ ignores = (
   { mask = "quits"; level = "ALL"; },
   { mask = "joins"; level = "ALL"; }
 );
-chatnets = { fn = { type = "IRC"; }; dtella = { type = "IRC"; }; };
+chatnets = {
+	fn = { type = "IRC"; };
+	dtella = { type = "IRC"; };
+	blink = { type = "IRC"; };
+};
