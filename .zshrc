@@ -33,7 +33,6 @@ export EDITOR="vim"
 export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
 export LC_ALL="en_US.UTF-8"
 export TERM=xterm-256color
-export BUG_PROJECT="/home/jamie/.todo.bug"
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
@@ -57,6 +56,7 @@ alias gc='git commit'
 alias gs='git status'
 
 # ls
+alias ls='ls --color=auto'
 alias l='ls -lh --group-directories-first | ~/scripts/coloredls'
 alias la='ls -aChkopl --group-directories-first --color=auto'
 alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
@@ -67,7 +67,6 @@ alias sl='/usr/bin/sl'
 alias y='yaourt'
 alias orphan='pacman -Qtdq'
 alias owner='pacman -Qo $(which $1)'
-alias hist='history|grep "pacman\ -S\ "'
 
 # beets
 alias bim='beet im'
