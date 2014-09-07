@@ -3,7 +3,7 @@
 set nocompatible
 syntax on
 " Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish, elflord, pablo
-colorscheme midnight
+"colorscheme moss
 set number
 "set relativenumber
 set ic
