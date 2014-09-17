@@ -5,7 +5,7 @@ xset +fp /usr/share/fonts/local
 xset fp rehash
 xmodmap ~/.Xmodmap
 setxkbmap -option caps:escape &
-sudo asus-kbd-backlight allowusers &
+#sudo asus-kbd-backlight allowusers &
 #compton &
 
 exec herbstluftwm
