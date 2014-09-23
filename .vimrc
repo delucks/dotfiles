@@ -3,7 +3,7 @@
 set nocompatible
 syntax on
 " Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish, elflord, pablo
-colorscheme midnight
+colorscheme jellybeans
 set number
 "set relativenumber
 set ic
@@ -36,6 +36,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'arecarn/crunch'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/syntastic'
+Plugin 'duythinht/vim-coffee'
 "Plugin 'itchyny/lightline.vim'
 call vundle#end()
 filetype plugin indent on

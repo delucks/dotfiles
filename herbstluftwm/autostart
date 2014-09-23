@@ -6,6 +6,7 @@
 #   / _ \/ -_) __/ _ \(_-</ __/ / // / _/ __/ |/|/ /  ' \
 #  /_//_/\__/_/ /_.__/___/\__/_/\_,_/_/ \__/|__,__/_/_/_/
 #
+#                          Elegant *nix window management
 
 #-------------------------------------------------------#
 # Setup
@@ -57,6 +58,7 @@ hc keybind $mod-Shift-e quit
 hc keybind $mod-Shift-r reload
 hc keybind $mod4-Shift-e spawn killall wmswap
 hc keybind $mod-Shift-q close
+hc keybind $mod-semicolon spawn ~/scripts/websearch
 
 # Basics
 hc keybind $mod-h focus left
@@ -134,9 +136,11 @@ hc keybind XF86AudioStop spawn mpc stop
 hc keybind XF86Calculator spawn ~/scripts/dmenu_calc
 hc keybind XF86Launch1 spawn mplayer tv://
 hc keybind XF86Launch6 spawn ~/scripts/block
+hc keybind XF86Tools use_index "g"
 
 #-------------------------------------------------------#
 # Mousebinds
+
 hc mouseunbind --all
 hc mousebind $mod-Button1 move
 hc mousebind $mod-Shift-Button1 resize
@@ -146,12 +150,12 @@ hc mousebind $mod4-Button1 zoom
 # Theming
 
 # background
-xsetroot -solid $COLOR16
+#xsetroot -solid $COLOR16
 
 # base theme
 hc attr theme.reset 1
 hc attr theme.background_color
-hc attr theme.border_width							8
+hc attr theme.border_width							10
 hc attr theme.color											$COLOR16
 hc attr theme.inner_color								$COLOR16
 hc attr theme.inner_width								6
@@ -165,8 +169,8 @@ hc attr theme.padding_right							0
 # selected window
 hc attr theme.active.reset 1
 hc attr theme.active.background_color
-hc attr theme.active.border_width				8
-hc attr theme.active.color							$COLOR1
+hc attr theme.active.border_width				10
+hc attr theme.active.color							$COLOR5
 hc attr theme.active.inner_color				$COLOR16
 hc attr theme.active.inner_width				6
 hc attr theme.active.outer_color
@@ -179,8 +183,8 @@ hc attr theme.active.padding_right			0
 # nonselected, nonurgent windows
 hc attr theme.normal.reset 1
 hc attr theme.normal.background_color
-hc attr theme.normal.border_width				8
-hc attr theme.normal.color							$COLOR16
+hc attr theme.normal.border_width				10
+hc attr theme.normal.color							$COLOR8
 hc attr theme.normal.inner_color				$COLOR16
 hc attr theme.normal.inner_width				6
 hc attr theme.normal.outer_color
@@ -310,7 +314,7 @@ hc pad ${1:-0} 0
 
 #hc spawn compton &
 #hc spawn dropboxd &
-#hc spawn sh ~/.fehbg &
+hc spawn sh ~/.fehbg &
 hc spawn unclutter -idle 1 -root
 
 hc unlock

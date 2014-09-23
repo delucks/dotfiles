@@ -28,12 +28,12 @@ abstracts = {
   indent_default = "";
 
   # text to insert at the beginning of each non-message line
-  # line_start = "%g//%n ";
+  #line_start = "%g//%n ";
   line_start = "";
 
   # timestamp styling, nothing by default
-  #timestamp = "%K$0-%n";
-  timestamp = "";
+  timestamp = "%K$0-%n";
+  #timestamp = "";
 
   # any kind of text that needs hilighting, default is to bold
   hilight = "%_$*%_";
@@ -223,20 +223,27 @@ abstracts = {
 
   # text at the beginning of statusbars. sb-item already puts
   # space there,so we don't use anything by default.
-  sbstart = "%K╒┅┅━━━━━━━━━━━┙";
+  #sbstart = "%K╒┅┅━━━━━━━━━━━┙";
+  sbstart = "%K";
   # text at the end of statusbars. Use space so that it's never
   # used for anything.
   sbend = "";
 
-  topicsbstart = "%K╘┅┅━━━━━━━━━━━┑  %K$N on $C: $S%N$*";
-  topicsbend = "$*";
+  #topicsbstart = "%K╘┅┅━━━━━━━━━━━┑  %K$N on $C: $S%N$*";
+  #topicsbend = "$*";
+  # topic bar on top of screen
+  topicsbstart = "%0%y";
+  topicsbend = "%K";
 
-  prompt = "%K└──╼ %n";
+  #prompt = "%K└──╼ %n";
+  prompt = "%k$S/%r$T%k > %n";
 
+  # chars at the end of this act as a separator between items
   sb = "%K$*%N ";
-  sbmode = " %K[%g+%n$*%K]";
-  sbaway = " %g/* zZzZ */";
+  sbmode = "/%g+%n$*%K";
+  sbaway = "%g/* zZzZ */";
   sbservertag = ":%g$0";
+  #sbservertag = "";
   sbnickmode = "$0";
 
   # Usercount
@@ -249,7 +256,7 @@ abstracts = {
   sb_uc_space = " ";
   # activity in statusbar
 
-  # ',' separator
+  # activity separator
   sb_act_sep = " ";
   # normal text
   sb_act_text = "%g%9$*%n";

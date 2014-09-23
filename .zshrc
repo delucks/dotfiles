@@ -33,7 +33,6 @@ export EDITOR="vim"
 export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
 export LC_ALL="en_US.UTF-8"
 export TERM=xterm-256color
-export BUG_PROJECT="/home/jamie/.todo.bug"
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
@@ -52,11 +51,15 @@ alias sch='svn checkout $@'
 alias ss='svn status'
 alias sadd='svn add $@'
 alias scm='svn commit'
-alias gp='git pull'
-alias gc='git commit'
-alias gs='git status'
+alias gita='git add'
+alias gitm='git mv'
+alias gitr='git rm'
+alias gitp='git pull'
+alias gitc='git commit'
+alias gits='git status'
 
 # ls
+alias ls='ls --color=auto'
 alias l='ls -lh --group-directories-first | ~/scripts/coloredls'
 alias la='ls -aChkopl --group-directories-first --color=auto'
 alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
@@ -67,7 +70,6 @@ alias sl='/usr/bin/sl'
 alias y='yaourt'
 alias orphan='pacman -Qtdq'
 alias owner='pacman -Qo $(which $1)'
-alias hist='history|grep "pacman\ -S\ "'
 
 # beets
 alias bim='beet im'
@@ -84,7 +86,7 @@ alias hc='herbstclient'
 alias violet='wmname LG3D && violet'
 alias wp='/home/jamie/dev/wp/wp'
 alias archey='archey --config=~/.config/archey3.cfg'
-alias valgrinder='valgrind --tool=memcheck $@ --leak-check=full'
+alias memcheck='valgrind --tool=memcheck $@ --leak-check=full'
 alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
 alias webcam='mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot'
 alias manp='python2 manage.py'
