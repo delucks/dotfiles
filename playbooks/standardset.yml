@@ -10,6 +10,6 @@
       - htop
       - curl
       - zsh
+      - ranger
   tasks:
     - include: tasks/install.yml
-    - include: tasks/dotfiles.yml
