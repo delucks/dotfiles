@@ -3,7 +3,7 @@
 set nocompatible
 syntax on
 " Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish, elflord, pablo
-colorscheme jellybeans
+"colorscheme jellybeans
 set number
 "set relativenumber
 set ic
@@ -24,6 +24,8 @@ set ft=zsh ts=4 sw=4
 set shortmess=a
 "set completefunc
 set clipboard^=unnamedplus
+
+set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,eol:→
 
 if !has('gui_running')
 	set t_Co=256

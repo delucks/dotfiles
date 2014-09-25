@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openbox_config xmlns="http://openbox.org/3.4/rc" xmlns:xi="http://www.w3.org/2001/XInclude">
   <resistance>
-    <strength>10</strength>
-    <screen_edge_strength>20</screen_edge_strength>
+    <strength>20</strength>
+    <screen_edge_strength>100</screen_edge_strength>
   </resistance>
   <focus>
     <focusNew>yes</focusNew>
     <!-- always try to focus new windows when they appear. other rules do
        apply -->
-    <followMouse>yes</followMouse>
+    <followMouse>no</followMouse>
     <!-- move focus to a window when you move the mouse into it -->
     <focusLast>no</focusLast>
     <!-- focus the last used window when changing desktops, instead of the one
@@ -18,7 +18,7 @@
     <focusDelay>200</focusDelay>
     <!-- when followMouse is enabled, the mouse must be inside the window for
        this many milliseconds (1000 = 1 sec) before moving focus to it -->
-    <raiseOnFocus>no</raiseOnFocus>
+    <raiseOnFocus>yes</raiseOnFocus>
     <!-- when followMouse is enabled, and a window is given focus by moving the
        mouse into it, also raise the window -->
   </focus>
@@ -40,8 +40,8 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>Laza</name>
-    <titleLayout>DIMC</titleLayout>
+    <name>Carbon</name>
+    <titleLayout>LDIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
       N: window icon
@@ -52,8 +52,8 @@
       S: shade (roll up/down)
       D: omnipresent (on all desktops).
   -->
-    <keepBorder>no</keepBorder>
-    <animateIconify>no</animateIconify>
+    <keepBorder>yes</keepBorder>
+    <animateIconify>yes</animateIconify>
     <font place="ActiveWindow">
       <name>Droid Sans Mono</name>
       <size>8</size>
@@ -118,22 +118,24 @@
 
        use obconf if you want to change these without having to log out
        and back in -->
-    <number>3</number>
+    <number>5</number>
     <firstdesk>1</firstdesk>
     <names>
-      <name>Main</name>
-      <name>Work</name>
-      <name>Fun</name>
+      <name>a</name>
+      <name>s</name>
+      <name>d</name>
+      <name>f</name>
+      <name>g</name>
     </names>
-    <popupTime>300</popupTime>
+    <popupTime>1000</popupTime>
     <!-- The number of milliseconds to show the popup for when switching
        desktops.  Set this to 0 to disable the popup. -->
   </desktops>
   <resize>
-    <drawContents>no</drawContents>
-    <popupShow>NonPixel</popupShow>
+    <drawContents>yes</drawContents>
+    <popupShow>Always</popupShow>
     <!-- 'Always', 'Never', or 'Nonpixel' (xterms and such) -->
-    <popupPosition>Center</popupPosition>
+    <popupPosition>Top</popupPosition>
     <!-- 'Center', 'Top', or 'Fixed' -->
     <popupFixedPosition>
       <!-- these are used if popupPosition is set to 'Fixed' -->
@@ -150,7 +152,7 @@
      Many programs reserve space automatically, but you can use this in other
      cases. -->
   <margins>
-    <top>16</top>
+    <top>0</top>
     <bottom>0</bottom>
     <left>0</left>
     <right>0</right>
@@ -200,74 +202,66 @@
         <wrap>no</wrap>
       </action>
     </keybind>
-    <keybind key="S-A-Left">
+    <keybind key="W-S-a">
       <action name="SendToDesktop">
-        <to>left</to>
-        <wrap>no</wrap>
+        <to>1</to>
+				<follow>no</follow>
       </action>
     </keybind>
-    <keybind key="S-A-Right">
+    <keybind key="W-S-s">
       <action name="SendToDesktop">
-        <to>right</to>
-        <wrap>no</wrap>
+        <to>2</to>
+				<follow>no</follow>
       </action>
     </keybind>
-    <keybind key="S-A-Up">
+    <keybind key="W-S-d">
       <action name="SendToDesktop">
-        <to>up</to>
-        <wrap>no</wrap>
+        <to>3</to>
+				<follow>no</follow>
       </action>
     </keybind>
-    <keybind key="S-A-Down">
+    <keybind key="W-S-f">
       <action name="SendToDesktop">
-        <to>down</to>
-        <wrap>no</wrap>
+        <to>4</to>
+				<follow>no</follow>
       </action>
     </keybind>
-    <keybind key="A-a">
+    <keybind key="W-S-g">
+      <action name="SendToDesktop">
+        <to>5</to>
+				<follow>no</follow>
+      </action>
+    </keybind>
+    <keybind key="W-a">
       <action name="GoToDesktop">
         <to>1</to>
       </action>
     </keybind>
-    <keybind key="A-s">
+    <keybind key="W-s">
       <action name="GoToDesktop">
         <to>2</to>
       </action>
     </keybind>
-    <keybind key="A-d">
+    <keybind key="W-d">
       <action name="GoToDesktop">
         <to>3</to>
       </action>
     </keybind>
-    <keybind key="A-f">
+    <keybind key="W-f">
       <action name="GoToDesktop">
         <to>4</to>
       </action>
     </keybind>
-    <keybind key="A-g">
+    <keybind key="W-g">
       <action name="GoToDesktop">
         <to>5</to>
       </action>
     </keybind>
-    <keybind key="W-Tab">
-      <action name="DesktopNext">
-      </action>
-    </keybind>
-    <keybind key="W-A-Right">
-      <action name="SendToDesktopNext">
-        <follow>no</follow>
-      </action>
-    </keybind>
-    <keybind key="W-A-Left">
-      <action name="SendToDesktopPrevious">
-        <follow>no</follow>
-      </action>
-    </keybind>
     <!-- Keybindings for windows -->
-    <keybind key="A-Shift-q">
+    <keybind key="W-Shift-q">
       <action name="Close"/>
     </keybind>
-    <keybind key="A-Escape">
+    <keybind key="W-Escape">
       <action name="Lower"/>
       <action name="FocusToBottom"/>
       <action name="Unfocus"/>
@@ -277,17 +271,17 @@
         <menu>client-menu</menu>
       </action>
     </keybind>
-    <keybind key="A-Shift-r">
+    <keybind key="W-Shift-r">
       <action name="Reconfigure"/>
     </keybind>
-    <keybind key="A-Shift-e">
+    <keybind key="W-Shift-e">
       <action name="Exit"/>
     </keybind>
-    <keybind key="A-apostrophe">
+    <keybind key="W-apostrophe">
       <action name="ToggleMaximize"/>
     </keybind>
     <!-- Keybindings for window switching -->
-    <keybind key="A-Tab">
+    <keybind key="W-Tab">
       <action name="NextWindow">
         <dialog>icons</dialog>
         <raise>yes</raise>
@@ -298,7 +292,7 @@
         </finalactions>
       </action>
     </keybind>
-    <keybind key="A-S-Tab">
+    <keybind key="W-S-Tab">
       <action name="PreviousWindow">
         <finalactions>
           <action name="Focus"/>
@@ -409,34 +403,9 @@
       <!-- These handle Window Switching and Workspace Switching -->
     </keybind>
     <!-- Keybindings for running applications -->
-    <keybind key="A-t">
+    <keybind key="W-t">
       <action name="Execute">
         <command>urxvt</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-t">
-      <action name="Execute">
-        <command>urxvt -e bash -c "tmux a"</command>
-      </action>
-    </keybind>
-    <keybind key="C-S-Escape">
-      <action name="Execute">
-        <command>urxvt -e bash -c "htop"</command>
-      </action>
-    </keybind>
-    <keybind key="W-o">
-      <action name="Execute">
-        <command>opera</command>
-      </action>
-    </keybind>
-    <keybind key="W-f">
-      <action name="Execute">
-        <command>firefox</command>
-      </action>
-    </keybind>
-    <keybind key="W-s">
-      <action name="Execute">
-        <command>spacefm</command>
       </action>
     </keybind>
     <!-- Keybindings for audio and multimedia -->
@@ -475,71 +444,46 @@
         <command>ncmpcpp stop</command>
       </action>
     </keybind>
-		<keybind key="A-bracketright">
-			<action name="Execute">
-				<command>~/scripts/dmenu_mpc_search</command>
-			</action>
-		</keybind>
-		<keybind key="A-F10">
-			<action name="Execute">
-				<command>amixer set Speaker toggle</command>
-			</action>
-		</keybind>
-    <!-- Misc Keybindings -->
-    <!-- Changed from gmrun 013013-->
-    <keybind key="A-F7">
+    <keybind key="A-bracketright">
       <action name="Execute">
-        <command>~/scripts/man_dmenu</command>
+        <command>~/scripts/dmenu_mpc_search</command>
       </action>
     </keybind>
-    <keybind key="A-F2">
+    <keybind key="W-F10">
+      <action name="Execute">
+        <command>/home/jamie/scripts/dvol -t</command>
+      </action>
+    </keybind>
+    <!-- Misc Keybindings -->
+    <!-- Changed from gmrun 013013-->
+    <keybind key="W-F1">
+      <action name="Execute">
+        <command>~/scripts/dmenu_man</command>
+      </action>
+    </keybind>
+    <keybind key="W-F2">
       <action name="Execute">
         <command>/home/jamie/scripts/dmenu_run_enhanced</command>
       </action>
     </keybind>
-    <keybind key="A-F3">
+    <keybind key="W-F3">
       <action name="Execute">
-        <command>~/scripts/mpcdmenu</command>
+        <command>~/scripts/dmenu_ssh</command>
       </action>
     </keybind>
-    <keybind key="A-F7">
+    <keybind key="W-F7">
       <action name="Execute">
         <command>~/scripts/mpc_dmenu_playlist</command>
       </action>
     </keybind>
-    <keybind key="A-F4">
+    <keybind key="W-F4">
       <action name="Execute">
         <command>~/scripts/mpc_dmenu_search</command>
       </action>
     </keybind>
-    <keybind key="A-F8">
-      <action name="Execute">
-        <command>~/scripts/tmux_open_dmenu</command>
-      </action>
-    </keybind>
-    <keybind key="A-F1">
-      <action name="Execute">
-        <command>~/scripts/dmenu_websearch</command>
-      </action>
-    </keybind>
-    <keybind key="A-F11">
-      <action name="Execute">
-        <command>~/scripts/dmenu_winctrl -d</command>
-      </action>
-    </keybind>
-    <keybind key="A-F12">
-      <action name="Execute">
-        <command>~/scripts/dmenu_winctrl</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-b">
-      <action name="Execute">
-        <command>sh /home/jamie/scripts/miscWall.sh</command>
-      </action>
-    </keybind>
     <keybind key="XF86WebCam">
       <action name="Execute">
-        <command>scrot -q 100 '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshot/'</command>
+        <command>scrot -q 100 '%Y-%m-%d_$wx$h.png'</command>
       </action>
     </keybind>
     <keybind key="XF86KbdBrightnessUp">
@@ -557,23 +501,13 @@
         <command>/home/jamie/scripts/touchpadtoggle</command>
       </action>
     </keybind>
-    <keybind key="A-F5">
-      <action name="Execute">
-        <command>~/scripts/rscontrol -i</command>
-      </action>
-    </keybind>
-    <keybind key="A-F6">
-      <action name="Execute">
-        <command>~/scripts/rscontrol -d</command>
-      </action>
-    </keybind>
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>
     <!-- number of pixels the mouse must move before a drag begins -->
     <doubleClickTime>200</doubleClickTime>
     <!-- in milliseconds (1000 = 1 second) -->
-    <screenEdgeWarpTime>0</screenEdgeWarpTime>
+    <screenEdgeWarpTime>400</screenEdgeWarpTime>
     <!-- Time before changing desktops when the pointer touches the edge of the
        screen while moving a window, in milliseconds (1000 = 1 second).
        Set this to 0 to disable warping -->
@@ -581,14 +515,7 @@
     <!-- Set this to TRUE to move the mouse pointer across the desktop when
        switching due to hitting the edge of the screen -->
     <context name="Frame">
-      <mousebind button="A-Left" action="Press">
-        <action name="Focus"/>
-        <action name="Raise"/>
-      </mousebind>
-      <mousebind button="A-Left" action="Click">
-        <action name="Unshade"/>
-      </mousebind>
-      <mousebind button="A-Left" action="Drag">
+      <mousebind button="W-Left" action="Drag">
         <action name="Move"/>
       </mousebind>
       <mousebind button="A-Right" action="Press">
@@ -596,7 +523,7 @@
         <action name="Raise"/>
         <action name="Unshade"/>
       </mousebind>
-      <mousebind button="A-Right" action="Drag">
+      <mousebind button="W-S-Left" action="Drag">
         <action name="Resize"/>
       </mousebind>
       <mousebind button="A-Middle" action="Press">
@@ -621,16 +548,6 @@
       </mousebind>
       <mousebind button="C-A-Down" action="Click">
         <action name="GoToDesktop">
-          <to>next</to>
-        </action>
-      </mousebind>
-      <mousebind button="A-S-Up" action="Click">
-        <action name="SendToDesktop">
-          <to>previous</to>
-        </action>
-      </mousebind>
-      <mousebind button="A-S-Down" action="Click">
-        <action name="SendToDesktop">
           <to>next</to>
         </action>
       </mousebind>
