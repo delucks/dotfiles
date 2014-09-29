@@ -51,6 +51,7 @@ alias sch='svn checkout $@'
 alias ss='svn status'
 alias sadd='svn add $@'
 alias scm='svn commit'
+alias getget='git pull'
 alias gita='git add'
 alias gitm='git mv'
 alias gitr='git rm'
@@ -111,6 +112,10 @@ function wiki {
 
 	curl -s -L -d "search=$1" http://en.wikipedia.org/w/index.php | grep '<p>\|<h3>\|<h2>' | head -n$foo | w3m -T text/html -dump | sed 's/(Listen.*)//g'
 	#curl -s -L -d "search=Linux" http://en.wikipedia.org/w/index.php | grep '<p>' | head -n2 | w3m -T text/html -dump | sed 's/\^\[.*\]//g'
+}
+
+b() {
+	echo "${1}" | sudo tee -a /sys/class/backlight/intel_backlight/brightness
 }
 
 say() {

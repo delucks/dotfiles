@@ -86,8 +86,8 @@ autocmd FileType cpp
   \ setlocal tabstop=2 |
   \ map <C-c> :call CommentLineToEnd ('// ')<CR>
 autocmd FileType python
-  \ setlocal shiftwidth=4 |
-  \ setlocal tabstop=4 |
+  \ setlocal shiftwidth=2 |
+  \ setlocal tabstop=2 |
   \ map <C-c> :call CommentLineToEnd ('# ')<CR> |
 	\ map <F9> :!python2 "%:p" <CR>
 autocmd FileType sh 
