@@ -58,7 +58,8 @@ hc keybind $mod-Shift-e quit
 hc keybind $mod-Shift-r reload
 hc keybind $mod4-Shift-e spawn killall wmswap
 hc keybind $mod-Shift-q close
-hc keybind $mod-semicolon spawn ~/scripts/websearch
+hc keybind $mod-semicolon spawn ~/scripts/dmenu_websearch
+hc keybind $mod-Menu spawn ~/scripts/getwindow
 
 # Basics
 hc keybind $mod-h focus left
@@ -120,6 +121,7 @@ hc keybind $mod-F7 spawn ~/scripts/dmenu_openwith
 hc keybind $mod-F10 spawn amixer set Speaker toggle
 #hc keybind $mod-F11
 #hc keybind $mod-F12
+hc keybind $mod-Enter spawn asus-kbd-backlight up
 
 # Special Keys
 hc keybind XF86KbdBrightnessUp spawn asus-kbd-backlight up
@@ -129,10 +131,10 @@ hc keybind XF86WebCam spawn byzanz-record --delay=3 -d 15 /home/jamie/recording.
 hc keybind XF86AudioRaiseVolume spawn ~/scripts/dvol -i 5
 hc keybind XF86AudioLowerVolume spawn ~/scripts/dvol -d 5
 hc keybind XF86AudioMute spawn ~/scripts/dvol -t
-hc keybind XF86AudioPlay spawn mpc toggle
-hc keybind XF86AudioNext spawn mpc next
-hc keybind XF86AudioPrev spawn mpc prev
-hc keybind XF86AudioStop spawn mpc stop
+hc keybind XF86AudioPlay spawn ~/scripts/spotifyctrl.sh toggle
+hc keybind XF86AudioNext spawn ~/scripts/spotifyctrl.sh next
+hc keybind XF86AudioPrev spawn ~/scripts/spotifyctrl.sh prev
+hc keybind XF86AudioStop spawn ~/scripts/spotifyctrl.sh stop
 hc keybind XF86Calculator spawn ~/scripts/dmenu_calc
 hc keybind XF86Launch1 spawn mplayer tv://
 hc keybind XF86Launch6 spawn ~/scripts/block
@@ -170,7 +172,7 @@ hc attr theme.padding_right							0
 hc attr theme.active.reset 1
 hc attr theme.active.background_color
 hc attr theme.active.border_width				10
-hc attr theme.active.color							$COLOR5
+hc attr theme.active.color							$COLOR1
 hc attr theme.active.inner_color				$COLOR16
 hc attr theme.active.inner_width				6
 hc attr theme.active.outer_color
