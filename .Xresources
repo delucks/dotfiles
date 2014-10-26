@@ -39,14 +39,14 @@ URxvt*internalBorder: 2
 
 ! Fonts
 
-URxvt*font:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
-URxvt*boldFont:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
-!*font: -*-5thelement-medium-r-normal--17-*-*-*-*-*-*-*
-!*boldFont: -*-5thelement-medium-r-normal--17-*-*-*-*-*-*-*
+!URxvt*font:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
+!URxvt*boldFont:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
+!URxvt*font: -xos4-terminesspowerline-medium-r-normal-*-16-*-*-*-*-*-iso10646-*
+!URxvt*boldFont: -xos4-terminesspowerline-medium-r-normal-*-16-*-*-*-*-*-iso10646-*
 !*font: -*-meslo lg s-medium-r-*-*-11-*-*-*-*-*-iso8859-*
 !*boldFont: -*-meslo lg l-medium-r-*-*-17-*-*-*-*-*-*-*
-!URxvt*font: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
-!URxvt*boldFont: -aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*
+URxvt*font: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
+URxvt*boldFont: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
 
 !URxvt*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*
 !URxvt*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*

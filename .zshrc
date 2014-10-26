@@ -33,6 +33,9 @@ export EDITOR="vim"
 export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
 export LC_ALL="en_US.UTF-8"
 export TERM=xterm-256color
+export PATH="/home/jamie/.gem/ruby/2.1.0/bin:$PATH"
+export GOBIN="/home/jamie/dev/go/bin"
+export GOPATH="/home/jamie/dev/go"
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
@@ -79,6 +82,7 @@ alias brm='beet remove'
 alias bvr='beet version'
 
 # misc
+alias strings='strings -a'
 alias whereami='uname -n'
 alias d='date +%R'
 alias bar="~/dev/bar/bar -p -f '-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*' -B #dadada -F #8f8f8f"
@@ -94,6 +98,7 @@ alias manp='python2 manage.py'
 alias wgot='wget -e robots=off -r -nc -np '
 alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
 alias iploc='curl ipinfo.io/$(dig $1 +short)'
+alias webcam='fswebcam --no-banner --no-shadow -r 1000x1000 --save foo.png'
 
 # suffix
 alias -g G="| grep"
@@ -116,6 +121,10 @@ function wiki {
 
 b() {
 	echo "${1}" | sudo tee -a /sys/class/backlight/intel_backlight/brightness
+}
+
+trans() {
+	curl --upload-file "$1" https://transfer.sh/$(basename $1);
 }
 
 say() {

@@ -48,6 +48,7 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias rmspc="find -name '* *' -type f | perl-rename 's/ /_/g'"
 alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
+alias strings='strings -a'
 
 ### Functions
 
