@@ -120,7 +120,11 @@ function wiki {
 }
 
 b() {
-	echo "${1}" | sudo tee -a /sys/class/backlight/intel_backlight/brightness
+	if [ $# -eq 0 ]; then
+		cat /sys/class/backlight/intel_backlight/brightness
+	else
+		echo "${1}" | sudo tee -a /sys/class/backlight/intel_backlight/brightness
+	fi
 }
 
 trans() {
