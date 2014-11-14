@@ -33,7 +33,7 @@ export EDITOR="vim"
 export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
 export LC_ALL="en_US.UTF-8"
 export TERM=xterm-256color
-export PATH="/home/jamie/.gem/ruby/2.1.0/bin:$PATH"
+export PATH="/home/jamie/bin:/home/jamie/.gem/ruby/2.1.0/bin:$PATH"
 export GOBIN="/home/jamie/dev/go/bin"
 export GOPATH="/home/jamie/dev/go"
 
@@ -93,12 +93,12 @@ alias wp='/home/jamie/dev/wp/wp'
 alias archey='archey --config=~/.config/archey3.cfg'
 alias memcheck='valgrind --tool=memcheck $@ --leak-check=full'
 alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
+alias webcam='fswebcam --no-banner --no-shadow --no-overlay -r 1000x1000 --save foo.png'
 alias webcam='mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot'
 alias manp='python2 manage.py'
 alias wgot='wget -e robots=off -r -nc -np '
 alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
 alias iploc='curl ipinfo.io/$(dig $1 +short)'
-alias webcam='fswebcam --no-banner --no-shadow -r 1000x1000 --save foo.png'
 
 # suffix
 alias -g G="| grep"

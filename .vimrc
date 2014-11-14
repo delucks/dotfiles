@@ -10,8 +10,9 @@ set number
 "set relativenumber
 set ic
 "set cursorcolumn
+" set foldmethod=syntax
 set autoindent
-set noruler
+set ruler
 set history=100
 set noshowcmd
 set showmode
@@ -84,6 +85,9 @@ nmap <Leader>= <C-w><C-=>
 " Compilation / Auto Commands
 autocmd FileType cpp map <F9> :!g++ -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
 autocmd FileType c map <F9> :!gcc -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
+
+" autocmd InsertEnter * !echo 1 > /sys/class/leds/asus::kbd_backlight/brightness &
+" autocmd InsertLeave * !echo 0 > /sys/class/leds/asus::kbd_backlight/brightness &
 
 autocmd FileType cpp 
   \ setlocal shiftwidth=2 |
