@@ -5,7 +5,7 @@
 set nocompatible
 syntax on
 " Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish, elflord, pablo
-"colorscheme gotham
+colorscheme mickeysoft
 set number
 "set relativenumber
 set ic
@@ -14,8 +14,9 @@ set ic
 set autoindent
 set ruler
 set history=100
-set noshowcmd
+set smartcase
 set showmode
+set directory=~/.vim/backup
 set incsearch
 set hlsearch
 set lazyredraw
@@ -24,8 +25,11 @@ set autowrite
 set splitbelow
 set splitright
 set shortmess=a
+set backspace=indent,eol,start
+set suffixes=.bak,~,.swp,.o,.out,.jpg,.png,.gif
 "set completefunc
 set clipboard^=unnamedplus
+set linebreak
 let g:netrw_liststyle=3
 
 set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,eol:→
@@ -38,12 +42,11 @@ endif
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
+Plugin 'ap/vim-buftabline'
 Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/syntastic'
 Plugin 'duythinht/vim-coffee'
 "Plugin 'yakiang/excel.vim'
 "Plugin 'itchyny/lightline.vim'
-Plugin 'tpope/vinegar.vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -70,6 +73,9 @@ nnoremap <silent> <Leader><Down> :sp<CR>
 nnoremap <silent> <Leader><Left> :vsp<CR>
 nnoremap <silent> <Leader><Right> :vsp<CR>
 nnoremap <silent> <Leader>e :Explore<CR>
+nnoremap } }zz
+nnoremap n nzz
+nnoremap <F1> <nop>
 
 " Buffer Manipulation
 nmap <Leader>h <C-w><C-h>

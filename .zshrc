@@ -6,7 +6,7 @@
 ### prompt
 
 autoload -U colors && colors
-PROMPT="%(?:%{$fg[green]%};%{$fg[grey]%}:%{$fg[grey]%}%{$fg[red]%}>%{$fg[grey]%})%{$reset_color%} "
+PROMPT="%(?:%{$fg[green]%};%{$fg[grey]%}:%{$fg[grey]%}%{$fg[red]%}?%{$fg[grey]%})%{$reset_color%} "
 RPROMPT='%~ %m(%n)'
 source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
