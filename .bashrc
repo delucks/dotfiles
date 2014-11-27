@@ -12,43 +12,7 @@ export PAGER='less'
 
 ### ALIASES
 
-# Platform Detection & Specific Aliases
-case "$OSTYPE" in
-	"darwin"*)
-		alias macsucks=''
-		;;
-	"freebsd"*)
-		alias ineedsomebsdspecificaliases=''
-		;;
-	"linux-gnu")
-		alias archey='archey --config=~/.config/archey3.cfg'
-		#alias steam='LD_PRELOAD="libpthread.so.0 libGL.so.1" __GL_THREADED_OPTIMIZATIONS=1 STEAM_RUNTIME=0 primusrun steam'
-		alias arduino='sudo chmod 777 /run/lock && arduino'
-		alias valgrinder='valgrind --tool=memcheck $@ --leak-check=full'
-		alias ls+='ls -lah | ~/scripts/coloredls'
-		alias y='yaourt'
-		alias orphan='pacman -Qtdq'
-		alias update='sudo pacman -Syu'
-		alias reinstall='sudo pacman -Rc $1 && sudo pacman -S $1'
-		alias owner='pacman -Qo $(which $1)'
-		alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
-		alias webcam='xawtv -c /dev/video0'
-		;;
-esac
-
-alias grep='grep --color=auto'
-alias mkdir='mkdir -p'
-alias l='ls -t'
-alias ll='ls -aChkopl --group-directories-first --color=auto'
-alias lsa='ls -sahp'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ......='cd ../../../../..'
-alias rmspc="find -name '* *' -type f | perl-rename 's/ /_/g'"
-alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
-alias strings='strings -a'
+source ~/.aliasrc
 
 ### Functions
 

@@ -13,6 +13,12 @@ precmd() {
 	else
 		unset ssh_prompt
 	fi
+	# then, check if the shell currently opened was created by ranger fm
+	if [ -n "$RANGER_LEVEL" ]; then
+		ranger_prompt=" %F{red}[opened by ranger]%f"
+	else
+		unset ranger_prompt
+	fi
 	# then, check if we're in a git repo. if so, display the current branch and a color to indicate if the working state is clean
 	if [ "${git_pwd_is_worktree}" = 'true' ]; then
     git_branch="$(git symbolic-ref HEAD 2>/dev/null)"
@@ -26,7 +32,7 @@ precmd() {
 	else
 			unset git_prompt
 	fi
-	RPROMPT="%~${git_prompt}${ssh_prompt}"
+	RPROMPT="%~${git_prompt}${ssh_prompt}${ranger_prompt}"
 }
 
 chpwd() {
@@ -40,7 +46,14 @@ chpwd() {
 }
 
 autoload -U colors && colors
-PROMPT="%(?:%F{green}⚡%F{grey}:%F{grey}%F{red}?%F{grey})%f%k "
+case $(id -u) in
+	0)
+		PROMPT="%(?:%F{green}root#%F{grey}:%F{grey}%F{red}root?%F{grey})%f%k "
+		;;
+	*)
+		PROMPT="%(?:%F{green}⚡%F{grey}:%F{grey}%F{red}?%F{grey})%f%k "
+		;;
+esac
 source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ### zsh options
@@ -82,57 +95,7 @@ export LESS=-r
 
 ### aliases
 
-# vc
-alias sup='svn update'
-alias sch='svn checkout $@'
-alias ss='svn status'
-alias sadd='svn add $@'
-alias scm='svn commit'
-alias getget='git pull'
-alias gita='git add'
-alias gitm='git mv'
-alias gitr='git rm'
-alias gitp='git pull'
-alias gitc='git commit'
-alias gits='git status'
-
-# ls
-alias ls='ls --color=auto'
-alias l='ls -lh --group-directories-first | ~/scripts/coloredls'
-alias la='ls -aChkopl --group-directories-first --color=auto'
-alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
-alias ll='ls -G'
-alias sl='/usr/bin/sl'
-
-# packages
-alias y='yaourt'
-alias orphan='pacman -Qtdq'
-alias owner='pacman -Qo $(which $1)'
-
-# beets
-alias bim='beet im'
-alias bls='beet ls'
-alias brm='beet remove'
-alias bvr='beet version'
-
-# misc
-alias strings='strings -a'
-alias whereami='uname -n'
-alias d='date +%R'
-alias bar="~/dev/bar/bar -p -f '-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*' -B #dadada -F #8f8f8f"
-alias ixit='curl -F "f:1=<-" ix.io'
-alias hc='herbstclient'
-alias violet='wmname LG3D && violet'
-alias wp='/home/jamie/dev/wp/wp'
-alias archey='archey --config=~/.config/archey3.cfg'
-alias memcheck='valgrind --tool=memcheck $@ --leak-check=full'
-alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
-alias webcam='fswebcam --no-banner --no-shadow --no-overlay -r 1000x1000 --save foo.png'
-alias webcam='mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot'
-alias manp='python2 manage.py'
-alias wgot='wget -e robots=off -r -nc -np '
-alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
-alias iploc='curl ipinfo.io/$(dig $1 +short)'
+source ~/.aliasrc
 
 # suffix
 alias -g G="| grep"

@@ -16,6 +16,7 @@
     force=yes
   with_items:
     - .abcde.conf
+    - .aliasrc
     - .bashrc
     - .compton.conf
     - .dmenurc
