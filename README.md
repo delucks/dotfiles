@@ -14,9 +14,10 @@ I hope the information in here can help kickstart others!
 Setup
 -----
 
-You have two options to install these dotfiles, Ansible or bash. I personally prefer
+You have two options to install these dotfiles, Ansible or a Makefile. I personally prefer
 Ansible (and you should too) because there is great tolerance for failures, and support
-for cloning a ton of git repos that I didn't feel like setting up in my bash script.
+for cloning a ton of git repos that I didn't feel like setting up in the Makefile. If someone
+asks me to, I probably will, but until then meh.
 
 ### Ansible
 
@@ -29,9 +30,8 @@ After installing it, clone my repository to ~/dotfiles (a convention).
 Then, cd to ~/dotfiles/playbooks and run `ansible-playbook general.yml`. For more
 information on what it does, look at the file itself. It's pretty self-explanatory and well commented.
 
-### Bash
+### make
 
-Run ./setup.sh, with either -l for a headless install or -x for an xorg install.
-For more information, see ./setup.sh -h. This script is being less actively maintained than the
-Ansible setup version, so I'd heavily encourage you to use that. If for some reason you're opposed to
-the python dependency for Ansible, you probably know how to set up my dotfiles by yourself anyway.
+A good option for most would be `make all`, which will attempt to symlink my dotfiles into the right locations.
+To remove, run `make remove-all`. Most of the other options are for my use, but `make dev-install` (`make dev-remove` to uninstall)
+may be of use to people looking to get off the ground with my shell, editor, and IRC configs.
