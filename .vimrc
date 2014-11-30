@@ -16,7 +16,6 @@ set ruler
 set history=100
 set smartcase
 set showmode
-set directory=~/.vim/backup
 set incsearch
 set hlsearch
 set lazyredraw
@@ -28,7 +27,6 @@ set shortmess=a
 set backspace=indent,eol,start
 set suffixes=.bak,~,.swp,.o,.out,.jpg,.png,.gif
 "set completefunc
-set clipboard^=unnamedplus
 set linebreak
 let g:netrw_liststyle=3
 let @x = '0xiexport l5~f:df#i="#A"j'
@@ -77,7 +75,6 @@ nnoremap <silent> <Leader>e :Explore<CR>
 nnoremap } }zz
 nnoremap n nzz
 nnoremap <F1> <nop>
-nnoremap <silent> <Leader>q :CtrlPBuffer<CR>
 
 " Buffer Manipulation
 nmap <Leader>h <C-w><C-h>
@@ -89,6 +86,12 @@ nmap <Leader><S-j> :winc J<CR>
 nmap <Leader><S-k> :winc K<CR>
 nmap <Leader><S-l> :winc L<CR>
 nmap <Leader>= <C-w><C-=>
+
+" CtrlP options
+let g:ctrlp_map = '<Leader>p'
+let g:ctrlp_cmd = 'CtrlP'
+nnoremap <silent> <Leader>q :CtrlPBuffer<CR>
+nnoremap <silent> <Leader>a :CtrlP<CR>
 
 " Compilation / Auto Commands
 autocmd FileType cpp map <F9> :!g++ -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
@@ -123,6 +126,8 @@ autocmd BufRead *i3*
 autocmd BufRead /home/jamie/.Xresources
 	\ map <C-c> :call CommentLineToEnd ('!')<CR> |
 	\ map <F9> :!xrdb -merge ~/.Xresources <CR>
+
+autocmd! bufwritepost .vimrc source %
 
 augroup CursorLine
 	au!
