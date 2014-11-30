@@ -128,6 +128,10 @@ trans() {
 	curl --upload-file "$1" https://transfer.sh/$(basename $1);
 }
 
+paste() {
+	cat "$1" | xclip -i
+}
+
 say() {
 	if [[ "${1}" =~ -[a-z]{2} ]]; then
 		local lang=${1#-};

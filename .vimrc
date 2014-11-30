@@ -5,7 +5,7 @@
 set nocompatible
 syntax on
 " Other good colorschemes: zmrok, desert, ElegantBritWhite, jellybeans, delek, deepblue, zellner, eclipse, gentooish, elflord, pablo
-colorscheme mickeysoft
+colorscheme vc
 set number
 "set relativenumber
 set ic
@@ -31,6 +31,7 @@ set suffixes=.bak,~,.swp,.o,.out,.jpg,.png,.gif
 set clipboard^=unnamedplus
 set linebreak
 let g:netrw_liststyle=3
+let @x = '0xiexport l5~f:df#i="#A"j'
 
 set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,eol:→
 
@@ -76,6 +77,7 @@ nnoremap <silent> <Leader>e :Explore<CR>
 nnoremap } }zz
 nnoremap n nzz
 nnoremap <F1> <nop>
+nnoremap <silent> <Leader>q :CtrlPBuffer<CR>
 
 " Buffer Manipulation
 nmap <Leader>h <C-w><C-h>
