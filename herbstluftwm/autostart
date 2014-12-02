@@ -72,10 +72,6 @@ hc keybind $mod-Shift-j shift down
 hc keybind $mod-Shift-k shift up
 hc keybind $mod-Shift-l shift right
 
-# cycle through tags
-hc keybind $mod-w use_index +1 --skip-visible
-hc keybind $mod-b  use_index -1 --skip-visible
-
 # Layouting
 hc keybind $mod-r remove
 hc keybind $mod-space chain , lock , rotate , unlock

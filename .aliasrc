@@ -16,7 +16,7 @@ alias gita='git add'
 alias gitd='git diff'
 alias gitm='git mv'
 alias gitr='git rm'
-alias gitp='git pull'
+alias gitp='git push'
 alias gitc='git commit'
 alias gits='git status'
 
