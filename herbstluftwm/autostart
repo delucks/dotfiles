@@ -28,8 +28,8 @@ mod4=Mod1
 #-------------------------------------------------------#
 # Tags
 
-TAG_NAMES=( a s d f g )
-TAG_KEYS=( a s d f g )
+TAG_NAMES=( a s d f g q w e )
+TAG_KEYS=( a s d f g q w e )
 
 hc rename default "${TAG_NAMES[0]}" || true
 for i in ${!TAG_NAMES[@]} ; do
@@ -147,6 +147,10 @@ hc mouseunbind --all
 hc mousebind $mod-Button1 move
 hc mousebind $mod-Shift-Button1 resize
 hc mousebind $mod4-Button1 zoom
+#hc mousebind $mod-Button1 spawn ~/scripts/spotifyctrl.sh toggle
+#hc keybind XF86AudioNext spawn ~/scripts/spotifyctrl.sh next
+#hc keybind XF86AudioPrev spawn ~/scripts/spotifyctrl.sh prev
+#hc keybind XF86AudioStop spawn ~/scripts/spotifyctrl.sh stop
 
 #-------------------------------------------------------#
 # Theming
@@ -172,7 +176,7 @@ hc attr theme.padding_right							0
 hc attr theme.active.reset 1
 hc attr theme.active.background_color
 hc attr theme.active.border_width				10
-hc attr theme.active.color							$COLOR1
+hc attr theme.active.color							$COLOR3
 hc attr theme.active.inner_color				$COLOR16
 hc attr theme.active.inner_width				6
 hc attr theme.active.outer_color

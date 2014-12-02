@@ -32,6 +32,8 @@ alias sl='/usr/bin/sl'
 alias y='yaourt'
 alias orphan='pacman -Qtdq'
 alias owner='pacman -Qo $(which $1)'
+alias fucking='sudo'
+alias die='poweroff'
 
 # beets
 alias bim='beet im'
@@ -39,7 +41,12 @@ alias bls='beet ls'
 alias brm='beet remove'
 alias bvr='beet version'
 
+# herbsluftwm helpers
+alias hkeys="cat ~/.config/herbstluftwm/autostart| egrep '^([\t\ ])?hc keybind' | awk '{print \$3}'"
+alias hmods="hkeys | grep mod | sed 's/\$mod\-//g' | sort"
+
 # misc
+alias big="echo $1 | figlet"
 alias vc='vim -c ":RangerChooser"'
 alias \:q='exit'
 alias strings='strings -a'
