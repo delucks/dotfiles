@@ -7,7 +7,7 @@
 #  /_//_/\__/_/ /_.__/___/\__/_/\_,_/_/ \__/|__,__/_/_/_/
 #
 #                          Elegant *nix window management
-
+#
 #-------------------------------------------------------#
 # Setup
 
@@ -54,10 +54,9 @@ done
 #-------------------------------------------------------#
 # Keybindings
 
-hc keybind $mod-Shift-e quit
-hc keybind $mod-Shift-r reload
-hc keybind $mod4-Shift-e spawn killall wmswap
-hc keybind $mod-Shift-q close
+hc keybind $mod-Shift-Escape quit
+hc keybind $mod-Escape reload
+hc keybind $mod-Shift-r close
 hc keybind $mod-semicolon spawn ~/scripts/dmenu_websearch
 hc keybind $mod-Menu spawn ~/scripts/getwindow
 

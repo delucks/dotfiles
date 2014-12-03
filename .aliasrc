@@ -44,6 +44,7 @@ alias bvr='beet version'
 # herbsluftwm helpers
 alias hkeys="cat ~/.config/herbstluftwm/autostart| egrep '^([\t\ ])?hc keybind' | awk '{print \$3}'"
 alias hmods="hkeys | grep mod | sed 's/\$mod\-//g' | sort"
+alias currtag="herbstclient tag_status | sed -e 's/[:|\.][a-zA-Z]//g' -e 's/[\t\ #]//g'"
 
 # misc
 alias big="echo $1 | figlet"
