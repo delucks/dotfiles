@@ -94,6 +94,7 @@ nnoremap <F1> <nop>
 
 " Buffer Manipulation
 nnoremap <silent> <Leader>b :bn<CR>
+nnoremap <silent> <Tab> :bn<CR>
 nnoremap <silent> <Leader>w :bp<CR>
 nnoremap <silent> <Leader><Up> :sp<CR>
 nnoremap <silent> <Leader><Down> :sp<CR>
