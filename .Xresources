@@ -9,20 +9,8 @@
 
 ! URxvt Configuration
 
-!URxvt*background: #1f1f1f
-!URxvt*foreground: #999999
-
-!URxvt*foreground: #D3D3D3
 URxvt*background: #111111
-
-!URxvt*background: #222222
-URxvt*foreground: #e8e9ca
-
-!URxvt*background: #232323
-!URxvt*foreground: #A8A8A8
-
-!URxvt*background:    #1C1C1C
-!URxvt*foreground:    #c5c5c5
+URxvt*foreground: #a8a8a8
 
 URxvt*depth: 0
 URxvt*shading: 100
@@ -42,14 +30,15 @@ URxvt*internalBorder: 2
 
 ! Fonts
 
-!URxvt*font:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
-!URxvt*boldFont:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
+URxvt*font:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
+URxvt*boldFont:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
 !URxvt*font: -xos4-terminesspowerline-medium-r-normal-*-16-*-*-*-*-*-iso10646-*
 !URxvt*boldFont: -xos4-terminesspowerline-medium-r-normal-*-16-*-*-*-*-*-iso10646-*
 !*font: -*-meslo lg s-medium-r-*-*-11-*-*-*-*-*-iso8859-*
 !*boldFont: -*-meslo lg l-medium-r-*-*-17-*-*-*-*-*-*-*
-URxvt*font: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
-URxvt*boldFont: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
+!URxvt*font: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
+!URxvt*boldFont: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
+!URxvt*font: -*-pixel berry 08/84 ltd.edition-medium-r-normal--12-*-*-*-*-*-*-*
 
 !URxvt*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*
 !URxvt*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*

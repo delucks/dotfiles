@@ -1,0 +1,26 @@
+export COLOR16="#DADADA"
+export COLOR17="#8F8F8F"
+#BLACK
+export COLOR0="#6B6B6B"
+export COLOR8="#828282"
+#RED
+export COLOR1="#A35861"
+export COLOR9="#DB5858"
+#GREEN
+export COLOR2="#558F51"
+export COLOR10="#43B23D"
+#YELLOW
+export COLOR3="#9C7854"
+export COLOR11="#BA9D22"
+#BLUE
+export COLOR4="#598499"
+export COLOR12="#7FA5EB"
+#MAGENTA
+export COLOR5="#A86897"
+export COLOR13="#E36FB8"
+#CYAN
+export COLOR6="#478F89"
+export COLOR14="#25B8C2"
+#WHITE
+export COLOR7="#919191"
+export COLOR15="#A4A4A4"

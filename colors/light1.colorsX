@@ -1,0 +1,29 @@
+! Light colorscheme
+
+*background: #EDE2C2
+*foreground: #232323
+
+!black
+*color0:  #505050
+*color8:  #505050
+!red
+*color1:  #ac4142
+*color9:  #ac4142
+!green
+*color2:  #90a959
+*color10: #90a959
+!yellow
+*color3:  #f4bf75
+*color11: #f4bf75
+!blue
+*color4:  #6a9fb5
+*color12: #6a9fb5
+!magenta
+*color5:  #aa759f
+*color13: #aa759f
+!cyan
+*color6:  #75b5aa
+*color14: #75b5aa
+!white
+*color7:  #f0f0f0
+*color15: #f0f0f0

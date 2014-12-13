@@ -47,6 +47,7 @@ alias hmods="hkeys | grep mod | sed 's/\$mod\-//g' | sort"
 alias currtag="herbstclient tag_status | sed -e 's/[:|\.][a-zA-Z]//g' -e 's/[\t\ #]//g'"
 
 # misc
+alias cdiff='dwdiff --no-common -c'
 alias big="echo $1 | figlet"
 alias vc='vim -c ":RangerChooser"'
 alias \:q='exit'
@@ -68,3 +69,4 @@ alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
 alias iploc='curl ipinfo.io/$(dig $1 +short)'
 alias mkdir='mkdir -p'
 alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
+alias serve='python2 -m SimpleHTTPServer'
