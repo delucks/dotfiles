@@ -45,6 +45,14 @@ chpwd() {
 	fi
 }
 
+x() {
+	python2 ~/scripts/x86.py $1 | lynx -stdin -dump
+}
+
+hex() {
+	python2 -c "print hex($1 $2 $3)"
+}
+
 autoload -U colors && colors
 case $(id -u) in
 	0)

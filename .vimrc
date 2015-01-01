@@ -47,7 +47,7 @@ Plugin 'ap/vim-buftabline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'duythinht/vim-coffee'
 call vundle#end()
-filetype plugin indent on
+filetype plugin indent on 
 
 "----------
 " Functions
@@ -100,6 +100,7 @@ nnoremap <silent> <Leader><Up> :sp<CR>
 nnoremap <silent> <Leader><Down> :sp<CR>
 nnoremap <silent> <Leader><Left> :vsp<CR>
 nnoremap <silent> <Leader><Right> :vsp<CR>
+nnoremap <silent> <Leader><h> :!markdown_py2 % > /tmp/html && chromium /tmp/html
 nmap <Leader><S-h> :winc H<CR>
 nmap <Leader><S-j> :winc J<CR>
 nmap <Leader><S-k> :winc K<CR>

@@ -26,22 +26,24 @@ URxvt*perl-ext-common: default,matcher,clipboard
 
 *.cursorUnderline: False
 URxvt*termName: xterm
-URxvt*internalBorder: 2
+URxvt*internalBorder: 4
 
 ! Fonts
 
 URxvt*font:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
 URxvt*boldFont:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
-!URxvt*font: -xos4-terminesspowerline-medium-r-normal-*-16-*-*-*-*-*-iso10646-*
-!URxvt*boldFont: -xos4-terminesspowerline-medium-r-normal-*-16-*-*-*-*-*-iso10646-*
-!*font: -*-meslo lg s-medium-r-*-*-11-*-*-*-*-*-iso8859-*
-!*boldFont: -*-meslo lg l-medium-r-*-*-17-*-*-*-*-*-*-*
+
+!URxvt*font: -*-envy code r-medium-r-normal-*-17-120-100-100-*-*-iso10646-*
+!URxvt*boldFont: -*-envy code r-medium-r-normal-*-17-120-100-100-*-*-iso10646-*
+
 !URxvt*font: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
 !URxvt*boldFont: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
-!URxvt*font: -*-pixel berry 08/84 ltd.edition-medium-r-normal--12-*-*-*-*-*-*-*
 
 !URxvt*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*
 !URxvt*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*
+
+!URxvt*font: -*-pixel berry 08/84 ltd.edition-medium-r-normal-*-17-120-100-*-*-*-*-*
+!URxvt*boldFont: -*-pixel berry 08/84 ltd.edition-medium-r-normal-*-17-120-100-*-*-*-*-*
 !URxvt*font:-*-ubuntu mono-bold-r-normal-*-*-*-*-*-*-*-iso10646-*
 !URxvt*boldFont:-*-ubuntu mono-bold-r-normal-*-*-*-*-*-*-*-iso10646-*
 
