@@ -8,6 +8,7 @@ all: vim-install \
 	shell-install \
 	xorg-install \
 	git-install \
+	env-install \
 	misc-install
 
 remove-all: vim-remove \
@@ -15,9 +16,11 @@ remove-all: vim-remove \
 	shell-remove \
 	xorg-remove \
 	git-remove \
+	env-remove \
 	misc-remove
 
 dev-install: vim-install \
+	env-install \
 	misc-install \
 	git-install \
 	shell-install
@@ -25,7 +28,18 @@ dev-install: vim-install \
 dev-remove: vim-remove \
 	misc-remove \
 	git-remove \
+	env-remove \
 	shell-remove
+
+env-install:
+	git clone https://github.com/delucks/scripts ~/scripts
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh-syntax-highlighting
+	cp -r ${DOT}/ranger ~/.config/ranger
+
+env-remove:
+	-@rm -r ~/scripts
+	-@rm -r ~/.zsh-syntax-highlighting
+	-@rm -r ~/.config/ranger
 
 vim-install:
 	ln -s ${DOT}/.vim ~/.vim
@@ -64,6 +78,8 @@ xorg-install:
 	ln -s ${DOT}/.Xmodmap ~/.Xmodmap
 	ln -s ${DOT}/.Xresources ~/.Xresources
 	ln -s ${DOT}/.i3 ~/.i3
+	cp -r ${DOT}/herbstluftwm ~/.config/herbstluftwm
+	cp -r ${DOT}/openbox ~/.config/openbox
 
 xorg-remove:
 	-@rm -f ~/.compton.conf
@@ -74,6 +90,8 @@ xorg-remove:
 	-@rm -f ~/.Xmodmap
 	-@rm -f ~/.Xresources
 	-@rm -f ~/.i3
+	-@rm -rf ~/.config/herbstluftwm
+	-@rm -rf ~/.config/openbox
 
 git-install:
 	ln -s ${DOT}/.gitconfig ~/.gitconfig
@@ -83,14 +101,13 @@ git-remove:
 
 misc-install:
 	ln -s ${DOT}/.irssi ~/.irssi
+	ln -s ${DOT}/.gdbinit ~/.gdbinit
 
 misc-remove:
 	-@rm -f ~/.irssi
+	-@rm -f ~/.gdbinit
 
-# TODO: things that need to be copied. these are low priority as most are window manager configs
+# TODO:
 # .profile
 # dwb
-# herbstluftwm
-# openbox
-# ranger
 # subtle

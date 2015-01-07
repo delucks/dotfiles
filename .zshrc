@@ -53,6 +53,10 @@ hex() {
 	python2 -c "print hex($1 $2 $3)"
 }
 
+int() {
+	python2 -c "print int('$1',16)"
+}
+
 autoload -U colors && colors
 case $(id -u) in
 	0)

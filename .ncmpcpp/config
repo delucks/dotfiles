@@ -2,7 +2,7 @@
 # Jamie Luck (jluck@udel.edu)
 
 # MPD Settings
-mpd_music_dir = "~/music/"
+#mpd_music_dir = "~/music/"
 
 # Format
 #
@@ -22,15 +22,15 @@ mpd_music_dir = "~/music/"
 #song_list_format = "$4%a $4»$7»$4» $5{%t}|{%f} (%l) $R{$4%b}{ « $7%y$9}{ « $2%g}"
 #song_columns_list_format=" (40)[yellow]{f} (6)[green]{l} (35)[red]{a} (30)[green]{b} "
 #song_status_format = "$4%a $7» $3%b $7» $8%t$1"
-alternative_header_first_line_format = "[ $3%t $9]"
-alternative_header_second_line_format = "$4%a$9 - $8%b{ (%y)}"
+alternative_header_first_line_format = "[ %t $9]"
+alternative_header_second_line_format = "$2%a$1 %b{ (%y)}"
 #alternative_header_second_line_format = "$2%t $1by $2%a $1on $2%b $1from $2%y$9"
 now_playing_prefix = "$b"
 #now_playing_suffix = "$/b"
 
 #song_window_title_format = ""
 browser_playlist_prefix = "$9[Playlist] $5" 
-#selected_item_prefix = ""
+selected_item_prefix = ""
 #selected_item_suffix = ""
 
 #now_playing_prefix = "$b$4»$7»$4» "
@@ -41,16 +41,14 @@ browser_playlist_prefix = "$9[Playlist] $5"
 color1 = "white"
 color2 = "white"
 main_window_color="black"
-main_window_highlight="white"
+#main_window_highlight="white"
 visualizer_color="green"
 progressbar_color="black"
 #song_list_format = "$9 $8%a$9 $1{¦$9 $2%b}{ (%y)}$9 $R$1$4%t$1$9 $1¦$9 $8%l$9 "
-song_list_format = "$9 $8%a$9 {$2» $3%b}$9 $R$1$6%t$1$9 $2« $8%l$9 "
+song_list_format = "$9 $2%a$9 {$1%b}$9 $R$1%t$1$9 $0│ $8%l$9 "
 #song_list_format = "%a$9 $3{¦$9 $1%t}$9 $R$1{(%y) }$4%b$9 $1¦$9 $2%l$9 "
 song_columns_list_format = "(4f)[yellow]{y} (40)[default]{t|f} (8f)[black]{l} (25)[red]{a} (30)[blue]{b}"
-now_playing_prefix = "$b"
 now_playing_suffix = ""
-playlist_display_mode = "classic" (classic/columns)
 autocenter_mode = "no"
 centered_cursor = "no"
 cyclic_scrolling = "yes"
@@ -58,7 +56,7 @@ mouse_list_scroll_whole_page = "no"
 song_library_format = "{%n > }{%t}|{%f}"
 
 # Progressbar Settings
-progressbar_look = "» «"
+progressbar_look = "─╼-"
 statusbar_visibility = "yes"
 statusbar_color = "black" 
 
@@ -74,12 +72,9 @@ playlist_display_mode = "classic"
 browser_display_mode = "columns"
 search_engine_display_mode = "classic"
 user_interface = "alternative"
-autocenter_mode = ""
 header_visibility = "yes"
 display_bitrate = "yes"
 display_volume_level = "no"
-display_remaining_time = "no"
-display_screens_numbers_on_start = "no"
 display_remaining_time = "no"
 
 # Misc Settings
@@ -93,10 +88,9 @@ search_engine_default_search_mode = "2"
 header_text_scrolling = "yes"
 external_editor = /bin/vim
 playlist_disable_highlight_delay = "1"
-centered_cursor = "yes"
 titles_visibility = "no"
 mouse_support = "no"
-discard_colors_if_item_is_selected = "yes"
+discard_colors_if_item_is_selected = "no"
 
 # Visualizer
 visualizer_fifo_path = "/tmp/mpd.fifo"
