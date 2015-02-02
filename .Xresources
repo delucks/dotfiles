@@ -2,11 +2,6 @@
 
 #include "/home/jamie/.colorsX"
 
-! XTerm Configuration
-
-!XTerm*background: #1c1c1c
-!XTerm*foreground: #A8A8A8
-
 ! URxvt Configuration
 
 URxvt*background: #111111
@@ -20,32 +15,22 @@ URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 *cursorBlink: True
 URxvt.letterSpace: 0
-URxvt*imLocale: en_US.UTF-8
-
-URxvt*perl-ext-common: default,matcher,clipboard
-
+URxvt*imLocale: en_US.UTF-8 
 *.cursorUnderline: False
 URxvt*termName: xterm
 URxvt*internalBorder: 4
+URxvt*perl-ext-common: default,matcher,clipboard 
 
 ! Fonts
 
 URxvt*font:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
 URxvt*boldFont:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
 
-!URxvt*font: -*-envy code r-medium-r-normal-*-17-120-100-100-*-*-iso10646-*
-!URxvt*boldFont: -*-envy code r-medium-r-normal-*-17-120-100-100-*-*-iso10646-*
-
 !URxvt*font: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
 !URxvt*boldFont: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
 
-!URxvt*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*
-!URxvt*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1,-*-stlarch-medium-r-*-*-10-*-*-*-*-*-iso10646-*
-
-!URxvt*font: -*-pixel berry 08/84 ltd.edition-medium-r-normal-*-17-120-100-*-*-*-*-*
-!URxvt*boldFont: -*-pixel berry 08/84 ltd.edition-medium-r-normal-*-17-120-100-*-*-*-*-*
-!URxvt*font:-*-ubuntu mono-bold-r-normal-*-*-*-*-*-*-*-iso10646-*
-!URxvt*boldFont:-*-ubuntu mono-bold-r-normal-*-*-*-*-*-*-*-iso10646-*
+!URxvt*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
+!URxvt*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
 
 XTerm*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
 XTerm*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
