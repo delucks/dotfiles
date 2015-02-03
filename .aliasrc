@@ -73,3 +73,5 @@ alias iploc='curl ipinfo.io/$(dig $1 +short)'
 alias mkdir='mkdir -p'
 alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
 alias serve='python2 -m SimpleHTTPServer'
+alias flvjoin='mencoder -forceidx -of lavf -oac pcm -ovc copy -o output.flv '
+source ~/.privatealiasrc

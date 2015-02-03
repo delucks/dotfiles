@@ -14,6 +14,8 @@ I hope the information in here can help kickstart others!
 Setup
 -----
 
+![](http://i.imgur.com/e4AFBMI.gif)
+
 You have two options to install these dotfiles, Ansible or a Makefile. I personally prefer
 Ansible (and you should too) because there is great tolerance for failures, and support
 for cloning a ton of git repos that I didn't feel like setting up in the Makefile. If someone
@@ -35,3 +37,22 @@ information on what it does, look at the file itself. It's pretty self-explanato
 A good option for most would be `make all`, which will attempt to symlink my dotfiles into the right locations.
 To remove, run `make remove-all`. Most of the other options are for my use, but `make dev-install` (`make dev-remove` to uninstall)
 may be of use to people looking to get off the ground with my shell, editor, and IRC configs.
+
+Screenshots
+-----------
+
+##### zsh prompt
+
+![](http://delucks.blinkenshell.org/prompt.png)
+
+##### tmux statusline
+
+![](http://delucks.blinkenshell.org/tmux.png)
+
+##### irssi
+
+![](http://delucks.blinkenshell.org/irssi.png)
+
+##### vim with some python
+
+![](http://delucks.blinkenshell.org/vim.png)

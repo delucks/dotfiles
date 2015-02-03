@@ -45,7 +45,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'fatih/vim-go'
 Plugin 'ap/vim-buftabline'
 Plugin 'kien/ctrlp.vim'
-Plugin 'duythinht/vim-coffee'
+Plugin 'tpope/vim-dispatch'
 call vundle#end()
 filetype plugin indent on 
 
