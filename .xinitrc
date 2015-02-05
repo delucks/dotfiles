@@ -7,6 +7,7 @@ xmodmap ~/.Xmodmap
 setxkbmap -option caps:escape &
 #sudo asus-kbd-backlight allowusers &
 compton &
+dunst &
 
 exec herbstluftwm
 #exec i3

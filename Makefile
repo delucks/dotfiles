@@ -33,13 +33,12 @@ dev-remove: vim-remove \
 
 env-install:
 	git clone https://github.com/delucks/scripts ~/scripts
+	git clone https://github.com/delucks/colorman ~/colorman
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh-syntax-highlighting
-	cp -r ${DOT}/ranger ~/.config/ranger
 
 env-remove:
 	-@rm -r ~/scripts
 	-@rm -r ~/.zsh-syntax-highlighting
-	-@rm -r ~/.config/ranger
 
 vim-install:
 	ln -s ${DOT}/.vim ~/.vim
@@ -62,12 +61,14 @@ shell-install:
 	ln -s ${DOT}/.bashrc ~/.bashrc
 	ln -s ${DOT}/.zshrc ~/.zshrc
 	ln -s ${DOT}/.tmux.conf ~/.tmux.conf
+	cp -r ${DOT}/ranger ~/.config/ranger
 
 shell-remove:
 	-@rm -f ~/.aliasrc
 	-@rm -f ~/.bashrc
 	-@rm -f ~/.zshrc
 	-@rm -f ~/.tmux.conf
+	-@rm -r ~/.config/ranger
 
 xorg-install:
 	ln -s ${DOT}/.compton.conf ~/.compton.conf
