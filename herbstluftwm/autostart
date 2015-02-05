@@ -57,7 +57,7 @@ done
 hc keybind $mod-Shift-Escape quit
 hc keybind $mod-Escape reload
 hc keybind $mod-Shift-r close
-hc keybind $mod-semicolon spawn ~/scripts/dmenu_websearch
+hc keybind $mod-semicolon spawn ~/scripts/dmenu_ranger
 hc keybind $mod-Menu spawn ~/scripts/getwindow
 
 # Basics
@@ -107,16 +107,20 @@ hc keybind $mod-t spawn urxvt
 hc keybind $mod-F1 spawn ~/scripts/dmenu_man
 hc keybind $mod-F2 spawn ~/scripts/dmenu_run_enhanced
 hc keybind $mod-F3 spawn ~/scripts/dmenu_ssh
-hc keybind $mod-F4 spawn ~/scripts/dmenu_nmcli
-hc keybind $mod-F5 spawn ~/scripts/rscontrol -i
-hc keybind $mod-F6 spawn ~/scripts/rscontrol -d
-hc keybind $mod-F7 spawn ~/scripts/dmenu_openwith
+#hc keybind $mod-F4 spawn ~/scripts/
+#hc keybind $mod-F5 spawn ~/scripts/
+#hc keybind $mod-F6 spawn ~/scripts/
+#hc keybind $mod-F7 spawn ~/scripts/
 #hc keybind $mod-F8 
 #hc keybind $mod-F9
 hc keybind $mod-F10 spawn amixer set Speaker toggle
 #hc keybind $mod-F11
 #hc keybind $mod-F12
-hc keybind $mod-Enter spawn asus-kbd-backlight up
+#hc keybind $mod-Enter spawn 
+hc keybind $mod-Up spawn ~/scripts/dmenu_mpc_selectPlaylist
+hc keybind $mod-Down spawn ~/scripts/dmenu_mpc_selectPlaylist
+hc keybind $mod-Left spawn ~/scripts/dmenu_mpc_selectPlaylist
+hc keybind $mod-Right spawn ~/scripts/dmenu_mpc_selectPlaylist
 
 # Special Keys
 hc keybind XF86KbdBrightnessUp spawn asus-kbd-backlight up
@@ -133,7 +137,6 @@ hc keybind XF86AudioStop spawn ~/scripts/spotifyctrl.sh stop
 hc keybind XF86Calculator spawn ~/scripts/dmenu_calc
 hc keybind XF86Launch1 spawn mplayer tv://
 hc keybind XF86Launch6 spawn ~/scripts/block
-hc keybind XF86Tools use_index "g"
 
 #-------------------------------------------------------#
 # Mousebinds
@@ -171,9 +174,9 @@ hc attr theme.padding_right							0
 hc attr theme.active.reset 1
 hc attr theme.active.background_color
 hc attr theme.active.border_width				10
-hc attr theme.active.color							$COLOR3
+hc attr theme.active.color							$COLOR17
 hc attr theme.active.inner_color				$COLOR16
-hc attr theme.active.inner_width				6
+hc attr theme.active.inner_width				5
 hc attr theme.active.outer_color
 hc attr theme.active.outer_width
 hc attr theme.active.padding_bottom			0
@@ -185,9 +188,9 @@ hc attr theme.active.padding_right			0
 hc attr theme.normal.reset 1
 hc attr theme.normal.background_color
 hc attr theme.normal.border_width				10
-hc attr theme.normal.color							$COLOR8
+hc attr theme.normal.color							$COLOR0
 hc attr theme.normal.inner_color				$COLOR16
-hc attr theme.normal.inner_width				6
+hc attr theme.normal.inner_width				5
 hc attr theme.normal.outer_color
 hc attr theme.normal.outer_width
 hc attr theme.normal.padding_bottom			0
