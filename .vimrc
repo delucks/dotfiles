@@ -138,8 +138,8 @@ autocmd FileType cpp
   \ map <C-c> :call CommentLineToEnd ('// ')<CR> |
 	\ map <Leader>z :!g++ -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
 autocmd FileType python
-  \ setlocal shiftwidth=2 |
-  \ setlocal tabstop=2 |
+  \ setlocal shiftwidth=4 |
+  \ setlocal tabstop=4 |
   \ map <C-c> :call CommentLineToEnd ('# ')<CR> |
 	\ map <F9> :!python2 "%:p" <CR>
 autocmd FileType sh 

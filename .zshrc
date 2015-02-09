@@ -97,7 +97,7 @@ export PATH="/home/jamie/dev/go/bin:/home/jamie/bin:/home/jamie/.gem/ruby/2.1.0/
 export GOBIN="/home/jamie/dev/go/bin"
 export GOPATH="/home/jamie/dev/go"
 export HISTFILE=~/.zsh_history
-export SAVEHIST=1000
+export SAVEHIST=10000
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'

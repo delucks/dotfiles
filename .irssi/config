@@ -24,12 +24,8 @@ servers = (
 channels = (
   { name = "#blinkenshell"; chatnet = "blink"; autojoin = "yes"; },
   { name = "#freebsd"; chatnet = "fn"; autojoin = "yes"; },
-  { name = "#tortib"; chatnet = "fn"; autojoin = "yes"; },
-  { name = "#novaha"; chatnet = "fn"; autojoin = "yes"; },
-  { name = "#freebsd-ports"; chatnet = "fn"; autojoin = "yes"; },
-  { name = "#redports"; chatnet = "fn"; autojoin = "yes"; },
-  { name = "#redports-builds"; chatnet = "fn"; autojoin = "yes"; },
-  { name = "#archlinux-offtopic"; chatnet = "fn"; autojoin = "no"; }
+  { name = "#python"; chatnet = "fn"; autojoin = "yes"; },
+  { name = "#archlinux-offtopic"; chatnet = "fn"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -48,7 +44,7 @@ aliases = {
   WI = "whois";
   WII = "whois $0 $0";
   WW = "whowas";
-  W = "who";
+  W = "window";
   N = "names";
   M = "msg";
   T = "topic";
