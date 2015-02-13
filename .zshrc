@@ -93,9 +93,9 @@ export EDITOR="vim"
 export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
 export LC_ALL="en_US.UTF-8"
 export TERM=xterm-256color
-export PATH="/home/jamie/dev/go/bin:/home/jamie/bin:/home/jamie/.gem/ruby/2.1.0/bin:$PATH"
-export GOBIN="/home/jamie/dev/go/bin"
-export GOPATH="/home/jamie/dev/go"
+export PATH="$HOME/dev/go/bin:$HOME/bin:$HOME/.gem/ruby/2.1.0/bin:$PATH"
+export GOBIN="$HOME/dev/go/bin"
+export GOPATH="$HOME/dev/go"
 export HISTFILE=~/.zsh_history
 export SAVEHIST=10000
 
