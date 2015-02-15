@@ -5,6 +5,16 @@
   git: repo=https://github.com/delucks/scripts dest=~/scripts update=yes
 - name: install zsh-syntax-highlighting
   git: repo=https://github.com/zsh-users/zsh-syntax-highlighting dest=~/.zsh-syntax-highlighting update=yes
+- name: install colorman
+  git: repo=https://github.com/delucks/colorman dest=~/colorman update=yes
+- name: create ranger directory
+  file: path=~/.config/ranger state=directory
+- name: create dunst directory
+  file: path=~/.config/dunst state=directory
+- name: create herbstluftwm directory
+  file: path=~/.config/herbstluftwm state=directory
+- name: copy dunstrc
+  copy: src=~/dotfiles/dunstrc dest=~/.config/dunst/
 - name: copy ranger config
   copy: src=~/dotfiles/ranger/ dest=~/.config/ranger/
 - name: copy herbstluftwm config
@@ -36,5 +46,3 @@
     - .zshrc
 - name: install vundle
   git: repo=https://github.com/gmarik/Vundle.vim.git dest=~/.vim/bundle/Vundle.vim
-- name: install vim plugins
-  command: vim +PluginInstall! +qall

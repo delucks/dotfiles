@@ -11,6 +11,5 @@
       - curl
       - zsh
       - ranger
-      - netcat
   tasks:
     - include: tasks/install.yml
