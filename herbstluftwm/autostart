@@ -107,10 +107,10 @@ hc keybind $mod-t spawn urxvt
 hc keybind $mod-F1 spawn ~/scripts/dmenu_man
 hc keybind $mod-F2 spawn ~/scripts/dmenu_run_enhanced
 hc keybind $mod-F3 spawn ~/scripts/dmenu_ssh
-#hc keybind $mod-F4 spawn ~/scripts/
-#hc keybind $mod-F5 spawn ~/scripts/
-#hc keybind $mod-F6 spawn ~/scripts/
-#hc keybind $mod-F7 spawn ~/scripts/
+hc keybind $mod-F4 spawn ~/scripts/dmenu_nmcli
+hc keybind $mod-F5 spawn ~/scripts/rscontrol -i
+hc keybind $mod-F6 spawn ~/scripts/chromeos-brightness.sh down
+hc keybind $mod-F7 spawn ~/scripts/chromeos-brightness.sh up
 #hc keybind $mod-F8 
 #hc keybind $mod-F9
 hc keybind $mod-F10 spawn amixer set Speaker toggle
@@ -126,7 +126,7 @@ hc keybind $mod-Right spawn ~/scripts/dmenu_mpc_selectPlaylist
 hc keybind XF86KbdBrightnessUp spawn asus-kbd-backlight up
 hc keybind XF86KbdBrightnessDown spawn asus-kbd-backlight down
 hc keybind XF86TouchpadToggle spawn ~/scripts/touchpadtoggle
-hc keybind XF86WebCam spawn byzanz-record --delay=3 -d 15 /home/jamie/recording.gif
+hc keybind XF86WebCam spawn byzanz-record --delay=3 -d 15 $HOME/recording.gif
 hc keybind XF86AudioRaiseVolume spawn ~/scripts/dvol -i 5
 hc keybind XF86AudioLowerVolume spawn ~/scripts/dvol -d 5
 hc keybind XF86AudioMute spawn ~/scripts/dvol -t
