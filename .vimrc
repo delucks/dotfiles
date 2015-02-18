@@ -24,8 +24,6 @@ set suffixes=.bak,~,.swp,.o,.out,.jpg,.png,.gif
 set linebreak
 set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,eol:→
 let g:netrw_liststyle=3
-let g:buftabline_show=1
-let g:buftabline_numbers=1
 
 " Tab Width
 set shiftwidth=2
@@ -165,7 +163,14 @@ autocmd BufRead /home/jamie/.Xresources
 	\ map <C-c> :call CommentLineToEnd ('!')<CR> |
 	\ map <F9> :!xrdb -merge ~/.Xresources <CR>
 
+"-------
+" Colors
+
+let g:buftabline_show=1
+let g:buftabline_numbers=0
+let g:buftabline_separators=0
 hi BufTabLineFill ctermbg=111111
 hi BufTabLineCurrent ctermfg=3
 hi BufTabLineHidden ctermbg=111111
 hi BufTabLineHidden ctermfg=grey
+hi LineNr ctermfg=black

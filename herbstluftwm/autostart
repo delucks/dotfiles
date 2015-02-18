@@ -22,8 +22,8 @@ hc keyunbind --all
 # Variables
 
 source ~/.colors #get colors from xres
-mod=Mod4
-mod4=Mod1
+mod=Mod1
+mod4=Mod4
 
 #-------------------------------------------------------#
 # Tags
@@ -136,7 +136,7 @@ hc keybind XF86AudioPrev spawn ~/scripts/spotifyctrl.sh prev
 hc keybind XF86AudioStop spawn ~/scripts/spotifyctrl.sh stop
 hc keybind XF86Calculator spawn ~/scripts/dmenu_calc
 hc keybind XF86Launch1 spawn mplayer tv://
-hc keybind XF86Launch6 spawn ~/scripts/block
+hc keybind $mod-Shift-Space spawn ~/scripts/block
 
 #-------------------------------------------------------#
 # Mousebinds
@@ -174,7 +174,7 @@ hc attr theme.padding_right							0
 hc attr theme.active.reset 1
 hc attr theme.active.background_color
 hc attr theme.active.border_width				10
-hc attr theme.active.color							$COLOR17
+hc attr theme.active.color							$COLOR3
 hc attr theme.active.inner_color				$COLOR16
 hc attr theme.active.inner_width				5
 hc attr theme.active.outer_color
@@ -265,7 +265,7 @@ hc attr settings.frame_bg_transparent 1
 #-------------------------------------------------------#
 # settings
 
-hc attr settings.frame_padding 8
+hc attr settings.frame_padding 15
 hc attr settings.snap_gap 10
 hc attr settings.snap_distance 30
 hc attr settings.always_show_frame 0
