@@ -75,6 +75,9 @@ alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done
 alias serve='python2 -m SimpleHTTPServer'
 alias flvjoin='mencoder -forceidx -of lavf -oac pcm -ovc copy -o output.flv '
 
+# network addresses
+alias cal="chromium 'https://www.google.com/calendar/render'"
+
 # functions 
 note() {
 	if [ $# -lt 1 ];

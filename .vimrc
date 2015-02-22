@@ -45,7 +45,8 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'fatih/vim-go'
 Plugin 'ap/vim-buftabline'
 Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-dispatch'
+Plugin 'deris/vim-shot-f'
+Plugin 'airblade/vim-gitgutter'
 call vundle#end()
 filetype plugin indent on 
 
@@ -174,3 +175,12 @@ hi BufTabLineCurrent ctermfg=3
 hi BufTabLineHidden ctermbg=111111
 hi BufTabLineHidden ctermfg=grey
 hi LineNr ctermfg=black
+hi CursorLineNr term=standout ctermfg=8
+
+" GitGutter
+hi clear SignColumn
+hi GitGutterAdd ctermfg=green
+hi GitGutterDelete ctermfg=red
+hi GitGutterChange ctermfg=blue
+nmap <Leader>g <Plug>GitGutterNextHunk
+nmap <Leader>G <Plug>GitGutterPrevHunk
