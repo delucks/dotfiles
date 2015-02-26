@@ -53,7 +53,7 @@
     # right side of the screen.  Y is measured from the top and down respectevly.
     # The width can be negative. In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "200x32+200+200"
+    geometry = "200x32-100+50"
 
     # The transparency of the window. range: [0; 100]
     # This option will only work if a compositing windowmanager is present (e.g. xcompmgr, compiz, etc..)
@@ -119,7 +119,7 @@
 
 [frame]
     width = 4
-    color = "#8b3e2f"
+    color = "#aaaaaa"
 
 [shortcuts]
     # shortcuts are specified as [modifier+][modifier+]...key
@@ -145,12 +145,12 @@
     # Otherwise the '#' and following  would be interpreted as a comment.
     background = "#1b1b1b"
     foreground = "#bbbbbb"
-    timeout = 10
+    timeout = 3
 
 [urgency_normal]
     background = "#1b1b1b"
     foreground = "#bbbbbb"
-    timeout = 10
+    timeout = 3
 
 [urgency_critical]
     background = "#1b1b1b"
