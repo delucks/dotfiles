@@ -102,10 +102,12 @@ git-remove:
 
 misc-install:
 	ln -s ${DOT}/.irssi ~/.irssi
+	cp -r ${DOT}/.weechat ~/.weechat
 	ln -s ${DOT}/.gdbinit ~/.gdbinit
 
 misc-remove:
 	-@rm -f ~/.irssi
+	-@rm -f ~/.weechat
 	-@rm -f ~/.gdbinit
 
 # TODO:

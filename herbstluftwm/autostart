@@ -22,8 +22,8 @@ hc keyunbind --all
 # Variables
 
 source ~/.colors #get colors from xres
-mod=Mod1
-mod4=Mod4
+mod=Mod4
+mod4=Mod1
 
 #-------------------------------------------------------#
 # Tags
@@ -58,6 +58,7 @@ hc keybind $mod-Shift-Escape quit
 hc keybind $mod-Escape reload
 hc keybind $mod-Shift-r close
 hc keybind $mod-semicolon spawn ~/scripts/dmenu_ranger
+hc keybind $mod-n spawn ~/scripts/current
 hc keybind $mod-Menu spawn ~/scripts/getwindow
 
 # Basics
@@ -107,10 +108,10 @@ hc keybind $mod-t spawn urxvt
 hc keybind $mod-F1 spawn ~/scripts/dmenu_man
 hc keybind $mod-F2 spawn ~/scripts/dmenu_run_enhanced
 hc keybind $mod-F3 spawn ~/scripts/dmenu_ssh
-hc keybind $mod-F4 spawn ~/scripts/dmenu_nmcli
-hc keybind $mod-F5 spawn ~/scripts/rscontrol -i
-hc keybind $mod-F6 spawn ~/scripts/chromeos-brightness.sh down
-hc keybind $mod-F7 spawn ~/scripts/chromeos-brightness.sh up
+#hc keybind $mod-F4 spawn ~/scripts/
+#hc keybind $mod-F5 spawn ~/scripts/
+#hc keybind $mod-F6 spawn ~/scripts/
+#hc keybind $mod-F7 spawn ~/scripts/
 #hc keybind $mod-F8 
 #hc keybind $mod-F9
 hc keybind $mod-F10 spawn amixer set Speaker toggle
@@ -126,7 +127,7 @@ hc keybind $mod-Right spawn ~/scripts/dmenu_mpc_selectPlaylist
 hc keybind XF86KbdBrightnessUp spawn asus-kbd-backlight up
 hc keybind XF86KbdBrightnessDown spawn asus-kbd-backlight down
 hc keybind XF86TouchpadToggle spawn ~/scripts/touchpadtoggle
-hc keybind XF86WebCam spawn byzanz-record --delay=3 -d 15 $HOME/recording.gif
+hc keybind XF86WebCam spawn byzanz-record --delay=3 -d 15 /home/jamie/recording.gif
 hc keybind XF86AudioRaiseVolume spawn ~/scripts/dvol -i 5
 hc keybind XF86AudioLowerVolume spawn ~/scripts/dvol -d 5
 hc keybind XF86AudioMute spawn ~/scripts/dvol -t
@@ -136,7 +137,7 @@ hc keybind XF86AudioPrev spawn ~/scripts/spotifyctrl.sh prev
 hc keybind XF86AudioStop spawn ~/scripts/spotifyctrl.sh stop
 hc keybind XF86Calculator spawn ~/scripts/dmenu_calc
 hc keybind XF86Launch1 spawn mplayer tv://
-hc keybind $mod-Shift-Space spawn ~/scripts/block
+hc keybind XF86Launch6 spawn ~/scripts/block
 
 #-------------------------------------------------------#
 # Mousebinds
@@ -265,7 +266,7 @@ hc attr settings.frame_bg_transparent 1
 #-------------------------------------------------------#
 # settings
 
-hc attr settings.frame_padding 15
+hc attr settings.frame_padding 8
 hc attr settings.snap_gap 10
 hc attr settings.snap_distance 30
 hc attr settings.always_show_frame 0

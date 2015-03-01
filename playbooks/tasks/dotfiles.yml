@@ -13,6 +13,10 @@
   file: path=~/.config/dunst state=directory
 - name: create herbstluftwm directory
   file: path=~/.config/herbstluftwm state=directory
+- name: create weechat directory
+  file: path=~/.weechat state=directory
+- name: copy weechat config
+  copy: src=~/dotfiles/.weechat/ dest=~/.weechat
 - name: copy dunstrc
   copy: src=~/dotfiles/dunstrc dest=~/.config/dunst/
 - name: copy ranger config
