@@ -157,3 +157,7 @@ say() {
 	fi;
 	mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ;
 }
+
+if [ -f ~/dev/z/z.sh ]; then
+	source ~/dev/z/z.sh
+fi

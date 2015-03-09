@@ -31,7 +31,7 @@ set tabstop=2
 
 " Theming
 syntax on
-colorscheme ekvoli
+colorscheme delucks
 if !has('gui_running')
 	set t_Co=256
 endif
@@ -94,9 +94,9 @@ nnoremap n nzz
 nnoremap <F1> <nop>
 
 " Buffer Manipulation
-nnoremap <silent> <Leader>b :bn<CR>
+nnoremap <silent> <Leader>w :bn<CR>
 nnoremap <silent> <Tab> :bn<CR>
-nnoremap <silent> <Leader>w :bp<CR>
+nnoremap <silent> <Leader>b :bp<CR>
 nnoremap <silent> <Leader><Up> :sp<CR>
 nnoremap <silent> <Leader><Down> :sp<CR>
 nnoremap <silent> <Leader><Left> :vsp<CR>
@@ -111,8 +111,8 @@ nmap <Leader>= <C-w><C-=>
 " CtrlP options
 let g:ctrlp_map = '<Leader>a'
 let g:ctrlp_cmd = 'CtrlP'
-nnoremap <silent> <Leader>q :CtrlPBuffer<CR>
-nnoremap <silent> <Leader>a :CtrlP<CR>
+nnoremap <silent> <Leader>a :CtrlPBuffer<CR>
+nnoremap <silent> <Leader>q :CtrlP<CR>
 
 " Ranger integration
 command! -bar RangerChooser call RangeChooser()

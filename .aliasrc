@@ -74,6 +74,7 @@ alias mkdir='mkdir -p'
 alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
 alias serve='python2 -m SimpleHTTPServer'
 alias flvjoin='mencoder -forceidx -of lavf -oac pcm -ovc copy -o output.flv '
+alias apropy="pydoc2 -k $1 2>/dev/null"
 
 # network addresses
 alias cal="chromium 'https://www.google.com/calendar/render'"
@@ -96,6 +97,29 @@ note() {
 		echo "Note from $(date)" >> "$FILE"
 		vim "$FILE"
 	fi
+}
+
+ccd() {
+	if [ $# -lt 2 ];
+	then
+		echo "Use: ccd {file} {dir}"
+		return 1
+	fi
+	FILE="$1"
+	if [ ! -f "$FILE" ];
+	then
+		echo "File not found"
+		return 1
+	fi
+	DIR="$2"
+	if [ ! -d "$DIR" ];
+	then
+		echo "Dir not found"
+		return 1
+	fi
+	cp -r "$FILE" "$DIR"
+	cd "$DIR"
+	pwd
 }
 
 source ~/.privatealiasrc

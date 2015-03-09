@@ -78,8 +78,7 @@ hi Constant			guifg=#87c6f0 gui=italic
 hi Special			guifg=#50a0e0 gui=bold
 hi Identifier	 	guifg=#7fe9ff 
 hi Statement	  	guifg=white gui=bold
-hi PreProc	 		guifg=#3f8fff gui=none
-
+hi PreProc	 		guifg=#3f8fff gui=none 
 hi type		 		guifg=#90bfd0 gui=none 
 hi Ignore			guifg=bg 
 hi Underlined		gui=underline cterm=underline term=underline
