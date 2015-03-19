@@ -50,6 +50,8 @@ alias hmods="hkeys | grep mod | sed 's/\$mod\-//g' | sort"
 alias currtag="herbstclient tag_status | sed -e 's/[:|\.][a-zA-Z]//g' -e 's/[\t\ #]//g'"
 
 # misc
+alias s='ssh'
+alias wvud='mplayer http://128.175.76.123:8000/WVUD-FM123.mp3'
 alias cdiff='dwdiff --no-common -c'
 alias big="echo $1 | figlet"
 alias vc='vim -c ":RangerChooser"'

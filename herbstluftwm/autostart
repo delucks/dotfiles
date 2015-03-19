@@ -57,7 +57,6 @@ done
 hc keybind $mod-Shift-Escape quit
 hc keybind $mod-Escape reload
 hc keybind $mod-Shift-r close
-hc keybind $mod-semicolon spawn ~/scripts/dmenu_ranger
 hc keybind $mod-n spawn ~/scripts/current
 hc keybind $mod-Menu spawn ~/scripts/getwindow
 
@@ -103,6 +102,12 @@ hc keybind $mod-Shift-Tab   cycle_all -1
 
 # Program launchers
 hc keybind $mod-t spawn urxvt
+hc keybind $mod4-t spawn urxvt -e bash -c "ssh cluster"
+hc keybind $mod4-b spawn urxvt -e bash -c "ssh binken"
+hc keybind $mod-comma spawn ~/scripts/dmenu_ssh
+hc keybind $mod-period spawn ~/scripts/dmenu_run_enhanced
+hc keybind $mod-slash spawn ~/scripts/dmenu_ranger
+hc keybind $mod-semicolon spawn ~/scripts/dmenu_ranger
 
 # Mod+Fx
 hc keybind $mod-F1 spawn ~/scripts/dmenu_man
@@ -118,10 +123,10 @@ hc keybind $mod-F10 spawn amixer set Speaker toggle
 #hc keybind $mod-F11
 #hc keybind $mod-F12
 #hc keybind $mod-Enter spawn 
-hc keybind $mod-Up spawn ~/scripts/dmenu_mpc_selectPlaylist
-hc keybind $mod-Down spawn ~/scripts/dmenu_mpc_selectPlaylist
-hc keybind $mod-Left spawn ~/scripts/dmenu_mpc_selectPlaylist
-hc keybind $mod-Right spawn ~/scripts/dmenu_mpc_selectPlaylist
+#hc keybind $mod-Up spawn ~/scripts/dmenu_mpc_selectPlaylist
+#hc keybind $mod-Down spawn ~/scripts/dmenu_mpc_selectPlaylist
+#hc keybind $mod-Left spawn ~/scripts/dmenu_mpc_selectPlaylist
+#hc keybind $mod-Right spawn ~/scripts/dmenu_mpc_selectPlaylist
 
 # Special Keys
 hc keybind XF86KbdBrightnessUp spawn asus-kbd-backlight up
@@ -266,7 +271,7 @@ hc attr settings.frame_bg_transparent 1
 #-------------------------------------------------------#
 # settings
 
-hc attr settings.frame_padding 8
+hc attr settings.frame_padding 15
 hc attr settings.snap_gap 10
 hc attr settings.snap_distance 30
 hc attr settings.always_show_frame 0

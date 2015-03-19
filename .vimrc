@@ -95,6 +95,7 @@ nnoremap <F1> <nop>
 
 " Buffer Manipulation
 nnoremap <silent> <Leader>w :bn<CR>
+nnoremap <silent> <Leader>c :bd<CR>
 nnoremap <silent> <Tab> :bn<CR>
 nnoremap <silent> <Leader>b :bp<CR>
 nnoremap <silent> <Leader><Up> :sp<CR>
@@ -113,6 +114,13 @@ let g:ctrlp_map = '<Leader>a'
 let g:ctrlp_cmd = 'CtrlP'
 nnoremap <silent> <Leader>a :CtrlPBuffer<CR>
 nnoremap <silent> <Leader>q :CtrlP<CR>
+let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+	\ --ignore .git
+	\ --ignore .svn
+	\ --ignore .hg
+	\ --ignore .swp
+	\ --ignore "**/*.pyc"
+	\ -g ""'
 
 " Ranger integration
 command! -bar RangerChooser call RangeChooser()
@@ -163,6 +171,8 @@ autocmd BufRead *i3*
 autocmd BufRead /home/jamie/.Xresources
 	\ map <C-c> :call CommentLineToEnd ('!')<CR> |
 	\ map <F9> :!xrdb -merge ~/.Xresources <CR>
+autocmd BufRead /home/jamie/notes/*
+	\ set nowrap
 
 "-------
 " Colors
