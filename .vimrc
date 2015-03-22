@@ -27,7 +27,6 @@ let g:netrw_liststyle=3
 
 " Tab Width
 set shiftwidth=2
-set tabstop=2
 
 " Theming
 syntax on
@@ -47,6 +46,7 @@ Plugin 'ap/vim-buftabline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'deris/vim-shot-f'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'vim-scripts/pep8'
 call vundle#end()
 filetype plugin indent on 
 
@@ -98,11 +98,6 @@ nnoremap <silent> <Leader>w :bn<CR>
 nnoremap <silent> <Leader>c :bd<CR>
 nnoremap <silent> <Tab> :bn<CR>
 nnoremap <silent> <Leader>b :bp<CR>
-nnoremap <silent> <Leader><Up> :sp<CR>
-nnoremap <silent> <Leader><Down> :sp<CR>
-nnoremap <silent> <Leader><Left> :vsp<CR>
-nnoremap <silent> <Leader><Right> :vsp<CR>
-nnoremap <silent> <Leader><h> :!markdown_py2 % > /tmp/html && chromium /tmp/html
 nmap <Leader><S-h> :winc H<CR>
 nmap <Leader><S-j> :winc J<CR>
 nmap <Leader><S-k> :winc K<CR>
@@ -127,6 +122,8 @@ command! -bar RangerChooser call RangeChooser()
 nnoremap <leader>r :<C-U>RangerChooser<CR>
 
 " Misc
+let g:pep8_map='<Leader>8'
+nnoremap <silent> <Leader><h> :!markdown_py2 % > /tmp/html && chromium /tmp/html
 nnoremap <silent> <Leader>e :Explore<CR>
 cmap w!! %!sudo tee > /dev/null %
 nmap <F6> :r!xclip -o <CR>
@@ -149,6 +146,7 @@ autocmd FileType cpp
 autocmd FileType python
   \ setlocal shiftwidth=4 |
   \ setlocal tabstop=4 |
+	\ setlocal expandtab |
   \ map <C-c> :call CommentLineToEnd ('# ')<CR> |
 	\ map <F9> :!python2 "%:p" <CR>
 autocmd FileType sh 
