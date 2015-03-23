@@ -103,7 +103,7 @@ hc keybind $mod-Shift-Tab   cycle_all -1
 # Program launchers
 hc keybind $mod-t spawn urxvt
 hc keybind $mod4-t spawn urxvt -e bash -c "ssh cluster"
-hc keybind $mod4-b spawn urxvt -e bash -c "ssh binken"
+hc keybind $mod4-b spawn urxvt -e bash -c "ssh blinken"
 hc keybind $mod-comma spawn ~/scripts/dmenu_ssh
 hc keybind $mod-period spawn ~/scripts/dmenu_run_enhanced
 hc keybind $mod-slash spawn ~/scripts/dmenu_ranger

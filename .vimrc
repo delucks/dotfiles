@@ -27,6 +27,8 @@ let g:netrw_liststyle=3
 
 " Tab Width
 set shiftwidth=2
+set tabstop=2
+set expandtab
 
 " Theming
 syntax on
@@ -35,20 +37,36 @@ if !has('gui_running')
 	set t_Co=256
 endif
 
-"-------
-" Vundle
+"---------
+" Keybinds
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-Plugin 'fatih/vim-go'
-Plugin 'ap/vim-buftabline'
-Plugin 'kien/ctrlp.vim'
-Plugin 'deris/vim-shot-f'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'vim-scripts/pep8'
-call vundle#end()
-filetype plugin indent on 
+" Enhancements
+nmap j gj
+nmap k gk
+nnoremap <Space> :
+nnoremap } }zz
+nnoremap n nzz
+nnoremap <F1> <nop>
+cmap w!! %!sudo tee > /dev/null %
+nnoremap <silent> <Leader>e :Explore<CR>
+nmap <silent> <Leader>m :source ~/.vimrc<CR>
+
+" Buffer Manipulation
+nnoremap <silent> <Leader>w :bn<CR>
+nnoremap <silent> <Leader>c :bd<CR>
+nnoremap <silent> <Tab> :bn<CR>
+nnoremap <silent> <Leader>b :bp<CR>
+nmap <Leader><S-h> :winc H<CR>
+nmap <Leader><S-j> :winc J<CR>
+nmap <Leader><S-k> :winc K<CR>
+nmap <Leader><S-l> :winc L<CR>
+nmap <Leader>= <C-w><C-=>
+
+"-------
+" Macros
+
+" Transform ~/.Xresources style colors into exported variables
+let @x = '0xiexport l5~f:df#i="#A"j'
 
 "----------
 " Functions
@@ -77,32 +95,21 @@ function! RangeChooser()
 endfunction
 
 "-------
-" Macros
+" Vundle
 
-" Transform ~/.Xresources style colors into exported variables
-let @x = '0xiexport l5~f:df#i="#A"j'
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'fatih/vim-go'
+Plugin 'ap/vim-buftabline'
+Plugin 'kien/ctrlp.vim'
+Plugin 'deris/vim-shot-f'
+Plugin 'airblade/vim-gitgutter'
+call vundle#end()
+filetype plugin indent on 
 
-"---------
-" Keybinds
-
-" Default enhancements
-nmap j gj
-nmap k gk
-nnoremap <Space> :
-nnoremap } }zz
-nnoremap n nzz
-nnoremap <F1> <nop>
-
-" Buffer Manipulation
-nnoremap <silent> <Leader>w :bn<CR>
-nnoremap <silent> <Leader>c :bd<CR>
-nnoremap <silent> <Tab> :bn<CR>
-nnoremap <silent> <Leader>b :bp<CR>
-nmap <Leader><S-h> :winc H<CR>
-nmap <Leader><S-j> :winc J<CR>
-nmap <Leader><S-k> :winc K<CR>
-nmap <Leader><S-l> :winc L<CR>
-nmap <Leader>= <C-w><C-=>
+"--------
+" Plugins
 
 " CtrlP options
 let g:ctrlp_map = '<Leader>a'
@@ -121,11 +128,18 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
 command! -bar RangerChooser call RangeChooser()
 nnoremap <leader>r :<C-U>RangerChooser<CR>
 
+" Buftabline
+let g:buftabline_show=1
+let g:buftabline_numbers=0
+let g:buftabline_separators=0
+
+" GitGutter
+nmap <Leader>g <Plug>GitGutterNextHunk
+nmap <Leader>G <Plug>GitGutterPrevHunk
+
 " Misc
 let g:pep8_map='<Leader>8'
-nnoremap <silent> <Leader><h> :!markdown_py2 % > /tmp/html && chromium /tmp/html
-nnoremap <silent> <Leader>e :Explore<CR>
-cmap w!! %!sudo tee > /dev/null %
+nnoremap <silent> <Leader>h :!markdown_py2 % > /tmp/html && chromium /tmp/html
 nmap <F6> :r!xclip -o <CR>
 vmap <F6> :!xclip -f -sel clip<CR>
 
@@ -171,24 +185,3 @@ autocmd BufRead /home/jamie/.Xresources
 	\ map <F9> :!xrdb -merge ~/.Xresources <CR>
 autocmd BufRead /home/jamie/notes/*
 	\ set nowrap
-
-"-------
-" Colors
-
-let g:buftabline_show=1
-let g:buftabline_numbers=0
-let g:buftabline_separators=0
-hi BufTabLineFill ctermbg=111111
-hi BufTabLineCurrent ctermfg=3
-hi BufTabLineHidden ctermbg=111111
-hi BufTabLineHidden ctermfg=grey
-hi LineNr ctermfg=black
-hi CursorLineNr term=standout ctermfg=8
-
-" GitGutter
-hi clear SignColumn
-hi GitGutterAdd ctermfg=green
-hi GitGutterDelete ctermfg=red
-hi GitGutterChange ctermfg=blue
-nmap <Leader>g <Plug>GitGutterNextHunk
-nmap <Leader>G <Plug>GitGutterPrevHunk
