@@ -112,7 +112,7 @@ filetype plugin indent on
 " Plugins
 
 " CtrlP options
-let g:ctrlp_map = '<Leader>a'
+let g:ctrlp_map = '<Leader>q'
 let g:ctrlp_cmd = 'CtrlP'
 nnoremap <silent> <Leader>a :CtrlPBuffer<CR>
 nnoremap <silent> <Leader>q :CtrlP<CR>
