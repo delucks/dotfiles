@@ -142,6 +142,17 @@ let g:pep8_map='<Leader>8'
 nnoremap <silent> <Leader>h :!markdown_py2 % > /tmp/html && chromium /tmp/html
 nmap <F6> :r!xclip -o <CR>
 vmap <F6> :!xclip -f -sel clip<CR>
+nnoremap <leader>v :e ~/.vimrc<CR>
+
+" nvim specific commands
+" this is a really ghetto way to check if we're in nvim
+if filereadable("/usr/share/nvim/runtime/doc/nvim_intro.txt")
+  function! SplitTerm()
+    :vsp
+    :term
+  endfunction
+  nnoremap <leader>t :call SplitTerm()<CR>
+endif
 
 "-------------
 " Autocommands
