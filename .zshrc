@@ -134,7 +134,9 @@ function wiki {
 b() {
 	if [ $# -eq 0 ]; then
 		cat /sys/class/backlight/intel_backlight/brightness
-	else
+  elif [[ "$1" -eq "max" ]]; then
+    echo "$(cat /sys/class/backlight/intel_backlight/max_brightness)" | sudo tee -a /sys/class/backlight/intel_backlight/brightness
+  else
 		echo "${1}" | sudo tee -a /sys/class/backlight/intel_backlight/brightness
 	fi
 }

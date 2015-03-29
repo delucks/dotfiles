@@ -47,6 +47,13 @@ alias hkeys="cat ~/.config/herbstluftwm/autostart| egrep '^([\t\ ])?hc keybind' 
 alias hmods="hkeys | grep mod | sed 's/\$mod\-//g' | sort"
 alias currtag="herbstclient tag_status | sed -e 's/[:|\.][a-zA-Z]//g' -e 's/[\t\ #]//g'"
 
+# docker
+docker-remove() {
+  sudo docker images | grep "$1" | awk '{print $3}' | xargs sudo docker rmi 2>&1 | awk '{print $12}' | uniq | xargs sudo docker rm
+  sudo docker images | grep "$1" | awk '{print $3}' | xargs sudo docker rmi
+}
+alias daddr="sudo docker ps | tail -1 | awk '{print $1}' | xargs sudo docker inspect -f '{{.NetworkSettings}}' "
+
 # misc
 alias s='ssh'
 alias ks='killall spotify'

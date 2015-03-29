@@ -145,13 +145,26 @@ vmap <F6> :!xclip -f -sel clip<CR>
 nnoremap <leader>v :e ~/.vimrc<CR>
 
 " nvim specific commands
-" this is a really ghetto way to check if we're in nvim
-if filereadable("/usr/share/nvim/runtime/doc/nvim_intro.txt")
-  function! SplitTerm()
-    :vsp
+if has('nvim') 
+  function! SplitTerm(direction)
+    if (a:direction == "v")
+      :vsp
+    else
+      :sp
+    endif
     :term
   endfunction
-  nnoremap <leader>t :call SplitTerm()<CR>
+  function! HTTPServe()
+    :vsp
+    :term python2 -m SimpleHTTPServer
+  endfunction
+  nnoremap <leader>o :call SplitTerm("v")<CR>
+  nnoremap <leader>u :call SplitTerm("h")<CR>
+  nnoremap <leader>p :call HTTPServe()<CR>
+  tnoremap <a-j> <c-\><c-n><c-w>j
+  tnoremap <a-k> <c-\><c-n><c-w>k
+  tnoremap <a-h> <c-\><c-n><c-w>h
+  tnoremap <a-l> <c-\><c-n><c-w>l
 endif
 
 "-------------
