@@ -9,6 +9,7 @@
 
 export EDITOR='vim'
 export PAGER='less'
+export LS_COLORS=
 
 ### ALIASES
 

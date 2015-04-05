@@ -89,6 +89,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 ### exports
 
+export LS_COLORS=
 export EDITOR="vim"
 export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
 export LC_ALL="en_US.UTF-8"
