@@ -55,6 +55,7 @@ docker-remove() {
 alias daddr="sudo docker ps | tail -1 | awk '{print $1}' | xargs sudo docker inspect -f '{{.NetworkSettings}}' "
 
 # misc
+alias lscan="sudo nmap -sn $(ip addr show | grep 'inet ' | grep global | awk '{print $2}') | grep -v -e Host\ is\ up -e done -e Starting"
 alias s='ssh'
 alias ks='killall spotify'
 alias fucking='sudo'
