@@ -139,7 +139,9 @@ nmap <Leader>G <Plug>GitGutterPrevHunk
 
 " Misc
 let g:pep8_map='<Leader>8'
-nnoremap <silent> <Leader>h :!markdown_py2 % > /tmp/html && chromium /tmp/html
+"nnoremap <silent> <Leader>h :!markdown_py2 % > /tmp/html && chromium /tmp/html
+nnoremap <silent> <Leader>h <C-w><C-h>
+nnoremap <silent> <Leader>l <C-w><C-l>
 nmap <F6> :r!xclip -o <CR>
 vmap <F6> :!xclip -f -sel clip<CR>
 nnoremap <leader>v :e ~/.vimrc<CR>
