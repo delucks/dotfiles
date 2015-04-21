@@ -56,6 +56,12 @@ nnoremap <silent> <Leader>w :bn<CR>
 nnoremap <silent> <Leader>c :bd<CR>
 nnoremap <silent> <Tab> :bn<CR>
 nnoremap <silent> <Leader>b :bp<CR>
+
+" Window movement
+nmap <Leader>h <C-w><C-h>
+nmap <Leader>j <C-w><C-j>
+nmap <Leader>k <C-w><C-k>
+nmap <Leader>l <C-w><C-l>
 nmap <Leader><S-h> :winc H<CR>
 nmap <Leader><S-j> :winc J<CR>
 nmap <Leader><S-k> :winc K<CR>
@@ -73,7 +79,9 @@ let @x = '0xiexport l5~f:df#i="#A"j'
 
 function! RangeChooser()
     let temp = tempname()
-    exec 'silent !ranger --choosefiles=' . shellescape(temp)
+    let foo = 'ranger --choosefiles=' . shellescape(temp) . ''
+    vsp
+    call termopen(foo)
     if !filereadable(temp)
         redraw!
         " Nothing to read.
@@ -116,13 +124,16 @@ let g:ctrlp_map = '<Leader>q'
 let g:ctrlp_cmd = 'CtrlP'
 nnoremap <silent> <Leader>a :CtrlPBuffer<CR>
 nnoremap <silent> <Leader>q :CtrlP<CR>
-let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-	\ --ignore .git
-	\ --ignore .svn
-	\ --ignore .hg
-	\ --ignore .swp
-	\ --ignore "**/*.pyc"
-	\ -g ""'
+" Only set it to be ag if it's installed (whew)
+if executable("ag")
+  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+    \ --ignore .git
+    \ --ignore .svn
+    \ --ignore .hg
+    \ --ignore .swp
+    \ --ignore "**/*.pyc"
+    \ -g ""'
+endif
 
 " Ranger integration
 command! -bar RangerChooser call RangeChooser()
@@ -139,7 +150,7 @@ nmap <Leader>G <Plug>GitGutterPrevHunk
 
 " Misc
 let g:pep8_map='<Leader>8'
-nnoremap <silent> <Leader>h :!markdown_py2 % > /tmp/html && chromium /tmp/html
+"nnoremap <silent> <Leader>h :!markdown_py2 % > /tmp/html && chromium /tmp/html
 nmap <F6> :r!xclip -o <CR>
 vmap <F6> :!xclip -f -sel clip<CR>
 nnoremap <leader>v :e ~/.vimrc<CR>
@@ -165,6 +176,7 @@ if has('nvim')
   tnoremap <a-k> <c-\><c-n><c-w>k
   tnoremap <a-h> <c-\><c-n><c-w>h
   tnoremap <a-l> <c-\><c-n><c-w>l
+  nnoremap <a-l> <c-\><c-n><c-w>l
 endif
 
 "-------------
@@ -187,6 +199,7 @@ autocmd FileType python
 	\ setlocal expandtab |
   \ map <C-c> :call CommentLineToEnd ('# ')<CR> |
 	\ map <F9> :!python2 "%:p" <CR>
+  \ map K :term pydoc2 %s<CR>
 autocmd FileType sh 
   \ setlocal shiftwidth=2 |
   \ setlocal tabstop=2 |
@@ -209,3 +222,5 @@ autocmd BufRead /home/jamie/.Xresources
 	\ map <F9> :!xrdb -merge ~/.Xresources <CR>
 autocmd BufRead /home/jamie/notes/*
 	\ set nowrap
+autocmd BufRead /home/jamie/.ssh/config
+  \ set foldmethod=indent
