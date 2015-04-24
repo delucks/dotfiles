@@ -134,4 +134,15 @@ ccd() {
 	pwd
 }
 
+regp() {
+  if [ $# -lt 1 ];
+  then
+    echo "Use: regp {regex to apply}"
+    return 1
+  fi
+  PREVCMD=$(fc -ln -1)
+  REG=$1
+  eval $(echo "$PREVCMD" | sed "s/$REG/g")
+}
+
 source ~/.privatealiasrc

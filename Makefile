@@ -61,6 +61,7 @@ shell-install:
 	ln -s ${DOT}/.bashrc ~/.bashrc
 	ln -s ${DOT}/.zshrc ~/.zshrc
 	ln -s ${DOT}/.tmux.conf ~/.tmux.conf
+	mkdir -p ~/.config
 	cp -r ${DOT}/ranger ~/.config/ranger
 
 shell-remove:
