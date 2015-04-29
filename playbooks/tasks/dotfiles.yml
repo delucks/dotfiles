@@ -34,6 +34,7 @@
     - .bashrc
     - .compton.conf
     - .dmenurc
+    - .gdbinit
     - .gitconfig
     - .i3
     - .irssi
@@ -42,6 +43,7 @@
     - .tmux.conf
     - .vim
     - .vimrc
+    - .weechat
     - .xinitrc
     - .xmobarrc
     - .Xmodmap
