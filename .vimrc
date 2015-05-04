@@ -24,6 +24,7 @@ set suffixes=.bak,~,.swp,.o,.out,.jpg,.png,.gif
 set linebreak
 set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,eol:→
 let g:netrw_liststyle=3
+let g:netrw_browser_viewer= "chromium"
 
 " Tab Width
 set shiftwidth=2
