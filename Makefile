@@ -1,20 +1,17 @@
 # much more maintainable than a shell script, right?
 # originally by delucks 11/24/2014
+# updated 05/04/2015
 
 DOT=`pwd`
 
 all: vim-install \
-	media-install \
 	shell-install \
-	xorg-install \
 	git-install \
 	env-install \
 	misc-install
 
 remove-all: vim-remove \
-	media-remove \
 	shell-remove \
-	xorg-remove \
 	git-remove \
 	env-remove \
 	misc-remove
@@ -33,7 +30,6 @@ dev-remove: vim-remove \
 
 env-install:
 	git clone https://github.com/delucks/scripts ~/scripts
-	git clone https://github.com/delucks/colorman ~/colorman
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh-syntax-highlighting
 
 env-remove:
@@ -43,6 +39,7 @@ env-remove:
 vim-install:
 	ln -s ${DOT}/.vim ~/.vim
 	ln -s ${DOT}/.vimrc ~/.vimrc
+	git clone https://github.com/gmarik/Vundle.vim ~/.vim/bundle/Vundle.vim
 
 vim-remove:
 	-@rm -f ~/.vim
@@ -61,6 +58,7 @@ shell-install:
 	ln -s ${DOT}/.bashrc ~/.bashrc
 	ln -s ${DOT}/.zshrc ~/.zshrc
 	ln -s ${DOT}/.tmux.conf ~/.tmux.conf
+	mkdir -p ~/.config
 	cp -r ${DOT}/ranger ~/.config/ranger
 
 shell-remove:
@@ -81,6 +79,7 @@ xorg-install:
 	ln -s ${DOT}/.i3 ~/.i3
 	cp -r ${DOT}/herbstluftwm ~/.config/herbstluftwm
 	cp -r ${DOT}/openbox ~/.config/openbox
+	git clone https://github.com/delucks/colorman ~/colorman
 
 xorg-remove:
 	-@rm -f ~/.compton.conf
@@ -93,6 +92,7 @@ xorg-remove:
 	-@rm -f ~/.i3
 	-@rm -rf ~/.config/herbstluftwm
 	-@rm -rf ~/.config/openbox
+	-@rm -rf ~/colorman
 
 git-install:
 	ln -s ${DOT}/.gitconfig ~/.gitconfig
@@ -109,8 +109,3 @@ misc-remove:
 	-@rm -f ~/.irssi
 	-@rm -f ~/.weechat
 	-@rm -f ~/.gdbinit
-
-# TODO:
-# .profile
-# dwb
-# subtle
