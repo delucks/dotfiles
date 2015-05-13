@@ -9,8 +9,8 @@ setxkbmap -option caps:escape &
 compton &
 dunst &
 
-exec herbstluftwm
-#exec i3
+#exec herbstluftwm
+exec i3
 #exec openbox
 
 #exec subtle

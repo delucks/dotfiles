@@ -271,7 +271,7 @@ hc attr settings.frame_bg_transparent 1
 #-------------------------------------------------------#
 # settings
 
-hc attr settings.frame_padding 15
+hc attr settings.frame_padding 30
 hc attr settings.snap_gap 10
 hc attr settings.snap_distance 30
 hc attr settings.always_show_frame 0

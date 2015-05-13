@@ -1,22 +1,3 @@
-set $color0 #3a3a3a
-set $color1 #8c5b3e
-set $color2 #80764d
-set $color3 #917154
-set $color4 #596875
-set $color5 #6e464b
-set $color6 #495e61
-set $color7 #bcbcaf
-set $color8 #505050
-set $color9 #9f6744
-set $color10 #80785a
-set $color11 #917963
-set $color12 #656d75
-set $color13 #6e5155
-set $color14 #525F61
-set $color15 #c1c4bc
-set $color16 #232323
-set $color17 #a8a8a8
-
 # -----
 # delucks' i3 config file
 #
@@ -38,15 +19,14 @@ font -*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
 # Colors
 
 new_window pixel 5
-#new_window normal
 new_float pixel 5
 hide_edge_borders none
 
-# Class											border		backgr.		text		indicator
-client.focused 							$color16				$color2				$color16			$color0
-client.focused_inactive			$color16				$color16				$color8			$color0
-client.unfocused						$color16				$color16				$color8			$color4
-client.urgent 							$color16				$color1				$color1			$color1
+for_window [class="^.*"] border pixel 5
+gaps outer 10
+gaps inner 30
+smart_gaps on
+smart_borders on
 
 # -----
 # Client-specific rules
@@ -82,16 +62,16 @@ bindsym XF86WebCam exec "scrot -q 100 '%Y-%m-%d_%H-%M-%S_$wx$h.png' -e 'mv $f ~/
 bindsym XF86AudioRaiseVolume exec ~/scripts/dvol -i 5
 bindsym XF86AudioLowerVolume exec ~/scripts/dvol -d 5
 bindsym XF86AudioMute exec ~/scripts/dvol -t
-bindsym XF86AudioPlay exec mpc toggle
-bindsym XF86AudioNext exec mpc next
-bindsym XF86AudioPrev exec mpc prev
-bindsym XF86AudioStop exec mpc stop
+bindsym XF86AudioPlay exec ~/scripts/spotifyctrl.sh toggle
+bindsym XF86AudioNext exec ~/scripts/spotifyctrl.sh next
+bindsym XF86AudioPrev exec ~/scripts/spotifyctrl.sh prev
+bindsym XF86AudioStop exec ~/scripts/spotifyctrl.sh toggle
 bindsym XF86Calculator exec ~/scripts/dmenu_calc
 bindsym XF86Launch1 exec mplayer tv://
 
 # Program and Menu Launchers
 bindsym $mod+t exec urxvt
-bindsym $mod4+Shift+t exec urxvt -e bash
+bindsym $mod4+t exec urxvt -e bash
 
 # All muh Alt+Fn Menus
 bindsym $mod+F1 exec ~/scripts/dmenu_man
@@ -164,8 +144,8 @@ bindsym $mod+Shift+g move container to workspace 5:g
 #bindsym $mod+f exec i3-input -F 'workspace %s' -l 1 -P 'Jump to workspace: '
 #bindsym XF86Launch2 exec i3-input -F 'workspace %s' -l 1 -P 'Jump to workspace: ' 
 
-bindsym $mod+minus scratchpad show
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+comma scratchpad show
+bindsym $mod+Shift+comma move scratchpad
 
 mode "game" {
 	bindsym $mod+Shift+grave mode "default"
@@ -191,11 +171,11 @@ mode "resize" {
 # General
 
 # Reload the configuration file
-#bindsym $mod+Shift+r reload
+#bindsym $mod+Escape reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Escape restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+Escape exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # -----
 # i3bar
@@ -232,3 +212,31 @@ workspace_auto_back_and_forth no
 # Program Execution
 exec compton &
 exec sh ~/.fehbg &
+
+# -----
+# Real colors
+
+set $color0 #333333
+set $color1 #8b3e2f
+set $color10 #7b8748
+set $color11 #eee685
+set $color12 #6095c5
+set $color13 #9f79ee
+set $color14 #a9cdcd
+set $color15 #e8e9ca
+set $color16 #222222
+set $color17 #e8e9ca
+set $color2 #526f33
+set $color3 #af865a
+set $color4 #535C5C
+set $color5 #775759
+set $color6 #42717B
+set $color7 #aaaaaa
+set $color8 #4c4c4c
+set $color9 #d75f00
+
+# Class											border		backgr.		text		indicator
+client.focused 							$color16				$color3				$color16			$color0
+client.focused_inactive			$color16				$color16				$color8			$color0
+client.unfocused						$color16				$color16				$color8			$color4
+client.urgent 							$color16				$color1				$color1			$color1
