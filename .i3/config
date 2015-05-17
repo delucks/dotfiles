@@ -25,8 +25,6 @@ hide_edge_borders none
 for_window [class="^.*"] border pixel 5
 gaps outer 10
 gaps inner 30
-smart_gaps on
-smart_borders on
 
 # -----
 # Client-specific rules
@@ -67,28 +65,28 @@ bindsym XF86AudioNext exec ~/scripts/spotifyctrl.sh next
 bindsym XF86AudioPrev exec ~/scripts/spotifyctrl.sh prev
 bindsym XF86AudioStop exec ~/scripts/spotifyctrl.sh toggle
 bindsym XF86Calculator exec ~/scripts/dmenu_calc
-bindsym XF86Launch1 exec mplayer tv://
+bindsym XF86Launch6 exec ~/scripts/block
 
 # Program and Menu Launchers
 bindsym $mod+t exec urxvt
-bindsym $mod4+t exec urxvt -e bash
+bindsym $mod4+t exec urxvt -e bash -c 'ssh cluster'
 
 # All muh Alt+Fn Menus
 bindsym $mod+F1 exec ~/scripts/dmenu_man
 bindsym $mod+F2 exec ~/scripts/dmenu_run_enhanced
-bindsym $mod+F3 exec ~/scripts/dmenu_openwith
-bindsym $mod+F4 exec ~/scripts/dmenu_nmcli
-bindsym $mod+F5 exec ~/scripts/rscontrol -i
-bindsym $mod+F6 exec ~/scripts/rscontrol -d
+bindsym $mod+F3 exec ~/scripts/dmenu_ssh
+#bindsym $mod+F4 exec ~/scripts/
+#bindsym $mod+F5 exec ~/scripts/
+#bindsym $mod+F6 exec ~/scripts/
 #bindsym $mod+F7 exec ~/scripts/
 #bindsym $mod+F8 exec ~/scripts/
 #bindsym $mod+F9 exec ~/scripts/
-bindsym $mod+F10 exec ~/scripts/dmenu_mpc_selectFromPlaylist
-bindsym $mod+F11 exec ~/scripts/dmenu_mpc_selectPlaylist
-bindsym $mod+F12 exec ~/scripts/dmenu_mpc_search
+bindsym $mod+F10 exec amixer set Speaker toggle
+#bindsym $mod+F11 exec ~/scripts/
+#bindsym $mod+F12 exec ~/scripts/
 
 # Kill Client
-bindsym $mod+Shift+q kill
+bindsym $mod+Shift+r kill
 
 # Jump to Previous Window using Marks
 bindsym $mod+Shift+p exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
@@ -148,19 +146,19 @@ bindsym $mod+comma scratchpad show
 bindsym $mod+Shift+comma move scratchpad
 
 mode "game" {
-	bindsym $mod+Shift+grave mode "default"
+  bindsym $mod+Shift+grave mode "default"
 }
 
 # ---
 # Resize Mode
 
 mode "resize" {
-	# Mode Changes
-	bindsym i mode "default"
-	bindsym grave mode "normal"
-	bindsym Escape mode "default"
+  # Mode Changes
+  bindsym i mode "default"
+  bindsym grave mode "normal"
+  bindsym Escape mode "default"
 
-	# Window Changes
+  # Window Changes
   bindsym h resize shrink width 20 px or 10 ppt
   bindsym j resize grow height 20 px or 10 ppt
   bindsym k resize shrink height 20 px or 10 ppt
@@ -181,25 +179,25 @@ bindsym $mod+Shift+Escape exec "i3-nagbar -t warning -m 'You pressed the exit sh
 # i3bar
 
 #bar {
-#	modifier $mod
+#  modifier $mod
 #  status_command i3status --config ~/.i3status.conf
-#	tray_output none # Fuck yo tray!
+#  tray_output none # Fuck yo tray!
 #
-#	mode dock
-#	position top
+#  mode dock
+#  position top
 #
-#	colors {
-#		# These are set to single values
-#		background $bg
-#		statusline $fg
-#		separator $fg
+#  colors {
+#    # These are set to single values
+#    background $bg
+#    statusline $fg
+#    separator $fg
 #
-#		# These are triplets of border, background, text
-#		focused_workspace $fg $bg $fg
-#		active_workspace $wh $cy
-#		inactive_workspace $wh $bg $wh
-#		urgent_workspace $bg $rd
-#	}
+#    # These are triplets of border, background, text
+#    focused_workspace $fg $bg $fg
+#    active_workspace $wh $cy
+#    inactive_workspace $wh $bg $wh
+#    urgent_workspace $bg $rd
+#  }
 #}
 
 # -----
@@ -215,7 +213,24 @@ exec sh ~/.fehbg &
 
 # -----
 # Real colors
-
+#set $background #021b21
+#set $color0 #032c36
+#set $color1 #c2454e
+#set $color10 #a2d9b1
+#set $color11 #beb090
+#set $color12 #61778d
+#set $color13 #ff99a1
+#set $color14 #9ed9d8
+#set $color15 #f6f6c9
+#set $color2 #7cbf9e
+#set $color3 #8a7a63
+#set $color4 #555d71
+#set $color5 #ff5879
+#set $color6 #44b5b1
+#set $color7 #f2f1b9
+#set $color8 #065f73
+#set $color9 #ef5847
+#set $foreground #e8dfd6
 set $color0 #333333
 set $color1 #8b3e2f
 set $color10 #7b8748
@@ -235,8 +250,8 @@ set $color7 #aaaaaa
 set $color8 #4c4c4c
 set $color9 #d75f00
 
-# Class											border		backgr.		text		indicator
-client.focused 							$color16				$color3				$color16			$color0
-client.focused_inactive			$color16				$color16				$color8			$color0
-client.unfocused						$color16				$color16				$color8			$color4
-client.urgent 							$color16				$color1				$color1			$color1
+# Class                      border            backgr.        text        indicator
+client.focused              $background        $color9        $color3     $color0
+client.focused_inactive     $background        $color0        $color3     $color0
+client.unfocused            $background        $color0        $color3     $color4
+client.urgent               $background        $color1        $color3     $color3

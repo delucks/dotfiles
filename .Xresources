@@ -5,9 +5,7 @@
 ! URxvt Configuration
 
 URxvt*background: #111111
-URxvt*foreground: #a8a8a8
-Xterm*background: #111111
-Xterm*foreground: #a8a8a8
+URxvt*foreground: #e8dfd6
 
 URxvt*depth: 0
 URxvt*shading: 100
