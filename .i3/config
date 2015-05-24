@@ -121,22 +121,28 @@ bindsym $mod+space layout toggle split
 #bindsym $mod+d focus child
 
 # Workspaces
-bindsym $mod+w workspace next
-bindsym $mod+Shift+w move container to workspace next
-bindsym $mod+b workspace prev
-bindsym $mod+Shift+b move container to workspace prev
+#bindsym $mod+w workspace next
+#bindsym $mod+Shift+w move container to workspace next
+#bindsym $mod+b workspace prev
+#bindsym $mod+Shift+b move container to workspace prev
 
 bindsym $mod+a workspace 1:a
 bindsym $mod+s workspace 2:s
 bindsym $mod+d workspace 3:d
 bindsym $mod+f workspace 4:f
 bindsym $mod+g workspace 5:g
+bindsym $mod+q workspace 6:q
+bindsym $mod+w workspace 7:w
+bindsym $mod+e workspace 8:e
 
 bindsym $mod+Shift+a move container to workspace 1:a
 bindsym $mod+Shift+s move container to workspace 2:s
 bindsym $mod+Shift+d move container to workspace 3:d
 bindsym $mod+Shift+f move container to workspace 4:f
 bindsym $mod+Shift+g move container to workspace 5:g
+bindsym $mod+Shift+q move container to workspace 6:q
+bindsym $mod+Shift+w move container to workspace 7:w
+bindsym $mod+Shift+e move container to workspace 8:e
 
 #bindsym $mod+g exec i3-input -F 'rename workspace to %s' -l 1 -P 'New name: ' bindsym $mod+Shift+f exec i3-input -F 'move container to workspace %s' -l 1 -P 'Move to workspace: '
 #bindsym $mod+f exec i3-input -F 'workspace %s' -l 1 -P 'Jump to workspace: '
@@ -213,42 +219,24 @@ exec sh ~/.fehbg &
 
 # -----
 # Real colors
-#set $background #021b21
-#set $color0 #032c36
-#set $color1 #c2454e
-#set $color10 #a2d9b1
-#set $color11 #beb090
-#set $color12 #61778d
-#set $color13 #ff99a1
-#set $color14 #9ed9d8
-#set $color15 #f6f6c9
-#set $color2 #7cbf9e
-#set $color3 #8a7a63
-#set $color4 #555d71
-#set $color5 #ff5879
-#set $color6 #44b5b1
-#set $color7 #f2f1b9
-#set $color8 #065f73
-#set $color9 #ef5847
-#set $foreground #e8dfd6
+set $background #151515
 set $color0 #333333
-set $color1 #8b3e2f
-set $color10 #7b8748
-set $color11 #eee685
-set $color12 #6095c5
-set $color13 #9f79ee
-set $color14 #a9cdcd
-set $color15 #e8e9ca
-set $color16 #222222
-set $color17 #e8e9ca
-set $color2 #526f33
-set $color3 #af865a
-set $color4 #535C5C
-set $color5 #775759
-set $color6 #42717B
-set $color7 #aaaaaa
-set $color8 #4c4c4c
-set $color9 #d75f00
+set $color1 #E84F4F
+set $color10 #A0CF5D
+set $color11 #F39D21
+set $color12 #4E9FB1
+set $color13 #8542FF
+set $color14 #42717B
+set $color15 #dddddd
+set $color2 #B8D68C
+set $color3 #E1AA5D
+set $color4 #7DC1CF
+set $color5 #9B64FB
+set $color6 #6D878D
+set $color7 #dddddd
+set $color8 #404040
+set $color9 #D23D3D
+set $foreground #D7D0C7
 
 # Class                      border            backgr.        text        indicator
 client.focused              $background        $color9        $color3     $color0

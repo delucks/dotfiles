@@ -18,11 +18,14 @@ set lazyredraw
 set autowrite
 set splitbelow
 set splitright
-set shortmess=a
+set shortmess+=aI
 set backspace=indent,eol,start
 set suffixes=.bak,~,.swp,.o,.out,.jpg,.png,.gif
 set linebreak
 set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,eol:→
+set noswapfile
+set virtualedit=all
+set wildmode=longest,list
 let g:netrw_liststyle=3
 let g:netrw_browser_viewer= "chromium"
 
@@ -48,6 +51,7 @@ nnoremap <Space> :
 nnoremap } }zz
 nnoremap n nzz
 nnoremap <F1> <nop>
+nnoremap Q <nop>
 cmap w!! %!sudo tee > /dev/null %
 nnoremap <silent> <Leader>e :Explore<CR>
 nmap <silent> <Leader>m :source ~/.vimrc<CR>
@@ -114,6 +118,7 @@ Plugin 'ap/vim-buftabline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'deris/vim-shot-f'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'amoffat/snake'
 call vundle#end()
 filetype plugin indent on 
 
@@ -155,6 +160,7 @@ let g:pep8_map='<Leader>8'
 nmap <F6> :r!xclip -o <CR>
 vmap <F6> :!xclip -f -sel clip<CR>
 nnoremap <leader>v :e ~/.vimrc<CR>
+nnoremap J mzJ`z
 
 " nvim specific commands
 if has('nvim') 
@@ -166,18 +172,11 @@ if has('nvim')
     endif
     :term
   endfunction
-  function! HTTPServe()
-    :vsp
-    :term python2 -m SimpleHTTPServer
-  endfunction
-  nnoremap <leader>o :call SplitTerm("v")<CR>
-  nnoremap <leader>u :call SplitTerm("h")<CR>
-  nnoremap <leader>p :call HTTPServe()<CR>
-  tnoremap <a-j> <c-\><c-n><c-w>j
-  tnoremap <a-k> <c-\><c-n><c-w>k
-  tnoremap <a-h> <c-\><c-n><c-w>h
-  tnoremap <a-l> <c-\><c-n><c-w>l
-  nnoremap <a-l> <c-\><c-n><c-w>l
+  tnoremap <Leader>e <C-\><C-n>
+  tnoremap <Leader>h <C-\><C-n><C-w>h
+  tnoremap <Leader>k <C-\><C-n><C-w>k
+  tnoremap <Leader>j <C-\><C-n><C-w>j
+  tnoremap <Leader>l <C-\><C-n><C-w>l
 endif
 
 "-------------
@@ -222,6 +221,6 @@ autocmd BufRead /home/jamie/.Xresources
 	\ map <C-c> :call CommentLineToEnd ('!')<CR> |
 	\ map <F9> :!xrdb -merge ~/.Xresources <CR>
 autocmd BufRead /home/jamie/notes/*
-	\ set nowrap
+	\ set wrap
 autocmd BufRead /home/jamie/.ssh/config
   \ set foldmethod=indent
