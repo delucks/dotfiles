@@ -24,7 +24,7 @@ set suffixes=.bak,~,.swp,.o,.out,.jpg,.png,.gif
 set linebreak
 set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,eol:→
 set noswapfile
-set virtualedit=all
+set virtualedit=block
 set wildmode=longest,list
 let g:netrw_liststyle=3
 let g:netrw_browser_viewer= "chromium"

@@ -43,8 +43,6 @@ for_window [class="feh"] floating enable
 for_window [class="rdesktop"] floating enable
 for_window [class="violet"] floating enable
 
-for_window [class="feh"] border normal
-
 # -----
 # Keymaps
 
@@ -105,6 +103,10 @@ bindsym $mod+Control+h resize shrink width 20 px or 10 ppt
 bindsym $mod+Control+j resize grow height 20 px or 10 ppt
 bindsym $mod+Control+k resize shrink height 20 px or 10 ppt
 bindsym $mod+Control+l resize grow width 20 px or 10 ppt
+bindsym $mod+Shift+Control+h resize shrink width 10 px or 5 ppt
+bindsym $mod+Shift+Control+j resize grow height 10 px or 5 ppt
+bindsym $mod+Shift+Control+k resize shrink height 10 px or 5 ppt
+bindsym $mod+Shift+Control+l resize grow width 10 px or 5 ppt
 
 bindsym $mod+apostrophe fullscreen
 bindsym $mod+m floating toggle
