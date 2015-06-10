@@ -1,29 +1,25 @@
 # much more maintainable than a shell script, right?
 # originally by delucks 11/24/2014
-# updated 05/04/2015
+# updated 06/09/2015
 
 DOT=`pwd`
 
 all: vim-install \
 	shell-install \
 	git-install \
-	env-install \
-	misc-install
+	env-install
 
 remove-all: vim-remove \
 	shell-remove \
 	git-remove \
-	env-remove \
-	misc-remove
+	env-remove
 
 dev-install: vim-install \
 	env-install \
-	misc-install \
 	git-install \
 	shell-install
 
 dev-remove: vim-remove \
-	misc-remove \
 	git-remove \
 	env-remove \
 	shell-remove
@@ -79,7 +75,6 @@ xorg-install:
 	ln -s ${DOT}/.i3 ~/.i3
 	cp -r ${DOT}/herbstluftwm ~/.config/herbstluftwm
 	cp -r ${DOT}/openbox ~/.config/openbox
-	git clone https://github.com/delucks/colorman ~/colorman
 
 xorg-remove:
 	-@rm -f ~/.compton.conf
@@ -92,7 +87,6 @@ xorg-remove:
 	-@rm -f ~/.i3
 	-@rm -rf ~/.config/herbstluftwm
 	-@rm -rf ~/.config/openbox
-	-@rm -rf ~/colorman
 
 git-install:
 	ln -s ${DOT}/.gitconfig ~/.gitconfig
@@ -104,8 +98,10 @@ misc-install:
 	ln -s ${DOT}/.irssi ~/.irssi
 	cp -r ${DOT}/.weechat ~/.weechat
 	ln -s ${DOT}/.gdbinit ~/.gdbinit
+	git clone https://github.com/delucks/colorman ~/colorman
 
 misc-remove:
 	-@rm -f ~/.irssi
 	-@rm -f ~/.weechat
 	-@rm -f ~/.gdbinit
+	-@rm -rf ~/colorman

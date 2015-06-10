@@ -18,8 +18,7 @@ Setup
 
 You have two options to install these dotfiles, Ansible or a Makefile. I personally prefer
 Ansible (and you should too) because there is great tolerance for failures, and support
-for cloning a ton of git repos that I didn't feel like setting up in the Makefile. If someone
-asks me to, I probably will, but until then meh.
+for other operations than just cloning git repos.
 
 ### Ansible
 
@@ -29,7 +28,7 @@ ansible` usually, but if you can't find it in your repositories, the git repo is
 After installing it, clone my repository to ~/dotfiles (a convention).
 `git clone https://github.com/delucks/dotfiles ~/dotfiles`
 
-Then, cd to ~/dotfiles/playbooks and run `ansible-playbook general.yml`. For more
+Then, cd to ~/dotfiles/playbooks and run `ansible-playbook bootstrap.yml`. For more
 information on what it does, look at the file itself. It's pretty self-explanatory and well commented.
 
 ### make
@@ -37,22 +36,23 @@ information on what it does, look at the file itself. It's pretty self-explanato
 A good option for most would be `make all`, which will attempt to symlink my dotfiles into the right locations.
 To remove, run `make remove-all`. Most of the other options are for my use, but `make dev-install` (`make dev-remove` to uninstall)
 may be of use to people looking to get off the ground with my shell, editor, and IRC configs.
+Be warned that the default `make all` will clone a bunch of my git repos into different places around your $HOME. You'll probably want to read the Makefile before deciding which target you want.
 
 Screenshots
 -----------
 
 ##### zsh prompt
 
-![](http://delucks.blinkenshell.org/prompt.png)
+![](http://cluster.lug.udel.edu/~jluck/zsh.png)
 
 ##### tmux statusline
 
-![](http://delucks.blinkenshell.org/tmux.png)
+![](http://cluster.lug.udel.edu/~jluck/tmux.png)
 
-##### irssi
+##### weechat
 
-![](http://delucks.blinkenshell.org/irssi.png)
+![](http://cluster.lug.udel.edu/~jluck/weechat.png)
 
 ##### vim with some python
 
-![](http://delucks.blinkenshell.org/vim.png)
+![](http://cluster.lug.udel.edu/~jluck/vim.png)
