@@ -1,20 +1,27 @@
-# ~/.xinitrc, Executed by startx
+# ~/.xinitrc
+############
+
+# set x options and colors
+##########################
 
 xrdb -merge .Xresources
 xset +fp /usr/share/fonts/local
 xset fp rehash
 xmodmap ~/.Xmodmap
 setxkbmap -option caps:escape &
+
+# program init
+##############
+
 #sudo asus-kbd-backlight allowusers &
-compton &
+#compton &
+#sxhkd &
 dunst &
 
-#exec herbstluftwm
-exec i3
-#exec openbox
+# WM init
+#########
 
-#exec subtle
-#exec gnome-session
+#exec herbstluftwm
+#exec openbox
 #exec wmaker
-#sxhkd &
-#exec bspwm
+exec i3

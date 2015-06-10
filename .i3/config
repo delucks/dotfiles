@@ -82,6 +82,7 @@ bindsym $mod+F3 exec ~/scripts/dmenu_ssh
 bindsym $mod+F10 exec amixer set Speaker toggle
 #bindsym $mod+F11 exec ~/scripts/
 #bindsym $mod+F12 exec ~/scripts/
+bindsym $mod+n exec ~/scripts/current
 
 # Kill Client
 bindsym $mod+Shift+r kill

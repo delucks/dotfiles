@@ -85,9 +85,9 @@ hi pythonComment    ctermfg=8
 " gitgutter
 
 hi clear SignColumn
-hi GitGutterAdd     ctermfg=green
-hi GitGutterDelete  ctermfg=red
-hi GitGutterChange  ctermfg=blue
+hi GitGutterAdd     ctermfg=2
+hi GitGutterDelete  ctermfg=1
+hi GitGutterChange  ctermfg=13
 
 """"""""""""
 " buftabline
