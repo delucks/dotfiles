@@ -2,7 +2,7 @@
 # Jamie Luck (jluck@udel.edu)
 
 # MPD Settings
-#mpd_music_dir = "~/music/"
+mpd_music_dir = "~/music/"
 
 # Format
 #

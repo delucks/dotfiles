@@ -1,0 +1,20 @@
+---
+- hosts: targets
+  remote_user: root
+  vars:
+    software_list:
+      - zsh
+      - git
+      - tmux
+      - vim
+      - htop
+      - curl
+      - openvas
+      - nmap
+      - hydra
+      - automater
+      - ncftp
+      - wget
+      - zaproxy
+  tasks:
+    - include: tasks/install.yml

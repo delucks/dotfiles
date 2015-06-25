@@ -136,10 +136,10 @@ hc keybind XF86WebCam spawn byzanz-record --delay=3 -d 15 /home/jamie/recording.
 hc keybind XF86AudioRaiseVolume spawn ~/scripts/dvol -i 5
 hc keybind XF86AudioLowerVolume spawn ~/scripts/dvol -d 5
 hc keybind XF86AudioMute spawn ~/scripts/dvol -t
-hc keybind XF86AudioPlay spawn ~/scripts/spotifyctrl.sh toggle
-hc keybind XF86AudioNext spawn ~/scripts/spotifyctrl.sh next
-hc keybind XF86AudioPrev spawn ~/scripts/spotifyctrl.sh prev
-hc keybind XF86AudioStop spawn ~/scripts/spotifyctrl.sh stop
+hc keybind XF86AudioPlay spawn ~/scripts/spotifyctrl.py -t
+hc keybind XF86AudioNext spawn ~/scripts/spotifyctrl.py -n
+hc keybind XF86AudioPrev spawn ~/scripts/spotifyctrl.py -p
+hc keybind XF86AudioStop spawn ~/scripts/spotifyctrl.py -t
 hc keybind XF86Calculator spawn ~/scripts/dmenu_calc
 hc keybind XF86Launch1 spawn mplayer tv://
 hc keybind XF86Launch6 spawn ~/scripts/block
@@ -151,10 +151,6 @@ hc mouseunbind --all
 hc mousebind $mod-Button1 move
 hc mousebind $mod-Shift-Button1 resize
 hc mousebind $mod4-Button1 zoom
-#hc mousebind $mod-Button1 spawn ~/scripts/spotifyctrl.sh toggle
-#hc keybind XF86AudioNext spawn ~/scripts/spotifyctrl.sh next
-#hc keybind XF86AudioPrev spawn ~/scripts/spotifyctrl.sh prev
-#hc keybind XF86AudioStop spawn ~/scripts/spotifyctrl.sh stop
 
 #-------------------------------------------------------#
 # Theming

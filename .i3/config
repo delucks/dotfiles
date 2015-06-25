@@ -58,10 +58,10 @@ bindsym XF86WebCam exec "scrot -q 100 '%Y-%m-%d_%H-%M-%S_$wx$h.png' -e 'mv $f ~/
 bindsym XF86AudioRaiseVolume exec ~/scripts/dvol -i 5
 bindsym XF86AudioLowerVolume exec ~/scripts/dvol -d 5
 bindsym XF86AudioMute exec ~/scripts/dvol -t
-bindsym XF86AudioPlay exec ~/scripts/spotifyctrl.sh toggle
-bindsym XF86AudioNext exec ~/scripts/spotifyctrl.sh next
-bindsym XF86AudioPrev exec ~/scripts/spotifyctrl.sh prev
-bindsym XF86AudioStop exec ~/scripts/spotifyctrl.sh toggle
+bindsym XF86AudioPlay exec ~/scripts/spotifyctrl.py -t
+bindsym XF86AudioNext exec ~/scripts/spotifyctrl.py -n
+bindsym XF86AudioPrev exec ~/scripts/spotifyctrl.py -p
+bindsym XF86AudioStop exec ~/scripts/spotifyctrl.py -t
 bindsym XF86Calculator exec ~/scripts/dmenu_calc
 bindsym XF86Launch6 exec ~/scripts/block
 
