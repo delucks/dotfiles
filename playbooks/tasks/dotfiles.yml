@@ -37,6 +37,7 @@
     - .gdbinit
     - .gitconfig
     - .i3
+    - .i3blocks.conf
     - .irssi
     - .ncmpcpp
     - .redshiftgrc
