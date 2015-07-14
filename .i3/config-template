@@ -1,21 +1,3 @@
-set $color0 #333333
-set $color1 #8b3e2f
-set $color10 #7b8748
-set $color11 #eee685
-set $color12 #6095c5
-set $color13 #9f79ee
-set $color14 #a9cdcd
-set $color15 #e8e9ca
-set $color16 #222222
-set $color17 #e8e9ca
-set $color2 #526f33
-set $color3 #af865a
-set $color4 #535C5C
-set $color5 #775759
-set $color6 #42717B
-set $color7 #aaaaaa
-set $color8 #4c4c4c
-set $color9 #d75f00
 # -----
 # delucks' i3 config file
 #

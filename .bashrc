@@ -10,6 +10,8 @@
 export EDITOR='vim'
 export PAGER='less'
 export LS_COLORS=
+# sorry
+set -o emacs
 
 ### ALIASES
 
