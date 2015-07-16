@@ -2,18 +2,16 @@
 
 #include "/home/jamie/.colorsX"
 
-! URxvt Configuration
-
-URxvt*background: [95]#111111
+! Color Overrides
+URxvt*background: [90]#111111
 URxvt*foreground: #e8dfd6
-!URxvt*background: [90]#f3f3f3
-!URxvt*foreground: #657b83
+XTerm*background: #111111
+XTerm*foreground: #e8dfd6
 
+! URxvt Configuration
 URxvt*.url-launcher: /usr/bin/chromium
 URxvt*depth: 32
-!URxvt*shading: 100
 URxvt*transparent: false
-URxvt*transparency: false
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 *cursorBlink: True
@@ -27,14 +25,11 @@ URxvt*perl-ext-common: default,matcher,clipboard
 
 ! Fonts
 
-URxvt*font:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
-URxvt*boldFont:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
+*font:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
+*boldFont:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
 
 !URxvt*font: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
 !URxvt*boldFont: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
 
 !URxvt*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
 !URxvt*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
-
-XTerm*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
-XTerm*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1

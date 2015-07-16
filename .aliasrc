@@ -92,6 +92,25 @@ alias apropy="pydoc2 -k $1 2>/dev/null"
 alias cal="chromium 'https://www.google.com/calendar/render'"
 
 # functions 
+
+rgrep() {
+	if [ $# -lt 1 ];
+	then
+		echo "Required one argument"
+		return 1
+  fi
+  grep -riI $1 .
+}
+
+rfind() {
+	if [ $# -lt 1 ];
+	then
+		echo "Required one argument"
+		return 1
+  fi
+  find . -name "*$1*"
+}
+
 note() {
 	if [ $# -lt 1 ];
 	then
