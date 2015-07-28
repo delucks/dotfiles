@@ -73,6 +73,7 @@ xorg-install:
 	ln -s ${DOT}/.Xmodmap ~/.Xmodmap
 	ln -s ${DOT}/.Xresources ~/.Xresources
 	ln -s ${DOT}/.i3 ~/.i3
+	ln -s ${DOT}/.i3blocks.conf ~/.i3blocks.conf
 	cp -r ${DOT}/herbstluftwm ~/.config/herbstluftwm
 	cp -r ${DOT}/openbox ~/.config/openbox
 
@@ -85,6 +86,7 @@ xorg-remove:
 	-@rm -f ~/.Xmodmap
 	-@rm -f ~/.Xresources
 	-@rm -f ~/.i3
+	-@rm -f ~/.i3blocks.conf
 	-@rm -rf ~/.config/herbstluftwm
 	-@rm -rf ~/.config/openbox
 

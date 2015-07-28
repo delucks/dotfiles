@@ -199,6 +199,7 @@ autocmd FileType python
 	\ setlocal expandtab |
   \ map <C-c> :call CommentLineToEnd ('# ')<CR> |
 	\ map <F9> :!python2 "%:p" <CR>
+  \ nnoremap <Leader><Space> :s/"/'/g<CR> |
   \ map K :term pydoc2 %s<CR>
 autocmd FileType sh 
   \ setlocal shiftwidth=2 |
