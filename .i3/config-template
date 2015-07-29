@@ -65,9 +65,14 @@ bindsym XF86AudioStop exec ~/scripts/spotifyctrl.py -t
 bindsym XF86Calculator exec ~/scripts/dmenu_calc
 bindsym XF86Launch6 exec ~/scripts/block
 
+bindsym $mod+comma exec ~/scripts/dmenu_ssh
+bindsym $mod+period exec ~/scripts/dmenu_run_enhanced
+bindsym $mod+slash exec ~/scripts/dmenu_ranger
+bindsym $mod+semicolon exec ~/scripts/dmenu_ranger
+
 # Program and Menu Launchers
 bindsym $mod+t exec urxvt
-bindsym $mod4+t exec urxvt -e bash -c 'ssh cluster'
+bindsym $mod4+t exec xterm
 
 # All muh Alt+Fn Menus
 bindsym $mod+F1 exec ~/scripts/dmenu_man
@@ -151,8 +156,8 @@ bindsym $mod+Shift+e move container to workspace 8:e
 #bindsym $mod+f exec i3-input -F 'workspace %s' -l 1 -P 'Jump to workspace: '
 #bindsym XF86Launch2 exec i3-input -F 'workspace %s' -l 1 -P 'Jump to workspace: ' 
 
-bindsym $mod+comma scratchpad show
-bindsym $mod+Shift+comma move scratchpad
+#bindsym $mod+comma scratchpad show
+#bindsym $mod+Shift+comma move scratchpad
 
 mode "game" {
   bindsym $mod+Shift+grave mode "default"

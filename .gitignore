@@ -1,2 +1,4 @@
 .vim/bundle/*
 .vim/.netrwhist
+.i3/config
+*error.log

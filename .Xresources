@@ -31,5 +31,5 @@ URxvt*perl-ext-common: default,matcher,clipboard
 !URxvt*font: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
 !URxvt*boldFont: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
 
-!URxvt*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
-!URxvt*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
+Xterm*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
+Xterm*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1

@@ -48,7 +48,6 @@ endif
 nmap j gj
 nmap k gk
 nnoremap <Space> :
-nnoremap } }zz
 nnoremap n nzz
 nnoremap <F1> <nop>
 nnoremap Q <nop>
@@ -78,15 +77,19 @@ nmap <Leader>= <C-w><C-=>
 
 " Transform ~/.Xresources style colors into exported variables
 let @x = '0xiexport l5~f:df#i="#A"j'
+" Transform hlwm keybinds into i3 keybinds
+let @h = '0c2wbindsymwf wcwexec'
 
 "----------
 " Functions
 
-function! RangeChooser()
+function! RangerChooser()
     let temp = tempname()
-    let foo = 'ranger --choosefiles=' . shellescape(temp) . ''
-    vsp
-    call termopen(foo)
+    if has('nvim') 
+      exec 'terminal ranger --choosefiles=' . shellescape(temp)
+    else
+      exec '!ranger --choosefiles=' . shellescape(temp)
+    endif
     if !filereadable(temp)
         redraw!
         " Nothing to read.
@@ -115,10 +118,11 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'fatih/vim-go'
 Plugin 'ap/vim-buftabline'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'deris/vim-shot-f'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'amoffat/snake'
+Plugin 'junegunn/limelight.vim'
 call vundle#end()
 filetype plugin indent on 
 
@@ -141,9 +145,16 @@ if executable("ag")
     \ -g ""'
 endif
 
+" limelight.vim
+
+nmap <silent> gl :Limelight!!<CR>
+xmap gl <Plug>(Limelight)
+let g:limelight_conceal_ctermfg = 8
+let g:limelight_paragraph_span = 2
+
 " Ranger integration
-command! -bar RangerChooser call RangeChooser()
-nnoremap <leader>r :<C-U>RangerChooser<CR>
+command! -bar RangerChoose :call RangerChooser()
+nnoremap <leader>r :<C-U>RangerChoose<CR>
 
 " Buftabline
 let g:buftabline_show=1

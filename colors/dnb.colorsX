@@ -1,14 +1,10 @@
-! vim: set filetype=xdefaults :
-! gjm scheme
-! *background: rgba:0000/0000/0000/dddd
-
 *cursorColor:   #cee318
 
 *background:    #1c1c1c
 *foreground:    #c5c5c5
 
 ! black
-*color0:        #040404
+*color0:        #333333
 *color8:        #666666
 
 ! red

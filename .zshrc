@@ -87,6 +87,11 @@ compdef _gnu_generic remind
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 #DISABLE_CORRECTION="true"
 
+bindkey -v
+bindkey '^r' history-incremental-search-backward
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+
 ### exports
 
 export LS_COLORS=
