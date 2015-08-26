@@ -6,3 +6,7 @@
 	helper = cache
 [color]
 	ui = true
+[alias]
+  co = checkout
+  pl = pull
+  ps = push

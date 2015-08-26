@@ -54,11 +54,16 @@ docker-remove() {
 }
 alias daddr="sudo docker ps | tail -1 | awk '{print $1}' | xargs sudo docker inspect -f '{{.NetworkSettings}}' "
 
+# networking
+alias router="routel | egrep '^\ +default' | grep -v lo | awk '{print $2}'"
+alias s='ssh'
+alias lscan="sudo nmap -sn $(ip addr show | grep 'inet ' | grep global | awk '{print $2}') | grep -v -e Host\ is\ up -e done -e Starting"
+alias ssh-hosts="grep 'Host\ ' ~/.ssh/config | awk '{print \$NF}'"
+alias prdev="ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' '"
+alias paddr="ip addr show primary dev $(ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' ') | grep inet\ | awk '{print $2}'"
+
 # misc
 alias ts='while read line; do date +"%F %T $line"; done'
-alias lscan="sudo nmap -sn $(ip addr show | grep 'inet ' | grep global | awk '{print $2}') | grep -v -e Host\ is\ up -e done -e Starting"
-alias s='ssh'
-alias ssh-hosts="grep 'Host\ ' ~/.ssh/config | awk '{print \$NF}'"
 alias ks='killall spotify'
 alias fucking='sudo'
 alias die='poweroff'
