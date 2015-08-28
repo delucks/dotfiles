@@ -21,11 +21,18 @@ alias gitc='git commit'
 alias gits='git status'
 
 # ls
-alias ls='ls --color=auto'
-alias l='ls -lh --group-directories-first | ~/scripts/coloredls'
-alias la='ls -aChkopl --group-directories-first --color=auto'
-alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
-alias ll='ls -G'
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  alias ls='ls --color=auto'
+  alias la='ls -aChkopl --group-directories-first --color=auto'
+  alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  alias ls='ls -G'
+  alias la='ls -aChGkopl --group-directories-first'
+  alias lsg='ls -aChGkopl --group-directories-first | grep "$@"'
+else
+  alias la='ls -aChkopl --group-directories-first'
+  alias lsg='ls -aChkopl --group-directories-first | grep "$@"'
+fi
 alias sl='/usr/bin/sl'
 
 # packages
@@ -116,6 +123,16 @@ rfind() {
   fi
   find . -name "*$1*"
 }
+
+vfind() {
+	if [ $# -lt 1 ];
+	then
+		echo "Required one argument"
+		return 1
+  fi
+  vim $(find . -name "*$1*")
+}
+  
 
 note() {
 	if [ $# -lt 1 ];

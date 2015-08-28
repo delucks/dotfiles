@@ -63,7 +63,7 @@ case $(id -u) in
 		PROMPT="%(?:%F{green}root#%F{grey}:%F{grey}%F{red}root?%F{grey})%f%k "
 		;;
 	*)
-		PROMPT="%(?:%F{green}⚡%F{grey}:%F{grey}%F{red}?%F{grey})%f%k "
+		PROMPT="%(?:%F{green};%F{grey}:%F{grey}%F{red}?%F{grey})%f%k "
 		;;
 esac
 source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
