@@ -198,7 +198,7 @@ bar {
   separator_symbol "|"
 
   mode dock
-  position bottom
+  position top
 
   colors {
     # These are set to single values

@@ -130,9 +130,11 @@ vfind() {
 		echo "Required one argument"
 		return 1
   fi
-  vim $(find . -name "*$1*")
+  vim $(find . -type f -name "*$1*")
 }
-  
+
+alias rf='rfind'
+alias vf='vfind'
 
 note() {
 	if [ $# -lt 1 ];
