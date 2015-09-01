@@ -16,9 +16,14 @@ Setup
 
 ![](http://i.imgur.com/e4AFBMI.gif)
 
-You have two options to install these dotfiles, Ansible or a Makefile. I personally prefer
-Ansible (and you should too) because there is great tolerance for failures, and support
-for other operations than just cloning git repos.
+You have two options to install these dotfiles, Ansible or `make`. Personally, I use ansible on all my machines so the ansible solution makes sense. The Makefile is much simpler, though. 
+
+### make
+
+A good option for most would be `make all`, which will attempt to symlink my dotfiles into the right locations.
+To remove, run `make remove-all`. Most of the other options are for my use, but `make dev-install` (`make dev-remove` to uninstall)
+may be of use to people looking to get off the ground with my shell, editor, and IRC configs.
+Be warned that the default `make all` will clone a bunch of my git repos into different places around your $HOME. You'll probably want to read the Makefile before deciding which target you want.
 
 ### Ansible
 
@@ -31,12 +36,6 @@ After installing it, clone my repository to ~/dotfiles (a convention).
 Then, cd to ~/dotfiles/playbooks and run `ansible-playbook bootstrap.yml`. For more
 information on what it does, look at the file itself. It's pretty self-explanatory and well commented.
 
-### make
-
-A good option for most would be `make all`, which will attempt to symlink my dotfiles into the right locations.
-To remove, run `make remove-all`. Most of the other options are for my use, but `make dev-install` (`make dev-remove` to uninstall)
-may be of use to people looking to get off the ground with my shell, editor, and IRC configs.
-Be warned that the default `make all` will clone a bunch of my git repos into different places around your $HOME. You'll probably want to read the Makefile before deciding which target you want.
 
 Screenshots
 -----------

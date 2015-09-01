@@ -194,4 +194,4 @@ regp() {
   eval $(echo "$PREVCMD" | sed "s/$REG/g")
 }
 
-source ~/.privatealiasrc
+source ~/.localaliasrc

@@ -1,6 +1,6 @@
 # much more maintainable than a shell script, right?
 # originally by delucks 11/24/2014
-# updated 06/09/2015
+# updated 08/31/2015
 
 DOT=`pwd`
 
@@ -29,6 +29,7 @@ media-install:
 
 shell-install:
 	ln -s ${DOT}/.aliasrc ~/.aliasrc
+	touch ~/.localaliasrc
 	ln -s ${DOT}/.bashrc ~/.bashrc
 	ln -s ${DOT}/.zshrc ~/.zshrc
 	ln -s ${DOT}/.tmux.conf ~/.tmux.conf
@@ -45,6 +46,8 @@ xorg-install:
 	ln -s ${DOT}/.Xresources ~/.Xresources
 	ln -s ${DOT}/.i3 ~/.i3
 	ln -s ${DOT}/.i3blocks.conf ~/.i3blocks.conf
+	mkdir -p ~/.config
+	ln -s ${DOT}/dunstrc ~/.config/dunstrc
 	cp -r ${DOT}/herbstluftwm ~/.config/herbstluftwm
 	cp -r ${DOT}/openbox ~/.config/openbox
 
