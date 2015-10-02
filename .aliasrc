@@ -194,4 +194,22 @@ regp() {
   eval $(echo "$PREVCMD" | sed "s/$REG/g")
 }
 
+silent() {
+  if [ $# -lt 1 ];
+  then
+    echo "silent() requires a command argument"
+    return 1
+  fi
+  eval "$1 2>/dev/null 1>&2"
+}
+
+stdfile() {
+  if [ $# -lt 1 ];
+  then
+    echo "stdfile() requires a command argument"
+    return 1
+  fi
+  eval "$1 2>./stderr 1>./stdout"
+}
+
 source ~/.localaliasrc
