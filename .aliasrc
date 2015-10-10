@@ -21,10 +21,20 @@ alias gitc='git commit'
 alias gits='git status'
 
 # ls
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
+if [[ "$OSTYPE" == "linux-gnu*" ]]; then
   alias ls='ls --color=auto'
   alias la='ls -aChkopl --group-directories-first --color=auto'
   alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
+  say() {
+  	if [[ "${1}" =~ -[a-z]{2} ]]; then
+  		local lang=${1#-};
+  		local text="${*#$1}";
+  	else 
+  		local lang=${LANG%_*};
+  		local text="$*";
+  	fi;
+  	mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ;
+  }
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   alias ls='ls -G'
   alias la='ls -aChGkopl --group-directories-first'
@@ -64,7 +74,7 @@ alias daddr="sudo docker ps | tail -1 | awk '{print $1}' | xargs sudo docker ins
 # networking
 alias router="routel | egrep '^\ +default' | grep -v lo | awk '{print $2}'"
 alias s='ssh'
-alias lscan="sudo nmap -sn $(ip addr show | grep 'inet ' | grep global | awk '{print $2}') | grep -v -e Host\ is\ up -e done -e Starting"
+alias lscan="sudo nmap -sP $(ip addr show | grep 'inet ' | grep global | awk '{print $2}') | grep -v -e Host\ is\ up -e done -e Starting"
 alias ssh-hosts="grep 'Host\ ' ~/.ssh/config | awk '{print \$NF}'"
 alias prdev="ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' '"
 alias paddr="ip addr show primary dev $(ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' ') | grep inet\ | awk '{print $2}'"
@@ -100,6 +110,7 @@ alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done
 alias serve='python2 -m SimpleHTTPServer'
 alias flvjoin='mencoder -forceidx -of lavf -oac pcm -ovc copy -o output.flv '
 alias apropy="pydoc2 -k $1 2>/dev/null"
+alias count='sort | uniq -c | sort -nr'
 
 # network addresses
 alias cal="chromium 'https://www.google.com/calendar/render'"
@@ -194,4 +205,45 @@ regp() {
   eval $(echo "$PREVCMD" | sed "s/$REG/g")
 }
 
-source ~/.localaliasrc
+# add a directory to path, but only if it exists
+addp() {
+  if [[ $# -lt 1 ]]
+  then
+    echo "Use: addp {path addition dir}"
+    return 1
+  fi
+  if [[ -d "$1" ]]
+  then
+    case $1 in
+      */)
+        TRIMMED=$(echo $1 | sed 's/\/$//g')
+        export PATH="$TRIMMED:$PATH"
+        ;;
+      *)
+        export PATH="$1:$PATH"
+        ;;
+    esac
+    return 0
+  fi
+  echo "Path unavailable"
+  return 1
+}
+
+# source a file, but only if it exists
+sourcep() {
+  if [[ $# -lt 1 ]]
+  then
+    echo "Use: sourcep {path to source}"
+    return 1
+  fi
+  if [[ -f "$1" ]]
+  then
+    source "$1"
+    return 0
+  fi
+  echo "Path unavailable"
+  return 1
+}
+
+sourcep ~/ansible/hacking/env-setup > /dev/null 2>&1
+sourcep ~/.localaliasrc

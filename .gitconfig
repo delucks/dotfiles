@@ -10,3 +10,4 @@
   co = checkout
   pl = pull
   ps = push
+  st = status

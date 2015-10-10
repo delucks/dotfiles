@@ -1,7 +1,10 @@
 ###
-### zsh configurations
+### ~/.zshrc
 ###
-### Last edit: November 27, 2014
+
+### aliases
+
+source ~/.aliasrc
 
 ### prompt
 
@@ -89,7 +92,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 bindkey -v
 bindkey '^r' history-incremental-search-backward
-bindkey '^a' beginning-of-line
+bindkey '^i' beginning-of-line
 bindkey '^e' end-of-line
 
 ### exports
@@ -99,7 +102,9 @@ export EDITOR="vim"
 export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
 export LC_ALL="en_US.UTF-8"
 export TERM=xterm-256color
-export PATH="$HOME/dev/go/bin:$HOME/bin:$HOME/.gem/ruby/2.1.0/bin:$PATH"
+addp "$HOME/dev/go/bin"
+addp "$HOME/bin"
+addp "$HOME/.gem/ruby/2.1.0/bin"
 export GOBIN="$HOME/dev/go/bin"
 export GOPATH="$HOME/dev/go"
 export HISTFILE=~/.zsh_history
@@ -115,10 +120,6 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 export LESS=-r
 # sorry
 set -o emacs
-
-### aliases
-
-source ~/.aliasrc
 
 # suffix
 alias -g G="| grep"
@@ -156,18 +157,3 @@ trans() {
 paste() {
 	cat "$1" | xclip -i
 }
-
-say() {
-	if [[ "${1}" =~ -[a-z]{2} ]]; then
-		local lang=${1#-};
-		local text="${*#$1}";
-	else 
-		local lang=${LANG%_*};
-		local text="$*";
-	fi;
-	mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ;
-}
-
-if [ -f ~/dev/z/z.sh ]; then
-	source ~/dev/z/z.sh
-fi
