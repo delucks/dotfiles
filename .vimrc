@@ -51,6 +51,7 @@ nnoremap <Space> :
 nnoremap n nzz
 nnoremap <F1> <nop>
 nnoremap Q <nop>
+inoremap jk <Esc>
 cmap w!! %!sudo tee > /dev/null %
 nnoremap <silent> <Leader>e :Explore<CR>
 nmap <silent> <Leader>m :source ~/.vimrc<CR>
@@ -141,6 +142,10 @@ if executable("ag")
     \ --ignore .svn
     \ --ignore .hg
     \ --ignore .swp
+    \ --ignore .cpan
+    \ --ignore .cache
+    \ --ignore .java
+    \ --ignore "**/*.pyo"
     \ --ignore "**/*.pyc"
     \ -g ""'
 endif

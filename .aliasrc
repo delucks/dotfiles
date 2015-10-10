@@ -245,5 +245,23 @@ sourcep() {
   return 1
 }
 
+silent() {
+  if [ $# -lt 1 ];
+  then
+    echo "silent() requires a command argument"
+    return 1
+  fi
+  eval "$1 2>/dev/null 1>&2"
+}
+
+stdfile() {
+  if [ $# -lt 1 ];
+  then
+    echo "stdfile() requires a command argument"
+    return 1
+  fi
+  eval "$1 2>./stderr 1>./stdout"
+}
+
 sourcep ~/ansible/hacking/env-setup > /dev/null 2>&1
 sourcep ~/.localaliasrc
