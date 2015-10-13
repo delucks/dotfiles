@@ -123,6 +123,7 @@ Plugin 'deris/vim-shot-f'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'amoffat/snake'
 Plugin 'junegunn/limelight.vim'
+Plugin 'guns/vim-clojure-static'
 call vundle#end()
 filetype plugin indent on 
 
@@ -236,3 +237,5 @@ autocmd BufRead /home/jamie/notes/*
 	\ set wrap
 autocmd BufRead /home/jamie/.ssh/config
   \ set foldmethod=indent
+autocmd BufRead *.clj
+  \ set filetype=clojure
