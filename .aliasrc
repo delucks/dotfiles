@@ -226,7 +226,7 @@ addp() {
     esac
     return 0
   fi
-  echo "Path unavailable"
+  #echo "Path unavailable"
   return 1
 }
 
