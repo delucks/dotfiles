@@ -22,6 +22,10 @@ alias gits='git status'
 
 # ls
 if [[ "$OSTYPE" == "linux-gnu*" ]]; then
+  # whoa ip is linux-specific :P
+  alias lscan="sudo nmap -sP $(ip addr show | grep 'inet ' | grep global | awk '{print $2}') | grep -v -e Host\ is\ up -e done -e Starting"
+  alias prdev="ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' '"
+  alias paddr="ip addr show primary dev $(ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' ') | grep inet\ | awk '{print $2}'"
   alias ls='ls --color=auto'
   alias la='ls -aChkopl --group-directories-first --color=auto'
   alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
@@ -74,10 +78,7 @@ alias daddr="sudo docker ps | tail -1 | awk '{print $1}' | xargs sudo docker ins
 # networking
 alias router="routel | egrep '^\ +default' | grep -v lo | awk '{print $2}'"
 alias s='ssh'
-alias lscan="sudo nmap -sP $(ip addr show | grep 'inet ' | grep global | awk '{print $2}') | grep -v -e Host\ is\ up -e done -e Starting"
 alias ssh-hosts="grep 'Host\ ' ~/.ssh/config | awk '{print \$NF}'"
-alias prdev="ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' '"
-alias paddr="ip addr show primary dev $(ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' ') | grep inet\ | awk '{print $2}'"
 
 # misc
 alias ts='while read line; do date +"%F %T $line"; done'
@@ -241,7 +242,7 @@ sourcep() {
     source "$1"
     return 0
   fi
-  echo "Path unavailable"
+  #echo "Path unavailable"
   return 1
 }
 
@@ -261,6 +262,12 @@ stdfile() {
     return 1
   fi
   eval "$1 2>./stderr 1>./stdout"
+}
+
+lss() {
+  H=$(echo $1 | awk -F':' '{print $1}')
+  F=$(echo $1 | awk -F':' '{print $2}')
+  /usr/bin/ssh $H "ls $F"
 }
 
 sourcep ~/ansible/hacking/env-setup > /dev/null 2>&1
