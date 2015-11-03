@@ -21,7 +21,7 @@ alias gitc='git commit'
 alias gits='git status'
 
 # ls
-if [[ "$OSTYPE" == "linux-gnu*" ]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   # whoa ip is linux-specific :P
   alias lscan="sudo nmap -sP $(ip addr show | grep 'inet ' | grep global | awk '{print $2}') | grep -v -e Host\ is\ up -e done -e Starting"
   alias prdev="ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' '"
@@ -268,6 +268,16 @@ lss() {
   H=$(echo $1 | awk -F':' '{print $1}')
   F=$(echo $1 | awk -F':' '{print $2}')
   /usr/bin/ssh $H "ls $F"
+}
+
+histogram() {
+  if [[ $# -lt 1 ]]
+  then     
+    echo "Usage: histogram {column to histogram on}"
+    exit 1
+  fi
+  COL="\$$1"
+  awk "{print $COL}" | sort | uniq -c | sort -nr
 }
 
 sourcep ~/ansible/hacking/env-setup > /dev/null 2>&1

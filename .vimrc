@@ -125,6 +125,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'amoffat/snake'
 Plugin 'junegunn/limelight.vim'
 Plugin 'guns/vim-clojure-static'
+Plugin 'stephpy/vim-yaml'
 call vundle#end()
 filetype plugin indent on 
 
