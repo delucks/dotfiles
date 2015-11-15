@@ -164,7 +164,7 @@ nnoremap <Leader>. :gr <cword><CR>
 nmap <silent> gl :Limelight!!<CR>
 xmap gl <Plug>(Limelight)
 let g:limelight_conceal_ctermfg = 8
-let g:limelight_paragraph_span = 1
+let g:limelight_paragraph_span = 0
 
 " Ranger integration
 command! -bar RangerChoose :call RangerChooser()
