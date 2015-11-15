@@ -1,3 +1,27 @@
+# common shell alias / functions
+# author: delucks
+# use freely, share and contribute
+
+# common exports, sourcing functions
+alias cmd_exists="eval \"which $1\" >/dev/null 2>&1"
+export LS_COLORS=
+export LC_ALL="en_US.UTF-8"
+if test -d "$HOME/dev/go/"
+then
+  export GOBIN="$HOME/dev/go/bin"
+  export GOPATH="$HOME/dev/go"
+fi
+if cmd_exists vim
+then
+  export EDITOR='vim'
+else
+  export EDITOR='vi'
+fi
+if cmd_exists less
+then
+  export PAGER='less'
+fi
+
 # cd
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -6,29 +30,147 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
 # vc
-alias sup='svn update'
-alias sch='svn checkout $@'
-alias ss='svn status'
-alias sadd='svn add $@'
-alias scm='svn commit'
-alias getget='git pull'
-alias gita='git add'
-alias gitd='git diff'
-alias gitm='git mv'
-alias gitr='git rm'
-alias gitp='git push'
-alias gitc='git commit'
-alias gits='git status'
+if cmd_exists svn
+then
+  alias sup='svn update'
+  alias sch='svn checkout $@'
+  alias ss='svn status'
+  alias sadd='svn add $@'
+  alias scm='svn commit'
+fi
+if cmd_exists git
+then
+  alias getget='git pull'
+  alias gita='git add'
+  alias gitd='git diff'
+  alias gitm='git mv'
+  alias gitr='git rm'
+  alias gitp='git push'
+  alias gitc='git commit'
+  alias gits='git status'
+fi
 
-# ls
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  # whoa ip is linux-specific :P
+# platform detection
+if [[ "$OSTYPE" == "linux-gnu"* ]]
+then
+  # linux specific aliases
+  export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
+  export TERM=xterm-256color
   alias lscan="sudo nmap -sP $(ip addr show | grep 'inet ' | grep global | awk '{print $2}') | grep -v -e Host\ is\ up -e done -e Starting"
   alias prdev="ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' '"
   alias paddr="ip addr show primary dev $(ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' ') | grep inet\ | awk '{print $2}'"
   alias ls='ls --color=auto'
   alias la='ls -aChkopl --group-directories-first --color=auto'
   alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
+  if test -f /etc/debian_version
+  then
+    # debian specific
+    alias packages="dpkg -l | awk '{$1=$3=$4=\",\"}1' | column -t -s,"
+  elif cmd_exists pacman
+  then
+    # archlinux specific
+    alias y='yaourt'
+    alias orphan='pacman -Qtdq'
+    sizes() {
+    	awk 'BEGIN{while (("pacman -Qi" |getline) > 0){ if ($0 ~ /Name/) {name=$3};{if ($0 ~ /Size/) {size=$4/1024;print name": ",size,"Mb"|"sort -k2 -n|column -t"}}}}'
+    }
+    alias owner='pacman -Qo $(which $1)'
+    alias archey='archey --config=~/.config/archey3.cfg'
+  fi
+  cfat() {
+  	sudo mount -t vfat /dev/sdb1 /mnt/vfat
+  	log ok "Mounted."
+  	sudo cp $@ /mnt/vfat/
+  	log ok "Copied."
+  	read -p "Press Enter to Unmount:"
+  	sudo umount /mnt/vfat
+  	log ok "Unmounted."
+  }
+  alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
+elif [[ "$OSTYPE" == "darwin"* ]]
+then
+  # osx
+  alias ls='ls -G'
+  alias la='ls -aChGkopl --group-directories-first'
+  alias lsg='ls -aChGkopl --group-directories-first | grep "$@"'
+else
+  alias la='ls -aChkopl --group-directories-first'
+  alias lsg='ls -aChkopl --group-directories-first | grep "$@"'
+fi
+
+# beets
+if cmd_exists beet
+then
+  alias bim='beet im'
+  alias bls='beet ls'
+  alias brm='beet remove'
+  alias bvr='beet version'
+fi
+
+# procs
+psgrep() {
+	if [ $# -gt 0 ]; then
+		ps -fp $(pgrep -f $1)
+	else
+		log err "Needs at least one argument"
+    return 1
+	fi
+}
+
+# herbsluftwm helpers
+if cmd_exists herbstclient
+then
+  alias hkeys="cat ~/.config/herbstluftwm/autostart| egrep '^([\t\ ])?hc keybind' | awk '{print \$3}'"
+  alias hmods="hkeys | grep mod | sed 's/\$mod\-//g' | sort"
+  alias currtag="herbstclient tag_status | sed -e 's/[:|\.][a-zA-Z]//g' -e 's/[\t\ #]//g'"
+  alias hc='herbstclient'
+fi
+
+# docker
+if cmd_exists docker
+then
+  docker-remove() {
+    sudo docker images | grep "$1" | awk '{print $3}' | xargs sudo docker rmi 2>&1 | awk '{print $12}' | uniq | xargs sudo docker rm
+    sudo docker images | grep "$1" | awk '{print $3}' | xargs sudo docker rmi
+  }
+  alias daddr="sudo docker ps | tail -1 | awk '{print $1}' | xargs sudo docker inspect -f '{{.NetworkSettings}}' "
+fi
+
+# networking
+alias router="routel | egrep '^\ +default' | grep -v lo | awk '{print $2}'"
+alias s='ssh'
+alias ssh-hosts="grep 'Host\ ' $HOME/.ssh/config | awk '{print \$NF}'"
+
+# misc
+alias ts='while read line; do date +"%F %T $line"; done'
+alias ks='killall spotify'
+alias cdiff='dwdiff --no-common -c'
+alias big="echo $1 | figlet"
+alias vc='vim -c ":RangerChooser"'
+alias \:q='exit'
+alias strings='strings -a'
+alias whereami='uname -n'
+alias d='date +%R'
+alias violet='wmname LG3D && violet'
+alias wgot='wget -e robots=off -r -nc -np '
+alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
+alias iploc='curl ipinfo.io/$(dig $1 +short)'
+alias mkdir='mkdir -p'
+alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
+alias serve='python2 -m SimpleHTTPServer'
+alias apropy="pydoc2 -k $1 2>/dev/null"
+alias apropos="man -k" # yeah, some platforms don't do this
+alias count='sort | uniq -c | sort -nr'
+if cmd_exists chromium
+then
+  alias cal="chromium 'https://www.google.com/calendar/render'"
+fi
+if cmd_exists mencoder
+then
+  alias flvjoin='mencoder -forceidx -of lavf -oac pcm -ovc copy -o output.flv '
+fi
+if cmd_exists mplayer
+then
   say() {
   	if [[ "${1}" =~ -[a-z]{2} ]]; then
   		local lang=${1#-};
@@ -39,107 +181,177 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   	fi;
   	mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ;
   }
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-  alias ls='ls -G'
-  alias la='ls -aChGkopl --group-directories-first'
-  alias lsg='ls -aChGkopl --group-directories-first | grep "$@"'
-else
-  alias la='ls -aChkopl --group-directories-first'
-  alias lsg='ls -aChkopl --group-directories-first | grep "$@"'
+  alias wvud='mplayer http://128.175.76.123:8000/WVUD-FM123.mp3'
+  alias webcam='mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot'
 fi
-alias sl='/usr/bin/sl'
-
-# packages
-alias y='yaourt'
-alias orphan='pacman -Qtdq'
-sizes() {
-	awk 'BEGIN{while (("pacman -Qi" |getline) > 0){ if ($0 ~ /Name/) {name=$3};{if ($0 ~ /Size/) {size=$4/1024;print name": ",size,"Mb"|"sort -k2 -n|column -t"}}}}'
-}
-alias owner='pacman -Qo $(which $1)'
-
-# beets
-alias bim='beet im'
-alias bls='beet ls'
-alias brm='beet remove'
-alias bvr='beet version'
-
-# herbsluftwm helpers
-alias hkeys="cat ~/.config/herbstluftwm/autostart| egrep '^([\t\ ])?hc keybind' | awk '{print \$3}'"
-alias hmods="hkeys | grep mod | sed 's/\$mod\-//g' | sort"
-alias currtag="herbstclient tag_status | sed -e 's/[:|\.][a-zA-Z]//g' -e 's/[\t\ #]//g'"
-
-# docker
-docker-remove() {
-  sudo docker images | grep "$1" | awk '{print $3}' | xargs sudo docker rmi 2>&1 | awk '{print $12}' | uniq | xargs sudo docker rm
-  sudo docker images | grep "$1" | awk '{print $3}' | xargs sudo docker rmi
-}
-alias daddr="sudo docker ps | tail -1 | awk '{print $1}' | xargs sudo docker inspect -f '{{.NetworkSettings}}' "
-
-# networking
-alias router="routel | egrep '^\ +default' | grep -v lo | awk '{print $2}'"
-alias s='ssh'
-alias ssh-hosts="grep 'Host\ ' ~/.ssh/config | awk '{print \$NF}'"
-
-# misc
-alias ts='while read line; do date +"%F %T $line"; done'
-alias ks='killall spotify'
-alias fucking='sudo'
-alias die='poweroff'
-alias wvud='mplayer http://128.175.76.123:8000/WVUD-FM123.mp3'
-alias cdiff='dwdiff --no-common -c'
-alias big="echo $1 | figlet"
-alias vc='vim -c ":RangerChooser"'
-alias \:q='exit'
-alias strings='strings -a'
-alias whereami='uname -n'
-alias d='date +%R'
-alias ixit='curl -F "f:1=<-" ix.io'
-alias hc='herbstclient'
-alias violet='wmname LG3D && violet'
-alias cman="$HOME/dev/colorman/cman.py"
-alias archey='archey --config=~/.config/archey3.cfg'
-alias memcheck='valgrind --tool=memcheck $@ --leak-check=full'
-alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
-alias webcam='fswebcam --no-banner --no-shadow --no-overlay -r 1000x1000 --save foo.png'
-alias webcam='mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot'
-alias manp='python2 manage.py'
-alias wgot='wget -e robots=off -r -nc -np '
-alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
-alias iploc='curl ipinfo.io/$(dig $1 +short)'
-alias mkdir='mkdir -p'
-alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
-alias serve='python2 -m SimpleHTTPServer'
-alias flvjoin='mencoder -forceidx -of lavf -oac pcm -ovc copy -o output.flv '
-alias apropy="pydoc2 -k $1 2>/dev/null"
-alias count='sort | uniq -c | sort -nr'
-
-# network addresses
-alias cal="chromium 'https://www.google.com/calendar/render'"
 
 # functions 
 
+initializeANSI()
+{
+  esc="\033"
+  blackf="${esc}[0;30m"
+  redf="${esc}[0;31m"
+  greenf="${esc}[0;32m"
+  yellowf="${esc}[0;33m"
+  bluef="${esc}[0;34m"
+  purplef="${esc}[0;35m"
+  cyanf="${esc}[0;36m"
+  whitef="${esc}[0;37m"
+  blackb="${esc}[0;40m"
+  redb="${esc}[0;41m"
+  greenb="${esc}[0;42m"
+  yellowb="${esc}[0;43m"
+  blueb="${esc}[0;44m"
+  purpleb="${esc}[0;45m"
+  cyanb="${esc}[0;46m"
+  whiteb="${esc}[0;47m"
+  boldon="${esc}[0;1m"
+  boldoff="${esc}[0;22m"
+  italicson="${esc}[0;3m"
+  italicsoff="${esc}[0;23m"
+  ulon="${esc}[0;4m"
+  uloff="${esc}[0;24m"
+  invon="${esc}[0;7m"
+  invoff="${esc}[0;27m"
+  reset="${esc}[0m"
+}
+initializeANSI
+
+log() {
+  if [ $# -gt 1 ]
+  then
+    if [[ "$1" == "err"* ]]
+    then
+      shift
+      echo -e "${redf}$@${reset}"
+    elif [[ "$1" == "ok"* ]]
+    then
+      shift
+      echo -e "${greenf}$@${reset}"
+    elif [[ "$1" == "fatal"* ]]
+    then
+      shift
+      echo -e "${redf}$@${reset}"
+      return 1
+    else
+      shift
+      echo -e "$@"
+    fi
+  else
+    echo -e "$@"
+  fi
+}
+
+if test -f "$HOME/scripts/x86.py"
+then
+  x() {
+  	python2 "$HOME/scripts/x86.py" $1 | lynx -stdin -dump
+  }
+fi
+
+hex() {
+	python2 -c "print hex($1 $2 $3)"
+}
+
+int() {
+	python2 -c "print int('$1',16)"
+}
+
+# wikipedia summary
+if cmd_exists curl
+then
+  function wiki {
+  	if [ $# -eq 1 ]; then
+  		foo=4
+  	else
+  		foo=$2
+  	fi
+  	curl -s -L -d "search=$1" http://en.wikipedia.org/w/index.php | grep '<p>\|<h3>\|<h2>' | head -n$foo | w3m -T text/html -dump | sed 's/(Listen.*)//g'
+  	#curl -s -L -d "search=Linux" http://en.wikipedia.org/w/index.php | grep '<p>' | head -n2 | w3m -T text/html -dump | sed 's/\^\[.*\]//g'
+  }
+fi
+
+# intel-specific brightness
+if test -f /sys/class/backlight/intel_backlight/brightness
+then
+  b() {
+  	if [ $# -eq 0 ]; then
+  		cat /sys/class/backlight/intel_backlight/brightness
+    elif [[ "$1" -eq "max" ]]; then
+      echo "$(cat /sys/class/backlight/intel_backlight/max_brightness)" | sudo tee -a /sys/class/backlight/intel_backlight/brightness
+    else
+  		echo "${1}" | sudo tee -a /sys/class/backlight/intel_backlight/brightness
+  	fi
+  }
+fi
+
+# cd and ls at once
+cl() {
+	if [ -d "$1" ]; then
+		cd "$1"
+		ls
+	else
+		log fatal "cl(): $1: Directory not found"
+	fi
+}
+
+mkcd() {
+  mkdir -p "$1"
+  cd "$1"
+}
+
+man() {
+	env \
+		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+		LESS_TERMCAP_md=$(printf "\e[1;31m") \
+		LESS_TERMCAP_me=$(printf "\e[0m") \
+		LESS_TERMCAP_se=$(printf "\e[0m") \
+		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+		LESS_TERMCAP_ue=$(printf "\e[0m") \
+		LESS_TERMCAP_us=$(printf "\e[1;32m") \
+			man "$@"
+}
+
+# common valgrind usages
+if cmd_exists valgrind
+then
+  alias memcheck='valgrind --tool=memcheck $@ --leak-check=full'
+  valhalla() {
+  	if [ "$#" == "0" ]; then
+  		make
+  		valgrind --tool=memcheck ./*.exe --leak-check=full
+  	else
+  		g++ -g "$1" -o "$(basename $1).out" && valgrind --tool=memcheck ./"$(basename $1).out" "${@:2}" --leak-check=full
+  	fi
+  }
+fi
+
+# recursive grep...
 rgrep() {
 	if [ $# -lt 1 ];
 	then
-		echo "Required one argument"
+		log fatal "Required one argument"
 		return 1
   fi
   grep -riI $1 .
 }
 
+# ...and find...
 rfind() {
 	if [ $# -lt 1 ];
 	then
-		echo "Required one argument"
+		log fatal "Required one argument"
 		return 1
   fi
   find . -name "*$1*"
 }
 
+# ...with vim!
 vfind() {
 	if [ $# -lt 1 ];
 	then
-		echo "Required one argument"
+		log fatal "Required one argument"
 		return 1
   fi
   vim $(find . -type f -name "*$1*")
@@ -148,41 +360,44 @@ vfind() {
 alias rf='rfind'
 alias vf='vfind'
 
-note() {
-	if [ $# -lt 1 ];
-	then
-		echo "Required one argument, name of note"
-		return 1
-	fi
-	FILE="$HOME/notes/$1.txt"
-	if [ -f $FILE ];
-	then
-		echo "$FILE exists"
-		vim "$FILE"
-	else
-		touch "$FILE"
-		echo "$1" | figlet > "$FILE"
-		echo "Note from $(date)" >> "$FILE"
-		vim "$FILE"
-	fi
-}
+if test -d "$HOME/notes/"
+then
+  note() {
+  	if [ $# -lt 1 ];
+  	then
+  		log fatal "note(): Required one argument, name of note"
+  		return 1
+  	fi
+  	FILE="$HOME/notes/$1.txt"
+  	if [ -f $FILE ];
+  	then
+  		log ok "$FILE exists"
+  		vim "$FILE"
+  	else
+  		touch "$FILE"
+  		echo "$1" | figlet > "$FILE"
+  		echo "Note from $(date)" >> "$FILE"
+  		vim "$FILE"
+  	fi
+  }
+fi
 
 ccd() {
 	if [ $# -lt 2 ];
 	then
-		echo "Use: ccd {file} {dir}"
+		log fatal "Use: ccd {file} {dir}"
 		return 1
 	fi
 	FILE="$1"
 	if [ ! -f "$FILE" ];
 	then
-		echo "File not found"
+		log fatal "File not found"
 		return 1
 	fi
 	DIR="$2"
 	if [ ! -d "$DIR" ];
 	then
-		echo "Dir not found"
+		log fatal "Dir not found"
 		return 1
 	fi
 	cp -r "$FILE" "$DIR"
@@ -190,27 +405,11 @@ ccd() {
 	pwd
 }
 
-# Debian Specific
-if [[ -f /etc/debian_version ]]; then
-  alias packages="dpkg -l | awk '{$1=$3=$4=\",\"}1' | column -t -s,"
-fi
-
-regp() {
-  if [ $# -lt 1 ];
-  then
-    echo "Use: regp {regex to apply}"
-    return 1
-  fi
-  PREVCMD=$(fc -ln -1)
-  REG=$1
-  eval $(echo "$PREVCMD" | sed "s/$REG/g")
-}
-
 # add a directory to path, but only if it exists
 addp() {
   if [[ $# -lt 1 ]]
   then
-    echo "Use: addp {path addition dir}"
+    log fatal "Use: addp {path addition dir}"
     return 1
   fi
   if [[ -d "$1" ]]
@@ -234,7 +433,7 @@ addp() {
 sourcep() {
   if [[ $# -lt 1 ]]
   then
-    echo "Use: sourcep {path to source}"
+    log fatal "Use: sourcep {path to source}"
     return 1
   fi
   if [[ -f "$1" ]]
@@ -249,7 +448,7 @@ sourcep() {
 silent() {
   if [ $# -lt 1 ];
   then
-    echo "silent() requires a command argument"
+    log fatal "silent() requires a command argument"
     return 1
   fi
   eval "$1 2>/dev/null 1>&2"
@@ -258,7 +457,7 @@ silent() {
 stdfile() {
   if [ $# -lt 1 ];
   then
-    echo "stdfile() requires a command argument"
+    log fatal "stdfile() requires a command argument"
     return 1
   fi
   eval "$1 2>./stderr 1>./stdout"
@@ -273,12 +472,17 @@ lss() {
 histogram() {
   if [[ $# -lt 1 ]]
   then     
-    echo "Usage: histogram {column to histogram on}"
-    exit 1
+    log fatal "Usage: histogram {column to histogram on}"
+    return 1
   fi
   COL="\$$1"
   awk "{print $COL}" | sort | uniq -c | sort -nr
 }
 
-sourcep ~/ansible/hacking/env-setup > /dev/null 2>&1
-sourcep ~/.localaliasrc
+# expand my environment pls
+sourcep "$HOME/ansible/hacking/env-setup"
+sourcep "$HOME/.localaliasrc"
+addp "$HOME/dev/go/bin"
+addp "$HOME/bin"
+addp "$HOME/.gem/ruby/2.1.0/bin"
+alias a="source $HOME/.aliasrc"

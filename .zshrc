@@ -2,6 +2,8 @@
 ### ~/.zshrc
 ###
 
+[[ $- != *i* ]] && return
+
 ### aliases
 
 source ~/.aliasrc
@@ -48,17 +50,16 @@ chpwd() {
 	fi
 }
 
-x() {
-	python2 ~/scripts/x86.py $1 | lynx -stdin -dump
-}
+sourcep "$HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+cd .
 
-hex() {
-	python2 -c "print hex($1 $2 $3)"
-}
+# suffix
+alias -g G="| grep"
+alias -g L="| less"
+alias -g LC='| wc -l'
+alias -g C="| column -t"
 
-int() {
-	python2 -c "print int('$1',16)"
-}
+### prompt
 
 autoload -U colors && colors
 case $(id -u) in
@@ -69,7 +70,6 @@ case $(id -u) in
     PROMPT="%(?:%F{green}.%F{grey}:%F{grey}%F{red}?%F{grey})%f%k "
 		;;
 esac
-source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ### zsh options
 
@@ -90,70 +90,17 @@ compdef _gnu_generic remind
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 #DISABLE_CORRECTION="true"
 
-bindkey -v
+### keybinds
+
+bindkey -e
 bindkey '^r' history-incremental-search-backward
-bindkey '^i' beginning-of-line
+bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
+bindkey -s '^k' '^atime ^M'
+bindkey -s '^p' '^aps aux | grep !!^M'
+bindkey -s '^j' '^M'
 
 ### exports
 
-export LS_COLORS=
-export EDITOR="vim"
-export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
-export LC_ALL="en_US.UTF-8"
-export TERM=xterm-256color
-addp "$HOME/dev/go/bin"
-addp "$HOME/bin"
-addp "$HOME/.gem/ruby/2.1.0/bin"
-export GOBIN="$HOME/dev/go/bin"
-export GOPATH="$HOME/dev/go"
 export HISTFILE=~/.zsh_history
 export SAVEHIST=10000
-
-export LESS_TERMCAP_mb=$'\E[01;31m'
-export LESS_TERMCAP_md=$'\E[01;31m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;47;34m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;32m'
-export LESS=-r
-# sorry
-set -o emacs
-
-# suffix
-alias -g G="| grep"
-alias -g L="| less"
-alias -g LC='| wc -l'
-alias -g C="| column -t"
-
-### functions
-
-function wiki {
-	if [ $# -eq 1 ]; then
-		foo=4
-	else
-		foo=$2
-	fi
-
-	curl -s -L -d "search=$1" http://en.wikipedia.org/w/index.php | grep '<p>\|<h3>\|<h2>' | head -n$foo | w3m -T text/html -dump | sed 's/(Listen.*)//g'
-	#curl -s -L -d "search=Linux" http://en.wikipedia.org/w/index.php | grep '<p>' | head -n2 | w3m -T text/html -dump | sed 's/\^\[.*\]//g'
-}
-
-b() {
-	if [ $# -eq 0 ]; then
-		cat /sys/class/backlight/intel_backlight/brightness
-  elif [[ "$1" -eq "max" ]]; then
-    echo "$(cat /sys/class/backlight/intel_backlight/max_brightness)" | sudo tee -a /sys/class/backlight/intel_backlight/brightness
-  else
-		echo "${1}" | sudo tee -a /sys/class/backlight/intel_backlight/brightness
-	fi
-}
-
-trans() {
-	curl --upload-file "$1" https://transfer.sh/$(basename $1);
-}
-
-paste() {
-	cat "$1" | xclip -i
-}
