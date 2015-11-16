@@ -97,6 +97,7 @@ bindkey '^r' history-incremental-search-backward
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 bindkey -s '^k' '^atime ^M'
+bindkey -s '^h' '^aman ^M'
 bindkey -s '^p' '^aps aux | grep !!^M'
 bindkey -s '^j' '^M'
 

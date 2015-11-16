@@ -472,11 +472,17 @@ lss() {
 histogram() {
   if [[ $# -lt 1 ]]
   then     
-    log fatal "Usage: histogram {column to histogram on}"
+    log fatal "Usage: histogram {column to histogram on} [{fieldsep}]"
     return 1
+  elif [[ $# -lt 2 ]]
+  then
+    COL="\$$1"
+    awk "{print $COL}" | sort | uniq -c | sort -nr
+  else
+    COL="\$$1"
+    awk -F"$2" "{print $COL}" | sort | uniq -c | sort -nr
   fi
-  COL="\$$1"
-  awk "{print $COL}" | sort | uniq -c | sort -nr
+  return 0
 }
 
 # expand my environment pls
