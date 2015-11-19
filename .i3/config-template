@@ -226,7 +226,7 @@ exec compton &
 exec sh ~/.fehbg &
 
 # Class                      border            backgr.        text        indicator
-client.focused              $background        $color9        $color3     $color0
+client.focused              $background        $color9        $color0     $color0
 client.focused_inactive     $background        $color0        $color3     $color0
 client.unfocused            $background        $color0        $color3     $color4
 client.urgent               $background        $color1        $color3     $color3

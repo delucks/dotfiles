@@ -250,5 +250,7 @@ autocmd BufRead /home/jamie/notes/*
 	\ set wrap
 autocmd BufRead /home/jamie/.ssh/config
   \ set foldmethod=indent
+autocmd BufRead ~/dotfiles/.aliasrc
+  \ set ft=sh
 autocmd BufRead *.clj
   \ set filetype=clojure
