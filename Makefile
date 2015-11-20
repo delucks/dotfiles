@@ -35,6 +35,7 @@ shell-install:
 	ln -s ${DOT}/.tmux.conf ~/.tmux.conf
 	mkdir -p ~/.config
 	cp -r ${DOT}/ranger ~/.config/ranger
+	ln -s ${DOT}/.ackrc ~/.ackrc
 
 xorg-install:
 	ln -s ${DOT}/.compton.conf ~/.compton.conf
@@ -88,6 +89,7 @@ shell-remove:
 	-@rm -f ~/.zshrc
 	-@rm -f ~/.tmux.conf
 	-@rm -r ~/.config/ranger
+	-@rm -f ~/.ackrc
 
 xorg-remove:
 	-@rm -f ~/.compton.conf

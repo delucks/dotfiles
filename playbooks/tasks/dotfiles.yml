@@ -30,6 +30,7 @@
     force=yes
   with_items:
     - .abcde.conf
+    - .ackrc
     - .aliasrc
     - .bashrc
     - .compton.conf
