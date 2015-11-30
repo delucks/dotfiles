@@ -3,6 +3,8 @@
   remote_user: jamie
   vars:
     software_list:
+      - jq
+      - ack
       - bash
       - git
       - tmux

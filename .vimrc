@@ -152,12 +152,19 @@ if executable("ag")
     \ -g ""'
 endif
 
+" ack
+if executable("ack")
+  set grepprg=ack
+endif
+nnoremap <Leader>/ :gr 
+nnoremap <Leader>. :gr <cword><CR>
+
 " limelight.vim
 
 nmap <silent> gl :Limelight!!<CR>
 xmap gl <Plug>(Limelight)
 let g:limelight_conceal_ctermfg = 8
-let g:limelight_paragraph_span = 2
+let g:limelight_paragraph_span = 0
 
 " Ranger integration
 command! -bar RangerChoose :call RangerChooser()
@@ -243,5 +250,7 @@ autocmd BufRead /home/jamie/notes/*
 	\ set wrap
 autocmd BufRead /home/jamie/.ssh/config
   \ set foldmethod=indent
+autocmd BufRead ~/dotfiles/.aliasrc
+  \ set ft=sh
 autocmd BufRead *.clj
   \ set filetype=clojure
