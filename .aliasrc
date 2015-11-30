@@ -159,6 +159,7 @@ alias mkdir='mkdir -p'
 alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
 alias serve='python2 -m SimpleHTTPServer'
 alias apropy="pydoc2 -k $1 2>/dev/null"
+alias ipy="ipython"
 alias apropos="man -k" # yeah, some platforms don't do this
 alias count='sort | uniq -c | sort -nr'
 if cmd_exists chromium
@@ -229,6 +230,10 @@ log() {
     then
       shift
       echo -e "${greenf}$@${reset}"
+    elif [[ "$1" == "warn"* ]]
+    then
+      shift
+      echo -e "${yellowf}$@${reset}"
     elif [[ "$1" == "fatal"* ]]
     then
       shift
@@ -259,15 +264,20 @@ argcheck() {
     log err "1. the number of arguments to validate"
     log fatal '2. ${FUNCNAME[0]} of your function'
   else
-    ARGC=$1 # the expected amount of arguments
-    shift
-    SCR=$1 # the func name
-    shift
-    IFS=' ' read -ra ARGS <<< "$@" # split the rest of the args on ' '
-    if [[ "${#ARGS[*]}" -lt "$ARGC" ]]
+    ARG_COUNT="$1" # the expected amount of arguments
+    SCR="$2" # the func name
+    shift 2
+    if [[ "$SHELL" == "zsh" ]]
+    then
+      set -a ARGS $@ # needed for zsh, messes with bash
+      #IFS=' ' read -r ARGS <<< "$@"
+    else
+      IFS=' ' read -ra ARGS <<< "$@" # split the rest of the args on ' '
+    fi
+    if [[ "${#ARGS[*]}" -lt "$ARG_COUNT" ]]
     then
       # invalid amount of arguments!
-      log fatal "$SCR requires at least $ARGC argument(s)"
+      log fatal "$SCR requires at least $ARG_COUNT argument(s)"
       return 1 # with a ||, this gets returned by the caller
     else
       return 0
@@ -376,7 +386,12 @@ rfind() {
 
 # ...with vim!
 vfind() {
-  argcheck 1 ${FUNCNAME[0]} $@ || return 1
+  if [[ "$SHELL" == "zsh" ]]
+  then
+    ${1:?"vfind requires at least 1 argument(s)"}
+  else
+    argcheck 1 ${FUNCNAME[0]} $@ || return 1
+  fi
   vim $(find . -type f -name "*$1*")
 }
 
