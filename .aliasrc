@@ -91,6 +91,7 @@ alias big="echo $1 | figlet"
 alias vc='vim -c ":RangerChooser"'
 alias \:q='exit'
 alias strings='strings -a'
+alias trace='mtr -rw4 -c 5'
 alias whereami='uname -n'
 alias d='date +%R'
 alias ixit='curl -F "f:1=<-" ix.io'
