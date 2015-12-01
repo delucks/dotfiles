@@ -505,10 +505,10 @@ histogram() {
   elif [[ $# -lt 2 ]]
   then
     COL="\$$1"
-    awk "{print $COL}" | sort | uniq -c | sort -nr
+    awk "{print $COL}" | sort | uniq -c | sort -n
   else
     COL="\$$1"
-    awk -F"$2" "{print $COL}" | sort | uniq -c | sort -nr
+    awk -F"$2" "{print $COL}" | sort | uniq -c | sort -n
   fi
   return 0
 }
