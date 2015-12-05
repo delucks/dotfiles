@@ -10,6 +10,8 @@ source ~/.aliasrc
 
 ### exports / functions
 
+export SHELL=bash
+
 # sorry
 set -o emacs
 bind '"\C-k": "\C-atime \C-m"'

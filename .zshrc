@@ -105,3 +105,4 @@ bindkey -s '^j' '^M'
 
 export HISTFILE=~/.zsh_history
 export SAVEHIST=10000
+export SHELL=zsh
