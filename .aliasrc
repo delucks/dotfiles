@@ -142,6 +142,7 @@ alias s='ssh'
 alias ssh-hosts="grep 'Host\ ' $HOME/.ssh/config | awk '{print \$NF}'"
 
 # misc
+alias sx='ssh-agent startx'
 alias ts='while read line; do date +"%F %T $line"; done'
 alias ks='killall spotify'
 alias cdiff='dwdiff --no-common -c'
@@ -318,6 +319,14 @@ then
     else
   		echo "${1}" | sudo tee -a /sys/class/backlight/intel_backlight/brightness
   	fi
+  }
+fi
+
+# asus-specific keyboard brightness control
+if test -f /sys/class/leds/asus::kbd_backlight/brightness
+then
+  kb() {
+    echo "$1" | sudo tee  /sys/class/leds/asus::kbd_backlight/brightness
   }
 fi
 

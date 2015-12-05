@@ -18,3 +18,4 @@
   sudo: yes
   when: ansible_distribution == 'Archlinux'
   with_items: "{{ software_list }}"
+  pacman: name={{ item }} state=present
