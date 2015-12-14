@@ -10,7 +10,7 @@ source ~/.aliasrc
 
 ### exports / functions
 
-export SHELL=bash
+export SHELL=$(which bash)
 
 # sorry
 set -o emacs
