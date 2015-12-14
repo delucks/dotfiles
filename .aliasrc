@@ -112,7 +112,7 @@ psgrep() {
 	if [ $# -gt 0 ]; then
 		ps -fp $(pgrep -f $1)
 	else
-		log err "Needs at least one argument"
+		log fatal "Usage: psgrep <pattern to grep through processes for>"
     return 1
 	fi
 }
@@ -164,6 +164,7 @@ alias apropy="pydoc2 -k $1 2>/dev/null"
 alias ipy="ipython"
 alias apropos="man -k" # yeah, some platforms don't do this
 alias count='sort | uniq -c | sort -nr'
+alias csvify="tr '\n' ',' | sed 's/,$//g'"
 if cmd_exists chromium
 then
   alias cal="chromium 'https://www.google.com/calendar/render'"
@@ -250,59 +251,46 @@ log() {
   fi
 }
 
-# argcheck()
-#   verify the number of arguments passed to another function
-#
-#   usage: 
-#     argcheck {expected number} ${FUNCNAME[0]} {...more args...}
-#   for a three-argument script:
-#     argcheck 3 ${FUNCNAME[0]} $@
-#   in typical usage: (pop return val out to calling function)
-#     argcheck 3 ${FUNCNAME[0]} $@ || return 1
-argcheck() {
-  if [[ $# -lt 1 ]]
+jless() {
+  if [ $# -lt 2 ]
   then
-    log err "argcheck() requires at least two arguments:"
-    log err "1. the number of arguments to validate"
-    log fatal '2. ${FUNCNAME[0]} of your function'
+    log fatal "Usage: jless <jq pattern> <json file>"
   else
-    ARG_COUNT="$1" # the expected amount of arguments
-    SCR="$2" # the func name
-    shift 2
-    if [[ "$SHELL" == "zsh" ]]
-    then
-      set -a ARGS $@ # needed for zsh, messes with bash
-      #IFS=' ' read -r ARGS <<< "$@"
-    else
-      IFS=' ' read -ra ARGS <<< "$@" # split the rest of the args on ' '
-    fi
-    if [[ "${#ARGS[*]}" -lt "$ARG_COUNT" ]]
-    then
-      # invalid amount of arguments!
-      log fatal "$SCR requires at least $ARG_COUNT argument(s)"
-      return 1 # with a ||, this gets returned by the caller
-    else
-      return 0
-    fi
+    jq -C $1 $2 | less -r
   fi
 }
 
 if test -f "$HOME/scripts/x86.py"
 then
-  x() {
-    argcheck 1 ${FUNCNAME[0]} $@ || return 1
-  	python2 "$HOME/scripts/x86.py" $1 | lynx -stdin -dump
+  x86() {
+    if [ $# -lt 1 ]
+    then
+      log fatal "Usage: x86 <opcode>"
+      return 1
+    else
+      python "$HOME/scripts/x86.py" $1 | lynx -stdin -dump
+    fi
   }
 fi
 
 hex() {
-  argcheck 3 ${FUNCNAME[0]} $@ || return 1
-	python2 -c "print hex($1 $2 $3)"
+  if [ $# -lt 1 ]
+  then
+    log fatal "Usage: hex <integer to convert>"
+    return 1
+  else
+    python -c "print hex($1)"
+  fi
 }
 
 int() {
-  argcheck 1 ${FUNCNAME[0]} $@ || return 1
-	python2 -c "print int('$1',16)"
+  if [ $# -lt 1 ]
+  then
+    log fatal "Usage: int <hexadecimal to convert>"
+    return 1
+  else
+    python -c "print int('$1',16)"
+  fi
 }
 
 # wikipedia summary
@@ -356,7 +344,10 @@ mkcd() {
   cd "$1"
 }
 
-man() {
+# applies standard coloration for pager programs
+less_color_env() {
+  CMD=$1
+  shift
 	env \
 		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
 		LESS_TERMCAP_md=$(printf "\e[1;31m") \
@@ -365,8 +356,13 @@ man() {
 		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
 		LESS_TERMCAP_ue=$(printf "\e[0m") \
 		LESS_TERMCAP_us=$(printf "\e[1;32m") \
-			man "$@"
+			$CMD "$@"
 }
+
+alias man='less_color_env man'
+alias pydoc2='less_color_env pydoc2'
+alias pydoc='less_color_env pydoc'
+alias less='less_color_env less'
 
 # common valgrind usages
 if cmd_exists valgrind
@@ -384,25 +380,35 @@ fi
 
 # recursive grep...
 rgrep() {
-  argcheck 1 ${FUNCNAME[0]} $@ || return 1
-  grep -riI $1 .
+  if [ $# -lt 1 ]
+  then
+    log fatal "Usage: rgrep <pattern to recursively grep>"
+    return 1
+  else
+    grep -riIE $1 .
+  fi
 }
 
 # ...and find...
 rfind() {
-  argcheck 1 ${FUNCNAME[0]} $@ || return 1
-  find . -name "*$1*"
+  if [ $# -lt 1 ]
+  then
+    log fatal "Usage: rfind <string to find>"
+    return 1
+  else
+    find . -name "*$1*"
+  fi
 }
 
 # ...with vim!
 vfind() {
-  if [[ "$SHELL" == "zsh" ]]
+  if [ $# -lt 1 ]
   then
-    ${1:?"vfind requires at least 1 argument(s)"}
+    log fatal "Usage: vfind <string to edit all files of>"
+    return 1
   else
-    argcheck 1 ${FUNCNAME[0]} $@ || return 1
+    vim $(find . -type f -name "*$1*")
   fi
-  vim $(find . -type f -name "*$1*")
 }
 
 alias rf='rfind'
@@ -411,7 +417,11 @@ alias vf='vfind'
 if test -d "$HOME/notes/"
 then
   note() {
-    argcheck 1 ${FUNCNAME[0]} $@ || return 1
+    if [ $# -lt 1 ]
+    then
+      log fatal "Usage: note <name of note>"
+      exit 1
+    fi
   	FILE="$HOME/notes/$1.txt"
   	if [ -f $FILE ];
   	then
@@ -427,7 +437,11 @@ then
 fi
 
 ccd() {
-  argcheck 2 ${FUNCNAME[0]} $@ || return 1
+  if [ $# -lt 2 ]
+  then
+    log fatal "Usage: ccd <file to copy> <directory to copy into>"
+    return 1
+  fi
 	FILE="$1"
 	if [ ! -f "$FILE" ];
 	then
@@ -447,7 +461,11 @@ ccd() {
 
 # add a directory to path, but only if it exists
 addp() {
-  #argcheck 1 ${FUNCNAME[0]} $@ || return 1
+  if [ $# -lt 1 ]
+  then
+    log fatal 'Usage: addp <path to add to $PATH>'
+    return 1
+  fi
   if [[ -d "$1" ]]
   then
     case $1 in
@@ -457,12 +475,11 @@ addp() {
         ;;
       *)
         [[ "$PATH" == *"$1"* ]] || export PATH="$1:$PATH"
-        #export PATH="$1:$PATH"
         ;;
     esac
     return 0
   fi
-  #echo "Path unavailable"
+  #log err "Path unavailable"
   return 1
 }
 
@@ -470,7 +487,7 @@ addp() {
 sourcep() {
   if [[ $# -lt 1 ]]
   then
-    log fatal "Use: sourcep {path to source}"
+    log fatal "Usage: sourcep <path to source>"
     return 1
   fi
   if [[ -f "$1" ]]
@@ -485,7 +502,7 @@ sourcep() {
 silent() {
   if [ $# -lt 1 ];
   then
-    log fatal "silent() requires a command argument"
+    log fatal "Usage: silent <command to run>"
     return 1
   fi
   eval "$1 2>/dev/null 1>&2"
@@ -494,7 +511,7 @@ silent() {
 stdfile() {
   if [ $# -lt 1 ];
   then
-    log fatal "stdfile() requires a command argument"
+    log fatal "Usage: stdfile <command to redirect stout and stderr to separate files over>"
     return 1
   fi
   eval "$1 2>./stderr 1>./stdout"
@@ -509,7 +526,7 @@ lss() {
 histogram() {
   if [[ $# -lt 1 ]]
   then     
-    log fatal "Usage: histogram {column to histogram on} [{fieldsep}]"
+    log fatal "Usage: histogram <column to histogram on> [<fieldsep>]"
     return 1
   elif [[ $# -lt 2 ]]
   then
