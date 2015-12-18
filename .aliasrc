@@ -159,12 +159,13 @@ alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
 alias iploc='curl ipinfo.io/$(dig $1 +short)'
 alias mkdir='mkdir -p'
 alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
-alias serve='python2 -m SimpleHTTPServer'
-alias apropy="pydoc2 -k $1 2>/dev/null"
+alias serve='python -m SimpleHTTPServer'
+alias apropy="pydoc -k $1 2>/dev/null"
 alias ipy="ipython"
 alias apropos="man -k" # yeah, some platforms don't do this
 alias count='sort | uniq -c | sort -nr'
 alias csvify="tr '\n' ',' | sed 's/,$//g'"
+alias meh='echo "¯\_(ツ)_/¯"'
 if cmd_exists chromium
 then
   alias cal="chromium 'https://www.google.com/calendar/render'"
@@ -385,7 +386,12 @@ rgrep() {
     log fatal "Usage: rgrep <pattern to recursively grep>"
     return 1
   else
-    grep -riIE $1 .
+    if cmd_exists ack
+    then
+      ack $1
+    else
+      grep -riIE $1 . | grep -v \.svn | grep -v \.git
+    fi
   fi
 }
 
@@ -396,7 +402,12 @@ rfind() {
     log fatal "Usage: rfind <string to find>"
     return 1
   else
-    find . -name "*$1*"
+    if cmd_exists ack
+    then
+      ack -g "$1"
+    else
+      find . -name "*$1*"
+    fi
   fi
 }
 
@@ -407,7 +418,12 @@ vfind() {
     log fatal "Usage: vfind <string to edit all files of>"
     return 1
   else
-    vim $(find . -type f -name "*$1*")
+    if cmd_exists ack
+    then
+      vim $(ack -g "$1")
+    else
+      vim $(find . -type f -name "*$1*")
+    fi
   fi
 }
 
@@ -537,6 +553,10 @@ histogram() {
     awk -F"$2" "{print $COL}" | sort | uniq -c | sort -n
   fi
   return 0
+}
+
+lsfunc() {
+  typeset -F | awk '{print $NF}'
 }
 
 # expand my environment pls
