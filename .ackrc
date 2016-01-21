@@ -8,6 +8,7 @@
 --color-match=on_cyan
 --color-lineno=yellow
 --ignore-dir=.weechat
+--ignore-directory=is:.pex
 # defaults
 --ignore-ack-defaults
 --ignore-directory=is:.bzr

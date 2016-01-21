@@ -166,6 +166,8 @@ alias apropos="man -k" # yeah, some platforms don't do this
 alias count='sort | uniq -c | sort -nr'
 alias csvify="tr '\n' ',' | sed 's/,$//g'"
 alias meh='echo "¯\_(ツ)_/¯"'
+alias tmuxa='tmux a'
+
 if cmd_exists chromium
 then
   alias cal="chromium 'https://www.google.com/calendar/render'"
@@ -298,13 +300,13 @@ int() {
 if cmd_exists curl
 then
   function wiki {
-  	if [ $# -eq 1 ]; then
-  		foo=4
-  	else
-  		foo=$2
+  	if [ $# -lt 1 ]
+    then
+      log fatal "Usage: wiki <search string>"
+      return 1
+    else
+      curl -s -L -d "search=$1" https://en.wikipedia.org/w/index.php | w3m -T text/html -dump | less
   	fi
-  	curl -s -L -d "search=$1" http://en.wikipedia.org/w/index.php | grep '<p>\|<h3>\|<h2>' | head -n$foo | w3m -T text/html -dump | sed 's/(Listen.*)//g'
-  	#curl -s -L -d "search=Linux" http://en.wikipedia.org/w/index.php | grep '<p>' | head -n2 | w3m -T text/html -dump | sed 's/\^\[.*\]//g'
   }
 fi
 
