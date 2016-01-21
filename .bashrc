@@ -21,4 +21,4 @@ bind '"\C-j;": "\C-m"'
 
 initializeANSI
 
-PS1="\u${greenf}@\h${reset} \w \$(if [[ \$? == 0 ]]; then echo \"${greenf}.${reset}\"; else echo \"${redf}?${reset}\"; fi) "
+PS1="\u\[${greenf}\]@\h\[${reset}\] \w \$(if [[ \$? == 0 ]]; then echo \"\[${greenf}\].\[${reset}\]\"; else echo \"\[${redf}\]?\[${reset}\]\"; fi) "
