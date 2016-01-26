@@ -48,6 +48,7 @@ then
   alias gitp='git push'
   alias gitc='git commit'
   alias gits='git status'
+  alias gitl='git log --all --graph --pretty=format:"%Cred%h%Creset %C(bold blue)%an%Creset :%C(yellow)%d%Creset %s %Cgreen(%cr) %Creset"'
 fi
 
 # platform detection
@@ -565,6 +566,7 @@ lsfunc() {
 sourcep "$HOME/ansible/hacking/env-setup"
 sourcep "$HOME/.localaliasrc"
 addp "$HOME/dev/go/bin"
+addp "$HOME/scripts"
 addp "$HOME/bin"
 addp "$HOME/.gem/ruby/2.1.0/bin"
 alias a="source $HOME/.aliasrc"

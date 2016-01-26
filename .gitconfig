@@ -1,7 +1,6 @@
 [user]
 	name = delucks
-	email = jamie.delucks@gmail.com
-	password = foo
+	email = me@jamesluck.com
 [credential]
 	helper = cache
 [color]
@@ -9,6 +8,4 @@
 [alias]
   st = status
   co = checkout
-  pl = pull
-  ps = push
-  st = status
+  l = log
