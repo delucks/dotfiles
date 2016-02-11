@@ -88,12 +88,14 @@ then
   	log ok "Unmounted."
   }
   alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
+  ununix() { date -d @$1 }
 elif [[ "$OSTYPE" == "darwin"* ]]
 then
   # osx
   alias ls='ls -G'
   alias la='ls -aChGkopl --group-directories-first'
   alias lsg='ls -aChGkopl --group-directories-first | grep "$@"'
+  alias ununix='date -r'
 else
   alias la='ls -aChkopl --group-directories-first'
   alias lsg='ls -aChkopl --group-directories-first | grep "$@"'
