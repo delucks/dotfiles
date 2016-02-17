@@ -26,8 +26,8 @@ set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,eol:→
 set noswapfile
 set virtualedit=block
 set wildmode=longest,list
-let g:netrw_liststyle=3
-let g:netrw_browser_viewer= "chromium"
+set updatecount=10
+let g:netrw_liststyle=2
 
 " Tab Width
 set shiftwidth=2
@@ -53,8 +53,12 @@ nnoremap <F1> <nop>
 nnoremap Q <nop>
 inoremap jk <Esc>
 cmap w!! %!sudo tee > /dev/null %
-nnoremap <silent> <Leader>e :Explore<CR>
+" launch left-side netrw browser
+nnoremap <silent> <Leader>e :Lexplore<CR>
 nmap <silent> <Leader>m :source ~/.vimrc<CR>
+" improve my search and replace workflow
+nmap S :%s//g<LEFT><LEFT>
+nmap <expr>  M  ':%s/' . @/ . '//g<LEFT><LEFT>'
 
 " Buffer Manipulation
 nnoremap <silent> <Leader>w :bn<CR>
@@ -222,10 +226,8 @@ autocmd FileType python
   \ setlocal shiftwidth=4 |
   \ setlocal tabstop=4 |
 	\ setlocal expandtab |
-  \ map <C-c> :call CommentLineToEnd ('# ')<CR> |
-	\ map <F9> :!python2 "%:p" <CR>
   \ nnoremap <Leader><Space> :s/"/'/g<CR> |
-  \ map K :term pydoc2 %s<CR>
+  \ map K pydoc %s<CR>
 autocmd FileType sh 
   \ setlocal shiftwidth=2 |
   \ setlocal tabstop=2 |

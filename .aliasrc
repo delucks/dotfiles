@@ -32,22 +32,15 @@ alias ......='cd ../../../../..'
 # vc
 if cmd_exists svn
 then
-  alias sup='svn update'
   alias sch='svn checkout $@'
-  alias ss='svn status'
   alias sadd='svn add $@'
-  alias scm='svn commit'
 fi
 if cmd_exists git
 then
-  alias getget='git pull'
   alias gita='git add'
   alias gitd='git diff'
-  alias gitm='git mv'
-  alias gitr='git rm'
-  alias gitp='git push'
   alias gitc='git commit'
-  alias gits='git status'
+  alias gits='git status -s'
   alias gitl='git log --all --graph --pretty=format:"%Cred%h%Creset %C(bold blue)%an%Creset :%C(yellow)%d%Creset %s %Cgreen(%cr) %Creset"'
 fi
 
@@ -55,14 +48,13 @@ fi
 if [[ "$OSTYPE" == "linux-gnu"* ]]
 then
   # linux specific aliases
-  export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
-  export TERM=xterm-256color
+  test -d "${HOME}/GNUstep" && export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
+  #export TERM=xterm-256color
   alias lscan="sudo nmap -sP $(ip addr show | grep 'inet ' | grep global | awk '{print $2}') | grep -v -e Host\ is\ up -e done -e Starting"
   alias prdev="ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' '"
   alias paddr="ip addr show primary dev $(ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' ') | grep inet\ | awk '{print $2}'"
   alias ls='ls --color=auto'
   alias la='ls -aChkopl --group-directories-first --color=auto'
-  alias lsg='ls -aChkopl --group-directories-first --color=auto | grep "$@"'
   if test -f /etc/debian_version
   then
     # debian specific
@@ -76,7 +68,6 @@ then
     	awk 'BEGIN{while (("pacman -Qi" |getline) > 0){ if ($0 ~ /Name/) {name=$3};{if ($0 ~ /Size/) {size=$4/1024;print name": ",size,"Mb"|"sort -k2 -n|column -t"}}}}'
     }
     alias owner='pacman -Qo $(which $1)'
-    alias archey='archey --config=~/.config/archey3.cfg'
   fi
   cfat() {
   	sudo mount -t vfat /dev/sdb1 /mnt/vfat
@@ -88,7 +79,9 @@ then
   	log ok "Unmounted."
   }
   alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
-  ununix() { date -d @$1 }
+  ununix() {
+    date -d @$1
+  }
 elif [[ "$OSTYPE" == "darwin"* ]]
 then
   # osx
@@ -141,7 +134,6 @@ fi
 
 # networking
 alias router="routel | egrep '^\ +default' | grep -v lo | awk '{print $2}'"
-alias s='ssh'
 alias ssh-hosts="grep 'Host\ ' $HOME/.ssh/config | awk '{print \$NF}'"
 
 # misc
@@ -150,7 +142,6 @@ alias ts='while read line; do date +"%F %T $line"; done'
 alias ks='killall spotify'
 alias cdiff='dwdiff --no-common -c'
 alias big="echo $1 | figlet"
-alias vc='vim -c ":RangerChooser"'
 alias \:q='exit'
 alias strings='strings -a'
 alias trace='mtr -rw4 -c 5'
@@ -162,19 +153,14 @@ alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
 alias iploc='curl ipinfo.io/$(dig $1 +short)'
 alias mkdir='mkdir -p'
 alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
-alias serve='python -m SimpleHTTPServer'
+alias serve='python2 -m SimpleHTTPServer'
 alias apropy="pydoc -k $1 2>/dev/null"
-alias ipy="ipython"
 alias apropos="man -k" # yeah, some platforms don't do this
 alias count='sort | uniq -c | sort -nr'
 alias csvify="tr '\n' ',' | sed 's/,$//g'"
 alias meh='echo "¯\_(ツ)_/¯"'
 alias tmuxa='tmux a'
 
-if cmd_exists chromium
-then
-  alias cal="chromium 'https://www.google.com/calendar/render'"
-fi
 if cmd_exists mencoder
 then
   alias flvjoin='mencoder -forceidx -of lavf -oac pcm -ovc copy -o output.flv '
@@ -481,6 +467,7 @@ ccd() {
 }
 
 # add a directory to path, but only if it exists
+# and if it's not already in path
 addp() {
   if [ $# -lt 1 ]
   then
@@ -491,11 +478,11 @@ addp() {
   then
     case $1 in
       */)
-        TRIMMED=$(echo $1 | sed 's/\/$//g')
-        [[ "$PATH" == *"$TRIMMED"* ]] || export PATH="$TRIMMED:$PATH"
+        TRIMMED=$(echo "$1" | sed 's/\/$//g')
+        [[ "$PATH" == *"$TRIMMED:"* ]] || export PATH="$TRIMMED:$PATH"
         ;;
       *)
-        [[ "$PATH" == *"$1"* ]] || export PATH="$1:$PATH"
+        [[ "$PATH" == *"$1:"* ]] || export PATH="$1:$PATH"
         ;;
     esac
     return 0
@@ -538,6 +525,7 @@ stdfile() {
   eval "$1 2>./stderr 1>./stdout"
 }
 
+# use it like scp!
 lss() {
   H=$(echo $1 | awk -F':' '{print $1}')
   F=$(echo $1 | awk -F':' '{print $2}')
@@ -571,4 +559,3 @@ addp "$HOME/dev/go/bin"
 addp "$HOME/scripts"
 addp "$HOME/bin"
 addp "$HOME/.gem/ruby/2.1.0/bin"
-alias a="source $HOME/.aliasrc"
