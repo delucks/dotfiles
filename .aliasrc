@@ -159,7 +159,26 @@ alias apropos="man -k" # yeah, some platforms don't do this
 alias count='sort | uniq -c | sort -nr'
 alias csvify="tr '\n' ',' | sed 's/,$//g'"
 alias meh='echo "¯\_(ツ)_/¯"'
-alias tmuxa='tmux a'
+
+if cmd_exists tmux
+then
+  alias tmuxa='tmux a'
+  gomux() {
+    if [ $# -lt 1 ]
+    then
+      log err 'gomux requires at least one argument, a session name'
+    elif [ $# -lt 2 ]
+    then
+      # do the one-arg thing
+      tmux new-session -A -s "$1"
+    else
+      # add the command name into it
+      tmux new-session -A -s "$1" "$2"
+    fi
+  }
+fi
+
+
 
 if cmd_exists mencoder
 then
