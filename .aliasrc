@@ -167,6 +167,7 @@ then
     if [ $# -lt 1 ]
     then
       log err 'gomux requires at least one argument, a session name'
+      return 1
     elif [ $# -lt 2 ]
     then
       # do the one-arg thing
@@ -554,8 +555,8 @@ lss() {
 histogram() {
   if [[ $# -lt 1 ]]
   then     
-    log fatal "Usage: histogram <column to histogram on> [<fieldsep>]"
-    return 1
+    # changed 2016-02-21: this is useful default behavior
+    sort | uniq -c | sort -n
   elif [[ $# -lt 2 ]]
   then
     COL="\$$1"
