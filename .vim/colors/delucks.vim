@@ -1,6 +1,6 @@
 " Just terminal. Screw your GUI
-" Maintainer:	      delucks <jluck@udel.edu>
-" Last Change:	    03/21/2015
+" Maintainer:	      delucks <me@jamesluck.com>
+" Last Change:	    03/02/2016
 " License: 		      GNU Public License (GPL) v2
 
 highlight clear Normal
@@ -38,7 +38,7 @@ hi NonText			    ctermfg=0
 hi ModeMsg			    ctermfg=9 cterm=none
 hi MoreMsg			    ctermfg=9 cterm=none
 " active statusline
-hi StatusLine		    ctermbg=0 cterm=none ctermfg=3
+hi StatusLine		    ctermbg=0 cterm=none ctermfg=1
 " not active statusline
 hi StatusLineNC	    ctermbg=0 cterm=none ctermfg=7
 hi VertSplit		    ctermbg=none cterm=none ctermfg=0
@@ -59,7 +59,7 @@ hi DiffText			    ctermfg=0
 " syntax
 
 hi Normal           ctermfg=7
-hi Statement        ctermfg=9
+hi Statement        ctermfg=1
 hi Function         ctermfg=2
 hi Conditional      ctermfg=9
 hi Repeat           ctermfg=9
@@ -94,7 +94,7 @@ hi GitGutterChange  ctermfg=13
 
 hi BufTabLineFill   ctermbg=111111 cterm=none
 hi BufTabLineActive ctermbg=none ctermfg=7
-hi BufTabLineCurrent ctermfg=3
+hi BufTabLineCurrent ctermfg=1
 hi BufTabLineHidden ctermbg=none ctermfg=8
 
 """""""

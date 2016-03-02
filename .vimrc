@@ -37,9 +37,28 @@ set expandtab
 " Theming
 syntax on
 colorscheme delucks
+nmap \cr :color delucks<CR>
 if !has('gui_running')
 	set t_Co=256
 endif
+
+"-------
+" Vundle
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'fatih/vim-go'
+Plugin 'ap/vim-buftabline'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'deris/vim-shot-f'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'amoffat/snake'
+Plugin 'junegunn/limelight.vim'
+Plugin 'guns/vim-clojure-static'
+Plugin 'stephpy/vim-yaml'
+call vundle#end()
+filetype plugin indent on 
 
 "---------
 " Keybinds
@@ -115,26 +134,8 @@ function! RangerChooser()
     redraw!
 endfunction
 
-"-------
-" Vundle
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-Plugin 'fatih/vim-go'
-Plugin 'ap/vim-buftabline'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'deris/vim-shot-f'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'amoffat/snake'
-Plugin 'junegunn/limelight.vim'
-Plugin 'guns/vim-clojure-static'
-Plugin 'stephpy/vim-yaml'
-call vundle#end()
-filetype plugin indent on 
-
-"--------
-" Plugins
+"---------------
+" Plugin Options
 
 " CtrlP options
 let g:ctrlp_map = '<Leader>q'
@@ -213,6 +214,7 @@ endif
 
 " Reload ~/.vimrc after saving
 autocmd! bufwritepost .vimrc source %
+" jump to last used position in every file
 autocmd bufreadpost * normal `"
 
 autocmd FileType c 
@@ -220,7 +222,6 @@ autocmd FileType c
 autocmd FileType cpp 
   \ setlocal shiftwidth=2 |
   \ setlocal tabstop=2 |
-  \ map <C-c> :call CommentLineToEnd ('// ')<CR> |
 	\ map <Leader>z :!g++ -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
 autocmd FileType python
   \ setlocal shiftwidth=4 |
@@ -231,7 +232,6 @@ autocmd FileType python
 autocmd FileType sh 
   \ setlocal shiftwidth=2 |
   \ setlocal tabstop=2 |
-  \ map <C-c> :call CommentLineToEnd ('# ')<CR> |
 	\ map <F9> :!./%
 autocmd FileType html
 	\ map <F10> :!luakit %<CR>
@@ -241,12 +241,8 @@ autocmd FileType go
 autocmd FileType java
   \ setlocal shiftwidth=4 |
   \ setlocal tabstop=4 |
-  \ map <C-c> :call CommentLineToEnd ('// ')<CR> |
 	\ map <Leader>z :!javac "%:p" <CR>
-autocmd BufRead *i3*
-	\ map <C-c> :call CommentLineToEnd ('#')<CR>
 autocmd BufRead /home/jamie/.Xresources
-	\ map <C-c> :call CommentLineToEnd ('!')<CR> |
 	\ map <F9> :!xrdb -merge ~/.Xresources <CR>
 autocmd BufRead /home/jamie/notes/*
 	\ set wrap
