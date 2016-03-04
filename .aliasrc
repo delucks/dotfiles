@@ -3,7 +3,7 @@
 # use freely, share and contribute
 
 # common exports, sourcing functions
-alias cmd_exists="eval \"which $1\" >/dev/null 2>&1"
+alias cmd_exists="hash >/dev/null 2>&1"
 export LS_COLORS=
 export LC_ALL="en_US.UTF-8"
 if test -d "$HOME/dev/go/"
@@ -264,9 +264,12 @@ log() {
 }
 
 jless() {
-  if [ $# -lt 2 ]
+  if [ $# -lt 1 ]
   then
-    log fatal "Usage: jless <jq pattern> <json file>"
+    log fatal "Usage: jless <json file> [<jq pattern>]"
+  elif [ $# -lt 2 ]
+  then
+    jq -C $1 | less -r
   else
     jq -C $1 $2 | less -r
   fi
@@ -438,6 +441,7 @@ vfind() {
   fi
 }
 
+alias rg='rgrep'
 alias rf='rfind'
 alias vf='vfind'
 
@@ -570,6 +574,36 @@ histogram() {
 
 lsfunc() {
   typeset -F | awk '{print $NF}'
+}
+
+isgit() {
+  [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1
+}
+
+issvn() {
+  svn info >/dev/null 2>&1
+}
+
+# wraps version control software
+vc() {
+  command=${1:-"status"}
+  case "${command}" in
+    status)
+      isgit && git status
+      issvn && svn status
+      ;;
+    up)
+      isgit && git pull
+      issvn && svn update
+      ;;
+    push)
+      isgit && git push
+      issvn && svn commit
+      ;;
+    *)
+      log fatal "Usage: vc <status|up|push>"
+      return 1
+  esac
 }
 
 # expand my environment pls
