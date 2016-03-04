@@ -269,9 +269,9 @@ jless() {
     log fatal "Usage: jless <json file> [<jq pattern>]"
   elif [ $# -lt 2 ]
   then
-    jq -C $1 | less -r
+    jq -C . $1 | less -r
   else
-    jq -C $1 $2 | less -r
+    jq -C $2 $1 | less -r
   fi
 }
 
