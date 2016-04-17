@@ -41,6 +41,9 @@ nmap \cr :color delucks<CR>
 if !has('gui_running')
 	set t_Co=256
 endif
+let g:markdown_fenced_languages = ['python', 'java', 'sh', 'vim']
+let g:sh_no_error = 1
+
 
 "-------
 " Vundle

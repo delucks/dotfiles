@@ -397,14 +397,20 @@ fi
 rgrep() {
   if [ $# -lt 1 ]
   then
-    log fatal "Usage: rgrep <pattern to recursively grep>"
+    log fatal "Usage: rgrep <pattern> <starting directory>"
     return 1
   else
+    if [ $# -gt 1 ]
+    then
+      SEARCH_PATH="$2"
+    else
+      SEARCH_PATH="."
+    fi
     if cmd_exists ack
     then
-      ack $1
+      ack $1 "$SEARCH_PATH"
     else
-      grep -riIE $1 . | grep -v \.svn | grep -v \.git
+      grep -riIE $1 "$SEARCH_PATH" | grep -v \.svn | grep -v \.git
     fi
   fi
 }
@@ -413,14 +419,20 @@ rgrep() {
 rfind() {
   if [ $# -lt 1 ]
   then
-    log fatal "Usage: rfind <string to find>"
+    log fatal "Usage: rfind <string to find> <starting directory>"
     return 1
   else
+    if [ $# -gt 1 ]
+    then
+      SEARCH_PATH="$2"
+    else
+      SEARCH_PATH="."
+    fi
     if cmd_exists ack
     then
-      ack -g "$1"
+      ack -g "$1" "$SEARCH_PATH"
     else
-      find . -name "*$1*"
+      find "$SEARCH_PATH" -name "*$1*"
     fi
   fi
 }
@@ -429,15 +441,10 @@ rfind() {
 vfind() {
   if [ $# -lt 1 ]
   then
-    log fatal "Usage: vfind <string to edit all files of>"
+    log fatal "Usage: vfind <string to find> <starting directory>"
     return 1
   else
-    if cmd_exists ack
-    then
-      vim $(ack -g "$1")
-    else
-      vim $(find . -type f -name "*$1*")
-    fi
+    vim $(rfind "$@")
   fi
 }
 

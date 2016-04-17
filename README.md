@@ -1,22 +1,20 @@
 dotfiles
 ========
 
-All of my configurations for various pieces of software on my machines.
+All of my configurations for various pieces of software.
 
-This repository was created with the goal of automating new installations
-and streamlining the process of setting up my usual suite of software.
-To that end, I'm using the Ansible framework to install software sets that I find
-useful for certain purposes. Feel free to browse the playbooks/ directory for more
-information.
+This repository was created with the goal of automating new installations and streamlining the process of setting up my usual suite of software.
 
-I hope the information in here can help kickstart others!
+I choose aliases by the rule "don't make more magic than there needs to be". My configuration is long, but it does not touch (most) defaults that you'll find on any stock \*nix machine.
 
 Setup
 -----
 
 ![](http://i.imgur.com/e4AFBMI.gif)
 
-You have two options to install these dotfiles, Ansible or `make`. Personally, I use ansible on all my machines so the ansible solution makes sense. The Makefile is much simpler, though. 
+You have two options to install these dotfiles, Ansible or `make`.
+
+You can install them manually by symlinking the dotfiles in this directory to their respective locations under `$HOME`. This is recommended if you want fine-grained control over where they go, or want to cherrypick certain configurations.
 
 ### make
 
@@ -35,23 +33,4 @@ After installing it, clone my repository to ~/dotfiles (a convention).
 
 Then, cd to ~/dotfiles/playbooks and run `ansible-playbook bootstrap.yml`. For more
 information on what it does, look at the file itself. It's pretty self-explanatory and well commented.
-
-
-Screenshots
------------
-
-##### zsh prompt
-
-![](http://cluster.lug.udel.edu/~jluck/zsh.png)
-
-##### tmux statusline
-
-![](http://cluster.lug.udel.edu/~jluck/tmux.png)
-
-##### weechat
-
-![](http://cluster.lug.udel.edu/~jluck/weechat.png)
-
-##### vim with some python
-
-![](http://cluster.lug.udel.edu/~jluck/vim.png)
+evaluate tmux control mode
