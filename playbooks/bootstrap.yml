@@ -1,4 +1,0 @@
----
-- hosts: targets
-  tasks:
-  - include: tasks/dotfiles.yml
