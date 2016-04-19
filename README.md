@@ -10,27 +10,17 @@ I choose aliases by the rule "don't make more magic than there needs to be". My 
 Setup
 -----
 
-![](http://i.imgur.com/e4AFBMI.gif)
+These dotfiles are organized expecting an installation of GNU Stow, which I have access to on all machines I usually provision these on. I am intending on writing a shell script to install the basic ones and bootstrap this whole repo, that is currently TODO.
 
-You have two options to install these dotfiles, Ansible or `make`.
+You can install any one of the sets of configs that are in this repo with a command like this (run from the checkout directory, will symlink to the parent directory which is usually $HOME):
+
+```
+$ stow shells
+$ stow vim
+```
+
+Stow won't clobber your files if they already exist. I have the configs separated out into sets because I use each for certain purposes, and mixing them together for the purpose of the machine I'm working on is handy.
 
 You can install them manually by symlinking the dotfiles in this directory to their respective locations under `$HOME`. This is recommended if you want fine-grained control over where they go, or want to cherrypick certain configurations.
 
-### make
-
-A good option for most would be `make all`, which will attempt to symlink my dotfiles into the right locations.
-To remove, run `make remove-all`. Most of the other options are for my use, but `make dev-install` (`make dev-remove` to uninstall)
-may be of use to people looking to get off the ground with my shell, editor, and IRC configs.
-Be warned that the default `make all` will clone a bunch of my git repos into different places around your $HOME. You'll probably want to read the Makefile before deciding which target you want.
-
-### Ansible
-
-First, you'll need to install Ansible. This can be done with a simple `{{ package manager }} install
-ansible` usually, but if you can't find it in your repositories, the git repo is [here](https://github.com/ansible/ansible/). 
-
-After installing it, clone my repository to ~/dotfiles (a convention).
-`git clone https://github.com/delucks/dotfiles ~/dotfiles`
-
-Then, cd to ~/dotfiles/playbooks and run `ansible-playbook bootstrap.yml`. For more
-information on what it does, look at the file itself. It's pretty self-explanatory and well commented.
-evaluate tmux control mode
+I used to have a Makefile and an Ansible based setup option, but I decided both were not very maintainable and required way too many dependencies. The best bikeshedding is done for fun.

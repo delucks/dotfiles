@@ -40,7 +40,7 @@ then
   alias gita='git add'
   alias gitd='git diff'
   alias gitc='git commit'
-  alias gits='git status -s'
+  alias gits='git status'
   alias gitl='git log --all --graph --pretty=format:"%Cred%h%Creset %C(bold blue)%an%Creset :%C(yellow)%d%Creset %s %Cgreen(%cr) %Creset"'
 fi
 
