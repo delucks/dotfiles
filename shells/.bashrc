@@ -15,7 +15,9 @@ export SHELL=$(which bash)
 # sorry
 set -o emacs
 bind '"\C-k": "\C-atime \C-m"'
+# ideas for more of these: |less
 bind '"\C-j;": "\C-m"'
+shopt -s autocd # WOW THIS IS AWESOME
 
 ### prompt
 
