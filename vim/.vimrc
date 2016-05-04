@@ -55,7 +55,7 @@ Plugin 'fatih/vim-go'
 Plugin 'ap/vim-buftabline'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'deris/vim-shot-f'
-Plugin 'airblade/vim-gitgutter'
+Plugin 'mhinz/vim-signify'
 Plugin 'amoffat/snake'
 Plugin 'junegunn/limelight.vim'
 Plugin 'guns/vim-clojure-static'
@@ -108,38 +108,16 @@ let @x = '0xiexport l5~f:df#i="#A"j'
 " Transform hlwm keybinds into i3 keybinds
 let @h = '0c2wbindsymwf wcwexec'
 
-"----------
-" Functions
-
-function! RangerChooser()
-    let temp = tempname()
-    if has('nvim') 
-      exec 'terminal ranger --choosefiles=' . shellescape(temp)
-    else
-      exec '!ranger --choosefiles=' . shellescape(temp)
-    endif
-    if !filereadable(temp)
-        redraw!
-        " Nothing to read.
-        return
-    endif
-    let names = readfile(temp)
-    if empty(names)
-        redraw!
-        " Nothing to open.
-        return
-    endif
-    " Edit the first item.
-    exec 'edit ' . fnameescape(names[0])
-    " Add any remaning items to the arg list/buffer list.
-    for name in names[1:]
-        exec 'argadd ' . fnameescape(name)
-    endfor
-    redraw!
-endfunction
-
 "---------------
 " Plugin Options
+
+" Signify
+let g:signify_vcs_list = [ 'git', 'svn' ]
+let g:signify_line_highlight = 0
+let g:signify_sign_change = '~'
+let g:signify_sign_delete = '-'
+nmap <Leader>v <plug>(signify-next-hunk)
+nmap <Leader>V <plug>(signify-prev-hunk)
 
 " CtrlP options
 let g:ctrlp_map = '<Leader>q'
@@ -161,6 +139,8 @@ if executable("ag")
     \ -g ""'
 endif
 
+nnoremap <silent> <Leader>B :Gblame<CR>
+
 " ack
 if executable("ack")
   set grepprg=ack
@@ -175,25 +155,16 @@ xmap gl <Plug>(Limelight)
 let g:limelight_conceal_ctermfg = 8
 let g:limelight_paragraph_span = 0
 
-" Ranger integration
-command! -bar RangerChoose :call RangerChooser()
-nnoremap <leader>r :<C-U>RangerChoose<CR>
-
 " Buftabline
 let g:buftabline_show=1
 let g:buftabline_numbers=0
 let g:buftabline_separators=0
-
-" GitGutter
-nmap <Leader>g <Plug>GitGutterNextHunk
-nmap <Leader>G <Plug>GitGutterPrevHunk
 
 " Misc
 let g:pep8_map='<Leader>8'
 "nnoremap <silent> <Leader>h :!markdown_py2 % > /tmp/html && chromium /tmp/html
 nmap <F6> :r!xclip -o <CR>
 vmap <F6> :!xclip -f -sel clip<CR>
-nnoremap <leader>v :e ~/.vimrc<CR>
 nnoremap J mzJ`z
 
 " nvim specific commands
@@ -250,8 +221,6 @@ autocmd BufRead /home/jamie/.Xresources
 	\ map <F9> :!xrdb -merge ~/.Xresources <CR>
 autocmd BufRead /home/jamie/notes/*
 	\ set wrap
-autocmd BufRead /home/jamie/.ssh/config
-  \ set foldmethod=indent
 autocmd BufRead ~/dotfiles/.aliasrc
   \ set ft=sh
 autocmd BufRead *.clj
