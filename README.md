@@ -10,7 +10,16 @@ I choose aliases by the rule "don't make more magic than there needs to be". My 
 Setup
 -----
 
-These dotfiles are organized expecting an installation of GNU Stow, which I have access to on all machines I usually provision these on. I am intending on writing a shell script to install the basic ones and bootstrap this whole repo, that is currently TODO.
+To bootstrap these dotfiles (will clone the git repo or download a zip of the contents):
+
+```
+$ curl -O https://raw.githubusercontent.com/delucks/dotfiles/master/setup.sh
+$ ./setup.sh
+```
+
+This script is brand new and is being actively tested. Let me know if you run into any issues!
+
+These dotfiles are organized expecting an installation of GNU Stow, which I have access to on all machines I usually provision these on.
 
 You can install any one of the sets of configs that are in this repo with a command like this (run from the checkout directory, will symlink to the parent directory which is usually $HOME):
 
