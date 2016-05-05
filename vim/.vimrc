@@ -45,24 +45,22 @@ let g:markdown_fenced_languages = ['python', 'java', 'sh', 'vim']
 let g:sh_no_error = 1
 
 
-"-------
-" Vundle
+"--------
+" Plugins
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-Plugin 'fatih/vim-go'
-Plugin 'ap/vim-buftabline'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'deris/vim-shot-f'
-Plugin 'mhinz/vim-signify'
-Plugin 'amoffat/snake'
-Plugin 'junegunn/limelight.vim'
-Plugin 'guns/vim-clojure-static'
-Plugin 'stephpy/vim-yaml'
-Plugin 'tpope/vim-fugitive'
-call vundle#end()
-filetype plugin indent on 
+call plug#begin('~/.vim/plugins')
+Plug 'vim-scripts/ScrollColors'
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'ap/vim-buftabline'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'deris/vim-shot-f'
+Plug 'mhinz/vim-signify'
+Plug 'amoffat/snake'
+Plug 'junegunn/limelight.vim'
+Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
+Plug 'stephpy/vim-yaml'
+Plug 'tpope/vim-fugitive'
+call plug#end()
 
 "---------
 " Keybinds
@@ -208,8 +206,6 @@ autocmd FileType sh
   \ setlocal shiftwidth=2 |
   \ setlocal tabstop=2 |
 	\ map <F9> :!./%
-autocmd FileType html
-	\ map <F10> :!luakit %<CR>
 autocmd FileType go
   \ map <Leader>h :GoDoc<CR> |
 	\ map <Leader>z :GoBuild<CR>
@@ -217,11 +213,7 @@ autocmd FileType java
   \ setlocal shiftwidth=4 |
   \ setlocal tabstop=4 |
 	\ map <Leader>z :!javac "%:p" <CR>
-autocmd BufRead /home/jamie/.Xresources
-	\ map <F9> :!xrdb -merge ~/.Xresources <CR>
-autocmd BufRead /home/jamie/notes/*
-	\ set wrap
-autocmd BufRead ~/dotfiles/.aliasrc
+autocmd BufRead ~/dotfiles/shells/.aliasrc
   \ set ft=sh
 autocmd BufRead *.clj
   \ set filetype=clojure
