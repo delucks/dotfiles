@@ -23,7 +23,7 @@ then
   fi
 fi
 
-if hash foo 2>/dev/null
+if hash git 2>/dev/null
 then
   git clone "$REPO_URL"
 else
