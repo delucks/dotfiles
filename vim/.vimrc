@@ -5,51 +5,63 @@
 " Settings
 
 set nocompatible
+
+" ui
 set number
-set ic
-set autoindent
 set ruler
-set history=100
-set smartcase
 set showmode
+set lazyredraw
+" remove hit-enter prompts for intro
+set shortmess+=I
+" for :set list
+set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,eol:→
+" theming
+syntax on
+colorscheme delucks
+if !has('gui_running')
+	set t_Co=256
+endif
+
+" searching
+set ignorecase
+set smartcase
 set incsearch
 set hlsearch
-set lazyredraw
-set autowrite
-set splitbelow
-set splitright
-set shortmess+=aI
-set backspace=indent,eol,start
-set suffixes=.bak,~,.swp,.o,.out,.jpg,.png,.gif
-set linebreak
-set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,eol:→
-set noswapfile
-set virtualedit=block
-set wildmode=longest,list
-set updatecount=10
-let g:netrw_liststyle=2
 
-" Tab Width
+" editing
+set autoindent
+set history=100
+set splitright
+" text wrapping
+set nowrap
+set sidescroll=1
+" write swap file after 10 characters
+set updatecount=10
+" control what we can backspace over in insert
+set backspace=indent,eol,start
+" let us edit text that's not there in block mode
+set virtualedit=block
+" tab width
 set shiftwidth=2
 set tabstop=2
 set expandtab
 
-" Theming
-syntax on
-colorscheme delucks
-nmap \cr :color delucks<CR>
-if !has('gui_running')
-	set t_Co=256
-endif
-let g:markdown_fenced_languages = ['python', 'java', 'sh', 'vim']
+" misc
 let g:sh_no_error = 1
-
+let g:markdown_fenced_languages = ['python', 'java', 'sh', 'vim']
+" ignore the following files (or give low preference)
+set suffixes=.bak,~,.swp,.o,.out,.jpg,.png,.gif,.class
+let g:netrw_liststyle=2
+if executable("ag")
+  set grepprg=ag
+elseif executable("ack")
+  set grepprg=ack
+endif
 
 "--------
 " Plugins
 
 call plug#begin('~/.vim/plugins')
-Plug 'vim-scripts/ScrollColors'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'ap/vim-buftabline'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -70,9 +82,7 @@ nmap j gj
 nmap k gk
 nnoremap <Space> :
 nnoremap n nzz
-nnoremap <F1> <nop>
-nnoremap Q <nop>
-inoremap jk <Esc>
+nnoremap J mzJ`z
 cmap w!! %!sudo tee > /dev/null %
 " launch left-side netrw browser
 nnoremap <silent> <Leader>e :Lexplore<CR>
@@ -80,6 +90,10 @@ nmap <silent> <Leader>m :source ~/.vimrc<CR>
 " improve my search and replace workflow
 nmap S :%s//g<LEFT><LEFT>
 nmap <expr>  M  ':%s/' . @/ . '//g<LEFT><LEFT>'
+
+" get rid of some keys
+nnoremap <F1> <nop>
+nnoremap Q <nop>
 
 " Buffer Manipulation
 nnoremap <silent> <Leader>w :bn<CR>
@@ -97,6 +111,10 @@ nmap <Leader><S-j> :winc J<CR>
 nmap <Leader><S-k> :winc K<CR>
 nmap <Leader><S-l> :winc L<CR>
 nmap <Leader>= <C-w><C-=>
+
+" Misc
+nmap <F6> :r!xclip -o <CR>
+vmap <F6> :!xclip -f -sel clip<CR>
 
 "-------
 " Macros
@@ -122,29 +140,9 @@ let g:ctrlp_map = '<Leader>q'
 let g:ctrlp_cmd = 'CtrlP'
 nnoremap <silent> <Leader>a :CtrlPBuffer<CR>
 nnoremap <silent> <Leader>q :CtrlP<CR>
-" Only set it to be ag if it's installed (whew)
-if executable("ag")
-  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-    \ --ignore .git
-    \ --ignore .svn
-    \ --ignore .hg
-    \ --ignore .swp
-    \ --ignore .cpan
-    \ --ignore .cache
-    \ --ignore .java
-    \ --ignore "**/*.pyo"
-    \ --ignore "**/*.pyc"
-    \ -g ""'
-endif
 
+" fugitive
 nnoremap <silent> <Leader>B :Gblame<CR>
-
-" ack
-if executable("ack")
-  set grepprg=ack
-endif
-nnoremap <Leader>/ :gr 
-nnoremap <Leader>. :gr <cword><CR>
 
 " limelight.vim
 
@@ -160,10 +158,6 @@ let g:buftabline_separators=0
 
 " Misc
 let g:pep8_map='<Leader>8'
-"nnoremap <silent> <Leader>h :!markdown_py2 % > /tmp/html && chromium /tmp/html
-nmap <F6> :r!xclip -o <CR>
-vmap <F6> :!xclip -f -sel clip<CR>
-nnoremap J mzJ`z
 
 " nvim specific commands
 if has('nvim') 
@@ -200,6 +194,7 @@ autocmd FileType python
   \ setlocal shiftwidth=4 |
   \ setlocal tabstop=4 |
 	\ setlocal expandtab |
+  \ setlocal colorcolumn=80 |
   \ nnoremap <Leader><Space> :s/"/'/g<CR> |
   \ map K pydoc %s<CR>
 autocmd FileType sh 
@@ -217,3 +212,5 @@ autocmd BufRead ~/dotfiles/shells/.aliasrc
   \ set ft=sh
 autocmd BufRead *.clj
   \ set filetype=clojure
+autocmd FileType vim
+  \ map K :execute('vert help ' . expand("<cword>"))<CR><C-w><C-h>
