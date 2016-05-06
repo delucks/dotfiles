@@ -30,9 +30,9 @@ precmd() {
     git_branch="${git_branch##*/}"
     git_branch="${git_branch:-no branch}"
 		if [ "${git_worktree_is_bare}" = 'false' ] && [ -n "$(git status --untracked-files='no' --porcelain)" ]; then
-			git_prompt="%F{red}(${git_branch})%f" # dirty
+			git_prompt="%F{red}[${git_branch}]%f" # dirty
 		else	
-			git_prompt="%F{green}(${git_branch})%f" # clean
+			git_prompt="%F{green}[${git_branch}]%f" # clean
 		fi
 	else
 			unset git_prompt
