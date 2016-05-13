@@ -11,6 +11,7 @@ set number
 set ruler
 set showmode
 set lazyredraw
+set showcmd
 " remove hit-enter prompts for intro
 set shortmess+=I
 " for :set list
@@ -33,7 +34,7 @@ set autoindent
 set history=100
 set splitright
 " text wrapping
-set nowrap
+set wrap
 set sidescroll=1
 " write swap file after 10 characters
 set updatecount=10
