@@ -31,6 +31,7 @@ set hlsearch
 
 " editing
 set autoindent
+set foldmethod=indent
 set history=100
 set splitright
 " text wrapping
@@ -92,6 +93,12 @@ nmap <silent> <Leader>m :source ~/.vimrc<CR>
 nmap S :%s//g<LEFT><LEFT>
 nmap <expr>  M  ':%s/' . @/ . '//g<LEFT><LEFT>'
 
+" way better than default
+nmap <left> :bp<CR>
+nmap <right> :bn<CR>
+nmap <up> :%foldopen<CR>
+nmap <down> :%foldclose<CR>
+
 " get rid of some keys
 nnoremap <F1> <nop>
 nnoremap Q <nop>
@@ -124,6 +131,8 @@ vmap <F6> :!xclip -f -sel clip<CR>
 let @x = '0xiexport l5~f:df#i="#A"j'
 " Transform hlwm keybinds into i3 keybinds
 let @h = '0c2wbindsymwf wcwexec'
+" Insert a line of all = the same length as the current one
+let @e = 'yyp:s/./=/g?=='
 
 "---------------
 " Plugin Options
