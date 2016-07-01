@@ -60,6 +60,7 @@ then
   then
     # debian specific
     alias packages="dpkg -l | awk '{$1=$3=$4=\",\"}1' | column -t -s,"
+    alias ack="ack-grep"
   elif cmd_exists pacman
   then
     # archlinux specific
