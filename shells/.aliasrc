@@ -615,6 +615,59 @@ vc() {
   esac
 }
 
+license() {
+  # get me a damn license!
+  COMMAND="$1"
+  declare -A LICENSES
+  LICENSES=(
+    ["gplv3"]="https://www.gnu.org/licenses/gpl-3.0.txt"
+    ["agplv3"]="https://www.gnu.org/licenses/agpl-3.0.txt"
+    ["lgplv3"]="https://www.gnu.org/licenses/lgpl-3.0.txt"
+    ["apache"]="https://www.apache.org/licenses/LICENSE-2.0.txt"
+    ["wtfpl"]="http://www.wtfpl.net/txt/copying/"
+    ["mit"]="https://0gb.space/mit.txt"
+    ["mozilla"]="https://www.mozilla.org/media/MPL/2.0/index.txt"
+  )
+  case $COMMAND in
+    list)
+      for k in "${!LICENSES[@]}"
+      do
+        echo "$k"
+      done
+      ;;
+    get)
+      if [ $# -lt 2 ]
+      then
+        log err "license get requires an argument, the name of license to download"
+        return 1
+      fi
+      REQUEST="$2"
+      if [[ "${LICENSES[$REQUEST]}" ]]
+      then
+        if hash curl
+        then
+          HTTP_METHOD="$(which curl)"
+        elif hash wget
+        then
+          HTTP_METHOD="$(which wget) -O -"
+        else
+          log err "Cannot find executables for curl or wget, install one"
+          return 1
+        fi
+        $HTTP_METHOD "${LICENSES[$REQUEST]}"
+      else
+        log err 'The argument you gave is not a recognized license name, try `license list`'
+      fi
+      ;;
+    help|*)
+      echo "Commands:"
+      echo "  list: list known licenses"
+      echo "  get: download a license locally"
+      echo "  help: view this help output"
+      ;;
+  esac
+}
+
 # expand my environment pls
 sourcep "$HOME/ansible/hacking/env-setup"
 sourcep "$HOME/.localaliasrc"
