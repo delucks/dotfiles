@@ -30,6 +30,8 @@ $ stow vim
 
 Stow won't clobber your files if they already exist. I have the configs separated out into sets because I use each for certain purposes, and mixing them together for the purpose of the machine I'm working on is handy.
 
+If you're intending on installing the x11 set of configurations, run `./configure-x11.sh` first. There are a number of color definitions and user-specific paths that need to get templated before you `stow x11`.
+
 You can install them manually by symlinking the dotfiles in this directory to their respective locations under `$HOME`. This is recommended if you want fine-grained control over where they go, or want to cherrypick certain configurations.
 
 I used to have a Makefile and an Ansible based setup option, but I decided both were not very maintainable and required way too many dependencies. The best bikeshedding is done for fun.
