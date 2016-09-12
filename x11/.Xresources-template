@@ -1,5 +1,5 @@
 
-! Color definitions and overrides templated above
+! Color & font definitions templated above
 
 ! URxvt Configuration
 URxvt*.url-launcher: /usr/bin/chromium
@@ -16,14 +16,3 @@ URxvt*imLocale: en_US.UTF-8
 URxvt*termName: xterm
 URxvt*internalBorder: 4
 URxvt*perl-ext-common: default,matcher,clipboard 
-
-! Fonts
- 
-*font:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
-*boldFont:	-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
-
-!URxvt*font: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
-!URxvt*boldFont: -aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
-
-Xterm*font: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
-Xterm*boldFont: -*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1

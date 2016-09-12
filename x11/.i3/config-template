@@ -2,18 +2,13 @@
 # delucks' i3 config file
 #
 # Peep dat http://i3wm.org/docs/userguide.html for a complete reference!
-
-# Note that the first 18 lines are reserved for color inits. This is because they're all generated automatically
-# when I update my .Xresources. When my bash-fu gets better, I'll figure out a way to insert them properly somewhere in the file
+# The definitions above are put there by a templating program in my dotfiles
+# They handle font selection and color choice for the rest of the file
 
 set $mod Mod4
 set $mod4 Mod1
 set $modr Mode_switch
 floating_modifier $mod
-
-# -----
-# Font
-font -*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
 
 # -----
 # Colors
@@ -22,7 +17,7 @@ new_window pixel 5
 new_float pixel 5
 hide_edge_borders none
 
-for_window [class="^.*"] border pixel 5
+for_window [class="^.*"] border pixel 3
 #gaps outer 10
 #gaps inner 30
 
@@ -168,7 +163,6 @@ bindsym $mod+Shift+Escape exec "i3-nagbar -t warning -m 'You pressed the exit sh
 # i3bar
 
 bar {
-  status_command i3blocks
   tray_output none # Fuck yo tray!
   separator_symbol "|"
 
