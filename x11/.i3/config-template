@@ -23,8 +23,8 @@ new_float pixel 5
 hide_edge_borders none
 
 for_window [class="^.*"] border pixel 5
-gaps outer 10
-gaps inner 30
+#gaps outer 10
+#gaps inner 30
 
 # -----
 # Client-specific rules
@@ -49,40 +49,40 @@ for_window [class="violet"] floating enable
 # Special Keys
 bindsym XF86KbdBrightnessUp exec asus-kbd-backlight up
 bindsym XF86KbdBrightnessDown exec asus-kbd-backlight down 
-bindsym XF86TouchpadToggle exec ~/scripts/x11/bin/touchpadtoggle
+bindsym XF86TouchpadToggle exec ~/bin/touchpadtoggle
 bindsym XF86WebCam exec "scrot -q 100 '%Y-%m-%d_%H-%M-%S_$wx$h.png' -e 'mv $f ~/img/screenshot'"
-bindsym XF86AudioRaiseVolume exec ~/scripts/x11/bin/dvol -i 5
-bindsym XF86AudioLowerVolume exec ~/scripts/x11/bin/dvol -d 5
-bindsym XF86AudioMute exec ~/scripts/x11/bin/dvol -t
-bindsym XF86AudioPlay exec ~/scripts/x11/bin/spotifyctrl.sh toggle
-bindsym XF86AudioNext exec ~/scripts/x11/bin/spotifyctrl.sh next
-bindsym XF86AudioPrev exec ~/scripts/x11/bin/spotifyctrl.sh prev
-bindsym XF86AudioStop exec ~/scripts/x11/bin/spotifyctrl.sh toggle
-bindsym XF86Launch6 exec ~/scripts/x11/bin/block
+bindsym XF86AudioRaiseVolume exec ~/bin/dvol -i 5
+bindsym XF86AudioLowerVolume exec ~/bin/dvol -d 5
+bindsym XF86AudioMute exec ~/bin/dvol -t
+bindsym XF86AudioPlay exec ~/bin/spotifyctrl.sh toggle
+bindsym XF86AudioNext exec ~/bin/spotifyctrl.sh next
+bindsym XF86AudioPrev exec ~/bin/spotifyctrl.sh prev
+bindsym XF86AudioStop exec ~/bin/spotifyctrl.sh toggle
+bindsym XF86Launch6 exec ~/bin/block
 
-bindsym $mod+comma exec ~/scripts/x11/bin/dmenu_enhanced ssh
-bindsym $mod+period exec ~/scripts/x11/bin/dmenu_enhanced run
-bindsym $mod+slash exec ~/scripts/x11/bin/dmenu_enhanced ranger
-bindsym $mod+semicolon exec ~/scripts/x11/bin/dmenu_enhanced ranger
+bindsym $mod+comma exec ~/bin/dmenu_enhanced ssh
+bindsym $mod+period exec ~/bin/dmenu_enhanced run
+bindsym $mod+slash exec ~/bin/dmenu_enhanced ranger
+bindsym $mod+semicolon exec ~/bin/dmenu_enhanced ranger
 
 # Program and Menu Launchers
 bindsym $mod+t exec urxvt
 bindsym $mod4+t exec xterm
 
 # All muh Alt+Fn Menus
-bindsym $mod+F1 exec ~/scripts/x11/bin/dmenu_enhanced man
-bindsym $mod+F2 exec ~/scripts/x11/bin/dmenu_enhanced run
-bindsym $mod+F3 exec ~/scripts/x11/bin/dmenu_enhanced ssh
-#bindsym $mod+F4 exec ~/scripts/
-#bindsym $mod+F5 exec ~/scripts/
-#bindsym $mod+F6 exec ~/scripts/
-#bindsym $mod+F7 exec ~/scripts/
-#bindsym $mod+F8 exec ~/scripts/
-#bindsym $mod+F9 exec ~/scripts/
+bindsym $mod+F1 exec ~/bin/dmenu_enhanced man
+bindsym $mod+F2 exec ~/bin/dmenu_enhanced run
+bindsym $mod+F3 exec ~/bin/dmenu_enhanced ssh
+#bindsym $mod+F4 exec ~/bin/
+#bindsym $mod+F5 exec ~/bin/
+#bindsym $mod+F6 exec ~/bin/
+#bindsym $mod+F7 exec ~/bin/
+#bindsym $mod+F8 exec ~/bin/
+#bindsym $mod+F9 exec ~/bin/
 bindsym $mod+F10 exec amixer set Speaker toggle
-#bindsym $mod+F11 exec ~/scripts/
-#bindsym $mod+F12 exec ~/scripts/
-bindsym $mod+n exec ~/scripts/x11/bin/current
+#bindsym $mod+F11 exec ~/bin/
+#bindsym $mod+F12 exec ~/bin/
+bindsym $mod+n exec ~/bin/current
 
 # Kill Client
 bindsym $mod+Shift+r kill
