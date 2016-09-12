@@ -13,8 +13,8 @@ x11::parsecolors() {
 
 x11::assigndmenu() {
   x11::parsecolors
-  DMENU="dmenu -i -nb $color0 -nf $color10 -sb $color0 -sf $color2"
-  DMENUR="dmenu_run -i -nb $color0 -nf $color10 -sb $color0 -sf $color1"
+  DMENU="dmenu -i -nb $color16 -nf $color10 -sf $color16 -sb $color1"
+  DMENUR="dmenu_run -i -nb $color16 -nf $color10 -sf $color16 -sb $color1"
   MDMENU="dmenu -o 0.8 -i -l 25 -x 0 -y 0 -w 1920 -h 0 -nb $color0 -nf $COLOR10 -sb $color0 -sf $color1"
 }
 

@@ -36,10 +36,15 @@ x11::templateXresources() {
     return 1
   fi
   echo "#include \"/home/$USER/.colors\"" > "$XRESOURCES"
+  echo "URxvt*background: $color16" >> "$XRESOURCES"
+  echo "URxvt*foreground: $color17" >> "$XRESOURCES"
+  echo "XTerm*background: $color16" >> "$XRESOURCES"
+  echo "XTerm*foreground: $color17" >> "$XRESOURCES"
   cat "$XRESOURCES_TEMPLATE" >> "$XRESOURCES"
   echo
   echo ".Xresources successfully templated"
   echo
+  echo 'After you run $(stow x11), please symlink your desired colorscheme from ~/.config/colors/ to ~/.colors'
 }
 
 x11::templatei3

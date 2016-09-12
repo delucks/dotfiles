@@ -1,10 +1,5 @@
 
-! Color Overrides
-!URxvt*background: [90]#111111
-URxvt*background: #111111
-URxvt*foreground: #e8dfd6
-XTerm*background: #111111
-XTerm*foreground: #e8dfd6
+! Color definitions and overrides templated above
 
 ! URxvt Configuration
 URxvt*.url-launcher: /usr/bin/chromium
