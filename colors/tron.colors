@@ -1,22 +1,18 @@
-# blue = b5cbf8
-# 9bd0fe <- lighter
-# keep the grey?
-# white for non-important text
-export COLOR0="#333333"
-export COLOR1="#63484e"
-export COLOR2="#486350"
-export COLOR3="#6f6b56"
-export COLOR4="#56676f"
-export COLOR5="#63485b"
-export COLOR6="#636363"
-export COLOR7="#a6a6a6"
-export COLOR8="#474747"
-export COLOR9="#63484e"
-export COLOR10="#486350"
-export COLOR11="#6f6b56"
-export COLOR12="#56676f"
-export COLOR13="#63485b"
-export COLOR14="#636363"
-export COLOR15="#a6a6a6"
-export COLOR16="#232323"
-export COLOR17="#a6a6a6"
+*color0: #333333
+*color1: #63484e
+*color2: #486350
+*color3: #6f6b56
+*color4: #56676f
+*color5: #63485b
+*color6: #636363
+*color7: #a6a6a6
+*color8: #474747
+*color9: #63484e
+*color10: #486350
+*color11: #6f6b56
+*color12: #56676f
+*color13: #63485b
+*color14: #636363
+*color15: #a6a6a6
+*color16: #232323
+*color17: #a6a6a6

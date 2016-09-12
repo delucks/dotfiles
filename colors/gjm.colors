@@ -1,18 +1,40 @@
-export COLOR16="#111111"
-export COLOR17="#e8dfd6"
-export COLOR0="#333333"
-export COLOR8="#666666"
-export COLOR1="#ff005b"
-export COLOR9="#ff00a0"
-export COLOR2="#cee318"
-export COLOR10="#ccff00"
-export COLOR3="#ffe755"
-export COLOR11="#ff9f00"
-export COLOR4="#048ac7"
-export COLOR12="#48c6ff"
-export COLOR5="#833c9f"
-export COLOR13="#be67e1"
-export COLOR6="#0ac1cd"
-export COLOR14="#63e7f0"
-export COLOR7="#e5e5e5"
-export COLOR15="#f3f3f3"
+! vim: set filetype=xdefaults :
+! gjm scheme
+! *background: rgba:0000/0000/0000/dddd
+
+!*cursorColor:   #cee318
+
+*background:    #111111
+*foreground:    #e8dfd6
+
+! black
+*color0:        #333333
+*color8:        #666666
+
+! red
+*color1:        #ff005b
+*color9:        #ff00a0
+
+! green
+*color2:        #cee318
+*color10:       #ccff00
+
+! yellow
+*color3:        #ffe755
+*color11:       #ff9f00
+
+! blue
+*color4:        #048ac7
+*color12:       #48c6ff
+
+! magenta
+*color5:        #833c9f
+*color13:       #be67e1
+
+! cyan 
+*color6:        #0ac1cd
+*color14:       #63e7f0
+
+! white
+*color7:        #e5e5e5
+*color15:       #f3f3f3
