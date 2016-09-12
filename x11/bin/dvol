@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+
+source $(dirname $0)/common.sh
+x11::parsecolors
+
+#Customize this stuff
+IF="Speaker"
+SECS="1"
+FONT="-aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*"
+BG="$color16"
+FG="$color17"
+XPOS="835"
+YPOS="530"
+WIDTH="500"
+
+#Probably do not customize
+PIPE="/tmp/dvolpipe"
+
+err() {
+  echo "$1"
+  exit 1
+}
+
+usage() {
+  echo "usage: dvol [option] [argument]"
+  echo
+  echo "Options:"
+  echo "     -i, --increase - increase volume by \`argument'"
+  echo "     -d, --decrease - decrease volume by \`argument'"
+  echo "     -t, --toggle   - toggle mute on and off"
+	echo "     -s, --speakers - toggle speakers"
+  echo "     -h, --help     - display this"
+  exit
+}
+
+#Argument Parsing
+case "$1" in
+  '-i'|'--increase')
+    [ -z "$2" ] && err "No argument specified for increase."
+    AMIXARG="${2}%+"
+    ;;
+  '-d'|'--decrease')
+    [ -z "$2" ] && err "No argument specified for decrease."
+    AMIXARG="${2}%-"
+    ;;
+  '-t'|'--toggle')
+    AMIXARG="toggle"
+    ;;
+  '-s'|'--speaker')
+    AMIXARG="toggle"
+		IF="Speaker"
+    ;;
+  '-h'|'--help')
+    usage
+    ;;
+	'show')
+		;;
+  *)
+    #err "Unrecognized option \`$1', see dvol --help"
+    ;;
+esac
+
+#Actual volume changing (readability low)
+AMIXOUT="$(amixer set "$IF" "$AMIXARG")"
+pkill -RTMIN+10 i3blocks # play nice
+MUTE="$(cut -d '[' -f 4 <<<"$AMIXOUT")"
+if [ "$MUTE" = "off]" ]; then
+  VOL="0"
+else
+  VOL="$(amixer get $IF | tail -n1 | cut -d '[' -f 2 | sed 's/%.*//g')"
+fi
+
+#Using named pipe to determine whether previous call still exists
+#Also prevents multiple volume bar instances
+if [ ! -e "$PIPE" ]; then
+  mkfifo "$PIPE"
+  (dzen2 -l 1 -x "$XPOS" -y "$YPOS" -w "$WIDTH" -fn "$FONT" -bg "$BG" -fg "$FG" -e 'onstart=uncollapse' < "$PIPE" 
+   rm -f "$PIPE") &
+else
+	rm -f "$PIPE"
+fi
+
+# Feed the pipe!
+if [[ "$(pgrep spotify)" ]]; then
+	TRACK=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep -A 1 'xesam:title' | grep variant | sed 's/variant//g' | sed 's/string//g' | sed -e 's/^ *\"//g' -e 's/\" *$//g')
+	ARTIST=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep -A 2 'xesam:artist' | grep string | grep -v xesam | sed 's/string//g' | sed -e 's/^ *\"//g' -e 's/\" *$//g')
+	STR="$TRACK - $ARTIST"
+else
+	TRACK=$(mpc current)
+	STR="$TRACK"
+fi
+if [[ $STR == "" ]]; then
+	STR="Volume"
+fi
+STR="$(amixer get $IF | tail -n1 | awk '{print $NF}') $STR"
+(echo "$STR" ; echo "$VOL" | gdbar -w "$WIDTH" -fg "$FG" -bg "$BG" ; sleep "$SECS") > "$PIPE"

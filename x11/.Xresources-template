@@ -1,6 +1,3 @@
-! Colors Definition
-
-#include "/home/jamie/.colorsX"
 
 ! Color Overrides
 !URxvt*background: [90]#111111

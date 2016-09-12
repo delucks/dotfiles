@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+for i in scrot convert i3lock; do
+  if ! hash $i; then
+    echo "Not all required executables are installed! Please install $i"
+    exit 1
+  fi
+done
+
+FILE="/tmp/screenshot.png"
+BLUR="/tmp/screenshotblur.png"
+if [ -f $FILE ];
+then
+  rm "$FILE"
+fi
+if [ -f $BLUR ];
+then
+  rm "$BLUR"
+fi
+scrot "$FILE"
+convert "$FILE" -blur 0x5 "$BLUR"
+i3lock -i "$BLUR"

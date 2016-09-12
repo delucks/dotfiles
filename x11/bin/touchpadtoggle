@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+declare -i ID
+ID=`xinput list | grep -Eo 'ouchpad\s*id\=[0-9]{1,2}' | grep -Eo '[0-9]{1,2}'`
+declare -i STATE
+STATE=`xinput list-props $ID|grep 'Device Enabled'|awk '{print $4}'`
+if [ $STATE -eq 1 ]
+then
+    xinput disable $ID
+    notify-send -u normal -t 10 -a "$0" "$0" "Touchpad disabled"
+else
+    xinput enable $ID
+    notify-send -u normal -t 10 -a "$0" "$0" "Touchpad enabled"
+fi
