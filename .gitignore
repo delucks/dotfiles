@@ -1,5 +1,6 @@
-.vim/bundle/*
-.vim/.netrwhist
 *.log
+*.swp
 x11/.i3/config
 x11/.Xresources
+vim/.vim/.netrwhist
+vim/.vim/plugins
