@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# File to be sourced COLOR4enever dmenu is run.
-source ~/.colors # Get the colors we'll need from the theme
-
-DMENU="dmenu -i -nb #111111 -nf $COLOR10 -sb #111111 -sf #a8a8a8 -fn bitocra13"
-DMENUR="dmenu_run -i -nb #111111 -nf $COLOR10 -sb #111111 -sf #a8a8a8 -fn bitocra13"
-MDMENU="dmenu -o 0.8 -i -l 25 -x 0 -y 0 -w 1920 -h 0 -nb #111111 -nf $COLOR10 -sb #111111 -sf #a8a8a8 -fn bitocra13"

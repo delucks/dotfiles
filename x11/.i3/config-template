@@ -46,38 +46,33 @@ for_window [class="violet"] floating enable
 # -----
 # Keymaps
 
-# Mode Changing
-bindsym $mod+grave mode "game"
-bindsym $mod+r mode "resize"
-
 # Special Keys
 bindsym XF86KbdBrightnessUp exec asus-kbd-backlight up
 bindsym XF86KbdBrightnessDown exec asus-kbd-backlight down 
-bindsym XF86TouchpadToggle exec ~/scripts/touchpadtoggle
+bindsym XF86TouchpadToggle exec ~/scripts/x11/bin/touchpadtoggle
 bindsym XF86WebCam exec "scrot -q 100 '%Y-%m-%d_%H-%M-%S_$wx$h.png' -e 'mv $f ~/img/screenshot'"
-bindsym XF86AudioRaiseVolume exec ~/scripts/dvol -i 5
-bindsym XF86AudioLowerVolume exec ~/scripts/dvol -d 5
-bindsym XF86AudioMute exec ~/scripts/dvol -t
-bindsym XF86AudioPlay exec ~/scripts/spotifyctrl.py -t
-bindsym XF86AudioNext exec ~/scripts/spotifyctrl.py -n
-bindsym XF86AudioPrev exec ~/scripts/spotifyctrl.py -p
-bindsym XF86AudioStop exec ~/scripts/spotifyctrl.py -t
-bindsym XF86Calculator exec ~/scripts/dmenu_calc
-bindsym XF86Launch6 exec ~/scripts/block
+bindsym XF86AudioRaiseVolume exec ~/scripts/x11/bin/dvol -i 5
+bindsym XF86AudioLowerVolume exec ~/scripts/x11/bin/dvol -d 5
+bindsym XF86AudioMute exec ~/scripts/x11/bin/dvol -t
+bindsym XF86AudioPlay exec ~/scripts/x11/bin/spotifyctrl.sh toggle
+bindsym XF86AudioNext exec ~/scripts/x11/bin/spotifyctrl.sh next
+bindsym XF86AudioPrev exec ~/scripts/x11/bin/spotifyctrl.sh prev
+bindsym XF86AudioStop exec ~/scripts/x11/bin/spotifyctrl.sh toggle
+bindsym XF86Launch6 exec ~/scripts/x11/bin/block
 
-bindsym $mod+comma exec ~/scripts/dmenu_ssh
-bindsym $mod+period exec ~/scripts/dmenu_run_enhanced
-bindsym $mod+slash exec ~/scripts/dmenu_ranger
-bindsym $mod+semicolon exec ~/scripts/dmenu_ranger
+bindsym $mod+comma exec ~/scripts/x11/bin/dmenu_enhanced ssh
+bindsym $mod+period exec ~/scripts/x11/bin/dmenu_enhanced run
+bindsym $mod+slash exec ~/scripts/x11/bin/dmenu_enhanced ranger
+bindsym $mod+semicolon exec ~/scripts/x11/bin/dmenu_enhanced ranger
 
 # Program and Menu Launchers
 bindsym $mod+t exec urxvt
 bindsym $mod4+t exec xterm
 
 # All muh Alt+Fn Menus
-bindsym $mod+F1 exec ~/scripts/dmenu_man
-bindsym $mod+F2 exec ~/scripts/dmenu_run_enhanced
-bindsym $mod+F3 exec ~/scripts/dmenu_ssh
+bindsym $mod+F1 exec ~/scripts/x11/bin/dmenu_enhanced man
+bindsym $mod+F2 exec ~/scripts/x11/bin/dmenu_enhanced run
+bindsym $mod+F3 exec ~/scripts/x11/bin/dmenu_enhanced ssh
 #bindsym $mod+F4 exec ~/scripts/
 #bindsym $mod+F5 exec ~/scripts/
 #bindsym $mod+F6 exec ~/scripts/
@@ -87,7 +82,7 @@ bindsym $mod+F3 exec ~/scripts/dmenu_ssh
 bindsym $mod+F10 exec amixer set Speaker toggle
 #bindsym $mod+F11 exec ~/scripts/
 #bindsym $mod+F12 exec ~/scripts/
-bindsym $mod+n exec ~/scripts/current
+bindsym $mod+n exec ~/scripts/x11/bin/current
 
 # Kill Client
 bindsym $mod+Shift+r kill
@@ -159,26 +154,6 @@ bindsym $mod+Shift+e move container to workspace 8:e
 #bindsym $mod+comma scratchpad show
 #bindsym $mod+Shift+comma move scratchpad
 
-mode "game" {
-  bindsym $mod+Shift+grave mode "default"
-}
-
-# ---
-# Resize Mode
-
-mode "resize" {
-  # Mode Changes
-  bindsym i mode "default"
-  bindsym grave mode "normal"
-  bindsym Escape mode "default"
-
-  # Window Changes
-  bindsym h resize shrink width 20 px or 10 ppt
-  bindsym j resize grow height 20 px or 10 ppt
-  bindsym k resize shrink height 20 px or 10 ppt
-  bindsym l resize grow width 20 px or 10 ppt
-}
-
 # -----
 # General
 
@@ -222,7 +197,6 @@ workspace_auto_back_and_forth no
 
 # -----
 # Program Execution
-exec compton &
 exec sh ~/.fehbg &
 
 # Class                      border            backgr.        text        indicator

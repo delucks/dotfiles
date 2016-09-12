@@ -6,11 +6,6 @@
 alias cmd_exists="hash >/dev/null 2>&1"
 export LS_COLORS=
 export LC_ALL="en_US.UTF-8"
-if test -d "$HOME/dev/go/"
-then
-  export GOBIN="$HOME/dev/go/bin"
-  export GOPATH="$HOME/dev/go"
-fi
 if cmd_exists vim
 then
   export EDITOR='vim'
@@ -328,12 +323,13 @@ fi
 if test -f /sys/class/backlight/intel_backlight/brightness
 then
   b() {
+    BACKLIGHT=/sys/class/backlight/intel_backlight/brightness
   	if [ $# -eq 0 ]; then
-  		cat /sys/class/backlight/intel_backlight/brightness
+  		cat "$BACKLIGHT"
     elif [[ "$1" -eq "max" ]]; then
-      echo "$(cat /sys/class/backlight/intel_backlight/max_brightness)" | sudo tee -a /sys/class/backlight/intel_backlight/brightness
+      cat /sys/class/backlight/intel_backlight/max_brightness | sudo tee "$BACKLIGHT"
     else
-  		echo "${1}" | sudo tee -a /sys/class/backlight/intel_backlight/brightness
+  		echo "${1}" | sudo tee "$BACKLIGHT"
   	fi
   }
 fi
@@ -669,9 +665,12 @@ license() {
 }
 
 # expand my environment pls
-sourcep "$HOME/ansible/hacking/env-setup"
+if test -d "$HOME/dev/go/"
+then
+  export GOBIN="$HOME/dev/go/bin"
+  addp "$HOME/dev/go/bin"
+  export GOPATH="$HOME/dev/go"
+fi
 sourcep "$HOME/.localaliasrc"
-addp "$HOME/dev/go/bin"
 addp "$HOME/scripts"
 addp "$HOME/bin"
-addp "$HOME/.gem/ruby/2.1.0/bin"
