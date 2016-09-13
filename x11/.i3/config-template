@@ -56,13 +56,13 @@ bindsym XF86AudioStop exec ~/bin/spotifyctrl.sh toggle
 bindsym XF86Launch6 exec ~/bin/block
 
 bindsym $mod+comma exec ~/bin/dmenu_enhanced ssh
-bindsym $mod+period exec ~/bin/dmenu_enhanced run
 bindsym $mod+slash exec ~/bin/dmenu_enhanced ranger
-bindsym $mod+semicolon exec ~/bin/dmenu_enhanced ranger
+bindsym $mod+semicolon exec ~/bin/dmenu_enhanced web
 
 # Program and Menu Launchers
 bindsym $mod+t exec urxvt
 bindsym $mod4+t exec xterm
+bindsym $mod+n exec chromium
 
 # All muh Alt+Fn Menus
 bindsym $mod+F1 exec ~/bin/dmenu_enhanced man
@@ -77,7 +77,6 @@ bindsym $mod+F3 exec ~/bin/dmenu_enhanced ssh
 bindsym $mod+F10 exec amixer set Speaker toggle
 #bindsym $mod+F11 exec ~/bin/
 #bindsym $mod+F12 exec ~/bin/
-bindsym $mod+n exec ~/bin/current
 
 # Kill Client
 bindsym $mod+Shift+r kill
@@ -120,9 +119,9 @@ bindsym $mod+space layout toggle split
 
 # Workspaces
 #bindsym $mod+w workspace next
-#bindsym $mod+Shift+w move container to workspace next
+#bindsym $mod+Shift+w move workspace next
 #bindsym $mod+b workspace prev
-#bindsym $mod+Shift+b move container to workspace prev
+#bindsym $mod+Shift+b move workspace prev
 
 bindsym $mod+a workspace 1:a
 bindsym $mod+s workspace 2:s
@@ -133,21 +132,17 @@ bindsym $mod+q workspace 6:q
 bindsym $mod+w workspace 7:w
 bindsym $mod+e workspace 8:e
 
-bindsym $mod+Shift+a move container to workspace 1:a
-bindsym $mod+Shift+s move container to workspace 2:s
-bindsym $mod+Shift+d move container to workspace 3:d
-bindsym $mod+Shift+f move container to workspace 4:f
-bindsym $mod+Shift+g move container to workspace 5:g
-bindsym $mod+Shift+q move container to workspace 6:q
-bindsym $mod+Shift+w move container to workspace 7:w
-bindsym $mod+Shift+e move container to workspace 8:e
+bindsym $mod+Shift+a move workspace 1:a
+bindsym $mod+Shift+s move workspace 2:s
+bindsym $mod+Shift+d move workspace 3:d
+bindsym $mod+Shift+f move workspace 4:f
+bindsym $mod+Shift+g move workspace 5:g
+bindsym $mod+Shift+q move workspace 6:q
+bindsym $mod+Shift+w move workspace 7:w
+bindsym $mod+Shift+e move workspace 8:e
 
-#bindsym $mod+g exec i3-input -F 'rename workspace to %s' -l 1 -P 'New name: ' bindsym $mod+Shift+f exec i3-input -F 'move container to workspace %s' -l 1 -P 'Move to workspace: '
-#bindsym $mod+f exec i3-input -F 'workspace %s' -l 1 -P 'Jump to workspace: '
-#bindsym XF86Launch2 exec i3-input -F 'workspace %s' -l 1 -P 'Jump to workspace: ' 
-
-#bindsym $mod+comma scratchpad show
-#bindsym $mod+Shift+comma move scratchpad
+bindsym $mod+period scratchpad show
+bindsym $mod+Shift+period move scratchpad
 
 # -----
 # General
@@ -182,12 +177,6 @@ bar {
     urgent_workspace $color1 $color16 $color1
   }
 }
-
-# -----
-# General Settings
-#new_window pixel 0
-focus_follows_mouse no
-workspace_auto_back_and_forth no
 
 # -----
 # Program Execution
