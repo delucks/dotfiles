@@ -1,6 +1,7 @@
 # common shell alias / functions
 # author: delucks
 # use freely, share and contribute
+# vi:syntax=sh
 
 # common exports, sourcing functions
 alias cmd_exists="hash >/dev/null 2>&1"
@@ -232,29 +233,31 @@ initializeANSI()
 initializeANSI
 
 log() {
+  # if the first argument is a recognized log level, output everything else with color
   if [ $# -gt 1 ]
   then
-    if [[ "$1" == "err"* ]]
-    then
-      shift
-      echo -e "${redf}$@${reset}"
-    elif [[ "$1" == "ok"* ]]
-    then
-      shift
-      echo -e "${greenf}$@${reset}"
-    elif [[ "$1" == "warn"* ]]
-    then
-      shift
-      echo -e "${yellowf}$@${reset}"
-    elif [[ "$1" == "fatal"* ]]
-    then
-      shift
-      echo -e "${redf}$@${reset}"
-      return 1
-    else
-      shift
-      echo -e "$@"
-    fi
+    case "$1" in
+      err*)
+        shift
+        echo -e "${redf}$@${reset}"
+        ;;
+      info*|ok*)
+        shift
+        echo -e "${greenf}$@${reset}"
+        ;;
+      warn*)
+        shift
+        echo -e "${yellowf}$@${reset}"
+        ;;
+      fatal*)
+        shift
+        echo -e "${redf}$@${reset}"
+        return 1
+        ;;
+      *)
+        echo -e "$@"
+        ;;
+    esac
   else
     echo -e "$@"
   fi
@@ -445,10 +448,6 @@ vfind() {
     vim $(rfind "$@")
   fi
 }
-
-alias rg='rgrep'
-alias rf='rfind'
-alias vf='vfind'
 
 if test -d "$HOME/notes/"
 then
@@ -662,6 +661,25 @@ license() {
       echo "  help: view this help output"
       ;;
   esac
+}
+
+sudo_with_confirmation() {
+  echo "This program would like to use your elevated privileges to run the following command:"
+  echo
+  echo "$@"
+  echo
+  echo 'Is this ok?'
+  select confirmation in "Yes" "No"; do
+    case "$confirmation" in
+      Yes ) 
+        sudo $@
+        ;;
+      No )
+        echo 'Not executing, bailing out'
+        exit 1
+        ;;
+    esac
+  done
 }
 
 # expand my environment pls
