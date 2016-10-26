@@ -322,20 +322,24 @@ then
   }
 fi
 
-# intel-specific brightness
-if test -f /sys/class/backlight/intel_backlight/brightness
-then
-  b() {
-    BACKLIGHT=/sys/class/backlight/intel_backlight/brightness
-  	if [ $# -eq 0 ]; then
-  		cat "$BACKLIGHT"
-    elif [[ "$1" -eq "max" ]]; then
-      cat /sys/class/backlight/intel_backlight/max_brightness | sudo tee "$BACKLIGHT"
-    else
-  		echo "${1}" | sudo tee "$BACKLIGHT"
-  	fi
-  }
-fi
+# brightness
+b() {
+  OPTIONS=(/sys/class/backlight/acpi_video0 /sys/class/backlight/intel_backlight)
+  for i in "${OPTIONS[@]}"
+  do
+    if test -d "$i"; then
+      echo "using $i"
+      SYS_DIR="$i"
+    fi
+  done
+  if [ $# -eq 0 ]; then
+    cat "$SYS_DIR/brightness"
+  elif [[ "$1" -eq "max" ]]; then
+    cat "$SYS_DIR/max_brightness" | sudo tee "$SYS_DIR/brightness"
+  else
+    echo "${1}" | sudo tee "$SYS_DIR/brightness"
+  fi
+}
 
 # asus-specific keyboard brightness control
 if test -f /sys/class/leds/asus::kbd_backlight/brightness

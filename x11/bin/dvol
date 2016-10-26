@@ -1,19 +1,26 @@
 #!/usr/bin/env bash
 
 # requirements check
-for i in gdbar dzen2; do
-  if ! hash $i; then
-    echo "dvol requires $i to be installed, please install it."
-    exit 1
-  fi
-done
+if ! hash dzen2; then
+  echo "dvol requires dzen2 to be installed, please install it."
+  exit 1
+fi
+
+if hash gdbar 2>/dev/null; then
+  BAR_PROGRAM=gdbar
+elif hash dzen2-gdbar 2>/dev/null; then
+  BAR_PROGRAM=dzen2-gdbar
+else
+  echo 'dvol requires gdbar from the dzen2 package to be installed'
+  exit 1
+fi
 
 source $(dirname $0)/common.sh
 x11::parsecolors
 
-IF="Speaker"
+IF="Master"
 SECS="1"
-FONT="-aaron-bitocra13-*-*-normal-*-*-*-*-*-*-*-*-*"
+FONT='-*-fixed-medium-r-normal-*-16-*-*-*-*-*-iso8859-*'
 BG="$color16"
 FG="$color17"
 XPOS="835"
@@ -80,4 +87,4 @@ if [[ "$(pgrep spotify)" ]]; then
 else
 	STR="Volume"
 fi
-(echo "[$MUTED] $STR" ; echo "$VOLUME" | gdbar -w "$WIDTH" -fg "$FG" -bg "$BG" ; sleep "$SECS") > "$PIPE"
+(echo "[$MUTED] $STR" ; echo "$VOLUME" | $BAR_PROGRAM -w "$WIDTH" -fg "$FG" -bg "$BG" ; sleep "$SECS") > "$PIPE"
