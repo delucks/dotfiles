@@ -114,7 +114,7 @@ psgrep() {
 # herbsluftwm helpers
 if cmd_exists herbstclient
 then
-  alias hkeys="cat ~/.config/herbstluftwm/autostart| egrep '^([\t\ ])?hc keybind' | awk '{print \$3}'"
+  alias hkeys="cat $HOME/.config/herbstluftwm/autostart| egrep '^([\t\ ])?hc keybind' | awk '{print \$3}'"
   alias hmods="hkeys | grep mod | sed 's/\$mod\-//g' | sort"
   alias currtag="herbstclient tag_status | sed -e 's/[:|\.][a-zA-Z]//g' -e 's/[\t\ #]//g'"
   alias hc='herbstclient'
@@ -133,6 +133,12 @@ fi
 # networking
 alias router="routel | egrep '^\ +default' | grep -v lo | awk '{print $2}'"
 alias ssh-hosts="grep 'Host\ ' $HOME/.ssh/config | awk '{print \$NF}'"
+logmein() {
+  HOSTS=$(grep -E "Host\ .*$1" $HOME/.ssh/config | awk '{print $NF}')
+  echo "$HOSTS" | while read hostname; do
+    echo "exit" | ssh $hostname
+  done
+}
 
 # misc
 alias sx='ssh-agent startx'
@@ -143,7 +149,7 @@ alias big="echo $1 | figlet"
 alias \:q='exit'
 alias strings='strings -a'
 alias trace='mtr -rw4 -c 5'
-alias whereami='uname -n'
+alias whereami='echo "$(uname -n) in $(pwd)"'
 alias d='date +%R'
 alias violet='wmname LG3D && violet'
 alias wgot='wget -e robots=off -r -nc -np '
@@ -157,6 +163,7 @@ alias apropos="man -k" # yeah, some platforms don't do this
 alias count='sort | uniq -c | sort -nr'
 alias csvify="tr '\n' ',' | sed 's/,$//g'"
 alias meh='echo "¯\_(ツ)_/¯"'
+alias whom='who'
 
 if cmd_exists tmux
 then
@@ -324,7 +331,7 @@ fi
 
 # brightness
 b() {
-  OPTIONS=(/sys/class/backlight/acpi_video0 /sys/class/backlight/intel_backlight)
+  OPTIONS=(/sys/class/backlight/acpi_video0 /sys/class/backlight/intel_backlight /sys/class/backlight/backlight.12)
   for i in "${OPTIONS[@]}"
   do
     if test -d "$i"; then
@@ -459,7 +466,7 @@ then
     if [ $# -lt 1 ]
     then
       log fatal "Usage: note <name of note>"
-      exit 1
+      return 1
     fi
   	FILE="$HOME/notes/$1.txt"
   	if [ -f $FILE ];
@@ -680,7 +687,7 @@ sudo_with_confirmation() {
         ;;
       No )
         echo 'Not executing, bailing out'
-        exit 1
+        return 1
         ;;
     esac
   done
@@ -696,3 +703,4 @@ fi
 sourcep "$HOME/.localaliasrc"
 addp "$HOME/scripts"
 addp "$HOME/bin"
+addp "$HOME/.local/bin"
