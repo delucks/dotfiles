@@ -60,9 +60,8 @@ bindsym $mod+slash exec ~/bin/dmenu_enhanced ranger
 bindsym $mod+semicolon exec ~/bin/dmenu_enhanced web
 
 # Program and Menu Launchers
-bindsym $mod+t exec urxvt
-bindsym $mod4+t exec xterm
-bindsym $mod+n exec chromium
+bindsym $mod+t exec xterm
+bindsym $mod4+t exec urxvt
 
 # All muh Alt+Fn Menus
 bindsym $mod+F1 exec ~/bin/dmenu_enhanced man
