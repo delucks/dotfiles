@@ -157,6 +157,7 @@ alias apropos="man -k" # yeah, some platforms don't do this
 alias count='sort | uniq -c | sort -nr'
 alias csvify="tr '\n' ',' | sed 's/,$//g'"
 alias meh='echo "¯\_(ツ)_/¯"'
+alias whom='who'
 
 if cmd_exists tmux
 then

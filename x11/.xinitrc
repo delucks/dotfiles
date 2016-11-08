@@ -9,6 +9,7 @@ xset +fp /usr/share/fonts/local
 xset fp rehash
 xmodmap ~/.Xmodmap
 setxkbmap -option caps:escape &
+xsetroot -bg "#8b3e2f" -mod 3 3
 
 # program init
 ##############
@@ -16,7 +17,7 @@ setxkbmap -option caps:escape &
 #sudo asus-kbd-backlight allowusers &
 #compton &
 #sxhkd &
-dunst &
+#dunst &
 
 # WM init
 #########
