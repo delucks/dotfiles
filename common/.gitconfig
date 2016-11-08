@@ -9,5 +9,5 @@
   last = log -1 HEAD
   info = !cat .git/config
 [user]
-	email = jamie.delucks@gmail.com
+	email = me@jamesluck.com
 	name = delucks

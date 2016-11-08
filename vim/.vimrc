@@ -69,11 +69,13 @@ Plug 'ap/vim-buftabline'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'deris/vim-shot-f'
 Plug 'mhinz/vim-signify'
-Plug 'amoffat/snake'
 Plug 'junegunn/limelight.vim'
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'stephpy/vim-yaml'
 Plug 'tpope/vim-fugitive'
+if executable("elixir")
+  Plug 'elixir-lang/vim-elixir'
+endif
 call plug#end()
 
 "---------

@@ -1,18 +1,32 @@
 
 ! Color & font definitions templated above
 
+! Independent
+*cursorUnderline: False
+*cursorColor: Chartreuse
+*cursorBlink: True
+
+! Xterm configuration
+xterm*termName: xterm-256color
+xterm*locale: True
+! Do not use Alt for composition
+xterm*eightBitInput: False
+xterm*saveLines: 16384
+xterm*boldFont: 7x13
+xterm*font: 9x15
+xterm*internalBorder: 4
+xterm*multiScroll: True
+
 ! URxvt Configuration
-URxvt*.url-launcher: /usr/bin/chromium
+URxvt.url-launcher: /usr/bin/browser
 ! Must be 0 if you want image previews to work
-URxvt*depth: 0
-URxvt*transparent: false
+URxvt.depth: 0
+URxvt.transparent: False
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
-*cursorBlink: True
-URxvt.letterSpace: 0
-URxvt*imLocale: en_US.UTF-8 
-*.cursorUnderline: False
-*.cursorColor: #af865a
-URxvt*termName: xterm
-URxvt*internalBorder: 4
-URxvt*perl-ext-common: default,matcher,clipboard 
+URxvt.letterSpace: -1
+URxvt.imLocale: en_US.UTF-8 
+URxvt.termName: rxvt-unicode
+URxvt.internalBorder: 4
+URxvt.perl-ext-common: default,matcher
+URxvt.iso14755: False
