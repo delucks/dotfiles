@@ -47,6 +47,8 @@ x11::templateXresources() {
   echo
   echo 'After you run $(stow x11), please symlink your desired colorscheme from ~/.config/colors/ to ~/.colors'
   echo "I recommend $DEFAULT_SCHEME"
+  echo "Merging the new resources..."
+  xrdb -merge $HOME/.Xresources
 }
 
 # sets up the few variables needed for the dynamic x11 setup to work.
