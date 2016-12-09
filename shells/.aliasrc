@@ -684,6 +684,7 @@ sudo_with_confirmation() {
     case "$confirmation" in
       Yes ) 
         sudo $@
+        return $?
         ;;
       No )
         echo 'Not executing, bailing out'
