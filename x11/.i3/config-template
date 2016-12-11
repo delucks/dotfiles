@@ -57,7 +57,7 @@ bindsym XF86Launch6 exec ~/bin/block
 
 bindsym $mod+comma exec ~/bin/dmenu_enhanced ssh
 bindsym $mod+slash exec ~/bin/dmenu_enhanced ranger
-bindsym $mod+semicolon exec ~/bin/dmenu_enhanced web
+bindsym $mod+semicolon exec ~/bin/dmenu_enhanced run
 
 # Program and Menu Launchers
 bindsym $mod+t exec xterm

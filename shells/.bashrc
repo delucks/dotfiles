@@ -30,6 +30,15 @@ _prompt_git() {
   [ -n "$branch" ] && echo "[$color$branch${reset}]"
 }
 
+
+_prompt_svn() {
+  if ! svn st 2>&1 | grep -q 'not a working'; then
+    local message="$(svn st | cut -f1 -d\  | sort | uniq | paste -s -d\  | tr -d ' ')"
+    [[ "$message" == *"M"* ]] || [[ "$message" == *"!"* ]] || [[ "$message" == *"C"* ]] && local color="${redf}" || local color="${greenf}"
+    echo "[$color$message$reset]"
+  fi
+}
+
 _prompt_char() {
   if [[ $? == 0 ]]; then echo "${greenf}.${reset}"; else echo "${redf}?${reset}"; fi
 }
@@ -37,7 +46,8 @@ _prompt_char() {
 dynamic_prompt() {
   local chr=$(_prompt_char)
   local git=$(_prompt_git)
-  echo -e "$git $chr"
+  local svn=$(_prompt_svn)
+  echo -e "$git$svn $chr"
 }
 
 PS1="\u\[${greenf}\]@\h\[${reset}\] \w\$(dynamic_prompt) "
