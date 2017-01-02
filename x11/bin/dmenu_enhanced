@@ -11,12 +11,12 @@ source $(dirname $0)/common.sh
 x11::assigndmenu
 
 # set up common vars
-if hash urxvt; then
-  TERMINAL=urxvt
+if hash xterm; then
+  TERMINAL=xterm
 elif hash terminator; then
   TERMINAL=terminator
 else
-  TERMINAL=xterm
+  TERMINAL=urxvt
 fi
 PROMPT_CHAR='$'
 

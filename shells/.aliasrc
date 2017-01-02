@@ -694,6 +694,16 @@ sudo_with_confirmation() {
   done
 }
 
+witch() {
+  which "$1" 2>/dev/null
+  if [ $? -ne 0 ]; then
+    typeset -f "$1"
+    if [ $? -ne 0 ]; then
+      alias "$1"
+    fi
+  fi
+}
+
 # expand my environment pls
 if test -d "$HOME/dev/go/"
 then

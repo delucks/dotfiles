@@ -45,8 +45,8 @@ _prompt_char() {
 
 dynamic_prompt() {
   local chr=$(_prompt_char)
-  local git=$(_prompt_git)
-  local svn=$(_prompt_svn)
+  hash git 2>/dev/null && local git=$(_prompt_git) || local git=""
+  hash svn 2>/dev/null && local svn=$(_prompt_svn) || local svn=""
   echo -e "$git$svn $chr"
 }
 
