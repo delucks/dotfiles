@@ -25,7 +25,7 @@ hi SpecialKey	    	ctermfg=1
 hi MatchParen       ctermbg=9 ctermfg=0
 hi CursorLine     	ctermbg=none ctermfg=1
 hi CursorColumn   	ctermbg=1
-hi LineNr			      ctermfg=0
+hi LineNr			      ctermfg=0 cterm=bold
 hi CursorLineNr     ctermfg=1 term=reverse
 hi Visual			      cterm=reverse
 hi VisualNOS		    cterm=bold
