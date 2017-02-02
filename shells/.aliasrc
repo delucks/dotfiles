@@ -166,6 +166,13 @@ alias csvify="tr '\n' ',' | sed 's/,$//g'"
 alias meh='echo "¯\_(ツ)_/¯"'
 alias whom='who'
 
+if cmd_exists netctl
+then
+  netctlgrep() {
+    netctl list | grep -E "$1" | awk '{print $NF}' | xargs sudo netctl start
+  }
+fi
+
 if cmd_exists tmux
 then
   alias tmuxa='tmux a'
