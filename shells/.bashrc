@@ -24,7 +24,7 @@ shopt -s autocd # WOW THIS IS AWESOME
 initializeANSI
 
 _prompt_git() {
-  local branch=$(git branch --no-color 2>/dev/null | sed 's/^\*\ //')
+  local branch=$(git branch --no-color 2>/dev/null | awk '/\*/{print $NF}')
   local status="$(git status --porcelain --untracked-files=no 2>/dev/null)"
   [ -n "$status" ] && local color="${redf}" || local color="${greenf}"
   [ -n "$branch" ] && echo "[$color$branch${reset}]"
