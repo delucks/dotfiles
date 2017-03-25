@@ -278,17 +278,24 @@ log() {
   fi
 }
 
-jless() {
-  if [ $# -lt 1 ]
-  then
-    log fatal "Usage: jless <json file> [<jq pattern>]"
-  elif [ $# -lt 2 ]
-  then
-    jq -C . $1 | less -rN
-  else
-    jq -C $2 $1 | less -rN
-  fi
-}
+if cmd_exists jq
+then
+  jless() {
+    # use jq to format & colorize json, then display it inside `less`
+    if [ $# -lt 1 ]
+    then
+      # with no arguments, jless expects stdin to be json
+      jq -C . | less -rN
+    elif [ $# -lt 2 ]
+    then
+      # single argument: a file to view
+      jq -C . $1 | less -rN
+    else
+      # two arguments: the first is a file to read and the second is a jq pattern
+      jq -C $2 $1 | less -rN
+    fi
+  }
+fi
 
 if test -f "$HOME/scripts/x86.py"
 then
@@ -640,7 +647,7 @@ license() {
     ["lgplv3"]="https://www.gnu.org/licenses/lgpl-3.0.txt"
     ["apache"]="https://www.apache.org/licenses/LICENSE-2.0.txt"
     ["wtfpl"]="http://www.wtfpl.net/txt/copying/"
-    ["mit"]="https://0gb.space/mit.txt"
+    ["mit"]="https://mit-license.org/license.txt"
     ["mozilla"]="https://www.mozilla.org/media/MPL/2.0/index.txt"
   )
   case $COMMAND in
@@ -661,7 +668,7 @@ license() {
       then
         if hash curl
         then
-          HTTP_METHOD="$(which curl)"
+          HTTP_METHOD="$(which curl) -s"
         elif hash wget
         then
           HTTP_METHOD="$(which wget) -O -"
