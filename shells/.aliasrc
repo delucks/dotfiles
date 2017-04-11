@@ -101,6 +101,18 @@ then
   alias bvr='beet version'
 fi
 
+# This adds an argument to BSD paste to accept stdin by default
+# The only use case I have for paste is joining standard input
+mypaste() {
+  if [[ "$OSTYPE" == "linux-gnu"* ]]
+  then
+    paste "$@"
+  else
+    paste "$@" -
+  fi
+}
+alias paste=mypaste
+
 # procs
 psgrep() {
 	if [ $# -gt 0 ]; then
