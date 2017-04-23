@@ -30,7 +30,6 @@ _prompt_git() {
   [ -n "$branch" ] && echo "[$color$branch${reset}]"
 }
 
-
 _prompt_svn() {
   if ! svn st 2>&1 | grep -q 'not a working'; then
     local message="$(svn st | cut -f1 -d\  | sort | uniq | paste -s -d\  | tr -d ' ')"
@@ -45,9 +44,15 @@ _prompt_char() {
 
 dynamic_prompt() {
   local chr=$(_prompt_char)
-  hash git 2>/dev/null && local git=$(_prompt_git) || local git=""
-  hash svn 2>/dev/null && local svn=$(_prompt_svn) || local svn=""
+  cmd_exists git && local git=$(_prompt_git) || local git=""
+  cmd_exists svn && local svn=$(_prompt_svn) || local svn=""
   echo -e "$git$svn $chr"
 }
+
+_ssh_complete() {
+    COMPREPLY=( $(compgen -W "$(ssh-hosts | paste -s)" -- ${COMP_WORDS[COMP_CWORD]}) )
+    return 0
+}
+complete -F _ssh_complete ssh
 
 PS1="\u\[${greenf}\]@\h\[${reset}\] \W\$(dynamic_prompt) "

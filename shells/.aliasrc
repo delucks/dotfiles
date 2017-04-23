@@ -13,10 +13,7 @@ then
 else
   export EDITOR='vi'
 fi
-if cmd_exists less
-then
-  export PAGER='less'
-fi
+export PAGER='less'
 
 # cd
 alias ..='cd ..'
@@ -144,7 +141,11 @@ fi
 
 # networking
 alias router="routel | egrep '^\ +default' | grep -v lo | awk '{print $2}'"
-alias ssh-hosts="grep 'Host\ ' $HOME/.ssh/config | awk '{print \$NF}'"
+
+ssh-hosts() {
+  awk '/Host\ /{print $NF}' $HOME/.ssh/config
+}
+
 logmein() {
   HOSTS=$(grep -E "Host\ .*$1" $HOME/.ssh/config | awk '{print $NF}')
   echo "$HOSTS" | while read hostname; do
@@ -532,13 +533,14 @@ addp() {
     case $1 in
       */)
         TRIMMED=$(echo "$1" | sed 's/\/$//g')
-        [[ "$PATH" == *"$TRIMMED:"* ]] || export PATH="$TRIMMED:$PATH"
+        [[ "$PATH" == *"$TRIMMED:"* ]] || PATH="$TRIMMED:$PATH"
         ;;
       *)
-        [[ "$PATH" == *"$1:"* ]] || export PATH="$1:$PATH"
+        [[ "$PATH" == *"$1:"* ]] || PATH="$1:$PATH"
         ;;
     esac
     return 0
+    PATH=$(echo "$PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++{if (NR > 1) printf ORS; printf $a[$1]}')
   fi
   #log err "Path unavailable"
   return 1
