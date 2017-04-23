@@ -1,14 +1,27 @@
 #!/usr/bin/env bash
 
-for i in scrot convert i3lock; do
+for i in convert i3lock; do
   if ! hash $i; then
     echo "Not all required executables are installed! Please install $i"
     exit 1
   fi
 done
 
+if hash scrot 2>/dev/null; then
+  SCREENSHOT_CMD="scrot"
+elif hash maim 2>/dev/null; then
+  SCREENSHOT_CMD="maim"
+else
+  echo "No good screenshot program found"
+  exit 1
+fi
+
 FILE="/tmp/screenshot.png"
-BLUR="/tmp/screenshotblur.png"
+if cat /etc/*release* | grep -qi centos; then
+  BLUR="/tmp/screenshotblur.xpm"
+else
+  BLUR="/tmp/screenshotblur.png"
+fi
 if [ -f $FILE ];
 then
   rm "$FILE"
@@ -17,6 +30,6 @@ if [ -f $BLUR ];
 then
   rm "$BLUR"
 fi
-scrot "$FILE"
+$SCREENSHOT_CMD "$FILE"
 convert "$FILE" -blur 0x5 "$BLUR"
 i3lock -i "$BLUR"

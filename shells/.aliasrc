@@ -116,7 +116,7 @@ alias paste=mypaste
 # procs
 psgrep() {
 	if [ $# -gt 0 ]; then
-		ps -fp $(pgrep -f $1)
+		ps up $(pgrep -f $1)
 	else
 		log fatal "Usage: psgrep <pattern to grep through processes for>"
     return 1
@@ -166,17 +166,17 @@ alias d='date +%R'
 alias violet='wmname LG3D && violet'
 alias wgot='wget -e robots=off -r -nc -np '
 alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
-alias iploc='curl ipinfo.io/$(dig $1 +short)'
 alias mkdir='mkdir -p'
 alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
-alias serve='python2 -m SimpleHTTPServer'
+alias serve='env python2 -m SimpleHTTPServer'
 alias ve='source bin/activate'
 alias apropy="pydoc -k $1 2>/dev/null"
 alias apropos="man -k" # yeah, some platforms don't do this
-alias count='sort | uniq -c | sort -nr'
 alias csvify="tr '\n' ',' | sed 's/,$//g'"
 alias meh='echo "¯\_(ツ)_/¯"'
 alias whom='who'
+alias tmuxa='tmux a'
+alias sl='ls'
 
 if cmd_exists netctl
 then
@@ -184,27 +184,6 @@ then
     netctl list | grep -E "$1" | awk '{print $NF}' | xargs sudo netctl start
   }
 fi
-
-if cmd_exists tmux
-then
-  alias tmuxa='tmux a'
-  gomux() {
-    if [ $# -lt 1 ]
-    then
-      log err 'gomux requires at least one argument, a session name'
-      return 1
-    elif [ $# -lt 2 ]
-    then
-      # do the one-arg thing
-      tmux new-session -A -s "$1"
-    else
-      # add the command name into it
-      tmux new-session -A -s "$1" "$2"
-    fi
-  }
-fi
-
-
 
 if cmd_exists mencoder
 then
@@ -345,6 +324,14 @@ int() {
 # wikipedia summary
 if cmd_exists curl
 then
+  iploc() {
+    if cmd_exists jq
+    then
+      curl -s "https://ipinfo.io/$(dig $1 +short)" | jq .
+    else
+      curl -s "https://ipinfo.io/$(dig $1 +short)"
+    fi
+  }
   function wiki {
   	if [ $# -lt 1 ]
     then
@@ -394,8 +381,7 @@ cl() {
 }
 
 mkcd() {
-  mkdir -p "$1"
-  cd "$1"
+  mkdir -p "$1" && cd "$1"
 }
 
 # applies standard coloration for pager programs
@@ -583,15 +569,6 @@ silent() {
   eval "$1 2>/dev/null 1>&2"
 }
 
-stdfile() {
-  if [ $# -lt 1 ];
-  then
-    log fatal "Usage: stdfile <command to redirect stout and stderr to separate files over>"
-    return 1
-  fi
-  eval "$1 2>./stderr 1>./stdout"
-}
-
 # use it like scp!
 lss() {
   H=$(echo $1 | awk -F':' '{print $1}')
@@ -722,14 +699,8 @@ sudo_with_confirmation() {
   done
 }
 
-witch() {
-  which "$1" 2>/dev/null
-  if [ $? -ne 0 ]; then
-    typeset -f "$1"
-    if [ $? -ne 0 ]; then
-      alias "$1"
-    fi
-  fi
+witch() { 
+  which "$1" 2> /dev/null || typeset -f "$1" || alias "$1" 2> /dev/null || echo "$1 not found"
 }
 
 # expand my environment pls

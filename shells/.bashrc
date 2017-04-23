@@ -6,18 +6,18 @@
 
 ### aliases
 
-source ~/.aliasrc
+source $HOME/.aliasrc
 
 ### exports / functions
 
 export SHELL=$(which bash)
 
-# sorry
 set -o emacs
 bind '"\C-k": "\C-atime \C-m"'
 # ideas for more of these: |less
 bind '"\C-j;": "\C-m"'
 shopt -s autocd # WOW THIS IS AWESOME
+stty -ixon  # diable XON/XOFF
 
 ### prompt
 
@@ -50,4 +50,4 @@ dynamic_prompt() {
   echo -e "$git$svn $chr"
 }
 
-PS1="\u\[${greenf}\]@\h\[${reset}\] \w\$(dynamic_prompt) "
+PS1="\u\[${greenf}\]@\h\[${reset}\] \W\$(dynamic_prompt) "
