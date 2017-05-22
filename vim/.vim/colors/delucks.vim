@@ -41,7 +41,7 @@ hi MoreMsg			    ctermfg=9 cterm=none
 hi StatusLine		    ctermbg=0 cterm=none ctermfg=1
 " not active statusline
 hi StatusLineNC	    ctermbg=0 cterm=none ctermfg=7
-hi VertSplit		    ctermbg=none cterm=none ctermfg=0
+hi VertSplit		    ctermbg=none cterm=none ctermfg=1
 hi Pmenu            ctermbg=1 cterm=none
 hi PmenuSel         ctermbg=0 cterm=none ctermfg=1
 hi Folded			      ctermbg=7 cterm=none ctermfg=0

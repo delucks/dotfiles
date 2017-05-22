@@ -76,7 +76,7 @@ Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'stephpy/vim-yaml'
 Plug 'tpope/vim-fugitive'
 Plug 'benmills/vimux'
-"Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 if executable("elixir")
   Plug 'elixir-lang/vim-elixir'
 endif
