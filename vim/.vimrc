@@ -9,7 +9,7 @@ set nocompatible
 " ui
 set number
 set ruler
-set showmode
+set noshowmode
 set lazyredraw
 set showcmd
 " remove hit-enter prompts for intro
@@ -20,7 +20,7 @@ set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,eol:→
 syntax on
 colorscheme delucks
 if !has('gui_running')
-	set t_Co=256
+  set t_Co=256
 endif
 
 " searching
@@ -34,6 +34,7 @@ set autoindent
 set foldmethod=indent
 set history=100
 set splitright
+set laststatus=2
 " text wrapping
 set wrap
 set sidescroll=1
@@ -65,7 +66,8 @@ endif
 
 call plug#begin('~/.vim/plugins')
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'ap/vim-buftabline'
+"Plug 'ap/vim-buftabline'
+Plug 'vim-airline/vim-airline'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'deris/vim-shot-f'
 Plug 'mhinz/vim-signify'
@@ -120,6 +122,15 @@ let g:limelight_paragraph_span = 0
 let g:buftabline_show=1
 let g:buftabline_numbers=0
 let g:buftabline_separators=0
+
+" Airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_theme='dark'
+let g:airline_symbols_ascii = 1
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
 
 " Misc
 let g:pep8_map='<Leader>8'
@@ -187,7 +198,7 @@ let @h = '0c2wbindsymwf wcwexec'
 let @e = 'yyp:s/./=/g'
 
 " nvim specific commands
-if has('nvim') 
+if has('nvim')
   function! SplitTerm(direction)
     if (a:direction == "v")
       :vsp
@@ -212,27 +223,27 @@ autocmd! bufwritepost .vimrc source %
 autocmd bufreadpost * normal `"
 
 " filetype-specific commands
-autocmd FileType c 
-	\ map <Leader>z :!gcc -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
-autocmd FileType cpp 
+autocmd FileType c
+  \ map <Leader>z :!gcc -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
+autocmd FileType cpp
   \ setlocal shiftwidth=2 |
   \ setlocal tabstop=2 |
-	\ map <Leader>z :!g++ -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
+  \ map <Leader>z :!g++ -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
 autocmd FileType python
   \ setlocal shiftwidth=4 |
   \ setlocal tabstop=4 |
-	\ setlocal expandtab |
+  \ setlocal expandtab |
   \ setlocal nowrap
-autocmd FileType sh 
+autocmd FileType sh
   \ setlocal shiftwidth=2 |
   \ setlocal tabstop=2 |
-	\ map <F9> :!./%
+  \ map <F9> :!./%
 autocmd FileType go
   \ setlocal nowrap
 autocmd FileType java
   \ setlocal shiftwidth=4 |
   \ setlocal tabstop=4 |
-	\ map <Leader>z :!javac "%:p" <CR>
+  \ map <Leader>z :!javac "%:p" <CR>
 autocmd BufRead *.clj
   \ set filetype=clojure
 autocmd FileType vim
