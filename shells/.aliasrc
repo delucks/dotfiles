@@ -60,23 +60,24 @@ then
     alias y='yaourt'
     alias orphan='pacman -Qtdq'
     sizes() {
-    	awk 'BEGIN{while (("pacman -Qi" |getline) > 0){ if ($0 ~ /Name/) {name=$3};{if ($0 ~ /Size/) {size=$4/1024;print name": ",size,"Mb"|"sort -k2 -n|column -t"}}}}'
+      awk 'BEGIN{while (("pacman -Qi" |getline) > 0){ if ($0 ~ /Name/) {name=$3};{if ($0 ~ /Size/) {size=$4/1024;print name": ",size,"Mb"|"sort -k2 -n|column -t"}}}}'
     }
     alias owner='pacman -Qo $(which $1)'
   fi
   cfat() {
-  	sudo mount -t vfat /dev/sdb1 /mnt/vfat
-  	log ok "Mounted."
-  	sudo cp $@ /mnt/vfat/
-  	log ok "Copied."
-  	read -p "Press Enter to Unmount:"
-  	sudo umount /mnt/vfat
-  	log ok "Unmounted."
+    sudo mount -t vfat /dev/sdb1 /mnt/vfat
+    log ok "Mounted."
+    sudo cp $@ /mnt/vfat/
+    log ok "Copied."
+    read -p "Press Enter to Unmount:"
+    sudo umount /mnt/vfat
+    log ok "Unmounted."
   }
   alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
   ununix() {
     date -d @$1
   }
+  alias suspend='pm-suspend'  # I don't care about suspending my shell, what is this, 1980?
 elif [[ "$OSTYPE" == "darwin"* ]]
 then
   # osx
@@ -112,12 +113,12 @@ alias paste=mypaste
 
 # procs
 psgrep() {
-	if [ $# -gt 0 ]; then
-		ps up $(pgrep -f $1)
-	else
-		log fatal "Usage: psgrep <pattern to grep through processes for>"
+  if [ $# -gt 0 ]; then
+    ps up $(pgrep -f $1)
+  else
+    log fatal "Usage: psgrep <pattern to grep through processes for>"
     return 1
-	fi
+  fi
 }
 
 # herbsluftwm helpers
@@ -193,20 +194,20 @@ fi
 if cmd_exists mplayer
 then
   say() {
-  	if [[ "${1}" =~ -[a-z]{2} ]]; then
-  		local lang=${1#-};
-  		local text="${*#$1}";
-  	else 
-  		local lang=${LANG%_*};
-  		local text="$*";
-  	fi;
-  	mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ;
+    if [[ "${1}" =~ -[a-z]{2} ]]; then
+      local lang=${1#-};
+      local text="${*#$1}";
+    else
+      local lang=${LANG%_*};
+      local text="$*";
+    fi;
+    mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ;
   }
   alias wvud='mplayer http://128.175.76.123:8000/WVUD-FM123.mp3'
   alias webcam='mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot'
 fi
 
-# functions 
+# functions
 
 initializeANSI()
 {
@@ -334,13 +335,13 @@ then
     fi
   }
   function wiki {
-  	if [ $# -lt 1 ]
+    if [ $# -lt 1 ]
     then
       log fatal "Usage: wiki <search string>"
       return 1
     else
       curl -s -L -d "search=$1" https://en.wikipedia.org/w/index.php | w3m -T text/html -dump | less
-  	fi
+    fi
   }
 fi
 
@@ -373,12 +374,12 @@ fi
 
 # cd and ls at once
 cl() {
-	if [ -d "$1" ]; then
-		cd "$1"
-		ls
-	else
-		log fatal "cl(): $1: Directory not found"
-	fi
+  if [ -d "$1" ]; then
+    cd "$1"
+    ls
+  else
+    log fatal "cl(): $1: Directory not found"
+  fi
 }
 
 mkcd() {
@@ -389,15 +390,15 @@ mkcd() {
 less_color_env() {
   CMD=$1
   shift
-	env \
-		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-		LESS_TERMCAP_md=$(printf "\e[1;31m") \
-		LESS_TERMCAP_me=$(printf "\e[0m") \
-		LESS_TERMCAP_se=$(printf "\e[0m") \
-		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-		LESS_TERMCAP_ue=$(printf "\e[0m") \
-		LESS_TERMCAP_us=$(printf "\e[1;32m") \
-			$CMD "$@"
+  env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+      $CMD "$@"
 }
 
 alias man='less_color_env man'
@@ -410,12 +411,12 @@ if cmd_exists valgrind
 then
   alias memcheck='valgrind --tool=memcheck $@ --leak-check=full'
   valhalla() {
-  	if [ "$#" == "0" ]; then
-  		make
-  		valgrind --tool=memcheck ./*.exe --leak-check=full
-  	else
-  		g++ -g "$1" -o "$(basename $1).out" && valgrind --tool=memcheck ./"$(basename $1).out" "${@:2}" --leak-check=full
-  	fi
+    if [ "$#" == "0" ]; then
+      make
+      valgrind --tool=memcheck ./*.exe --leak-check=full
+    else
+      g++ -g "$1" -o "$(basename $1).out" && valgrind --tool=memcheck ./"$(basename $1).out" "${@:2}" --leak-check=full
+    fi
   }
 fi
 
@@ -483,17 +484,17 @@ then
       log fatal "Usage: note <name of note>"
       return 1
     fi
-  	FILE="$HOME/notes/$1.txt"
-  	if [ -f $FILE ];
-  	then
-  		log ok "$FILE exists"
-  		vim "$FILE"
-  	else
-  		touch "$FILE"
-  		echo "$1" | figlet > "$FILE"
-  		echo "Note from $(date)" >> "$FILE"
-  		vim "$FILE"
-  	fi
+    FILE="$HOME/notes/$1.txt"
+    if [ -f $FILE ];
+    then
+      log ok "$FILE exists"
+      vim "$FILE"
+    else
+      touch "$FILE"
+      echo "$1" | figlet > "$FILE"
+      echo "Note from $(date)" >> "$FILE"
+      vim "$FILE"
+    fi
   }
 fi
 
@@ -503,21 +504,21 @@ ccd() {
     log fatal "Usage: ccd <file to copy> <directory to copy into>"
     return 1
   fi
-	FILE="$1"
-	if [ ! -f "$FILE" ];
-	then
-		log fatal "File not found"
-		return 1
-	fi
-	DIR="$2"
-	if [ ! -d "$DIR" ];
-	then
-		log fatal "Dir not found"
-		return 1
-	fi
-	cp -r "$FILE" "$DIR"
-	cd "$DIR"
-	pwd
+  FILE="$1"
+  if [ ! -f "$FILE" ];
+  then
+    log fatal "File not found"
+    return 1
+  fi
+  DIR="$2"
+  if [ ! -d "$DIR" ];
+  then
+    log fatal "Dir not found"
+    return 1
+  fi
+  cp -r "$FILE" "$DIR"
+  cd "$DIR"
+  pwd
 }
 
 # add a directory to path, but only if it exists
@@ -580,7 +581,7 @@ lss() {
 
 histogram() {
   if [[ $# -lt 1 ]]
-  then     
+  then
     # changed 2016-02-21: this is useful default behavior
     sort | uniq -c | sort -n
   elif [[ $# -lt 2 ]]
@@ -689,7 +690,7 @@ sudo_with_confirmation() {
   echo 'Is this ok?'
   select confirmation in "Yes" "No"; do
     case "$confirmation" in
-      Yes ) 
+      Yes )
         sudo $@
         return $?
         ;;
@@ -701,7 +702,7 @@ sudo_with_confirmation() {
   done
 }
 
-witch() { 
+witch() {
   which "$1" 2> /dev/null || typeset -f "$1" || alias "$1" 2> /dev/null || echo "$1 not found"
 }
 

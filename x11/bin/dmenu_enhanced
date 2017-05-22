@@ -11,9 +11,11 @@ source $(dirname $0)/common.sh
 x11::assigndmenu
 
 # set up common vars
-if hash xterm; then
+if [[ ! -z "$TERM" ]]; then
+  TERMINAL="$TERM"
+elif hash xterm 2>/dev/null; then
   TERMINAL=xterm
-elif hash terminator; then
+elif hash terminator 2>/dev/null; then
   TERMINAL=terminator
 else
   TERMINAL=urxvt
