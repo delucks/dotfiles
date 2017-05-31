@@ -31,7 +31,7 @@ set hlsearch
 
 " editing
 set autoindent
-set foldmethod=indent
+set foldmethod=manual
 set history=100
 set splitright
 set laststatus=2
@@ -248,3 +248,5 @@ autocmd BufRead *.clj
   \ set filetype=clojure
 autocmd FileType vim
   \ map K :execute('vert help ' . expand("<cword>"))<CR><C-w><C-h>
+autocmd BufRead *.md
+  \ set filetype=markdown

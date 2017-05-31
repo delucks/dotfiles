@@ -706,6 +706,16 @@ witch() {
   which "$1" 2> /dev/null || typeset -f "$1" || alias "$1" 2> /dev/null || echo "$1 not found"
 }
 
+vims() {
+  if [ -f Session.vim ]; then
+    vim -S
+  elif [[ $# -ge 1 ]]; then
+    vim $(find . -name "$1")
+  else
+    vim $(find . -name "*.py")
+  fi
+}
+
 # expand my environment pls
 if test -d "$HOME/dev/go/"
 then
