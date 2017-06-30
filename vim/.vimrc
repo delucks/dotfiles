@@ -4,10 +4,14 @@
 "---------
 " Settings
 
+" basics
 set nocompatible
-
-" ui
+set encoding=utf-8
+" adjust line number by mode
 set number
+autocmd InsertEnter * :set norelativenumber
+autocmd InsertLeave * :set relativenumber
+" ui
 set ruler
 set noshowmode
 set lazyredraw
@@ -18,13 +22,18 @@ set shortmess+=I
 set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,eol:→
 " theming
 syntax on
+set synmaxcol=300 " don't render lines > 300 chars
 colorscheme delucks
 if !has('gui_running')
   set t_Co=256
 endif
 
+" enables a completion menu over the statusline
+set wildmenu
+set wildmode=full
+
 " searching
-set ignorecase
+set infercase
 set smartcase
 set incsearch
 set hlsearch
@@ -48,12 +57,14 @@ set virtualedit=block
 set shiftwidth=2
 set tabstop=2
 set expandtab
+set tw=0
 
 " misc
 let g:sh_no_error = 1
-let g:markdown_fenced_languages = ['python', 'java', 'sh', 'vim']
+let g:markdown_fenced_languages = ['python', 'java', 'sh', 'vim', 'golang', 'clojure', 'elixir']
+
 " ignore the following files (or give low preference)
-set suffixes=.bak,~,.swp,.o,.out,.jpg,.png,.gif,.class
+set suffixes=.bak,.pyc,.swp,.o,.out,.pyo,.jpg,.png,.gif,.class
 let g:netrw_liststyle=2
 if executable("rg")
   set grepprg=ag
@@ -61,24 +72,31 @@ elseif executable("ack")
   set grepprg=ack
 endif
 
+if v:version >= 703
+  set colorcolumn=80
+  set undodir=~/.vim/undo
+  set undofile
+  set undolevels=1000 "max number of changes that can be undone
+  set undoreload=10000 "max number lines to save for undo on buffer reload
+endif
+
 "--------
 " Plugins
 
 call plug#begin('~/.vim/plugins')
-Plug 'fatih/vim-go', { 'for': 'go' }
-"Plug 'ap/vim-buftabline'
-Plug 'vim-airline/vim-airline'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'deris/vim-shot-f'
-Plug 'mhinz/vim-signify'
-Plug 'junegunn/limelight.vim'
-Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
-Plug 'stephpy/vim-yaml'
-Plug 'tpope/vim-fugitive'
-Plug 'benmills/vimux'
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'fatih/vim-go', { 'for': 'go' }                  " enables gofmt on :w
+Plug 'vim-airline/vim-airline'                        " draws buffers in tabline and colorizes the statusline
+Plug 'ctrlpvim/ctrlp.vim'                             " fast fuzzy find buffer menu
+Plug 'deris/vim-shot-f'                               " highlights the first match of a character in a line for f/t commands
+Plug 'mhinz/vim-signify'                              " display version control hints
+Plug 'junegunn/limelight.vim'                         " syntax highlight only the current paragraph
+Plug 'guns/vim-clojure-static', { 'for': 'clojure' }  " syntax hightlight clojure
+"Plug 'stephpy/vim-yaml'
+Plug 'tpope/vim-fugitive'                             " I only use :Gblame but that is useful
+Plug 'benmills/vimux'                                 " send commands to tmux
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }      " omni-completion for python
 if executable("elixir")
-  Plug 'elixir-lang/vim-elixir'
+  Plug 'elixir-lang/vim-elixir'                       " better support
 endif
 call plug#end()
 
@@ -150,6 +168,8 @@ nnoremap <silent> <Leader>e :Lexplore<CR>
 " improve my search and replace workflow
 nmap S :%s//g<LEFT><LEFT>
 nmap <expr>  M  ':%s/' . @/ . '//g<LEFT><LEFT>'
+" recompute syntax highlighting
+nnoremap <silent> <Leader>s :syntax sync fromstart<CR>
 
 " get rid of some keys
 nnoremap <F1> <nop>
@@ -182,10 +202,15 @@ nmap <Leader><S-j> :winc J<CR>
 nmap <Leader><S-k> :winc K<CR>
 nmap <Leader><S-l> :winc L<CR>
 nmap <Leader>= <C-w><C-=>
+nnoremap <silent> <Leader>/ :noh<CR>
 
 " Misc
 nmap <F6> :r!xclip -o <CR>
 vmap <F6> :!xclip -f -sel clip<CR>
+
+" this allows you to change the next and previous matches for the current word
+nnoremap c* *Ncgn
+nnoremap c# #NcgN
 
 "-------
 " Macros
@@ -221,6 +246,8 @@ endif
 autocmd! bufwritepost .vimrc source %
 " jump to last used position in every file
 autocmd bufreadpost * normal `"
+" resize windows when they are resized
+autocmd VimResized * wincmd =
 
 " filetype-specific commands
 autocmd FileType c
@@ -240,13 +267,18 @@ autocmd FileType sh
   \ map <F9> :!./%
 autocmd FileType go
   \ setlocal nowrap
+autocmd FileType text
+  \ set spell |
+  \ set complete+=kspell
 autocmd FileType java
   \ setlocal shiftwidth=4 |
   \ setlocal tabstop=4 |
   \ map <Leader>z :!javac "%:p" <CR>
-autocmd BufRead *.clj
+autocmd BufRead,BufNewFile *.clj
   \ set filetype=clojure
 autocmd FileType vim
   \ map K :execute('vert help ' . expand("<cword>"))<CR><C-w><C-h>
-autocmd BufRead *.md
-  \ set filetype=markdown
+autocmd BufRead,BufNewFile *.md
+  \ set filetype=markdown |
+  \ set spell |
+  \ set complete+=kspell

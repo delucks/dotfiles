@@ -4,7 +4,7 @@
 # set x options and colors
 ##########################
 
-xrdb -merge .Xresources
+xrdb .Xresources
 xset +fp /usr/share/fonts/local
 xset fp rehash
 xmodmap ~/.Xmodmap
