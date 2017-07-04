@@ -55,4 +55,4 @@ _ssh_complete() {
 }
 complete -F _ssh_complete ssh
 
-PS1="\u\[${greenf}\]@\h\[${reset}\] \W\$(dynamic_prompt) "
+PS1="\u\[${greenf}\]@\h\[${reset}\] [\D{%F %T}] \W\$(dynamic_prompt) "
