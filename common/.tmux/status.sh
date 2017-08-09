@@ -1,11 +1,11 @@
 case $1 in
   load)
-    uptime | awk -F': ' '{print $NF}'
+    cut -d\  -f 1-3 /proc/loadavg
     ;;
   unix)
     date +%s
     ;;
-  disk)
-    df -h | awk '/\/(home|mnt)/{print $NF": "$5}' | tr '\n' ' '
+  memory|mem)
+    free | awk '/Mem/{PERC=$NF/$2*100.0; printf "%3.1f%\n", PERC}'
     ;;
 esac
