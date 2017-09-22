@@ -170,7 +170,6 @@ alias wgot='wget -e robots=off -r -nc -np '
 alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
 alias mkdir='mkdir -p'
 alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
-alias serve='env python2 -m SimpleHTTPServer'
 alias ve='source bin/activate'
 alias apropy="pydoc -k $1 2>/dev/null"
 alias apropos="man -k" # yeah, some platforms don't do this
@@ -713,6 +712,21 @@ vims() {
     vim $(find . -name "$1")
   else
     vim $(find . -name "*.py")
+  fi
+}
+
+serve() {
+  PORT="${1:-8000}"
+  if hash python3; then
+    python3 -m http.server $PORT
+  elif hash python2; then
+    python2 -m SimpleHTTPServer $PORT
+  elif hash php; then
+    php -S "127.0.0.1:${PORT}"
+  elif hash busybox; then
+    busybox httpd -f -p $PORT
+  else
+    python -m http.server $PORT
   fi
 }
 
