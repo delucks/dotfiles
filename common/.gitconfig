@@ -8,6 +8,8 @@
   l = log
   last = log -1 HEAD
   info = !cat .git/config
+  up = push origin master
+  down = pull origin master
 [user]
 	email = me@jamesluck.com
 	name = delucks
