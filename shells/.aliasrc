@@ -309,6 +309,7 @@ then
       curl -s -L -d "search=$1" https://en.wikipedia.org/w/index.php | w3m -T text/html -dump | less
     fi
   }
+  alias headers='curl -sLD - -o /dev/null'
 fi
 
 # brightness
