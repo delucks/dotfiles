@@ -22,19 +22,12 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
-# vc
-if cmd_exists svn
-then
-  alias sch='svn checkout $@'
-  alias sadd='svn add $@'
-fi
 if cmd_exists git
 then
   alias gita='git add'
   alias gitd='git diff'
   alias gits='git status'
   alias gitl='git log --all --graph --pretty=format:"%Cred%h%Creset %C(bold blue)%an%Creset :%C(yellow)%d%Creset %s %Cgreen(%cr) %Creset"'
-  alias giti='git info'
   alias gitp='git push origin master'
 fi
 
@@ -42,11 +35,6 @@ fi
 if [[ "$OSTYPE" == "linux-gnu"* ]]
 then
   # linux specific aliases
-  test -d "${HOME}/GNUstep" && export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
-  #export TERM=xterm-256color
-  alias lscan="sudo nmap -sP $(ip addr show | grep 'inet ' | grep global | awk '{print $2}') | grep -v -e Host\ is\ up -e done -e Starting"
-  alias prdev="ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' '"
-  alias paddr="ip addr show primary dev $(ip link show up | grep mtu | grep -v lo | awk -F':' '{print $2}' | tr -d ' ') | grep inet\ | awk '{print $2}'"
   alias ls='ls --color=auto'
   alias la='ls -aChkopl --group-directories-first --color=auto'
   if test -f /etc/debian_version
@@ -64,16 +52,6 @@ then
     }
     alias owner='pacman -Qo $(which $1)'
   fi
-  cfat() {
-    sudo mount -t vfat /dev/sdb1 /mnt/vfat
-    log ok "Mounted."
-    sudo cp $@ /mnt/vfat/
-    log ok "Copied."
-    read -p "Press Enter to Unmount:"
-    sudo umount /mnt/vfat
-    log ok "Unmounted."
-  }
-  alias mfat='sudo mount -t vfat /dev/sdb1 /mnt/vfat'
   ununix() {
     date -d @$1
   }
@@ -96,7 +74,6 @@ then
   alias bim='beet im'
   alias bls='beet ls'
   alias brm='beet remove'
-  alias bvr='beet version'
 fi
 
 # This adds an argument to BSD paste to accept stdin by default
@@ -128,16 +105,6 @@ then
   alias hmods="hkeys | grep mod | sed 's/\$mod\-//g' | sort"
   alias currtag="herbstclient tag_status | sed -e 's/[:|\.][a-zA-Z]//g' -e 's/[\t\ #]//g'"
   alias hc='herbstclient'
-fi
-
-# docker
-if cmd_exists docker
-then
-  docker-remove() {
-    sudo docker images | grep "$1" | awk '{print $3}' | xargs sudo docker rmi 2>&1 | awk '{print $12}' | uniq | xargs sudo docker rm
-    sudo docker images | grep "$1" | awk '{print $3}' | xargs sudo docker rmi
-  }
-  alias daddr="sudo docker ps | tail -1 | awk '{print $1}' | xargs sudo docker inspect -f '{{.NetworkSettings}}' "
 fi
 
 # networking
