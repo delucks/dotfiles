@@ -33,7 +33,7 @@ set wildmenu
 set wildmode=full
 
 " searching
-set infercase
+set ignorecase
 set smartcase
 set incsearch
 set hlsearch
