@@ -16,7 +16,7 @@ set -o emacs
 bind '"\C-k": "\C-atime \C-m"'
 # ideas for more of these: |less
 bind '"\C-j;": "\C-m"'
-shopt -s autocd # WOW THIS IS AWESOME
+shopt | grep -q autocd && shopt -s autocd # WOW THIS IS AWESOME
 stty -ixon  # diable XON/XOFF
 
 ### prompt
