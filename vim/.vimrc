@@ -282,3 +282,8 @@ autocmd BufRead,BufNewFile *.md
   \ set filetype=markdown |
   \ set spell |
   \ set complete+=kspell
+
+" Allow for each machine to override global settings
+if !empty(glob("~/.localvimrc"))
+  source ~/.localvimrc
+endif
