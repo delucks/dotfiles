@@ -91,12 +91,10 @@ Plug 'deris/vim-shot-f'                               " highlights the first mat
 Plug 'mhinz/vim-signify'                              " display version control hints
 Plug 'junegunn/limelight.vim'                         " syntax highlight only the current paragraph
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }  " syntax hightlight clojure
-"Plug 'stephpy/vim-yaml'
 Plug 'tpope/vim-fugitive'                             " I only use :Gblame but that is useful
 Plug 'benmills/vimux'                                 " send commands to tmux
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }      " omni-completion for python
 if executable("elixir")
-  Plug 'elixir-lang/vim-elixir'                       " better support
+  Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }  " better support
 endif
 call plug#end()
 
@@ -238,6 +236,23 @@ if has('nvim')
   tnoremap <Leader>j <C-\><C-n><C-w>j
   tnoremap <Leader>l <C-\><C-n><C-w>l
 endif
+
+" Make the current buffer suitable for direct copy-pasting out of a terminal window
+function! CopyMode()
+  setlocal number!
+  setlocal relativenumber!
+  setlocal ruler!
+  setlocal showcmd!
+  :SignifyToggle
+  :AirlineToggle
+  if &laststatus
+    set laststatus=0
+  else
+    set laststatus=2
+  endif
+endfunction
+
+nnoremap <Leader>n :call CopyMode()<CR>
 
 "-------------
 " Autocommands
