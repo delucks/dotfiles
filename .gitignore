@@ -4,3 +4,8 @@ x11/.i3/config
 x11/.Xresources
 vim/.vim/.netrwhist
 vim/.vim/plugins
+ipython/.ipython/profile_default/db/
+ipython/.ipython/profile_default/history.sqlite
+ipython/.ipython/profile_default/startup/
+misc/.config/ranger/bookmarks
+misc/.config/ranger/history
