@@ -698,6 +698,21 @@ serve() {
   fi
 }
 
+if cmd_exists inotifywait; then
+  onchange() {
+    # Look for filesystem events using inotify, run command if they change
+    if [[ $# -lt 1 ]]; then
+      log fatal "Usage: changed <command to run> [file or dir, defaults to .]"
+      return 1
+    fi
+    COMMAND="$1"
+    DIR="${2:-.}"
+    inotifywait -mr -e modify -e move -e create -e delete --exclude ".git|.swp|.swx" "$DIR" | while read line; do
+      "$COMMAND"
+    done
+  }
+fi
+
 # expand my environment pls
 if test -d "$HOME/dev/go/"
 then
