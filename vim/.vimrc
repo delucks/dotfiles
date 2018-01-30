@@ -7,10 +7,8 @@
 " basics
 set nocompatible
 set encoding=utf-8
-" adjust line number by mode
 set number
-autocmd InsertEnter * :set norelativenumber
-autocmd InsertLeave * :set relativenumber
+set secure
 " ui
 set ruler
 set noshowmode
@@ -40,7 +38,7 @@ set hlsearch
 
 " editing
 set autoindent
-set foldmethod=manual
+set foldmethod=marker
 set history=100
 set splitright
 set laststatus=2
@@ -61,7 +59,7 @@ set tw=0
 
 " misc
 let g:sh_no_error = 1
-let g:markdown_fenced_languages = ['python', 'java', 'sh', 'vim', 'golang', 'clojure', 'elixir']
+let g:markdown_fenced_languages = ['python', 'java', 'sh', 'vim', 'clojure']
 
 " ignore the following files (or give low preference)
 set suffixes=.bak,.pyc,.swp,.o,.out,.pyo,.jpg,.png,.gif,.class
@@ -101,31 +99,15 @@ call plug#end()
 "---------------
 " Plugin Options
 
-" vimux
-" Tmux-Command
-nmap <Leader>tc :VimuxPromptCommand<CR>
-" Tmux-Last
-nmap <Leader>tl :VimuxRunLastCommand<CR>
-" Tmux-eXit
-nmap <Leader>tx :VimuxInterruptRunner<CR>
-" Tmux-Scroll
-nmap <Leader>ts :VimuxInspectRunner<CR>
-" Tmux-Zoom
-nmap <Leader>tz :VimuxZoomRunner<CR>
-
 " Signify
 let g:signify_vcs_list = [ 'git', 'svn' ]
 let g:signify_line_highlight = 0
 let g:signify_sign_change = '~'
 let g:signify_sign_delete = '-'
-nmap <Leader>v <plug>(signify-next-hunk)
-nmap <Leader>V <plug>(signify-prev-hunk)
 
 " CtrlP options
 let g:ctrlp_map = '<Leader>q'
 let g:ctrlp_cmd = 'CtrlP'
-nnoremap <silent> <Leader>a :CtrlPBuffer<CR>
-nnoremap <silent> <Leader>q :CtrlP<CR>
 
 " limelight.vim
 
@@ -148,9 +130,6 @@ let g:airline_symbols_ascii = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 
-" Misc
-let g:pep8_map='<Leader>8'
-
 "---------
 " Keybinds
 
@@ -161,22 +140,15 @@ nnoremap <Space> :
 nnoremap n nzz
 nnoremap J mzJ`z
 cmap w!! %!sudo tee > /dev/null %
-" launch left-side netrw browser
-nnoremap <silent> <Leader>e :Lexplore<CR>
 " improve my search and replace workflow
 nmap S :%s//g<LEFT><LEFT>
 nmap <expr>  M  ':%s/' . @/ . '//g<LEFT><LEFT>'
-" recompute syntax highlighting
-nnoremap <silent> <Leader>s :syntax sync fromstart<CR>
 
 " get rid of some keys
 nnoremap <F1> <nop>
 nnoremap Q <nop>
 
 " Buffer Manipulation
-nnoremap <silent> <Leader>w :bn<CR>
-nnoremap <silent> <Leader>c :bd<CR>
-nnoremap <silent> <Leader>b :bp<CR>
 nnoremap <Tab> :b<space>
 
 " way better than default
@@ -190,17 +162,7 @@ nmap <C-h> <C-W><C-H>
 nmap <C-j> <C-W><C-J>
 nmap <C-k> <C-W><C-K>
 nmap <C-l> <C-W><C-L>
-" Also provide <Leader> shortcuts
-nmap <Leader>h <C-W><C-H>
-nmap <Leader>j <C-W><C-J>
-nmap <Leader>k <C-W><C-K>
-nmap <Leader>l <C-W><C-L>
-nmap <Leader><S-h> :winc H<CR>
-nmap <Leader><S-j> :winc J<CR>
-nmap <Leader><S-k> :winc K<CR>
-nmap <Leader><S-l> :winc L<CR>
-nmap <Leader>= <C-w><C-=>
-nnoremap <silent> <Leader>/ :noh<CR>
+
 
 " Misc
 nmap <F6> :r!xclip -o <CR>
@@ -220,23 +182,6 @@ let @h = '0c2wbindsymwf wcwexec'
 " Insert a line of all = the same length as the current one
 let @e = 'yyp:s/./=/g'
 
-" nvim specific commands
-if has('nvim')
-  function! SplitTerm(direction)
-    if (a:direction == "v")
-      :vsp
-    else
-      :sp
-    endif
-    :term
-  endfunction
-  tnoremap <Leader>e <C-\><C-n>
-  tnoremap <Leader>h <C-\><C-n><C-w>h
-  tnoremap <Leader>k <C-\><C-n><C-w>k
-  tnoremap <Leader>j <C-\><C-n><C-w>j
-  tnoremap <Leader>l <C-\><C-n><C-w>l
-endif
-
 " Make the current buffer suitable for direct copy-pasting out of a terminal window
 function! CopyMode()
   setlocal number!
@@ -252,7 +197,59 @@ function! CopyMode()
   endif
 endfunction
 
+
+"---------------
+" Leader Mappings
+"
+"   n         CopyMode
 nnoremap <Leader>n :call CopyMode()<CR>
+" vimux Commands
+"   tc        Tmux Command
+nmap <Leader>tc :VimuxPromptCommand<CR>
+"   tl        Tmux Last
+nmap <Leader>tl :VimuxRunLastCommand<CR>
+"   tx        Tmux interrupt
+nmap <Leader>tx :VimuxInterruptRunner<CR>
+"   tz        Tmux Zoom
+nmap <Leader>tz :VimuxZoomRunner<CR>
+"   ts        Tmux shell (jump to runner)
+nmap <Leader>ts :VimuxInspectRunner<CR>
+"   v         version control prev hunk
+"   V         version control next hunk
+nmap <Leader>v <plug>(signify-next-hunk)
+nmap <Leader>V <plug>(signify-prev-hunk)
+"   q         CtrlP from current dir
+"   a         CtrlP Buffers
+nnoremap <silent> <Leader>q :CtrlP<CR>
+nnoremap <silent> <Leader>a :CtrlPBuffer<CR>
+"   e         Explore menu in a split
+nnoremap <silent> <Leader>e :Lexplore<CR>
+"   s         Recompute syntax highlighting
+nnoremap <silent> <Leader>s :syntax sync fromstart<CR>
+"   w         Prev buffer
+"   b         Next buffer
+nnoremap <silent> <Leader>w :bn<CR>
+nnoremap <silent> <Leader>b :bp<CR>
+"   c         Close buffer
+nnoremap <silent> <Leader>c :bd<CR>
+"   h         Focus one buffer to the left
+"   j         Focus one buffer down
+"   k         Focus one buffer up
+"   l         Focus one buffer to the right
+nmap <Leader>h <C-W><C-H>
+nmap <Leader>j <C-W><C-J>
+nmap <Leader>k <C-W><C-K>
+nmap <Leader>l <C-W><C-L>
+"   H         Move buffer to the left
+"   J         Move buffer down
+"   K         Move buffer up
+"   L         Move buffer to the right
+nmap <Leader><S-h> :winc H<CR>
+nmap <Leader><S-j> :winc J<CR>
+nmap <Leader><S-k> :winc K<CR>
+nmap <Leader><S-l> :winc L<CR>
+"   /         Clear search highlight
+nnoremap <silent> <Leader>/ :noh<CR>
 
 "-------------
 " Autocommands
