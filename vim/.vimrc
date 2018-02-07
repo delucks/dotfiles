@@ -20,12 +20,11 @@ set shortmess+=I
 set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,eol:→
 " theming
 syntax on
-set synmaxcol=300 " don't render lines > 300 chars
+set synmaxcol=1000 " don't render lines > 300 chars
 colorscheme delucks
 if !has('gui_running')
   set t_Co=256
 endif
-
 " enables a completion menu over the statusline
 set wildmenu
 set wildmode=full
@@ -71,7 +70,7 @@ elseif executable("ack")
 endif
 
 if v:version >= 703
-  set colorcolumn=80
+  autocmd FileType python setlocal colorcolumn=80
   set undodir=~/.vim/undo
   set undofile
   set undolevels=1000 "max number of changes that can be undone
@@ -163,29 +162,13 @@ nmap <C-j> <C-W><C-J>
 nmap <C-k> <C-W><C-K>
 nmap <C-l> <C-W><C-L>
 
-
-" Misc
-nmap <F6> :r!xclip -o <CR>
-vmap <F6> :!xclip -f -sel clip<CR>
-
 " this allows you to change the next and previous matches for the current word
 nnoremap c* *Ncgn
 nnoremap c# #NcgN
 
-"-------
-" Macros
-
-" Transform ~/.Xresources style colors into exported variables
-let @x = '0xiexport l5~f:df#i="#A"j'
-" Transform hlwm keybinds into i3 keybinds
-let @h = '0c2wbindsymwf wcwexec'
-" Insert a line of all = the same length as the current one
-let @e = 'yyp:s/./=/g'
-
 " Make the current buffer suitable for direct copy-pasting out of a terminal window
 function! CopyMode()
   setlocal number!
-  setlocal relativenumber!
   setlocal ruler!
   setlocal showcmd!
   :SignifyToggle
@@ -221,7 +204,7 @@ nmap <Leader>V <plug>(signify-prev-hunk)
 "   q         CtrlP from current dir
 "   a         CtrlP Buffers
 nnoremap <silent> <Leader>q :CtrlP<CR>
-nnoremap <silent> <Leader>a :CtrlPBuffer<CR>
+nnoremap <silent> <Leader><Tab> :CtrlPBuffer<CR>
 "   e         Explore menu in a split
 nnoremap <silent> <Leader>e :Lexplore<CR>
 "   s         Recompute syntax highlighting
@@ -250,6 +233,9 @@ nmap <Leader><S-k> :winc K<CR>
 nmap <Leader><S-l> :winc L<CR>
 "   /         Clear search highlight
 nnoremap <silent> <Leader>/ :noh<CR>
+" Copy/paste from X
+nmap <Leader>p :r!xclip -o <CR>
+vmap <Leader>y :!xclip -f -sel clip<CR>
 
 "-------------
 " Autocommands
@@ -262,12 +248,6 @@ autocmd bufreadpost * normal `"
 autocmd VimResized * wincmd =
 
 " filetype-specific commands
-autocmd FileType c
-  \ map <Leader>z :!gcc -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
-autocmd FileType cpp
-  \ setlocal shiftwidth=2 |
-  \ setlocal tabstop=2 |
-  \ map <Leader>z :!g++ -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
 autocmd FileType python
   \ setlocal shiftwidth=4 |
   \ setlocal tabstop=4 |
@@ -276,16 +256,11 @@ autocmd FileType python
 autocmd FileType sh
   \ setlocal shiftwidth=2 |
   \ setlocal tabstop=2 |
-  \ map <F9> :!./%
 autocmd FileType go
   \ setlocal nowrap
-autocmd FileType text
-  \ set spell |
-  \ set complete+=kspell
 autocmd FileType java
   \ setlocal shiftwidth=4 |
   \ setlocal tabstop=4 |
-  \ map <Leader>z :!javac "%:p" <CR>
 autocmd BufRead,BufNewFile *.clj
   \ set filetype=clojure
 autocmd FileType vim
