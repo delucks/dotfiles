@@ -37,6 +37,7 @@ then
   # linux specific aliases
   alias ls='ls --color=auto'
   alias la='ls -aChkopl --group-directories-first --color=auto'
+  alias errno="grep '#define' /usr/include/asm-generic/errno.h"
   if test -f /etc/debian_version
   then
     # debian specific
@@ -63,6 +64,7 @@ then
   alias la='ls -aChGkopl --group-directories-first'
   alias lsg='ls -aChGkopl --group-directories-first | grep "$@"'
   alias ununix='date -r'
+  alias errno="grep '#define' /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/errno.h"
 else
   alias la='ls -aChkopl --group-directories-first'
   alias lsg='ls -aChkopl --group-directories-first | grep "$@"'
@@ -708,7 +710,7 @@ if cmd_exists inotifywait; then
     COMMAND="$1"
     DIR="${2:-.}"
     inotifywait -mr -e modify -e move -e create -e delete --exclude ".git|.swp|.swx" "$DIR" | while read line; do
-      "$COMMAND"
+      eval "$COMMAND"
     done
   }
 fi
