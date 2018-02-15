@@ -43,9 +43,9 @@ _prompt_char() {
 }
 
 dynamic_prompt() {
-  local chr=$(_prompt_char)
-  cmd_exists git && local git=$(_prompt_git) || local git=""
-  cmd_exists svn && local svn=$(_prompt_svn) || local svn=""
+  local chr="$(_prompt_char)"
+  cmd_exists git && local git="$(_prompt_git)" || local git=""
+  cmd_exists svn && local svn="$(_prompt_svn)" || local svn=""
   echo -e "$git$svn $chr"
 }
 
@@ -55,4 +55,4 @@ _ssh_complete() {
 }
 complete -F _ssh_complete ssh
 
-PS1="\u\[${greenf}\]@\h\[${reset}\] [\D{%m-%d %T}] \W\$(dynamic_prompt) "
+PS1="\u\[${greenf}\]@\h\[${reset}\] [\D{%m-%d %T}] \W\[\$(dynamic_prompt)\] "

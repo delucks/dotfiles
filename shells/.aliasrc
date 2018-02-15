@@ -179,32 +179,18 @@ fi
 
 initializeANSI()
 {
-  esc="\033"
-  blackf="${esc}[0;30m"
-  redf="${esc}[0;31m"
-  greenf="${esc}[0;32m"
-  yellowf="${esc}[0;33m"
-  bluef="${esc}[0;34m"
-  purplef="${esc}[0;35m"
-  cyanf="${esc}[0;36m"
-  whitef="${esc}[0;37m"
-  blackb="${esc}[0;40m"
-  redb="${esc}[0;41m"
-  greenb="${esc}[0;42m"
-  yellowb="${esc}[0;43m"
-  blueb="${esc}[0;44m"
-  purpleb="${esc}[0;45m"
-  cyanb="${esc}[0;46m"
-  whiteb="${esc}[0;47m"
-  boldon="${esc}[0;1m"
-  boldoff="${esc}[0;22m"
-  italicson="${esc}[0;3m"
-  italicsoff="${esc}[0;23m"
-  ulon="${esc}[0;4m"
-  uloff="${esc}[0;24m"
-  invon="${esc}[0;7m"
-  invoff="${esc}[0;27m"
-  reset="${esc}[0m"
+  blackf="$(tput setaf 0)"
+  redf="$(tput setaf 1)"
+  greenf="$(tput setaf 2)"
+  yellowf="$(tput setaf 3)"
+  bluef="$(tput setaf 4)"
+  purplef="$(tput setaf 5)"
+  cyanf="$(tput setaf 6)"
+  whitef="$(tput setaf 7)"
+  boldon="$(tput bold)"
+  italicson="$(tput sitm)"
+  ulon="$(tput smul)"
+  reset="$(tput sgr0)"
 }
 initializeANSI
 
@@ -215,19 +201,19 @@ log() {
     case "$1" in
       err*)
         shift
-        echo -e "${redf}$@${reset}"
+        echo -e "[ERROR] ${redf}$@${reset}"
         ;;
       info*|ok*)
         shift
-        echo -e "${greenf}$@${reset}"
+        echo -e "[INFO]  ${greenf}$@${reset}"
         ;;
       warn*)
         shift
-        echo -e "${yellowf}$@${reset}"
+        echo -e "[WARN]  ${yellowf}$@${reset}"
         ;;
       fatal*)
         shift
-        echo -e "${redf}$@${reset}"
+        echo -e "[FATAL] ${redf}$@${reset}"
         return 1
         ;;
       *)
