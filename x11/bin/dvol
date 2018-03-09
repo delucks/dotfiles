@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+set -e
+
+# This script will only work for 1920x1080 screens. Anything smaller will need to change xPOS & YPOS
 
 # requirements check
 if ! hash dzen2; then
@@ -15,17 +18,14 @@ else
   exit 1
 fi
 
-source $(dirname $0)/common.sh
-x11::parsecolors
-
 IF="Master"
 SECS="1"
 FONT='-*-fixed-medium-r-normal-*-16-*-*-*-*-*-iso8859-*'
-BG="$color16"
-FG="$color17"
-XPOS="835"
-YPOS="530"
-WIDTH="500"
+BG="#202020"
+FG="#dfff00"
+XPOS="1500"
+YPOS="30"
+WIDTH="400"
 PIPE="/tmp/dvolpipe"
 test -e $PIPE && rm $PIPE
 
@@ -38,53 +38,84 @@ usage() {
   echo "usage: dvol [option]"
   echo
   echo "Options:"
-  echo "     -s, --show     - show the current song and volume"
-  echo "     -i, --increase - increase volume by \`argument'"
-  echo "     -d, --decrease - decrease volume by \`argument'"
-  echo "     -t, --toggle   - toggle mute on and off"
-  echo "     -h, --help     - display this"
+  echo "     -s, --show         show the current song and volume"
+  echo "     -t, --toggle       toggle mute on and off"
+  echo "     -i, --increase <%> increase volume"
+  echo "     -d, --decrease <%> decrease volume"
+  echo "         --mixer <str>  alsa mixer name"
+  echo "     -f, --foreground <hex color>"
+  echo "     -b, --background <hex color>"
+  echo "     -h, --help"
   exit
 }
 
 #Argument Parsing
-case "$1" in
-  '-i'|'--increase')
-    [ -z "$2" ] && err "No argument specified for increase."
-    amixer set "$IF" "${2}%+" >/dev/null
-    ;;
-  '-d'|'--decrease')
-    [ -z "$2" ] && err "No argument specified for decrease."
-    amixer set "$IF" "${2}%-" >/dev/null
-    ;;
-  '-t'|'--toggle')
-    amixer set "$IF" toggle >/dev/null
-    ;;
-	'-s'|'--show')
-		;;
-  '-h'|'--help'|*)
-    usage
-    ;;
-esac
+PATTERN="\-\-?[a-z]{1,}"
+while [[ $1 =~ $PATTERN ]]
+do
+  case "$1" in
+    '-f'|'--foreground')
+      FG="${2}"
+      shift
+      shift
+      continue
+      ;;
+    '-b'|'--background')
+      BG="${2}"
+      shift
+      shift
+      continue
+      ;;
+    '--mixer')
+      IF="${2}"
+      shift; shift
+      continue
+      ;;
+    '-i'|'--increase')
+      [ -z "$2" ] && err "No argument specified for increase."
+      amixer set "$IF" "${2}%+" >/dev/null
+      break
+      ;;
+    '-d'|'--decrease')
+      [ -z "$2" ] && err "No argument specified for decrease."
+      amixer set "$IF" "${2}%-" >/dev/null
+      break
+      ;;
+    '-t'|'--toggle')
+      amixer set "$IF" toggle >/dev/null
+      break
+      ;;
+    '-s'|'--show')
+      break
+      ;;
+    '-h'|'--help'|*)
+      usage
+      exit 0
+      ;;
+  esac
+done
 
-MUTED=$(amixer get "$IF" | awk '/dB/{print $NF}' | tr -d '[]' | uniq)
+MUTED=$(amixer get "$IF" | awk '/Front.*Playback/{print $NF}' | tr -d '[]' | uniq)
 if [[ "$MUTED" == "off" ]]; then
   VOLUME=0
 else
-  VOLUME="$(amixer get "$IF" | awk '/dB/{print $5}' | tr -d '[]' | uniq)"
+  VOLUME="$(amixer get "$IF" | awk '/Front.*Playback/{print $5}' | tr -d '[]' | uniq)"
 fi
 
 #Using named pipe to determine whether previous call still exists
 #Also prevents multiple volume bar instances
 mkfifo "$PIPE"
-(dzen2 -l 1 -x "$XPOS" -y "$YPOS" -w "$WIDTH" -fn "$FONT" -bg "$BG" -fg "$FG" -e 'onstart=uncollapse' < "$PIPE" 
- rm -f "$PIPE") &
-
-# Feed the pipe!
+(dzen2 -l 1 -x "$XPOS" -y "$YPOS" -w "$WIDTH" -fn "$FONT" -bg "$BG" -fg "$FG" -e 'onstart=uncollapse' < "$PIPE"; rm -f "$PIPE") & 
+if [[ "$MUTED" == "off" ]]; then
+  BAR_LABEL_MESSAGE="[[$IF MUTED]]"
+else
+  BAR_LABEL_MESSAGE="Volume on $IF (${VOLUME})"
+fi
+# Append spotify track name if found
 if [[ "$(pgrep spotify)" ]]; then
 	TRACK=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep -A 1 'xesam:title' | grep variant | sed 's/variant//g' | sed 's/string//g' | sed -e 's/^ *\"//g' -e 's/\" *$//g' -e 's/;$//g')
-	#ARTIST=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep -A 2 'xesam:artist' | grep string | grep -v xesam | sed 's/string//g' | sed -e 's/^ *\"//g' -e 's/\" *$//g' -e 's/;$//g')
-	STR="$TRACK"
-else
-	STR="Volume"
+	BAR_LABEL_MESSAGE="$BAR_LABEL_MESSAGE $TRACK"
 fi
-(echo "[$MUTED] $STR" ; echo "$VOLUME" | $BAR_PROGRAM -w "$WIDTH" -fg "$FG" -bg "$BG" ; sleep "$SECS") > "$PIPE"
+
+# Feed the pipe!
+(echo "$BAR_LABEL_MESSAGE"; echo "$VOLUME" | $BAR_PROGRAM -w "$WIDTH" -fg "$FG" -bg "$BG"; sleep "$SECS") > "$PIPE"
