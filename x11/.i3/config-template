@@ -163,6 +163,8 @@ bar {
   mode dock
   position top
 
+  status_command i3status --config ~/.i3status.conf
+
   colors {
     # These are set to single values
     background $color16
