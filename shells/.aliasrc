@@ -139,7 +139,7 @@ alias wgot='wget -e robots=off -r -nc -np '
 alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
 alias mkdir='mkdir -p'
 alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
-alias ve='source bin/activate'
+alias ve='source $(find $(git rev-parse --show-toplevel) -name activate | grep -v hooks | head -1) &> /dev/null'
 alias apropy="pydoc -k $1 2>/dev/null"
 alias apropos="man -k" # yeah, some platforms don't do this
 alias csvify="tr '\n' ',' | sed 's/,$//g'"
