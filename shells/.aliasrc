@@ -69,6 +69,7 @@ else
   alias la='ls -aChkopl --group-directories-first'
   alias lsg='ls -aChkopl --group-directories-first | grep "$@"'
 fi
+alias lt='ls -lt'
 
 # beets
 if cmd_exists beet
