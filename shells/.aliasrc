@@ -312,54 +312,6 @@ then
   alias emoji='curl -s "https://www.unicode.org/Public/emoji/11.0/emoji-data.txt" | grep -vE "^#"'
 fi
 
-# monitor brightness
-backlight() {
-  OPTIONS=(/sys/class/backlight/acpi_video0 /sys/class/backlight/intel_backlight /sys/class/backlight/backlight.12)
-  for i in "${OPTIONS[@]}"
-  do
-    if test -d "$i"; then
-      SYS_DIR="$i"
-    fi
-  done
-  if test -z ${SYS_DIR+x}; then
-    echo "No suitable brightness device found out of $OPTIONS"
-    return 1
-  fi
-  if [ $# -eq 0 ]; then
-    cat "$SYS_DIR/brightness"
-  else
-    case "$1" in
-      max)
-        cat "$SYS_DIR/max_brightness" | sudo tee "$SYS_DIR/brightness"
-      ;;
-      up|down)
-        MAX=$(cat "$SYS_DIR/max_brightness")
-        STEP=$((MAX / 20))  # 5% at a time
-        CURRENT=$(cat "$SYS_DIR/brightness")
-        if [ $1 == "up" ]; then
-          NEW=$((CURRENT + STEP))
-        else
-          NEW=$((CURRENT - STEP))
-        fi
-        if test $NEW -lt 0; then
-          NEW=0
-        fi
-        if test $NEW -gt $MAX; then
-          NEW=$MAX
-        fi
-        echo "${NEW}" | sudo tee "$SYS_DIR/brightness"
-      ;;
-      ''|*[!0-9]*)
-        echo "Invalid input, $1"
-        return 1
-      ;;
-      *)
-        echo "${1}" | sudo tee "$SYS_DIR/brightness"
-      ;;
-    esac
-  fi
-}
-
 # asus-specific keyboard brightness control
 if test -f /sys/class/leds/asus::kbd_backlight/brightness
 then
