@@ -46,7 +46,6 @@ then
   elif cmd_exists pacman
   then
     # archlinux specific
-    alias y='yaourt'
     alias orphan='pacman -Qtdq'
     sizes() {
       awk 'BEGIN{while (("pacman -Qi" |getline) > 0){ if ($0 ~ /Name/) {name=$3};{if ($0 ~ /Size/) {size=$4/1024;print name": ",size,"Mb"|"sort -k2 -n|column -t"}}}}'
@@ -71,14 +70,6 @@ else
 fi
 alias lt='ls -lt'
 
-# beets
-if cmd_exists beet
-then
-  alias bim='beet im'
-  alias bls='beet ls'
-  alias brm='beet remove'
-fi
-
 # This adds an argument to BSD paste to accept stdin by default
 # The only use case I have for paste is joining standard input
 mypaste() {
@@ -90,16 +81,6 @@ mypaste() {
   fi
 }
 alias paste=mypaste
-
-# procs
-psgrep() {
-  if [ $# -gt 0 ]; then
-    ps up $(pgrep -f $1)
-  else
-    log fatal "Usage: psgrep <pattern to grep through processes for>"
-    return 1
-  fi
-}
 
 # herbsluftwm helpers
 if cmd_exists herbstclient
@@ -127,8 +108,6 @@ logmein() {
 # misc
 alias sx='ssh-agent startx'
 alias ts='while read line; do date +"%F %T $line"; done'
-alias ks='killall spotify'
-alias cdiff='dwdiff --no-common -c'
 alias big="echo $1 | figlet -t"
 alias \:q='exit'
 alias strings='strings -a'
@@ -166,10 +145,6 @@ ssidgrep() {
   fi
 }
 
-if cmd_exists mencoder
-then
-  alias flvjoin='mencoder -forceidx -of lavf -oac pcm -ovc copy -o output.flv '
-fi
 if cmd_exists mplayer
 then
   say() {
@@ -312,14 +287,6 @@ then
   alias emoji='curl -s "https://www.unicode.org/Public/emoji/11.0/emoji-data.txt" | grep -vE "^#"'
 fi
 
-# asus-specific keyboard brightness control
-if test -f /sys/class/leds/asus::kbd_backlight/brightness
-then
-  kb() {
-    echo "$1" | sudo tee  /sys/class/leds/asus::kbd_backlight/brightness
-  }
-fi
-
 # cd and ls at once
 cl() {
   if [ -d "$1" ]; then
@@ -328,10 +295,6 @@ cl() {
   else
     log fatal "cl(): $1: Directory not found"
   fi
-}
-
-mkcd() {
-  mkdir -p "$1" && cd "$1"
 }
 
 # applies standard coloration for pager programs
@@ -353,76 +316,6 @@ alias man='less_color_env man'
 alias pydoc2='less_color_env pydoc2'
 alias pydoc='less_color_env pydoc'
 alias less='less_color_env less'
-
-# common valgrind usages
-if cmd_exists valgrind
-then
-  alias memcheck='valgrind --tool=memcheck $@ --leak-check=full'
-  valhalla() {
-    if [ "$#" == "0" ]; then
-      make
-      valgrind --tool=memcheck ./*.exe --leak-check=full
-    else
-      g++ -g "$1" -o "$(basename $1).out" && valgrind --tool=memcheck ./"$(basename $1).out" "${@:2}" --leak-check=full
-    fi
-  }
-fi
-
-# recursive grep...
-rgrep() {
-  if [ $# -lt 1 ]
-  then
-    log fatal "Usage: rgrep <pattern> <starting directory>"
-    return 1
-  else
-    if [ $# -gt 1 ]
-    then
-      SEARCH_PATH="$2"
-    else
-      SEARCH_PATH="."
-    fi
-    if cmd_exists ack
-    then
-      ack $1 "$SEARCH_PATH"
-    else
-      grep -riIE $1 "$SEARCH_PATH" | grep -v \.svn | grep -v \.git
-    fi
-  fi
-}
-
-# ...and find...
-rfind() {
-  if [ $# -lt 1 ]
-  then
-    log fatal "Usage: rfind <string to find> <starting directory>"
-    return 1
-  else
-    if [ $# -gt 1 ]
-    then
-      SEARCH_PATH="$2"
-    else
-      SEARCH_PATH="."
-    fi
-    if cmd_exists ack
-    then
-      ack -g "$1" "$SEARCH_PATH"
-    else
-      find "$SEARCH_PATH" -name "*$1*"
-    fi
-  fi
-}
-alias rf='rfind'
-
-# ...with vim!
-vfind() {
-  if [ $# -lt 1 ]
-  then
-    log fatal "Usage: vfind <string to find> <starting directory>"
-    return 1
-  else
-    vim $(rfind "$@")
-  fi
-}
 
 if test -d "$HOME/notes/"
 then
@@ -511,15 +404,6 @@ sourcep() {
   return 1
 }
 
-silent() {
-  if [ $# -lt 1 ];
-  then
-    log fatal "Usage: silent <command to run>"
-    return 1
-  fi
-  eval "$1 2>/dev/null 1>&2"
-}
-
 # use it like scp!
 lss() {
   H=$(echo $1 | awk -F':' '{print $1}')
@@ -545,36 +429,6 @@ histogram() {
 
 lsfunc() {
   typeset -F | awk '{print $NF}'
-}
-
-isgit() {
-  [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1
-}
-
-issvn() {
-  svn info >/dev/null 2>&1
-}
-
-# wraps version control software
-vc() {
-  command=${1:-"status"}
-  case "${command}" in
-    status)
-      isgit && git status
-      issvn && svn status
-      ;;
-    up)
-      isgit && git pull
-      issvn && svn update
-      ;;
-    push)
-      isgit && git push
-      issvn && svn commit
-      ;;
-    *)
-      log fatal "Usage: vc <status|up|push>"
-      return 1
-  esac
 }
 
 license() {
@@ -695,11 +549,11 @@ if cmd_exists inotifywait; then
 fi
 
 # expand my environment pls
-if test -d "$HOME/dev/go/"
+if test -d "$HOME/go/"
 then
-  export GOBIN="$HOME/dev/go/bin"
-  addp "$HOME/dev/go/bin"
-  export GOPATH="$HOME/dev/go"
+  export GOPATH="$HOME/go"
+  export GOBIN="$GOPATH/bin"
+  addp "$GOPATH/bin"
 fi
 sourcep "$HOME/.localaliasrc"
 addp "$HOME/scripts"
