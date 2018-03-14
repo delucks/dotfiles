@@ -148,12 +148,22 @@ alias whom='who'
 alias tmuxa='tmux a'
 alias sl='ls'
 
-if cmd_exists netctl
-then
-  netctlgrep() {
-    netctl list | grep -E "$1" | awk '{print $NF}' | xargs sudo netctl start
-  }
-fi
+ssidgrep() {
+  if [[ $# -lt 1 ]]; then
+    log err "Usage: ssidgrep <Regex matching SSID from network management program"
+    return 1
+  fi
+  if cmd_exists netctl
+  then
+    netctl list | grep -E "$1" | awk '{print $NF}' | xargs -L 1 sudo netctl start
+  elif cmd_exists nmcli
+  then
+    nmcli c show | grep -E "$1" | awk '{print $2}' | xargs -L 1 sudo nmcli c up
+  else
+    log err "ssidgrep requires either NetworkManager or systemd-netctl to be installed"
+    return 1
+  fi
+}
 
 if cmd_exists mencoder
 then
@@ -666,9 +676,9 @@ vims() {
   if [ -f Session.vim ]; then
     vim -S
   elif [[ $# -ge 1 ]]; then
-    vim $(find . -name "$1")
+    vim $(find . -name "*${1}*")
   else
-    vim $(find . -name "*.py")
+    vim $(find . -name "*.py" -or -name "*.md")
   fi
 }
 

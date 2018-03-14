@@ -14,6 +14,7 @@ set ruler
 set noshowmode
 set lazyredraw
 set showcmd
+set nospell
 " remove hit-enter prompts for intro
 set shortmess+=I
 " for :set list
@@ -260,15 +261,14 @@ autocmd FileType go
   \ setlocal nowrap
 autocmd FileType java
   \ setlocal shiftwidth=4 |
-  \ setlocal tabstop=4 |
+  \ setlocal tabstop=4
 autocmd BufRead,BufNewFile *.clj
   \ set filetype=clojure
 autocmd FileType vim
   \ map K :execute('vert help ' . expand("<cword>"))<CR><C-w><C-h>
 autocmd BufRead,BufNewFile *.md
   \ set filetype=markdown |
-  \ set spell |
-  \ set complete+=kspell
+  \ set syntax=off
 
 " Allow for each machine to override global settings
 if !empty(glob("~/.localvimrc"))
