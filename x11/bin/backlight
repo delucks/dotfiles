@@ -4,6 +4,8 @@
 # backlight
 #
 # This script changes the backlight of a monitor for a Linux laptop. It's designed for a minimal of UI to get useful things done quickly.
+# If you don't have permissions over the file, add this to your sudoers:
+#   ALL ALL = (ALL) NOPASSWD: /usr/bin/tee /sys/class/backlight/intel_backlight/brightness
 #
 # Usage:
 #   backlight max           Sets the monitor brightness to the highest value supported
@@ -32,7 +34,7 @@ else
   case "$1" in
     max)
       # UUOC to show the user the brightness while changing it
-      cat "$SYS_DIR/max_brightness" | sudo tee "$SYS_DIR/brightness"
+      cat "$SYS_DIR/max_brightness" | sudo /usr/bin/tee "$SYS_DIR/brightness"
     ;;
     up|down)
       # Increase or decrease 5% at a time
@@ -50,14 +52,14 @@ else
       if test "$NEW" -gt "$MAX"; then
         NEW=$MAX
       fi
-      echo "${NEW}" | sudo tee "$SYS_DIR/brightness"
+      echo "${NEW}" | sudo /usr/bin/tee "$SYS_DIR/brightness"
     ;;
     ''|*[!0-9]*)
       echo "Invalid input, $1"
       return 1
     ;;
     *)
-      echo "${1}" | sudo tee "$SYS_DIR/brightness"
+      echo "${1}" | sudo /usr/bin/tee "$SYS_DIR/brightness"
     ;;
   esac
 fi

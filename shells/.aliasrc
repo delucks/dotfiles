@@ -43,7 +43,6 @@ then
   then
     # debian specific
     alias package='dpkg -l'
-    alias ack="ack-grep"
   elif cmd_exists pacman
   then
     # archlinux specific
