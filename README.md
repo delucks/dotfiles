@@ -97,3 +97,24 @@ xft:Hack:pixelsize=14:antialias=true
 xft:Envy\ Code\ R:normal:pixelsize=14
 xft:inconsolata:pixelsize=14
 ```
+
+Recommended Software
+--------------------
+
+To use these dotfiles to their full potential, I recommend installing these pieces of software which are essential to my terminal environment:
+```
+ack
+amixer
+curl
+dzen2
+git
+i3
+jq
+rofi
+stow
+urxvt
+vim
+wget
+xinit
+xterm
+```
