@@ -91,6 +91,7 @@ Plug 'junegunn/limelight.vim'                         " syntax highlight only th
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }  " syntax hightlight clojure
 Plug 'tpope/vim-fugitive'                             " I only use :Gblame but that is useful
 Plug 'benmills/vimux'                                 " send commands to tmux
+Plug 'PotatoesMaster/i3-vim-syntax'
 if executable("elixir")
   Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }  " better support
 endif
@@ -235,7 +236,7 @@ nmap <Leader><S-l> :winc L<CR>
 "   /         Clear search highlight
 nnoremap <silent> <Leader>/ :noh<CR>
 " Copy/paste from X
-nmap <Leader>p :r!xclip -o <CR>
+nmap <Leader>p :r!xclip --clipboard primary -o <CR>
 vmap <Leader>y :!xclip -f -sel clip<CR>
 
 "-------------
