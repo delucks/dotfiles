@@ -83,6 +83,17 @@ X11
 
 I have spent *far* too long configuring x11.
 
-If you're intending on installing the x11 set of configurations, run `./configure-x11.sh` first. There are a number of color definitions and user-specific paths that need to get templated before you `stow x11`.
+If you want to use my x11 configurations, first run `stow x11`. Once this is is done, symlink a colorscheme from `~/.config/colors/` to `~/.colors`. My perferred colorscheme is `zbrah`.
 
 The configurations for most of the window managers are simple, vim-keybound ones with sane defaults for terminals and menus. There is one exception to this- I have written a number of scripts (all in the `x11/bin` directory) that make my computing life with Linux much nicer. A lot of them revolve around the excellent `dvol` program from the suckless community, which is most likely in your package manager.
+
+#### Good Fonts
+
+```
+-aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
+-*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
+-*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
+xft:Hack:pixelsize=14:antialias=true
+xft:Envy\ Code\ R:normal:pixelsize=14
+xft:inconsolata:pixelsize=14
+```
