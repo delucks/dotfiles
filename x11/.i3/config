@@ -1,17 +1,15 @@
 # -----
 # delucks' i3 config file
 #
-# Peep dat http://i3wm.org/docs/userguide.html for a complete reference!
-# The definitions above are put there by a templating program in my dotfiles
-# They handle font selection and color choice for the rest of the file
+# vim:ft=i3
+# Peep http://i3wm.org/docs/userguide.html for a complete reference!
+
+font -*-fixed-medium-r-normal-*-16-*-*-*-*-*-iso8859-*
 
 set $mod Mod4
 set $mod4 Mod1
 set $modr Mode_switch
 floating_modifier $mod
-
-# -----
-# Colors
 
 new_window pixel 5
 new_float pixel 5
@@ -42,38 +40,35 @@ for_window [class="violet"] floating enable
 # Keymaps
 
 # Special Keys
-bindsym XF86KbdBrightnessUp exec asus-kbd-backlight up
-bindsym XF86KbdBrightnessDown exec asus-kbd-backlight down 
-bindsym XF86TouchpadToggle exec ~/bin/touchpadtoggle
-bindsym XF86WebCam exec "scrot -q 100 '%Y-%m-%d_%H-%M-%S_$wx$h.png' -e 'mv $f ~/img/screenshot'"
 bindsym XF86AudioRaiseVolume exec ~/bin/dvol -i 5
 bindsym XF86AudioLowerVolume exec ~/bin/dvol -d 5
 bindsym XF86AudioMute exec ~/bin/dvol -t
-bindsym XF86AudioPlay exec ~/bin/spotifyctrl.sh toggle
-bindsym XF86AudioNext exec ~/bin/spotifyctrl.sh next
-bindsym XF86AudioPrev exec ~/bin/spotifyctrl.sh prev
-bindsym XF86AudioStop exec ~/bin/spotifyctrl.sh toggle
-bindsym XF86Launch6 exec ~/bin/block
-
-bindsym $mod+comma exec ~/bin/dmenu_enhanced ssh
-bindsym $mod+slash exec ~/bin/dmenu_enhanced ranger
-bindsym $mod+semicolon exec ~/bin/dmenu_enhanced run
+#TODO create a more generic "next track" script
+#bindsym XF86AudioPlay exec ~/bin/spotifyctrl.sh toggle
+#bindsym XF86AudioNext exec ~/bin/spotifyctrl.sh next
+#bindsym XF86AudioPrev exec ~/bin/spotifyctrl.sh prev
+#bindsym XF86AudioStop exec ~/bin/spotifyctrl.sh toggle
+bindsym XF86AudioMedia exec ~/bin/block
+bindsym F11 exec ~/bin/backlight down
+bindsym F12 exec ~/bin/backlight up
 
 # Program and Menu Launchers
 bindsym $mod+t exec xterm
 bindsym $mod4+t exec urxvt
-
-# All muh Alt+Fn Menus
-bindsym $mod+F1 exec ~/bin/dmenu_enhanced man
-bindsym $mod+F2 exec ~/bin/dmenu_enhanced run
-bindsym $mod+F3 exec ~/bin/dmenu_enhanced ssh
+bindsym $mod+comma exec rofi -show ssh
+bindsym $mod+slash exec xterm -e bash -c ranger
+bindsym $mod+semicolon exec rofi -show run
+#TODO write a rofi script to open a command's man page
+#bindsym $mod+F1 exec ~/bin/dmenu_enhanced man
+bindsym $mod+F2 exec rofi -show run
+bindsym $mod+F3 exec rofi -show ssh
 #bindsym $mod+F4 exec ~/bin/
 #bindsym $mod+F5 exec ~/bin/
 #bindsym $mod+F6 exec ~/bin/
 #bindsym $mod+F7 exec ~/bin/
 #bindsym $mod+F8 exec ~/bin/
 #bindsym $mod+F9 exec ~/bin/
-bindsym $mod+F10 exec amixer set Speaker toggle
+#bindsym $mod+F10 exec ~/bin/
 #bindsym $mod+F11 exec ~/bin/
 #bindsym $mod+F12 exec ~/bin/
 
@@ -153,12 +148,31 @@ bindsym $mod+Escape restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+Escape exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# -----
-# i3bar
+# ------------
+# Colors & bar
+
+set_from_resource $color0 i3wm.color0 #333333
+set_from_resource $color1 i3wm.color1 #8b3e2f
+set_from_resource $color2 i3wm.color2 #526f33
+set_from_resource $color3 i3wm.color3 #af865a
+set_from_resource $color4 i3wm.color4 #535C5C
+set_from_resource $color5 i3wm.color5 #775759
+set_from_resource $color6 i3wm.color6 #42717B
+set_from_resource $color7 i3wm.color7 #aaaaaa
+set_from_resource $color8 i3wm.color8 #4c4c4c
+set_from_resource $color9 i3wm.color9 #d75f00
+set_from_resource $color10 i3wm.color10 #7b8748
+set_from_resource $color11 i3wm.color11 #eee685
+set_from_resource $color12 i3wm.color12 #6095c5
+set_from_resource $color13 i3wm.color13 #9f79ee
+set_from_resource $color14 i3wm.color14 #a9cdcd
+set_from_resource $color15 i3wm.color15 #e8e9ca
+set_from_resource $color16 i3wm.color16 #111111
+set_from_resource $color17 i3wm.color17 #e8dfd6
 
 bar {
-  tray_output none # Fuck yo tray!
-  separator_symbol "|"
+  tray_output none
+  separator_symbol "<<<"
 
   mode dock
   position top
@@ -169,7 +183,7 @@ bar {
     # These are set to single values
     background $color16
     statusline $color17
-    separator $color17
+    separator $color9
 
     # These are triplets of border, background, text
     focused_workspace $color9 $color16 $color9
@@ -179,12 +193,12 @@ bar {
   }
 }
 
-# -----
-# Program Execution
-exec sh ~/.fehbg &
-
 # Class                      border            backgr.        text        indicator
 client.focused              $background        $color9        $color0     $color0
 client.focused_inactive     $background        $color0        $color3     $color0
 client.unfocused            $background        $color0        $color3     $color4
 client.urgent               $background        $color1        $color3     $color3
+
+# -----
+# Program Execution
+exec sh ~/.fehbg &
