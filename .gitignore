@@ -2,7 +2,6 @@
 *.swp
 *.pyo
 *.pyc
-x11/.Xresources
 vim/.vim/.netrwhist
 vim/.vim/plugins
 ipython/.ipython/profile_default/db/
