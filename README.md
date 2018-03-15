@@ -35,7 +35,7 @@ Software
   - dwb
   - herbstluftwm
   - i3
-  - i3blocks
+  - i3bar
   - openbox
   - qtile
   - redshift
@@ -48,12 +48,7 @@ Scripts
 I've included a couple of scripts in this repository that are so useful to me that I want them on every box I configure. If you're using my dotfiles, they will be symlinked into `$HOME/bin`. My favorites:
 
 - `common/bin/fileset.py`: compare the contents of two files as if each were a set. Super useful to find out if the lines you're about to add to a file are already in there without having to make an obscure `diff` invocation.
-- `x11/bin/dmenu_enhanced`: shortcuts to use the program `dmenu` with:
-  - man pages
-  - hosts in `~/.ssh/config`
-  - mpd playlist items
-  - frequently accessed directories
-  - frequently accessed websites
+- `x11/bin/backlight`: adjust the monitor brightness of your Linux laptop
 - `x11/bin/block`: Blur-LOCK your Linux desktop
 
 Setup
