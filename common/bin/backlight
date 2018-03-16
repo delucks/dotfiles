@@ -12,6 +12,8 @@
 #   backlight up            Increase monitor brightness by 5%
 #   backlight down          Decrease monitor brightness by 5%
 #   backlight N             Set monitor brightness to this integer value
+#   backlight N%            Set monitor brightness to this percentage of total
+#   backlight -h            Display this message
 
 # Look for a proper /sys control for us to use
 OPTIONS=(/sys/class/backlight/acpi_video0 /sys/class/backlight/intel_backlight /sys/class/backlight/backlight.12)
@@ -23,7 +25,7 @@ do
 done
 if test -z "${SYS_DIR+x}"; then
   echo "No suitable brightness device found out of ${OPTIONS[*]}"
-  return 1
+  exit 1
 fi
 
 # Parse arguments
@@ -31,14 +33,13 @@ if [ $# -eq 0 ]; then
   # No args: show current brightness
   cat "$SYS_DIR/brightness"
 else
+  MAX=$(cat "$SYS_DIR/max_brightness")
   case "$1" in
     max)
-      # UUOC to show the user the brightness while changing it
-      cat "$SYS_DIR/max_brightness" | sudo /usr/bin/tee "$SYS_DIR/brightness"
+      NEW="$MAX"
     ;;
     up|down)
       # Increase or decrease 5% at a time
-      MAX=$(cat "$SYS_DIR/max_brightness")
       STEP=$((MAX / 20))
       CURRENT=$(cat "$SYS_DIR/brightness")
       if [ "$1" == "up" ]; then
@@ -46,20 +47,34 @@ else
       else
         NEW=$((CURRENT - STEP))
       fi
-      if test "$NEW" -lt 0; then
-        NEW=0
-      fi
-      if test "$NEW" -gt "$MAX"; then
-        NEW=$MAX
-      fi
-      echo "${NEW}" | sudo /usr/bin/tee "$SYS_DIR/brightness"
     ;;
-    ''|*[!0-9]*)
-      echo "Invalid input, $1"
-      return 1
+    [0-9]*%)
+      PERCENTAGE=$(echo "$1" | awk -F'%' '{print $1}')
+      NEW=$(bc <<< "scale=0; $MAX / 100*$PERCENTAGE")
+    ;;
+    ^[0-9]+$)
+      NEW="${1}"
+    ;;
+    -h|--help)
+      echo "$0 Usage:"
+      echo "  backlight max           Sets the monitor brightness to the highest value supported"
+      echo "  backlight up            Increase monitor brightness by 5%"
+      echo "  backlight down          Decrease monitor brightness by 5%"
+      echo "  backlight N             Set monitor brightness to this integer value"
+      echo "  backlight N%            Set monitor brightness to this percentage of total"
+      echo "  backlight -h|--help     Display this message"
+      exit 0
     ;;
     *)
-      echo "${1}" | sudo /usr/bin/tee "$SYS_DIR/brightness"
+      echo "Bad Input!"
+      exit 1
     ;;
   esac
+  if test "$NEW" -lt 0; then
+    NEW=0
+  fi
+  if test "$NEW" -gt "$MAX"; then
+    NEW=$MAX
+  fi
+  echo "${NEW}" | sudo /usr/bin/tee "$SYS_DIR/brightness"
 fi
