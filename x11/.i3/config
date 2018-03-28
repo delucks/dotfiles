@@ -36,6 +36,7 @@ for_window [class="feh"] floating enable
 for_window [class="rdesktop"] floating enable
 for_window [class="violet"] floating enable
 for_window [class="plexmediaplayer"] floating enable
+for_window [class="slack"] floating enable
 
 # -----
 # Keymaps
