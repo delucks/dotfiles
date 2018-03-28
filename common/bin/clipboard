@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# This program wraps the xclip, pbcopy, and pbpaste utilities to consistently modify the system clipboard from shell on Linux & Mac
+# To send text to the clipboard, pipe the text into "clipboard copy". To retrieve text from the clipboard, run "clipboard paste".
+# Shortened versions of this argument are available, "clipboard c" for copy and "clipboard p" for paste.
+
+# Exit Codes:
+#   0    Success
+#   1    Program Error
+#   2    Unsupported OS
+#   3    Unmet dependency
+
+set -e
+
+if [[ $# -lt 1 ]]; then
+  echo "Usage: $0 <copy|paste>"
+  exit 1
+fi
+
+if [[ "$OSTYPE" == "linux-gnu"* ]]
+then
+  # We will be using xclip. Check if it's installed
+  if ! hash xclip 2>/dev/null; then
+    echo "To use $0 on Linux you must install the \"xclip\" utility"
+    exit 3
+  fi
+  INPROG="xclip -selection primary"
+  OUTPROG="xclip -selection primary -out"
+elif [[ "$OSTYPE" == "darwin"* ]]
+then
+  # We will be using pbcopy/pbpaste
+  INPROG=pbcopy
+  OUTPROG=pbpaste
+else
+  echo "$0 only supports Linux & Mac OS at the moment"
+  exit 2
+fi
+
+case "$1" in
+  copy|c)
+    $INPROG
+    ;;
+  paste|p)
+    $OUTPROG
+    ;;
+  *)
+    echo "Invalid argument $1. Use one of \"copy\" or \"paste\""
+    exit 1
+    ;;
+esac
