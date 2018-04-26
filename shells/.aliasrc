@@ -14,7 +14,7 @@ then
 else
   export EDITOR='vi'
 fi
-export PAGER='less'
+export PAGER='less -r'
 
 # cd
 alias ..='cd ..'
@@ -126,6 +126,7 @@ alias csvify="tr '\n' ',' | sed 's/,$//g'"
 alias meh='echo "¯\_(ツ)_/¯"'
 alias whom='who'
 alias tmuxa='tmux a'
+alias ta='tmux a || tmux new-session -s main -A'
 alias sl='ls'
 
 ssidgrep() {
@@ -496,6 +497,8 @@ vims() {
 }
 
 serve() {
+  IP=$(ifconfig | awk '/inet\ /{print $2}' | grep -v 127)
+  echo "External IP $IP"
   PORT="${1:-8000}"
   if hash python3; then
     python3 -m http.server $PORT

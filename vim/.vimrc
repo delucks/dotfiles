@@ -71,7 +71,7 @@ elseif executable("ack")
 endif
 
 if v:version >= 703
-  autocmd FileType python setlocal colorcolumn=80
+  autocmd FileType python setlocal colorcolumn=160
   set undodir=~/.vim/undo
   set undofile
   set undolevels=1000 "max number of changes that can be undone

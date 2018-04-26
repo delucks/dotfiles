@@ -205,3 +205,4 @@ client.urgent               $color16        $color1        $color3     $color3
 # -----
 # Program Execution
 exec sh ~/.fehbg &
+exec xrdb ~/.Xresources &
