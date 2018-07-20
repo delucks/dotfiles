@@ -38,7 +38,7 @@ set hlsearch
 
 " editing
 set autoindent
-set foldmethod=marker
+set foldmethod=manual
 set history=100
 set splitright
 set laststatus=2
@@ -270,6 +270,9 @@ autocmd FileType vim
 autocmd BufRead,BufNewFile *.md
   \ set filetype=markdown |
   \ set syntax=off
+autocmd BufRead,BufNewFile /tmp/jrnl*
+  \ set syntax=off |
+  \ set nowrap
 
 " Allow for each machine to override global settings
 if !empty(glob("~/.localvimrc"))

@@ -94,17 +94,6 @@ fi
 # networking
 alias router="routel | egrep '^\ +default' | grep -v lo | awk '{print $2}'"
 
-ssh-hosts() {
-  awk '/Host\ /{print $NF}' $HOME/.ssh/config
-}
-
-logmein() {
-  HOSTS=$(grep -E "Host\ .*$1" $HOME/.ssh/config | awk '{print $NF}')
-  echo "$HOSTS" | while read hostname; do
-    echo "exit" | ssh $hostname
-  done
-}
-
 # misc
 alias sx='ssh-agent startx'
 alias ts='while read line; do date +"%F %T $line"; done'
@@ -288,16 +277,6 @@ then
   alias emoji='curl -s "https://www.unicode.org/Public/emoji/11.0/emoji-data.txt" | grep -vE "^#"'
 fi
 
-# cd and ls at once
-cl() {
-  if [ -d "$1" ]; then
-    cd "$1"
-    ls
-  else
-    log fatal "cl(): $1: Directory not found"
-  fi
-}
-
 # applies standard coloration for pager programs
 less_color_env() {
   CMD=$1
@@ -317,28 +296,6 @@ alias man='less_color_env man'
 alias pydoc2='less_color_env pydoc2'
 alias pydoc='less_color_env pydoc'
 alias less='less_color_env less'
-
-if test -d "$HOME/notes/"
-then
-  note() {
-    if [ $# -lt 1 ]
-    then
-      log fatal "Usage: note <name of note>"
-      return 1
-    fi
-    FILE="$HOME/notes/$1.txt"
-    if [ -f $FILE ];
-    then
-      log ok "$FILE exists"
-      vim "$FILE"
-    else
-      touch "$FILE"
-      echo "$1" | figlet > "$FILE"
-      echo "Note from $(date)" >> "$FILE"
-      vim "$FILE"
-    fi
-  }
-fi
 
 # add a directory to path, but only if it exists
 # and if it's not already in path
@@ -480,10 +437,6 @@ sudo_with_confirmation() {
         ;;
     esac
   done
-}
-
-witch() {
-  which "$1" 2> /dev/null || typeset -f "$1" || alias "$1" 2> /dev/null || echo "$1 not found"
 }
 
 vims() {

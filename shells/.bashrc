@@ -2,11 +2,20 @@
 ### ~/.bashrc
 ###
 
+# Make sure we're in an interactive shell
 [[ $- != *i* ]] && return
 
 ### aliases
 
 source $HOME/.aliasrc
+
+### history
+
+export HISTCONTROL=ignoredups
+shopt -s histappend
+export HISTFILESIZE=
+export HISTSIZE=
+export HISTFILE=$HOME/.shell_history
 
 ### exports / functions
 
