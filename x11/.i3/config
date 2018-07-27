@@ -59,7 +59,7 @@ bindsym $mod+t exec xterm
 bindsym $mod4+t exec urxvt
 bindsym $mod+comma exec rofi -show ssh
 bindsym $mod+slash exec xterm -e bash -c ranger
-bindsym $mod+semicolon exec rofi -show run
+bindsym $mod+semicolon exec rofi-tmux
 #TODO write a rofi script to open a command's man page
 #bindsym $mod+F1 exec ~/bin/dmenu_enhanced man
 bindsym $mod+F2 exec rofi -show run

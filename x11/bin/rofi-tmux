@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+SESSION=$(tmux list-sessions -F '#{session_name}' | rofi -dmenu -p 'tmux session name')
+test ! -z "$SESSION" && rofi-sensible-terminal -e bash -c "tmux attach -t $SESSION"
