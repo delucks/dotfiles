@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [[ $# -lt 1 ]]; then
+  REMOTE=$(~/go/bin/sshc hosts | rofi -dmenu -p 'ssh+tmux')
+else
+  REMOTE="$1"
+fi
+
+# Fail if no remote host was selected
+test -z "$REMOTE" && exit 1
+
+SESSIONS=$(ssh "$REMOTE" tmux list-sessions -F '\#\{session_name\}')
+
+if test $(echo "$SESSIONS" | wc -l) -gt 1; then
+  SEL=$(echo "$SESSIONS" | rofi -dmenu -p 'tmux session name')
+  # Fail if no session was selected
+  test -z "$SEL" && exit 1
+  rofi-sensible-terminal -e bash -c "ssh -tt $REMOTE tmux attach -t $SEL"
+else
+  rofi-sensible-terminal -e bash -c "ssh -tt $REMOTE tmux attach"
+fi
