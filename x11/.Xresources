@@ -7,10 +7,16 @@ xterm*background: #111111
 xterm*foreground: #e8dfd6
 
 ! Font
-xterm*font: 9x15
-xterm*boldFont: 7x13
-urxvt*font:	-*-fixed-medium-r-normal-*-16-*-*-*-*-*-iso8859-*
-urxvt*boldFont:	-*-fixed-medium-r-normal-*-16-*-*-*-*-*-iso8859-*
+xterm*font: xft:Fantasque\ Sans\ Mono:pixelsize=18
+urxvt*font: xft:Fantasque\ Sans\ Mono:pixelsize=18
+rofi.font: Fantasque\ Sans\ Mono 16
+Xft.antialias: 1
+Xft.dpi: 96
+! Fallback font
+!xterm*font: 9x15
+!xterm*boldFont: 7x13
+!urxvt*font:	-*-fixed-medium-r-normal-*-16-*-*-*-*-*-iso8859-*
+!urxvt*boldFont:	-*-fixed-medium-r-normal-*-16-*-*-*-*-*-iso8859-*
 
 ! Independent
 *cursorUnderline: False

@@ -4,7 +4,7 @@
 # vim:ft=i3
 # Peep http://i3wm.org/docs/userguide.html for a complete reference!
 
-font pango:Mono 12
+font xft:Fantasque Sans Mono 16
 
 set $mod Mod4
 set $mod4 Mod1

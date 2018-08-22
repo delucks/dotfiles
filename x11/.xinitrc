@@ -10,6 +10,8 @@ xset fp rehash
 xmodmap ~/.Xmodmap
 setxkbmap -option caps:escape &
 xsetroot -bg "#8b3e2f" -mod 3 3
+xset s off
+xset s noblank
 
 # program init
 ##############
