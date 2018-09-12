@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# TODO write this more portably so fd doesn't need to be installed
+hash fd 2>/dev/null || exit 1
+SEL=$(fd -t f -e gz . $(fd -t d '^man$' / | grep share) | awk -F/ '{print $NF}' | sed 's/\.gz$//g' | rofi -dmenu -p man)
+test -z "$SEL" || rofi-sensible-terminal -e bash -c "man $SEL"
