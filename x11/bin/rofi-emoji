@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+emojis | rofi -dmenu -p emoji | awk -F'\t' '{print $NF}'
