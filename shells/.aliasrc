@@ -4,7 +4,6 @@
 # use freely, share and contribute
 # vi:syntax=sh
 
-# common exports, sourcing functions
 alias cmd_exists="hash >/dev/null 2>&1"
 export LS_COLORS=
 export LC_ALL="en_US.UTF-8"
@@ -68,7 +67,6 @@ then
 else
   alias la='ls -aChkopl --group-directories-first'
 fi
-alias lt='ls -lt'
 
 # This adds an argument to BSD paste to accept stdin by default
 # The only use case I have for paste is joining standard input
@@ -82,28 +80,13 @@ mypaste() {
 }
 alias paste=mypaste
 
-# herbsluftwm helpers
-if cmd_exists herbstclient
-then
-  alias hkeys="cat $HOME/.config/herbstluftwm/autostart| egrep '^([\t\ ])?hc keybind' | awk '{print \$3}'"
-  alias hmods="hkeys | grep mod | sed 's/\$mod\-//g' | sort"
-  alias currtag="herbstclient tag_status | sed -e 's/[:|\.][a-zA-Z]//g' -e 's/[\t\ #]//g'"
-  alias hc='herbstclient'
-fi
-
-# networking
-alias router="routel | egrep '^\ +default' | grep -v lo | awk '{print $2}'"
-
-# misc
+alias lt='ls -lt'
 alias sx='ssh-agent startx'
-alias ts='while read line; do date +"%F %T $line"; done'
-alias big="echo $1 | figlet -t"
 alias \:q='exit'
 alias strings='strings -a'
 alias trace='mtr -rw4 -c 5'
 alias whereami='echo "$(uname -n) in $(pwd)"'
 alias d='date +%R'
-alias violet='wmname LG3D && violet'
 alias wgot='wget -e robots=off -r -nc -np '
 alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
 alias mkdir='mkdir -p'
@@ -111,16 +94,34 @@ alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done
 alias ve='source $(find $(git rev-parse --show-toplevel) -name activate | grep -v hooks | head -1) &> /dev/null'
 alias apropy="pydoc -k $1 2>/dev/null"
 alias apropos="man -k" # yeah, some platforms don't do this
-alias csvify="tr '\n' ',' | sed 's/,$//g'"
 alias meh='echo "¯\_(ツ)_/¯"'
 alias whom='who'
 alias tmuxa='tmux a'
 alias ta='tmux a || tmux new-session -s main -A'
 alias sl='ls'
+if cmd_exists ncdu; then
+  alias ncdu='ncdu --color dark'
+fi
+
+
+if ! cmd_exists log
+then
+  log() {
+    echo "$@"
+  }
+fi
+
+if cmd_exists figlet
+then
+  alias big="echo $1 | figlet -t"
+  figletsample() {
+    for font in $(find /usr -name '*.flf' -type f | sort -u); do echo "$font"; echo "${1:-sample}" | figlet -f "$font"; echo; echo; echo; done
+  }
+fi
 
 ssidgrep() {
   if [[ $# -lt 1 ]]; then
-    log err "Usage: ssidgrep <Regex matching SSID from network management program"
+    log "Usage: ssidgrep <Regex matching SSID from network management program" err
     return 1
   fi
   if cmd_exists netctl
@@ -130,7 +131,7 @@ ssidgrep() {
   then
     nmcli c show | grep -E "$1" | awk '{print $2}' | xargs -L 1 sudo nmcli c up
   else
-    log err "ssidgrep requires either NetworkManager or systemd-netctl to be installed"
+    log "ssidgrep requires either NetworkManager or systemd-netctl to be installed" err
     return 1
   fi
 }
@@ -148,58 +149,7 @@ then
     mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ;
   }
   alias wvud='mplayer http://128.175.76.123:8000/WVUD-FM123.mp3'
-  alias webcam='mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot'
 fi
-
-# functions
-
-initializeANSI()
-{
-  blackf="$(tput setaf 0)"
-  redf="$(tput setaf 1)"
-  greenf="$(tput setaf 2)"
-  yellowf="$(tput setaf 3)"
-  bluef="$(tput setaf 4)"
-  purplef="$(tput setaf 5)"
-  cyanf="$(tput setaf 6)"
-  whitef="$(tput setaf 7)"
-  boldon="$(tput bold)"
-  italicson="$(tput sitm)"
-  ulon="$(tput smul)"
-  reset="$(tput sgr0)"
-}
-initializeANSI
-
-log() {
-  # if the first argument is a recognized log level, output everything else with color
-  if [ $# -gt 1 ]
-  then
-    case "$1" in
-      err*)
-        shift
-        echo -e "[ERROR] ${redf}$@${reset}"
-        ;;
-      info*|ok*)
-        shift
-        echo -e "[INFO]  ${greenf}$@${reset}"
-        ;;
-      warn*)
-        shift
-        echo -e "[WARN]  ${yellowf}$@${reset}"
-        ;;
-      fatal*)
-        shift
-        echo -e "[FATAL] ${redf}$@${reset}"
-        return 1
-        ;;
-      *)
-        echo -e "$@"
-        ;;
-    esac
-  else
-    echo -e "$@"
-  fi
-}
 
 if cmd_exists jq
 then
@@ -220,42 +170,9 @@ then
   }
 fi
 
-if test -f "$HOME/scripts/x86.py"
-then
-  x86() {
-    if [ $# -lt 1 ]
-    then
-      log fatal "Usage: x86 <opcode>"
-      return 1
-    else
-      python "$HOME/scripts/x86.py" $1 | lynx -stdin -dump
-    fi
-  }
-fi
-
-hex() {
-  if [ $# -lt 1 ]
-  then
-    log fatal "Usage: hex <integer to convert>"
-    return 1
-  else
-    python -c "print hex($1)"
-  fi
-}
-
-int() {
-  if [ $# -lt 1 ]
-  then
-    log fatal "Usage: int <hexadecimal to convert>"
-    return 1
-  else
-    python -c "print int('$1',16)"
-  fi
-}
-
-# wikipedia summary
 if cmd_exists curl
 then
+  # get approximate geo-location of IP from public API
   iploc() {
     if cmd_exists jq
     then
@@ -264,17 +181,17 @@ then
       curl -s "https://ipinfo.io/$(dig $1 +short)"
     fi
   }
+  # wikipedia summary
   function wiki {
     if [ $# -lt 1 ]
     then
-      log fatal "Usage: wiki <search string>"
+      log "Usage: wiki <search string>" error
       return 1
     else
       curl -s -L -d "search=$1" https://en.wikipedia.org/w/index.php | w3m -T text/html -dump | less
     fi
   }
   alias headers='curl -sLD - -o /dev/null'
-  alias emoji='curl -s "https://www.unicode.org/Public/emoji/11.0/emoji-data.txt" | grep -vE "^#"'
 fi
 
 # applies standard coloration for pager programs
@@ -302,7 +219,7 @@ alias less='less_color_env less'
 addp() {
   if [ $# -lt 1 ]
   then
-    log fatal 'Usage: addp <path to add to $PATH>'
+    log 'Usage: addp <path to add to $PATH>' error
     return 1
   fi
   if [[ -d "$1" ]]
@@ -319,7 +236,6 @@ addp() {
     return 0
     PATH=$(echo "$PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++{if (NR > 1) printf ORS; printf $a[$1]}')
   fi
-  #log err "Path unavailable"
   return 1
 }
 
@@ -327,7 +243,7 @@ addp() {
 sourcep() {
   if [[ $# -lt 1 ]]
   then
-    log fatal "Usage: sourcep <path to source>"
+    log "Usage: sourcep <path to source>" error
     return 1
   fi
   if [[ -f "$1" ]]
@@ -349,7 +265,6 @@ lss() {
 histogram() {
   if [[ $# -lt 1 ]]
   then
-    # changed 2016-02-21: this is useful default behavior
     sort | uniq -c | sort -n
   elif [[ $# -lt 2 ]]
   then
@@ -360,10 +275,6 @@ histogram() {
     awk -F"$2" "{print $COL}" | sort | uniq -c | sort -n
   fi
   return 0
-}
-
-lsfunc() {
-  typeset -F | awk '{print $NF}'
 }
 
 license() {
@@ -389,7 +300,7 @@ license() {
     get)
       if [ $# -lt 2 ]
       then
-        log err "license get requires an argument, the name of license to download"
+        log "license get requires an argument, the name of license to download" error
         return 1
       fi
       REQUEST="$2"
@@ -402,12 +313,12 @@ license() {
         then
           HTTP_METHOD="$(which wget) -O -"
         else
-          log err "Cannot find executables for curl or wget, install one"
+          log "Cannot find executables for curl or wget, install one" error
           return 1
         fi
         $HTTP_METHOD "${LICENSES[$REQUEST]}"
       else
-        log err 'The argument you gave is not a recognized license name, try `license list`'
+        log 'The argument you gave is not a recognized license name, try `license list`' error
       fi
       ;;
     help|*)
@@ -417,26 +328,6 @@ license() {
       echo "  help: view this help output"
       ;;
   esac
-}
-
-sudo_with_confirmation() {
-  echo "This program would like to use your elevated privileges to run the following command:"
-  echo
-  echo "$@"
-  echo
-  echo 'Is this ok?'
-  select confirmation in "Yes" "No"; do
-    case "$confirmation" in
-      Yes )
-        sudo $@
-        return $?
-        ;;
-      No )
-        echo 'Not executing, bailing out'
-        return 1
-        ;;
-    esac
-  done
 }
 
 vims() {
@@ -465,21 +356,6 @@ serve() {
     python -m http.server $PORT
   fi
 }
-
-if cmd_exists inotifywait; then
-  onchange() {
-    # Look for filesystem events using inotify, run command if they change
-    if [[ $# -lt 1 ]]; then
-      log fatal "Usage: changed <command to run> [file or dir, defaults to .]"
-      return 1
-    fi
-    COMMAND="$1"
-    DIR="${2:-.}"
-    inotifywait -mr -e modify -e move -e create -e delete --exclude ".git|.swp|.swx" "$DIR" | while read line; do
-      eval "$COMMAND"
-    done
-  }
-fi
 
 # expand my environment pls
 if test -d "$HOME/go/"

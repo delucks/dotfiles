@@ -83,12 +83,12 @@ endif
 
 call plug#begin('~/.vim/plugins')
 Plug 'fatih/vim-go', { 'for': 'go' }                  " enables gofmt on :w
+Plug 'RRethy/vim-illuminate'                          " highlights the word under the current character
 Plug 'vim-airline/vim-airline'                        " draws buffers in tabline and colorizes the statusline
 Plug 'ctrlpvim/ctrlp.vim'                             " fast fuzzy find buffer menu
 Plug 'deris/vim-shot-f'                               " highlights the first match of a character in a line for f/t commands
 Plug 'mhinz/vim-signify'                              " display version control hints
 Plug 'junegunn/limelight.vim'                         " syntax highlight only the current paragraph
-Plug 'guns/vim-clojure-static', { 'for': 'clojure' }  " syntax hightlight clojure
 Plug 'tpope/vim-fugitive'                             " I only use :Gblame but that is useful
 Plug 'benmills/vimux'                                 " send commands to tmux
 Plug 'PotatoesMaster/i3-vim-syntax'
@@ -110,12 +110,13 @@ let g:signify_sign_delete = '-'
 let g:ctrlp_map = '<Leader>q'
 let g:ctrlp_cmd = 'CtrlP'
 
-" limelight.vim
-
+" limelight.vim & vim-illuminate
 nmap <silent> gl :Limelight!!<CR>
 xmap gl <Plug>(Limelight)
 let g:limelight_conceal_ctermfg = 8
 let g:limelight_paragraph_span = 0
+let g:Illuminate_delay = 100
+hi link illuminatedWord Visual
 
 " Buftabline
 let g:buftabline_show=1
@@ -130,6 +131,9 @@ let g:airline_theme='dark'
 let g:airline_symbols_ascii = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
+
+" vim-go
+let g:go_fmt_command = "goimports"
 
 "---------
 " Keybinds

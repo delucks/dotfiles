@@ -30,7 +30,10 @@ stty -ixon  # diable XON/XOFF
 
 ### prompt
 
-initializeANSI
+# Initialize colors
+redf="$(tput setaf 1)"
+greenf="$(tput setaf 2)"
+reset="$(tput sgr0)"
 
 _prompt_git() {
   local branch=$(git branch --no-color 2>/dev/null | awk '/\*/{print $NF}')
@@ -59,9 +62,9 @@ dynamic_prompt() {
 }
 
 _ssh_complete() {
-    COMPREPLY=( $(compgen -W "$(ssh-hosts | paste -s)" -- ${COMP_WORDS[COMP_CWORD]}) )
+    COMPREPLY=( $(compgen -W "$(sshc hosts | paste -s)" -- ${COMP_WORDS[COMP_CWORD]}) )
     return 0
 }
 complete -F _ssh_complete ssh
 
-PS1="\u\[${greenf}\]@\h\[${reset}\] [\D{%m-%d %T}] \W\[\$(dynamic_prompt)\] "
+PS1="\u\[${greenf}\]@\h\[${reset}\] [\D{%T}] \W\[\$(dynamic_prompt)\] "
