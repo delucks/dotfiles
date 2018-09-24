@@ -71,7 +71,10 @@ elseif executable("ack")
 endif
 
 if v:version >= 703
-  autocmd FileType python setlocal colorcolumn=160
+  augroup PythonColumn
+    autocmd!
+    autocmd FileType python setlocal colorcolumn=160
+  augroup END
   set undodir=~/.vim/undo
   set undofile
   set undolevels=1000 "max number of changes that can be undone
@@ -247,36 +250,50 @@ vmap <Leader>y :!xclip -f -sel clip<CR>
 " Autocommands
 
 " Reload ~/.vimrc after saving
-autocmd! bufwritepost .vimrc source %
+augroup ReloadVimrc
+  autocmd!
+  autocmd bufwritepost .vimrc source %
+augroup END
+
 " jump to last used position in every file
-autocmd bufreadpost * normal `"
-" resize windows when they are resized
-autocmd VimResized * wincmd =
+augroup JumpToPosition
+  autocmd!
+  autocmd bufreadpost * normal `"
+augroup END
+
+" resize splits when the terminal is resized
+augroup ResizeWindows
+  autocmd!
+  autocmd VimResized * wincmd =
+augroup END
 
 " filetype-specific commands
-autocmd FileType python
-  \ setlocal shiftwidth=4 |
-  \ setlocal tabstop=4 |
-  \ setlocal expandtab |
-  \ setlocal nowrap
-autocmd FileType sh
-  \ setlocal shiftwidth=2 |
-  \ setlocal tabstop=2 |
-autocmd FileType go
-  \ setlocal nowrap
-autocmd FileType java
-  \ setlocal shiftwidth=4 |
-  \ setlocal tabstop=4
-autocmd BufRead,BufNewFile *.clj
-  \ set filetype=clojure
-autocmd FileType vim
-  \ map K :execute('vert help ' . expand("<cword>"))<CR><C-w><C-h>
-autocmd BufRead,BufNewFile *.md
-  \ set filetype=markdown |
-  \ set syntax=off
-autocmd BufRead,BufNewFile /tmp/jrnl*
-  \ set syntax=off |
-  \ set nowrap
+augroup FileSpecific
+  autocmd!
+  autocmd FileType python
+    \ setlocal shiftwidth=4 |
+    \ setlocal tabstop=4 |
+    \ setlocal expandtab |
+    \ setlocal nowrap
+  autocmd FileType sh
+    \ setlocal shiftwidth=2 |
+    \ setlocal tabstop=2 |
+  autocmd FileType go
+    \ setlocal nowrap
+  autocmd FileType java
+    \ setlocal shiftwidth=4 |
+    \ setlocal tabstop=4
+  autocmd BufRead,BufNewFile *.clj
+    \ set filetype=clojure
+  autocmd FileType vim
+    \ map K :execute('vert help ' . expand("<cword>"))<CR><C-w><C-h>
+  autocmd BufRead,BufNewFile *.md
+    \ set filetype=markdown |
+    \ set syntax=off
+  autocmd BufRead,BufNewFile /tmp/jrnl*
+    \ set syntax=off |
+    \ set nowrap
+augroup END
 
 " Allow for each machine to override global settings
 if !empty(glob("~/.localvimrc"))
