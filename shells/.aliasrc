@@ -340,6 +340,10 @@ vims() {
   fi
 }
 
+vimpipe() {
+  vim "+w .vimpipe" - >/dev/tty; (cat .vimpipe; rm -f .vimpipe)
+}
+
 serve() {
   IP=$(ifconfig | awk '/inet\ /{print $2}' | grep -v 127)
   echo "External IP $IP"
