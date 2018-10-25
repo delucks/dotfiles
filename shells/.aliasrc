@@ -334,7 +334,7 @@ vims() {
   if [ -f Session.vim ]; then
     vim -S
   elif [[ $# -ge 1 ]]; then
-    vim $(find . -name "*${1}*")
+    vim $(find . -regex "${1}")
   else
     vim $(find . -name "*.py" -or -name "*.md")
   fi
@@ -342,6 +342,21 @@ vims() {
 
 vimpipe() {
   vim "+w .vimpipe" - >/dev/tty; (cat .vimpipe; rm -f .vimpipe)
+}
+
+vimf() {
+  # vim find!
+  if [[ $# -lt 1 ]]; then
+    echo "vimf needs at least one argument, the path to search for. Second argument specifies a directory"
+    return 1
+  fi
+  PATTERN="$1"
+  STARTPATH="${2:-.}"
+  if hash fd >/dev/null; then
+    vim $(fd --full-path "$PATTERN" "$STARTPATH")
+  else
+    vim $(find "$STARTPATH" -regextype grep -regex "$PATTERN")
+  fi
 }
 
 serve() {
