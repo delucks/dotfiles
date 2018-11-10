@@ -376,6 +376,14 @@ serve() {
   fi
 }
 
+emojigrep() {
+  if hash fzf >/dev/null; then
+    emojis | fzf | awk '{print $NF}'
+  else
+    emojis | grep "${1:-business_suit_levitating}" | awk '{print $NF}'
+  fi
+}
+
 # expand my environment pls
 if test -d "$HOME/go/"
 then

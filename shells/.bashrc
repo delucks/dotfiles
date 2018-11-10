@@ -51,7 +51,7 @@ _prompt_svn() {
 }
 
 _prompt_char() {
-  if [[ $? == 0 ]]; then echo "${greenf}>${reset}>${greenf}>${reset}"; else echo "${redf}[$?]${reset}"; fi
+  if [[ $? == 0 ]]; then echo "${greenf}\$${reset}"; else echo "rc ${redf}$?${reset}"; fi
 }
 
 dynamic_prompt() {
@@ -67,4 +67,4 @@ _ssh_complete() {
 }
 complete -F _ssh_complete ssh
 
-PS1="\u\[${greenf}\]@\h\[${reset}\] [\D{%T}] \W\[\$(dynamic_prompt)\] "
+PS1="\[${greenf}\]\h\[${reset}\] \D{%T} \W\[\$(dynamic_prompt)\] "
