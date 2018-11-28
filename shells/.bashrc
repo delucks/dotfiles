@@ -67,4 +67,9 @@ _ssh_complete() {
 }
 complete -F _ssh_complete ssh
 
-PS1="\[${greenf}\]\h\[${reset}\] \D{%T} \W\[\$(dynamic_prompt)\] "
+FULL_PS1="\[${greenf}\]\h\[${reset}\] \D{%T} \W\[\$(dynamic_prompt)\] "
+prompt_reset() { PS1="$FULL_PS1"; }
+prompt_maximal() { PS1="\u\[${greenf}\]@\h\[${reset}\] [\D{%m-%d %T} \W\[\$(dynamic_prompt)\] "; }
+prompt_minimal() { PS1="$ "; }
+prompt_flashy() { PS1="🌵 "; }
+PS1="$FULL_PS1"
