@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -e
+set -u
 
 # This script will only work for 1920x1080 screens. Anything smaller will need to change xPOS & YPOS
 
@@ -18,11 +19,14 @@ else
   exit 1
 fi
 
-IF="Master"
+# Use the card with the highest identifier by default
+CARD_ID=$(($(aplay -l | awk '/^card/{print $2}' | sort -u | wc -l) -1))
+AMIXER="amixer -c $CARD_ID"
+CONTROL=$($AMIXER scontrols | grep -F -e Master -e PCM | awk -F"'" '{print $2}' | head -1)
 SECS="1"
 FONT='-*-fixed-medium-r-normal-*-16-*-*-*-*-*-iso8859-*'
 BG="#202020"
-FG="#526f33"
+FG="#dfff00"
 XPOS="1500"
 YPOS="30"
 WIDTH="400"
@@ -73,16 +77,16 @@ do
       ;;
     '-i'|'--increase')
       [ -z "$2" ] && err "No argument specified for increase."
-      amixer set "$IF" "${2}%+" >/dev/null
+      $AMIXER set "$CONTROL" "${2}%+" >/dev/null
       break
       ;;
     '-d'|'--decrease')
       [ -z "$2" ] && err "No argument specified for decrease."
-      amixer set "$IF" "${2}%-" >/dev/null
+      $AMIXER set "$CONTROL" "${2}%-" >/dev/null
       break
       ;;
     '-t'|'--toggle')
-      amixer set "$IF" toggle >/dev/null
+      $AMIXER set "$CONTROL" toggle >/dev/null
       break
       ;;
     '-s'|'--show')
@@ -95,27 +99,25 @@ do
   esac
 done
 
-MUTED=$(amixer get "$IF" | awk '/Front.*Playback/{print $NF}' | tr -d '[]' | uniq)
+BAR_LABEL_MESSAGE="ALSA Control $CONTROL "
+MUTED=$($AMIXER get "$CONTROL" | awk '/(Front|Mono).*Playback/{print $NF}' | tr -d '[]' | uniq)
 if [[ "$MUTED" == "off" ]]; then
   VOLUME=0
+  BAR_LABEL_MESSAGE="${BAR_LABEL_MESSAGE}Muted"
 else
-  VOLUME="$(amixer get "$IF" | awk '/Front.*Playback/{print $5}' | tr -d '[]' | uniq)"
-fi
-
-#Using named pipe to determine whether previous call still exists
-#Also prevents multiple volume bar instances
-mkfifo "$PIPE"
-(dzen2 -l 1 -x "$XPOS" -y "$YPOS" -w "$WIDTH" -fn "$FONT" -bg "$BG" -fg "$FG" -e 'onstart=uncollapse' < "$PIPE"; rm -f "$PIPE") & 
-if [[ "$MUTED" == "off" ]]; then
-  BAR_LABEL_MESSAGE="[[$IF MUTED]]"
-else
-  BAR_LABEL_MESSAGE="Volume on $IF (${VOLUME})"
+  VOLUME="$($AMIXER get "$CONTROL" | awk '/(Front|Mono).*Playback/{print $4}' | tr -d '[]' | uniq)"
+  BAR_LABEL_MESSAGE="${BAR_LABEL_MESSAGE}at ${VOLUME}"
 fi
 # Append spotify track name if found
 if [[ "$(pgrep spotify)" ]]; then
 	TRACK=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep -A 1 'xesam:title' | grep variant | sed 's/variant//g' | sed 's/string//g' | sed -e 's/^ *\"//g' -e 's/\" *$//g' -e 's/;$//g')
 	BAR_LABEL_MESSAGE="$BAR_LABEL_MESSAGE $TRACK"
 fi
+
+#Using named pipe to determine whether previous call still exists
+#Also prevents multiple volume bar instances
+mkfifo "$PIPE"
+(dzen2 -l 1 -x "$XPOS" -y "$YPOS" -w "$WIDTH" -fn "$FONT" -bg "$BG" -fg "$FG" -e 'onstart=uncollapse' < "$PIPE"; rm -f "$PIPE") & 
 
 # Feed the pipe!
 (echo "$BAR_LABEL_MESSAGE"; echo "$VOLUME" | $BAR_PROGRAM -w "$WIDTH" -fg "$FG" -bg "$BG"; sleep "$SECS") > "$PIPE"
