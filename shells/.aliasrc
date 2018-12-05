@@ -103,6 +103,12 @@ if cmd_exists ncdu; then
   alias ncdu='ncdu --color dark'
 fi
 
+tmuxat() {
+  # Opens a tmux session named after the basename of a path
+  DIR="${1:-.}"
+  RESOLVED="$(cd $DIR 2>/dev/null && pwd -P)"  # Cross-platform, readlink is Linux specific
+  tmux new-session -A -c "$RESOLVED" -s "$(basename $RESOLVED)"
+}
 
 if ! cmd_exists log
 then
@@ -373,14 +379,6 @@ serve() {
     busybox httpd -f -p $PORT
   else
     python -m http.server $PORT
-  fi
-}
-
-emojigrep() {
-  if hash fzf >/dev/null; then
-    emojis | fzf | awk '{print $NF}'
-  else
-    emojis | grep "${1:-business_suit_levitating}" | awk '{print $NF}'
   fi
 }
 
