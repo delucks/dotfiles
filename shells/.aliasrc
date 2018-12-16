@@ -50,6 +50,7 @@ then
       awk 'BEGIN{while (("pacman -Qi" |getline) > 0){ if ($0 ~ /Name/) {name=$3};{if ($0 ~ /Size/) {size=$4/1024;print name": ",size,"Mb"|"sort -k2 -n|column -t"}}}}'
     }
     owner() {
+      # shellcheck disable=SC2046
       pacman -Qo $(which "$1")
     }
   fi
@@ -82,7 +83,7 @@ alias paste=mypaste
 
 alias lt='ls -lt'
 alias sx='ssh-agent startx'
-alias \:q='exit'
+alias :q='exit'
 alias strings='strings -a'
 alias trace='mtr -rw4 -c 5'
 alias whereami='echo "$(uname -n) in $(pwd)"'
@@ -92,7 +93,7 @@ alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
 alias mkdir='mkdir -p'
 alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
 alias ve='source $(find $(git rev-parse --show-toplevel) -name activate | grep -v hooks | head -1) &> /dev/null'
-alias apropy="pydoc -k $1 2>/dev/null"
+alias apropy="pydoc -k"
 alias apropos="man -k" # yeah, some platforms don't do this
 alias meh='echo "¯\_(ツ)_/¯"'
 alias whom='who'
@@ -106,7 +107,9 @@ fi
 tmuxat() {
   # Opens a tmux session named after the basename of a path
   DIR="${1:-.}"
+  # shellcheck disable=2086
   RESOLVED="$(cd $DIR 2>/dev/null && pwd -P)"  # Cross-platform, readlink is Linux specific
+  # shellcheck disable=2086
   tmux new-session -A -c "$RESOLVED" -s "$(basename $RESOLVED)"
 }
 
@@ -119,7 +122,7 @@ fi
 
 if cmd_exists figlet
 then
-  alias big="echo $1 | figlet -t"
+  alias big="figlet -t"
   figletsample() {
     for font in $(find /usr -name '*.flf' -type f | sort -u); do echo "$font"; echo "${1:-sample}" | figlet -f "$font"; echo; echo; echo; done
   }
@@ -168,10 +171,10 @@ then
     elif [ $# -lt 2 ]
     then
       # single argument: a file to view
-      jq -C . $1 | less -rN
+      jq -C . "$1" | less -rN
     else
       # two arguments: the first is a file to read and the second is a jq pattern
-      jq -C $2 $1 | less -rN
+      jq -C "$2" "$1" | less -rN
     fi
   }
 fi
@@ -182,13 +185,15 @@ then
   iploc() {
     if cmd_exists jq
     then
+      # shellcheck disable=SC2086
       curl -s "https://ipinfo.io/$(dig $1 +short)" | jq .
     else
+      # shellcheck disable=SC2086
       curl -s "https://ipinfo.io/$(dig $1 +short)"
     fi
   }
   # wikipedia summary
-  function wiki {
+  wiki() {
     if [ $# -lt 1 ]
     then
       log "Usage: wiki <search string>" error
@@ -204,15 +209,16 @@ fi
 less_color_env() {
   CMD=$1
   shift
+  # shellcheck disable=SC2046
   env \
-    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-    LESS_TERMCAP_md=$(printf "\e[1;31m") \
-    LESS_TERMCAP_me=$(printf "\e[0m") \
-    LESS_TERMCAP_se=$(printf "\e[0m") \
-    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-    LESS_TERMCAP_ue=$(printf "\e[0m") \
-    LESS_TERMCAP_us=$(printf "\e[1;32m") \
-      $CMD "$@"
+    LESS_TERMCAP_mb=$(printf "\\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\\e[0m") \
+    LESS_TERMCAP_se=$(printf "\\e[0m") \
+    LESS_TERMCAP_so=$(printf "\\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\\e[0m") \
+    LESS_TERMCAP_us=$(printf "\\e[1;32m") \
+      "$CMD" "$@"
 }
 
 alias man='less_color_env man'
@@ -225,6 +231,7 @@ alias less='less_color_env less'
 addp() {
   if [ $# -lt 1 ]
   then
+    # shellcheck disable=SC2016
     log 'Usage: addp <path to add to $PATH>' error
     return 1
   fi
@@ -254,18 +261,12 @@ sourcep() {
   fi
   if [[ -f "$1" ]]
   then
+    # shellcheck disable=SC1090
     source "$1"
     return 0
   fi
   #echo "Path unavailable"
   return 1
-}
-
-# use it like scp!
-lss() {
-  H=$(echo $1 | awk -F':' '{print $1}')
-  F=$(echo $1 | awk -F':' '{print $2}')
-  /usr/bin/ssh $H "ls $F"
 }
 
 histogram() {
@@ -324,6 +325,7 @@ license() {
         fi
         $HTTP_METHOD "${LICENSES[$REQUEST]}"
       else
+        # shellcheck disable=SC2016
         log 'The argument you gave is not a recognized license name, try `license list`' error
       fi
       ;;
@@ -340,8 +342,10 @@ vims() {
   if [ -f Session.vim ]; then
     vim -S
   elif [[ $# -ge 1 ]]; then
+    # shellcheck disable=SC2046
     vim $(find . -regex "${1}")
   else
+    # shellcheck disable=SC2046
     vim $(find . -name "*.py" -or -name "*.md")
   fi
 }
@@ -359,8 +363,10 @@ vimf() {
   PATTERN="$1"
   STARTPATH="${2:-.}"
   if hash fd >/dev/null; then
+    # shellcheck disable=SC2046
     vim $(fd --full-path "$PATTERN" "$STARTPATH")
   else
+    # shellcheck disable=SC2046
     vim $(find "$STARTPATH" -regextype grep -regex "$PATTERN")
   fi
 }
@@ -370,15 +376,15 @@ serve() {
   echo "External IP $IP"
   PORT="${1:-8000}"
   if hash python3; then
-    python3 -m http.server $PORT
+    python3 -m http.server "$PORT"
   elif hash python2; then
-    python2 -m SimpleHTTPServer $PORT
+    python2 -m SimpleHTTPServer "$PORT"
   elif hash php; then
     php -S "127.0.0.1:${PORT}"
   elif hash busybox; then
-    busybox httpd -f -p $PORT
+    busybox httpd -f -p "$PORT"
   else
-    python -m http.server $PORT
+    python -m http.server "$PORT"
   fi
 }
 
