@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# vims
+#   Open things in vim
+# Usage:
+#   vims            : No arguments loads a Session.vim file, or predefined extensions if there's no Session.vim
+#   vims '.*txt.*'  : Single argument is a find regex
+#   vims go txt md  : Over one argument, all args are file extensions to open
+
+join_by() { local d=$1; shift; echo -n "$1"; shift; printf "%s" "${@/#/$d}"; }
+
+if [ -f Session.vim ]; then
+  vim -S
+elif [[ $# -eq 1 ]]; then
+  vim $(find . -regex "${1}")
+elif [[ "$#"  -gt 1 ]]; then
+  # join all arguments together into a regex that matches all their extensions
+  FRAG='.*\.\('$(join_by '\|' $@)'\)$'
+  vim $(find . -iregex $FRAG)
+else
+  # Other default no-arg case
+  vim $(find . -iname "*.py" -or -iname "*.md" -or -iname "*.go" -or -iname "*.json" -or -iname "*.gradle" -or -iname "*.java")
+fi

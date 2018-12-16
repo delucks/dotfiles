@@ -338,18 +338,6 @@ license() {
   esac
 }
 
-vims() {
-  if [ -f Session.vim ]; then
-    vim -S
-  elif [[ $# -ge 1 ]]; then
-    # shellcheck disable=SC2046
-    vim $(find . -regex "${1}")
-  else
-    # shellcheck disable=SC2046
-    vim $(find . -name "*.py" -or -name "*.md")
-  fi
-}
-
 vimpipe() {
   vim "+w .vimpipe" - >/dev/tty; (cat .vimpipe; rm -f .vimpipe)
 }
