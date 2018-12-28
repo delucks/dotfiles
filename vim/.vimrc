@@ -85,6 +85,7 @@ endif
 " Plugins
 
 call plug#begin('~/.vim/plugins')
+Plug 'w0rp/ale'                                       " contextual linting
 Plug 'fatih/vim-go', { 'for': 'go' }                  " enables gofmt on :w
 Plug 'RRethy/vim-illuminate'                          " highlights the word under the current character
 Plug 'vim-airline/vim-airline'                        " draws buffers in tabline and colorizes the statusline
@@ -134,6 +135,12 @@ let g:airline_theme='dark'
 let g:airline_symbols_ascii = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
+
+" ale
+let g:airline#extensions#ale#enabled = 1
+"let g:ale_echo_msg_format = '[%linter%] %s'
+let g:ale_lint_delay = 2000
+let g:ale_lint_on_text_changed = 'never'
 
 " vim-go
 let g:go_fmt_command = "goimports"
