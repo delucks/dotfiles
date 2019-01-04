@@ -228,28 +228,21 @@ alias less='less_color_env less'
 
 # add a directory to path, but only if it exists
 # and if it's not already in path
-addp() {
-  if [ $# -lt 1 ]
-  then
-    # shellcheck disable=SC2016
-    log 'Usage: addp <path to add to $PATH>' error
-    return 1
-  fi
-  if [[ -d "$1" ]]
-  then
-    case $1 in
-      */)
-        TRIMMED=$(echo "$1" | sed 's/\/$//g')
-        [[ "$PATH" == *"$TRIMMED:"* ]] || PATH="$TRIMMED:$PATH"
-        ;;
-      *)
-        [[ "$PATH" == *"$1:"* ]] || PATH="$1:$PATH"
-        ;;
-    esac
-    return 0
-    PATH=$(echo "$PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++{if (NR > 1) printf ORS; printf $a[$1]}')
-  fi
-  return 1
+pathappend() {
+  for pathname in "$@"; do
+    if test -d "$pathname" && [[ ":$PATH:" != *":$pathname:"* ]]; then
+      PATH="${PATH:+"$PATH:"}$pathname"
+    fi
+  done
+}
+
+pathprepend() {
+  for ((i=$#; i>0; i--)); do
+    pathname=${!i}
+    if test -d "$pathname" && [[ ":$PATH:" != *":$pathname:"* ]]; then
+      PATH="${PATH:+"$PATH:"}$pathname"
+    fi
+  done
 }
 
 # source a file, but only if it exists
@@ -381,9 +374,8 @@ if test -d "$HOME/go/"
 then
   export GOPATH="$HOME/go"
   export GOBIN="$GOPATH/bin"
-  addp "$GOPATH/bin"
+  pathappend "$GOPATH/bin"
 fi
 sourcep "$HOME/.localaliasrc"
-addp "$HOME/scripts"
-addp "$HOME/bin"
-addp "$HOME/.local/bin"
+pathprepend "$HOME/bin"
+pathappend "$HOME/.local/bin"
