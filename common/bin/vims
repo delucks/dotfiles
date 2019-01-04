@@ -19,5 +19,10 @@ elif [[ "$#"  -gt 1 ]]; then
   vim $(find . -iregex $FRAG)
 else
   # Other default no-arg case
-  vim $(find . -iname "*.py" -or -iname "*.md" -or -iname "*.go" -or -iname "*.json" -or -iname "*.gradle" -or -iname "*.java")
+  if hash fd 2>/dev/null; then
+    # fd respects .gitignore so is a better default case if it's installed (I usually install fd on my workstations)
+    vim $(fd)
+  else
+    vim $(find . -iname "*.py" -or -iname "*.md" -or -iname "*.go" -or -iname "*.json" -or -iname "*.gradle" -or -iname "*.java")
+  fi
 fi

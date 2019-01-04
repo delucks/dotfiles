@@ -19,7 +19,7 @@ let g:colors_name = "delucks"
 """""
 " vim
 
-hi Search           cterm=bold ctermbg=7 ctermfg=0
+hi Search           cterm=bold ctermbg=7 ctermfg=1
 hi IncSearch        cterm=reverse ctermfg=15
 hi SpecialKey	    	ctermfg=1
 hi MatchParen       ctermbg=9 ctermfg=0
