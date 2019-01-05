@@ -110,7 +110,9 @@ tmuxat() {
   # shellcheck disable=2086
   RESOLVED="$(cd $DIR 2>/dev/null && pwd -P)"  # Cross-platform, readlink is Linux specific
   # shellcheck disable=2086
-  tmux new-session -A -c "$RESOLVED" -s "$(basename $RESOLVED)"
+  SESSION_NAME="$(basename $RESOLVED)"
+  # shellcheck disable=2086
+  tmux new-session -A -c "$RESOLVED" -s "${SESSION_NAME//./_}"
 }
 
 if ! cmd_exists log
