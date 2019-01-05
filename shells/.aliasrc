@@ -371,6 +371,33 @@ serve() {
   fi
 }
 
+flip-the-multitool() {
+  case "$(uname -m)" in
+    arm*)
+      ARCH=arm
+      ;;
+    x86_64)
+      ARCH=amd64
+      ;;
+    i386)
+      ARCH=i386
+      ;;
+    aarch64)
+      ARCH=arm64
+      ;;
+    default)
+      log "Platform is not supported :(" err
+      return 1
+      ;;
+  esac
+  DOWNLOAD_URL=$(curl -s https://api.github.com/repos/delucks/multitool/releases/latest | grep browser_download_url | cut -d '"' -f 4 | grep "$(uname -s | tr '[:upper:]' '[:lower:]')_${ARCH}")
+  mkdir -p ~/bin
+  mkdir -p ~/.cache
+  curl -sL "$DOWNLOAD_URL" > ~/.cache/multitool.tar.gz
+  tar -C ~/bin -xvf ~/.cache/multitool.tar.gz
+  ~/bin/multitool setup
+}
+
 # expand my environment pls
 if test -d "$HOME/go/"
 then
