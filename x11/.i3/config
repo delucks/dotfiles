@@ -56,7 +56,7 @@ bindsym F11 exec ~/bin/backlight down
 bindsym F12 exec ~/bin/backlight up
 
 # Program and Menu Launchers
-bindsym $mod+t exec kitty
+bindsym $mod+t exec alacritty
 bindsym $alternate+t exec xterm
 bindsym $mod+comma exec rofi -show ssh
 bindsym $mod+Shift+comma exec rofi-remote-tmux
