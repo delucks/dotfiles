@@ -44,7 +44,7 @@ _prompt_git() {
 
 _prompt_svn() {
   if ! svn st 2>&1 | grep -q 'not a working'; then
-    local message="$(svn st | cut -f1 -d\  | sort | uniq | paste -s -d\  | tr -d ' ')"
+    local message="$(svn st | grep -Fv 'on external item at' | cut -f1 -d\  | sort | uniq | paste -s -d\  | tr -d ' ')"
     [[ "$message" == *"M"* ]] || [[ "$message" == *"!"* ]] || [[ "$message" == *"C"* ]] && local color="${redf}" || local color="${greenf}"
     echo "[$color$message$reset]"
   fi
