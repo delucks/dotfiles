@@ -98,7 +98,6 @@ alias apropos="man -k" # yeah, some platforms don't do this
 alias meh='echo "¯\_(ツ)_/¯"'
 alias whom='who'
 alias tmuxa='tmux a'
-alias ta='tmux a || tmux new-session -s main -A'
 alias sl='ls'
 if cmd_exists ncdu; then
   alias ncdu='ncdu --color dark'
@@ -358,6 +357,8 @@ serve() {
   IP=$(ifconfig | awk '/inet\ /{print $2}' | grep -v 127)
   echo "External IP $IP"
   PORT="${1:-8000}"
+  DIR="${2:-.}"
+  cd "$DIR"
   if hash python3; then
     python3 -m http.server "$PORT"
   elif hash python2; then
@@ -369,6 +370,7 @@ serve() {
   else
     python -m http.server "$PORT"
   fi
+  cd - >/dev/null
 }
 
 flip-the-multitool() {
