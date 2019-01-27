@@ -97,6 +97,7 @@ alias apropy="pydoc -k"
 alias apropos="man -k" # yeah, some platforms don't do this
 alias meh='echo "¯\_(ツ)_/¯"'
 alias whom='who'
+alias ta='fzf-tmux-attach'
 alias tmuxa='tmux a'
 alias sl='ls'
 if cmd_exists ncdu; then
