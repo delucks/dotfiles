@@ -60,9 +60,11 @@ bindsym $mod+t exec alacritty
 bindsym $alternate+t exec xterm
 bindsym $mod+comma exec rofi -show ssh
 bindsym $mod+Shift+comma exec rofi-remote-tmux
-bindsym $mod+slash exec xterm -e bash -c ranger
+bindsym $mod+slash exec alacritty -e bash -c ranger
 bindsym $mod+semicolon exec rofi-tmux
+bindsym $mod+Shift+semicolon exec alacritty -e bash -c fzf-tmux-attach
 bindsym $mod+F1 exec rofi-man
+bindsym $mod+Shift+F1 exec alacritty -e bash -c fzf-man
 bindsym $mod+F2 exec rofi -show run
 bindsym $mod+F3 exec rofi-extension
 #bindsym $mod+F4 exec ~/bin/

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# "tmux attach" + fzf + fzf
+SESSNAME=$(tmux list-sessions | awk -F':' '{print $1}' | fzf)
+test -z "$SESSNAME" && exit 1
+tmux attach-session -t "$SESSNAME"
