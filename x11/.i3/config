@@ -52,8 +52,11 @@ bindsym XF86AudioMute exec ~/bin/dvol -t
 #bindsym XF86AudioPrev exec ~/bin/spotifyctrl.sh prev
 #bindsym XF86AudioStop exec ~/bin/spotifyctrl.sh toggle
 bindsym XF86AudioMedia exec ~/bin/block
-bindsym F11 exec ~/bin/backlight down
-bindsym F12 exec ~/bin/backlight up
+bindsym F5 exec ~/bin/backlight down
+bindsym F6 exec ~/bin/backlight up
+bindsym F7 scratchpad show
+bindsym F8 scratchpad show
+bindsym F9 scratchpad show
 
 # Program and Menu Launchers
 bindsym $mod+t exec alacritty
@@ -61,6 +64,7 @@ bindsym $alternate+t exec xterm
 bindsym $mod+comma exec rofi -show ssh
 bindsym $mod+Shift+comma exec rofi-remote-tmux
 bindsym $mod+slash exec alacritty -e bash -c ranger
+bindsym $mod+Shift+slash exec rofi-documents
 bindsym $mod+semicolon exec rofi-tmux
 bindsym $mod+Shift+semicolon exec alacritty -e bash -c fzf-tmux-attach
 bindsym $mod+F1 exec rofi-man

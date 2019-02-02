@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+DOCS_DIR="${1:-~/Documents}"
+
+# If using recoll, search using the zzzfoo module
+if hash zzzfoo 2>/dev/null; then
+  FN=$(zzzfoo)
+else
+  FN=$(find "$DOCS_DIR" -type f | rofi -dmenu -p 'docs')
+fi
+test -z "$FN" || xdg-open "$FN"
