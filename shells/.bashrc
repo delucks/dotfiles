@@ -19,8 +19,6 @@ export HISTFILE=$HOME/.shell_history
 
 ### exports / functions
 
-export SHELL=$(which bash)
-
 set -o emacs
 bind '"\C-k": "\C-atime \C-m"'
 # ideas for more of these: |less
