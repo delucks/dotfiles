@@ -4,7 +4,7 @@
 # use freely, share and contribute
 # vi:syntax=sh
 
-alias cmd_exists="hash >/dev/null 2>&1"
+alias cmd_exists="hash 2>/dev/null"
 export LS_COLORS=
 export LC_ALL="en_US.UTF-8"
 if cmd_exists vim
@@ -14,6 +14,44 @@ else
   export EDITOR='vi'
 fi
 export PAGER='less -r'
+
+# add a directory to PATH, but only if it exists and if it's not already in PATH
+pathappend() {
+  for pathname in "$@"; do
+    if test -d "$pathname" && [[ ":$PATH:" != *":$pathname:"* ]]; then
+      PATH="${PATH:+"$PATH:"}$pathname"
+    fi
+  done
+}
+
+pathprepend() {
+  for ((i=$#; i>0; i--)); do
+    pathname=${!i}
+    if test -d "$pathname" && [[ ":$PATH:" != *":$pathname:"* ]]; then
+      PATH="${PATH:+"$PATH:"}$pathname"
+    fi
+  done
+}
+
+# source a file, but only if it exists
+sourcep() {
+  if [[ $# -lt 1 ]]
+  then
+    echo "Usage: sourcep <path to source>"
+    return 1
+  fi
+  if [[ -f "$1" ]]
+  then
+    # shellcheck disable=SC1090
+    source "$1"
+    return 0
+  fi
+  return 1
+}
+
+# This file includes fallbacks if delucks/multitool isn't installed in ~/bin
+# Also, prepending here allows me to drop scripts into ~/bin and override system executables by name
+pathprepend "$HOME/bin"
 
 # cd
 alias ..='cd ..'
@@ -28,7 +66,6 @@ then
   alias gitd='git diff'
   alias gits='git status'
   alias gitl='git log --all --graph --pretty=format:"%Cred%h%Creset %C(bold blue)%an%Creset :%C(yellow)%d%Creset %s %Cgreen(%cr) %Creset"'
-  alias gitp='git push origin master'
 fi
 
 # platform detection
@@ -38,22 +75,6 @@ then
   alias ls='ls --color=auto'
   alias la='ls -aChkopl --group-directories-first --color=auto'
   alias errno="grep '#define' /usr/include/asm-generic/errno.h"
-  if test -f /etc/debian_version
-  then
-    # debian specific
-    alias package='dpkg -l'
-  elif cmd_exists pacman
-  then
-    # archlinux specific
-    alias orphan='pacman -Qtdq'
-    sizes() {
-      awk 'BEGIN{while (("pacman -Qi" |getline) > 0){ if ($0 ~ /Name/) {name=$3};{if ($0 ~ /Size/) {size=$4/1024;print name": ",size,"Mb"|"sort -k2 -n|column -t"}}}}'
-    }
-    owner() {
-      # shellcheck disable=SC2046
-      pacman -Qo $(which "$1")
-    }
-  fi
   ununix() {
     date -d "@$1"
   }
@@ -92,7 +113,7 @@ alias wgot='wget -e robots=off -r -nc -np '
 alias rot13='tr "a-zA-Z" "n-za-mN-ZA-M"'
 alias mkdir='mkdir -p'
 alias datehelp='for F in {a..z} {A..Z} :z ::z :::z;do echo $F: $(date +%$F);done|sed "/:[\ \t\n]*$/d;/%[a-zA-Z]/d"'
-alias ve='source $(find $(git rev-parse --show-toplevel) -name activate | grep -v hooks | head -1) &> /dev/null'
+alias ve='source $(find $(git rev-parse --show-toplevel 2>/dev/null) -name activate | grep -v hooks | head -1) &> /dev/null'
 alias apropy="pydoc -k"
 alias apropos="man -k" # yeah, some platforms don't do this
 alias meh='echo "¯\_(ツ)_/¯"'
@@ -228,42 +249,6 @@ alias pydoc2='less_color_env pydoc2'
 alias pydoc='less_color_env pydoc'
 alias less='less_color_env less'
 
-# add a directory to path, but only if it exists
-# and if it's not already in path
-pathappend() {
-  for pathname in "$@"; do
-    if test -d "$pathname" && [[ ":$PATH:" != *":$pathname:"* ]]; then
-      PATH="${PATH:+"$PATH:"}$pathname"
-    fi
-  done
-}
-
-pathprepend() {
-  for ((i=$#; i>0; i--)); do
-    pathname=${!i}
-    if test -d "$pathname" && [[ ":$PATH:" != *":$pathname:"* ]]; then
-      PATH="${PATH:+"$PATH:"}$pathname"
-    fi
-  done
-}
-
-# source a file, but only if it exists
-sourcep() {
-  if [[ $# -lt 1 ]]
-  then
-    log "Usage: sourcep <path to source>" error
-    return 1
-  fi
-  if [[ -f "$1" ]]
-  then
-    # shellcheck disable=SC1090
-    source "$1"
-    return 0
-  fi
-  #echo "Path unavailable"
-  return 1
-}
-
 histogram() {
   if [[ $# -lt 1 ]]
   then
@@ -310,10 +295,10 @@ license() {
       then
         if hash curl
         then
-          HTTP_METHOD="$(which curl) -s"
+          HTTP_METHOD="$(command -v curl) -s"
         elif hash wget
         then
-          HTTP_METHOD="$(which wget) -O -"
+          HTTP_METHOD="$(command -v wget) -O -"
         else
           log "Cannot find executables for curl or wget, install one" error
           return 1
@@ -401,7 +386,6 @@ flip-the-multitool() {
   ~/bin/multitool setup
 }
 
-# expand my environment pls
 if test -d "$HOME/go/"
 then
   export GOPATH="$HOME/go"
@@ -409,5 +393,4 @@ then
   pathappend "$GOPATH/bin"
 fi
 sourcep "$HOME/.localaliasrc"
-pathprepend "$HOME/bin"
 pathappend "$HOME/.local/bin"
