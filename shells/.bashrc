@@ -34,7 +34,7 @@ greenf="$(tput setaf 2)"
 reset="$(tput sgr0)"
 
 _prompt_git() {
-  local branch=$(git branch --no-color 2>/dev/null | awk '/\*/{print $NF}')
+	local branch=$(git branch --no-color 2>/dev/null | awk '/\*/{print $NF}' | tr -d '()')
   local status="$(git status --porcelain --untracked-files=no 2>/dev/null)"
   [ -n "$status" ] && local color="${redf}" || local color="${greenf}"
   [ -n "$branch" ] && echo "[$color$branch${reset}]"
