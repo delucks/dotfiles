@@ -35,6 +35,8 @@ set ignorecase
 set smartcase
 set incsearch
 set hlsearch
+" Overrides case search behavior in completion box
+set infercase
 
 " editing
 set autoindent
@@ -87,7 +89,6 @@ endif
 call plug#begin('~/.vim/plugins')
 Plug 'w0rp/ale'                                       " contextual linting
 Plug 'fatih/vim-go', { 'for': 'go' }                  " enables gofmt on :w
-Plug 'RRethy/vim-illuminate'                          " highlights the word under the current character
 Plug 'vim-airline/vim-airline'                        " draws buffers in tabline and colorizes the statusline
 Plug 'ctrlpvim/ctrlp.vim'                             " fast fuzzy find buffer menu
 Plug 'deris/vim-shot-f'                               " highlights the first match of a character in a line for f/t commands
@@ -96,6 +97,7 @@ Plug 'junegunn/limelight.vim'                         " syntax highlight only th
 Plug 'tpope/vim-fugitive'                             " I only use :Gblame but that is useful
 Plug 'benmills/vimux'                                 " send commands to tmux
 Plug 'PotatoesMaster/i3-vim-syntax'
+"Plug 'vim-scripts/DrawIt'
 if executable("elixir")
   Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }  " better support
 endif
@@ -119,8 +121,6 @@ nmap <silent> gl :Limelight!!<CR>
 xmap gl <Plug>(Limelight)
 let g:limelight_conceal_ctermfg = 8
 let g:limelight_paragraph_span = 0
-let g:Illuminate_delay = 100
-hi link illuminatedWord Visual
 
 " Buftabline
 let g:buftabline_show=1
@@ -290,12 +290,11 @@ augroup FileSpecific
   autocmd FileType java
     \ setlocal shiftwidth=4 |
     \ setlocal tabstop=4
-  autocmd BufRead,BufNewFile *.clj
-    \ set filetype=clojure
   autocmd FileType vim
     \ map K :execute('vert help ' . expand("<cword>"))<CR><C-w><C-h>
   autocmd BufRead,BufNewFile *.md
     \ set filetype=markdown |
+    \ set complete+=k |
     \ set syntax=off
   autocmd BufRead,BufNewFile /tmp/jrnl*
     \ set syntax=off |
