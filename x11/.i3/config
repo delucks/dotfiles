@@ -94,8 +94,11 @@ bindsym $mod+Shift+Control+j resize grow height 10 px or 5 ppt
 bindsym $mod+Shift+Control+k resize shrink height 10 px or 5 ppt
 bindsym $mod+Shift+Control+l resize grow width 10 px or 5 ppt
 
+# Floating manipulation
 bindsym $mod+apostrophe fullscreen
 bindsym $mod+m floating toggle
+bindsym $alternate+space move position mouse
+bindsym $mod+Shift+apostrophe resize set width 1000 height 600
 bindsym $mod+Shift+m focus mode_toggle
 bindsym $mod+c move position center
 
@@ -181,7 +184,7 @@ bar {
     separator $color9
 
     # These are triplets of border, background, text
-    focused_workspace $color9 $color16 $color9
+    focused_workspace $color10 $color16 $color10
     active_workspace $color16 $color2 $color16
     inactive_workspace $color7 $color16 $color7
     urgent_workspace $color1 $color16 $color1
@@ -189,10 +192,10 @@ bar {
 }
 
 # Class                     border          backgr.        text        indicator
-client.focused              $color16        $color9        $color0     $color0
+client.focused              $color16        $color10       $color0     $color0
 client.focused_inactive     $color16        $color0        $color3     $color0
 client.unfocused            $color16        $color0        $color3     $color4
-client.urgent               $color16        $color1        $color3     $color3
+client.urgent               $color16        $color1        $color16    $color3
 
 # -----
 # Startup Program Execution
