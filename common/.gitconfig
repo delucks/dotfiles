@@ -11,5 +11,7 @@
   up = push origin master
   down = pull origin master
 [user]
-	email = me@jamesluck.com
+	email = ping@jamieluck.com
 	name = delucks
+[url "git@github.com:"]
+	insteadOf = https://github.com/
