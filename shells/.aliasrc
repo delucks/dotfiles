@@ -89,6 +89,7 @@ then
 else
   alias la='ls -aChkopl --group-directories-first'
 fi
+alias l='exa -l --git -h'
 
 # This adds an argument to BSD paste to accept stdin by default
 # The only use case I have for paste is joining standard input

@@ -59,15 +59,27 @@ dynamic_prompt() {
   echo -e "$git$svn $chr"
 }
 
-_ssh_complete() {
-    COMPREPLY=( $(compgen -W "$(sshc hosts | paste -s)" -- ${COMP_WORDS[COMP_CWORD]}) )
-    return 0
-}
-complete -F _ssh_complete ssh
-
 FULL_PS1="\[${greenf}\]\h\[${reset}\] \D{%T} \W\[\$(dynamic_prompt)\] "
 prompt_reset() { PS1="$FULL_PS1"; }
 prompt_maximal() { PS1="\u\[${greenf}\]@\h\[${reset}\] [\D{%m-%d %T} \W\[\$(dynamic_prompt)\] "; }
 prompt_minimal() { PS1="$ "; }
 prompt_flashy() { PS1="🌵 "; }
 PS1="$FULL_PS1"
+
+### spelling correction provided by delucks/multitool
+
+if hash multitool 2>/dev/null; then
+  command_not_found_handle() {
+    corr=$(suggest-fc "$1")
+    test -z "$corr" || echo "Did you mean ${redf}${corr}${reset}?" >&2
+    return 127
+  }
+fi
+
+### completion
+
+_ssh_complete() {
+    COMPREPLY=( $(compgen -W "$(sshc hosts | paste -s)" -- ${COMP_WORDS[COMP_CWORD]}) )
+    return 0
+}
+complete -F _ssh_complete ssh
