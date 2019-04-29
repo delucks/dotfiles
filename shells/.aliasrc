@@ -119,14 +119,18 @@ alias apropy="pydoc -k"
 alias apropos="man -k" # yeah, some platforms don't do this
 alias meh='echo "¯\_(ツ)_/¯"'
 alias whom='who'
-alias ta='fzf-tmux-attach'
 alias tmuxa='tmux a'
 alias sl='ls'
 if cmd_exists ncdu; then
   alias ncdu='ncdu --color dark'
 fi
 
-tmuxat() {
+# tx and ta are my two tmux manipulation functions
+#
+# tx() creates a tmux session at a path, the current directory by default
+# ta() attaches a tmux session (using fzf if available)
+
+tx() {
   # Opens a tmux session named after the basename of a path
   DIR="${1:-.}"
   # shellcheck disable=2086
@@ -135,6 +139,14 @@ tmuxat() {
   SESSION_NAME="$(basename $RESOLVED)"
   # shellcheck disable=2086
   tmux new-session -A -c "$RESOLVED" -s "${SESSION_NAME//./_}"
+}
+
+ta() {
+  if cmd_exists fzf; then
+    fzf-tmux-attach
+    return $?
+  fi
+  tmux a
 }
 
 if ! cmd_exists log
