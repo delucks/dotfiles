@@ -99,19 +99,19 @@ do
   esac
 done
 
-BAR_LABEL_MESSAGE="ALSA Control $CONTROL "
+BAR_LABEL_MESSAGE="$CONTROL "
 MUTED=$($AMIXER get "$CONTROL" | awk '/(Front|Mono).*Playback/{print $NF}' | tr -d '[]' | uniq)
 if [[ "$MUTED" == "off" ]]; then
   VOLUME=0
-  BAR_LABEL_MESSAGE="${BAR_LABEL_MESSAGE}Muted"
+  BAR_LABEL_MESSAGE="${BAR_LABEL_MESSAGE}Muted "
 else
   VOLUME="$($AMIXER get "$CONTROL" | awk '/(Front|Mono).*Playback/{print $4}' | tr -d '[]' | uniq)"
-  BAR_LABEL_MESSAGE="${BAR_LABEL_MESSAGE}at ${VOLUME}"
+  BAR_LABEL_MESSAGE="${VOLUME} ${BAR_LABEL_MESSAGE}"
 fi
 # Append spotify track name if found
 if [[ "$(pgrep spotify)" ]]; then
 	TRACK=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep -A 1 'xesam:title' | grep variant | sed 's/variant//g' | sed 's/string//g' | sed -e 's/^ *\"//g' -e 's/\" *$//g' -e 's/;$//g')
-	BAR_LABEL_MESSAGE="$BAR_LABEL_MESSAGE $TRACK"
+	BAR_LABEL_MESSAGE="${BAR_LABEL_MESSAGE}(on Spotify) ${TRACK}"
 fi
 
 #Using named pipe to determine whether previous call still exists
