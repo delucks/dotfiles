@@ -12,17 +12,17 @@ join_by() { local d=$1; shift; echo -n "$1"; shift; printf "%s" "${@/#/$d}"; }
 if [ -f Session.vim ]; then
   vim -S
 elif [[ $# -eq 1 ]]; then
-  vim $(find . -regex "${1}")
+  vim $(find . -type f -regex "${1}")
 elif [[ "$#"  -gt 1 ]]; then
   # join all arguments together into a regex that matches all their extensions
   FRAG='.*\.\('$(join_by '\|' $@)'\)$'
-  vim $(find . -iregex $FRAG)
+  vim $(find . -type f -iregex $FRAG)
 else
   # Other default no-arg case
   if hash fd 2>/dev/null; then
     # fd respects .gitignore so is a better default case if it's installed (I usually install fd on my workstations)
-    vim $(fd)
+    vim $(fd -t f)
   else
-    vim $(find . -iname "*.py" -or -iname "*.md" -or -iname "*.go" -or -iname "*.json" -or -iname "*.gradle" -or -iname "*.java")
+    vim $(find . -type f -iname "*.py" -or -iname "*.md" -or -iname "*.go" -or -iname "*.json" -or -iname "*.gradle" -or -iname "*.java")
   fi
 fi
