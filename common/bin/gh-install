@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# Must be passed a author/repo slug as the only argument. Tool will be downloaded to ~/.cache, binaries moved to ~/bin
+# Always downloads the latest version of the tool
+
+error() {
+  >&2 echo "$1"
+  exit 1
+}
+
+if [[ $# -lt 1 ]]; then
+  error "Usage: $0 author/repo"
+fi
+
+for dependency in jq curl tar unzip; do
+  hash "$dependency" 2>/dev/null || error "$0 depends on $dependency"
+done
+
+SLUG="$1"
+DESTINATION="${2:-$HOME/bin}"
+if [[ "$SLUG" != *"/"* ]]; then
+  error "Argument must be in form author/repo"
+fi
+
+# Only zip, gzip, and tarballs are supported
+DOWNLOAD_URLS=$(curl -s "https://api.github.com/repos/${SLUG}/releases/latest" | jq -r '.assets[].browser_download_url' | grep -E '\.(zip|gz)$')
+test -z "$DOWNLOAD_URLS" && error "No releases found for ${SLUG}!"
+
+RELEASE_PREFIX=$(echo "$DOWNLOAD_URLS" | head -1 | rev | cut -d/ -f2- | rev)
+
+
+# Prompt user with the set of download URLs
+select release_option in Exit $(awk -F'/' '{print $NF}' <<< "$DOWNLOAD_URLS"); do
+  case "$release_option" in
+    Exit)
+      echo "Quitting..."
+      exit 0
+      ;;
+    *)
+      mkdir -p "$DESTINATION"
+      mkdir -p "$HOME/.cache"
+      TMP_PATH=$(mktemp -d)
+      CACHE_PATH="$HOME/.cache/$release_option"
+      # Assemble & download the full URL
+      curl -sL "${RELEASE_PREFIX}/${release_option}" > "$CACHE_PATH"
+      if [[ "$release_option" == *"tar.gz"* ]]; then
+        tar -C "$TMP_PATH" -xvf "$CACHE_PATH"
+      elif [[ "$release_option" == *".gz"* ]]; then
+        mv "$CACHE_PATH" "$TMP_PATH"
+        gunzip "$TMP_PATH/$release_option"
+      else
+        unzip -d "$TMP_PATH" "$CACHE_PATH"
+      fi
+      BINARY=$(find "$TMP_PATH" -type f -executable)
+      if [ -z "$BINARY" ]; then
+        error "There were no executables unpacked. Check $TMP_PATH for more details"
+      else
+        # We found a file to move
+        mv "$BINARY" "$DESTINATION"
+        rm -rf "$TMP_PATH"
+      fi
+      break
+      ;;
+  esac
+done

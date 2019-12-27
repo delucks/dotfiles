@@ -6,6 +6,8 @@
 
 font xft:Fantasque Sans Mono 16
 
+set $primaryterminal xterm
+set $secondaryterminal xterm
 set $mod Mod4
 set $alternate Mod1
 set $modr Mode_switch
@@ -52,17 +54,17 @@ bindsym F5 exec ~/bin/backlight down
 bindsym F6 exec ~/bin/backlight up
 
 # Program and Menu Launchers
-bindsym $mod+t exec alacritty
-bindsym $alternate+t exec xterm
+bindsym $mod+t exec $primaryterminal
+bindsym $alternate+t exec $secondaryterminal
 bindsym $mod+comma exec rofi -show ssh
 bindsym $mod+Shift+comma exec rofi-remote-tmux
-bindsym $mod+slash exec alacritty -e bash -c ranger
-bindsym $mod+Shift+b exec alacritty -e bash -c broot
+bindsym $mod+slash exec $primaryterminal -e bash -c ranger
+bindsym $mod+Shift+b exec $primaryterminal -e bash -c broot
 bindsym $mod+Shift+slash exec rofi-documents
 bindsym $mod+semicolon exec rofi-tmux
-bindsym $mod+Shift+semicolon exec alacritty -e bash -c fzf-tmux-attach
+bindsym $mod+Shift+semicolon exec $primaryterminal -e bash -c fzf-tmux-attach
 bindsym $mod+F1 exec rofi-man
-bindsym $mod+Shift+F1 exec alacritty -e bash -c fzf-man
+bindsym $mod+Shift+F1 exec $primaryterminal -e bash -c fzf-man
 bindsym $mod+F2 exec rofi -show run
 bindsym $mod+F3 exec rofi-extension
 
