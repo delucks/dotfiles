@@ -39,8 +39,6 @@ window:
   #     - none: Neither borders nor title bar
   decorations: full
 
-  # When true, alacritty starts maximized.
-  start_maximized: false
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -50,15 +48,6 @@ scrolling:
   # Number of lines the viewport will move for every line scrolled when
   # scrollback is enabled (history > 0).
   multiplier: 3
-
-  # Faux Scrolling
-  #
-  # The `faux_multiplier` setting controls the number of lines the terminal
-  # should scroll when the alternate screen buffer is active. This is used
-  # to allow mouse scrolling for applications like `man`.
-  #
-  # Specifying `0` will disable faux scrolling.
-  faux_multiplier: 3
 
   # Scroll to the bottom when new text is written to the terminal.
   auto_scroll: false
@@ -112,7 +101,10 @@ font:
     #style: Italic
 
   # Point size
-  size: 9.0
+  # For my normal display
+  # size: 9.0
+  # For my external display
+  size: 14.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -127,11 +119,13 @@ font:
     x: 0
     y: 0
 
-# Display the time it takes to redraw each frame.
-render_timer: false
 
-# Keep the log file after quitting Alacritty.
-persistent_logging: false
+debug:
+  # Display the time it takes to redraw each frame.
+  render_timer: false
+
+  # Keep the log file after quitting Alacritty.
+  persistent_logging: false
 
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
