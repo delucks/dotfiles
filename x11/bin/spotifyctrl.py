@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import dbus
 
 '''
@@ -64,11 +64,11 @@ def main():
     elif args.dump_metadata:
         meta = sc.get_metadata()
         for item in meta:
-            print '{},{}'.format(item, meta[item])
+            print('{},{}'.format(item, meta[item]))
     else:
         now = sc.now_playing()
         for item in now:
-            print now[item]
+            print(now[item])
 
 if (__name__ == '__main__'):
     main()
