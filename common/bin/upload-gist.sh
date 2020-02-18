@@ -88,6 +88,7 @@ done
 # Assemble a set of arguments that create the "files" object in the main jo invocation
 file_arguments=$(for f in "$@"; do b=$(basename "$f"); echo "files[$b]=:${tmpdir}/${b}"; done)
 # Generate the full JSON payload
+# shellcheck disable=SC2086
 PAYLOAD=$(jo description="$DESCRIPTION" public="$PUBLIC" $file_arguments)
 
 # Upload to the API
@@ -96,7 +97,7 @@ RESPONSE=$(curl -s -u "${USERNAME}:${TOKEN}" -X POST "https://api.github.com/gis
 # Error handling
 error=$(jq -r .message <<< "$RESPONSE")
 if [[ "$error" == "null" ]]; then
-  echo "Gist uploaded to $(echo $RESPONSE | jq -r .html_url)"
+  echo "Gist uploaded to $(echo "$RESPONSE" | jq -r .html_url)"
 elif [[ "$error" == *"Requires authentication"* ]]; then
   error "Authentication failed! Username: $USERNAME, Token: $GITHUB_TOKEN"
 else
