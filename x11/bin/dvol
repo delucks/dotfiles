@@ -20,8 +20,9 @@ else
 fi
 
 # Use the card with the highest identifier by default
-CARD_ID=$(($(aplay -l | awk '/^card/{print $2}' | sort -u | wc -l) -1))
-AMIXER="amixer -c $CARD_ID"
+# For some reason, this seems to break when cards are connected & disconnected multiple times.
+#CARD_ID=$(($(aplay -l | awk '/^card/{print $2}' | sort -u | wc -l) -1))
+AMIXER="amixer" # -c $CARD_ID"
 CONTROL=$($AMIXER scontrols | grep -F -e Master -e PCM | awk -F"'" '{print $2}' | head -1)
 SECS="1"
 FONT='-*-fixed-medium-r-normal-*-16-*-*-*-*-*-iso8859-*'
@@ -105,7 +106,7 @@ if [[ "$MUTED" == "off" ]]; then
   VOLUME=0
   BAR_LABEL_MESSAGE="${BAR_LABEL_MESSAGE}Muted "
 else
-  VOLUME="$($AMIXER get "$CONTROL" | awk '/(Front|Mono).*Playback/{print $4}' | tr -d '[]' | uniq)"
+  VOLUME="$($AMIXER get "$CONTROL" | awk -F'[' '/(Front|Mono).*Playback/{print $2}' | tr -d '[]' | sort -u | head -1)"
   BAR_LABEL_MESSAGE="${VOLUME} ${BAR_LABEL_MESSAGE}"
 fi
 # Append spotify track name if found
