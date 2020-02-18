@@ -19,12 +19,6 @@ hide_edge_borders none
 
 for_window [class="^.*"] border pixel 3
 
-# Certain applications should launch at a resolution that takes up most of my screen but not all of my screen
-set $near_screen_width 1800
-set $near_screen_height 900
-for_window [class="Spotify"] resize set width $near_screen_width height $near_screen_height
-for_window [class="Firefox"] resize set width $near_screen_width height $near_screen_height
-
 # -----
 # Client-specific rules
 
@@ -42,6 +36,12 @@ for_window [class="slack"] floating enable
 for_window [class="Spotify"] floating enable
 for_window [class="Firefox"] floating enable
 
+# Certain applications should launch at a resolution that takes up most of my screen but not all of my screen
+set $near_screen_width 1800
+set $near_screen_height 1000
+for_window [class="Spotify"] resize set width $near_screen_width height $near_screen_height
+for_window [class="Firefox"] resize set width $near_screen_width height $near_screen_height
+
 # -----
 # Keymaps
 
@@ -50,8 +50,10 @@ bindsym XF86AudioRaiseVolume exec ~/bin/dvol -i 5
 bindsym XF86AudioLowerVolume exec ~/bin/dvol -d 5
 bindsym XF86AudioMute exec ~/bin/dvol -t
 bindsym XF86AudioMedia exec ~/bin/block
-bindsym F5 exec ~/bin/backlight down
-bindsym F6 exec ~/bin/backlight up
+bindsym XF86AudioNext exec ~/bin/spotifyctrl.sh next
+bindsym XF86AudioPrev exec ~/bin/spotifyctrl.sh prev
+bindsym XF86MonBrightnessUp exec ~/bin/backlight up
+bindsym XF86MonBrightnessDown exec ~/bin/backlight down
 
 # Program and Menu Launchers
 bindsym $mod+t exec $primaryterminal
@@ -98,10 +100,10 @@ bindsym $mod+Shift+Control+l resize grow width 10 px or 5 ppt
 
 # Floating manipulation
 bindsym $mod+apostrophe fullscreen
+bindsym $mod+Shift+apostrophe resize set width $near_screen_width height $near_screen_height
 bindsym $mod+m floating toggle
+bindsym $mod+Shift+m resize set width 1000 height 600
 bindsym $alternate+space move position mouse
-bindsym $mod+Shift+apostrophe resize set width 1000 height 600
-bindsym $mod+Shift+m focus mode_toggle
 bindsym $mod+c move position center
 
 bindsym $mod+u split v
