@@ -4,7 +4,7 @@
 # use freely, share and contribute
 # vi:syntax=sh
 
-alias cmd_exists="hash 2>/dev/null"
+cmd_exists() { test -f "$(command -v "$1")"; }
 export LS_COLORS=
 export LC_ALL="en_US.UTF-8"
 if cmd_exists vim
@@ -124,6 +124,7 @@ alias sl='ls'
 if cmd_exists ncdu; then
   alias ncdu='ncdu --color dark'
 fi
+alias j='jrnl --edit -1'
 
 # tx and ta are my two tmux manipulation functions
 #
@@ -352,9 +353,18 @@ vimf() {
   fi
 }
 
+_external_ip() {
+  if [[ "$OSTYPE" == "linux-gnu"* ]]
+  then
+    IP=$(ip a | awk '/inet\ /{print $2}' | grep -v 127)
+  else
+    IP=$(ifconfig | awk '/inet\ /{print $2}' | grep -v 127)
+  fi
+  echo "$IP"
+}
+
 serve() {
-  IP=$(ifconfig | awk '/inet\ /{print $2}' | grep -v 127)
-  echo "External IP $IP"
+  echo "External IP $(_external_ip)"
   PORT="${1:-8000}"
   DIR="${2:-.}"
   cd "$DIR"
@@ -401,7 +411,8 @@ flip-the-multitool() {
 
 if test -d "$HOME/go/"
 then
-  export GOPATH="$HOME/go"
+  export GOPATH="$HOME/dev/go"
+  export GOROOT="$HOME/go"
   export GOBIN="$GOPATH/bin"
   pathappend "$GOPATH/bin"
 fi
