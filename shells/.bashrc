@@ -31,10 +31,12 @@ stty -ixon  # diable XON/XOFF
 # Initialize colors
 redf="$(tput setaf 1)"
 greenf="$(tput setaf 2)"
+bluef="$(tput setaf 4)"
+magentaf="$(tput setaf 5)"
 reset="$(tput sgr0)"
 
 _prompt_git() {
-	local branch=$(git branch --no-color 2>/dev/null | awk '/\*/{print $NF}' | tr -d '()')
+  local branch=$(git branch --no-color 2>/dev/null | awk '/\*/{print $NF}' | tr -d '()')
   local status="$(git status --porcelain --untracked-files=no 2>/dev/null)"
   [ -n "$status" ] && local color="${redf}" || local color="${greenf}"
   [ -n "$branch" ] && echo "[$color$branch${reset}]"
@@ -49,7 +51,7 @@ _prompt_svn() {
 }
 
 _prompt_char() {
-  if [[ $? == 0 ]]; then echo "${greenf}\$${reset}"; else echo "rc ${redf}$?${reset}"; fi
+  if [[ $? == 0 ]]; then echo "\$"; else echo "${redf}$?${reset}"; fi
 }
 
 dynamic_prompt() {
@@ -59,9 +61,8 @@ dynamic_prompt() {
   echo -e "$git$svn $chr"
 }
 
-FULL_PS1="\[${greenf}\]\h\[${reset}\] \D{%T} \W\[\$(dynamic_prompt)\] "
+FULL_PS1="\[${magentaf}\]\h\[${reset}\] ${bluef}\D{%T}${reset} \w\[\$(dynamic_prompt)\] "
 prompt_reset() { PS1="$FULL_PS1"; }
-prompt_maximal() { PS1="\u\[${greenf}\]@\h\[${reset}\] [\D{%m-%d %T} \W\[\$(dynamic_prompt)\] "; }
 prompt_minimal() { PS1="$ "; }
 prompt_flashy() { PS1="🌵 "; }
 PS1="$FULL_PS1"
