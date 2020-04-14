@@ -17,7 +17,7 @@ swap_to_external() {
   if ! xrandr --current | grep -q "$MODENAME"; then
     # External monitor doesn't have the correct resolution in this X session yet: create it
     echo "Adding mode - $MODENAME $MODEDATA"
-    xrandr --newmode "$MODENAME" "$MODEDATA"
+    xrandr --newmode "$MODENAME" $MODEDATA
     xrandr --addmode "$EXTERNAL_DISPLAY" "$MODENAME"
   fi
   xrandr --output "$EXTERNAL_DISPLAY" --primary --mode "$MODENAME" --pos 0x0 --rotate normal --output "$INTERNAL_DISPLAY" --off
