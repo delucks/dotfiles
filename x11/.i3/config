@@ -46,14 +46,14 @@ for_window [class="Firefox"] resize set width $near_screen_width height $near_sc
 # Keymaps
 
 # Media & screen controls
-bindsym XF86AudioRaiseVolume exec ~/bin/dvol -i 5
-bindsym XF86AudioLowerVolume exec ~/bin/dvol -d 5
-bindsym XF86AudioMute exec ~/bin/dvol -t
-bindsym XF86AudioMedia exec ~/bin/block
-bindsym XF86AudioNext exec ~/bin/spotifyctrl.sh next
-bindsym XF86AudioPrev exec ~/bin/spotifyctrl.sh prev
-bindsym XF86MonBrightnessUp exec ~/bin/backlight up
-bindsym XF86MonBrightnessDown exec ~/bin/backlight down
+bindsym F3 exec ~/bin/dvol -i 5
+bindsym F2 exec ~/bin/dvol -d 5
+bindsym F1 exec ~/bin/dvol -t
+#bindsym XF86AudioMedia exec ~/bin/block
+#bindsym XF86AudioNext exec ~/bin/spotifyctrl.sh next
+#bindsym XF86AudioPrev exec ~/bin/spotifyctrl.sh prev
+bindsym F6 exec ~/bin/backlight up
+bindsym F5 exec ~/bin/backlight down
 
 # Program and Menu Launchers
 bindsym $mod+t exec $primaryterminal
@@ -112,6 +112,8 @@ bindsym $mod+o split h
 bindsym $mod+Shift+space layout toggle
 bindsym $mod+space layout toggle split
 
+bindsym $mod+Tab layout tabbed
+
 # Workspaces
 # My workspaces are set up on the home row and some easily pressable keys above it.
 # Workspaces correspond to each of the following letters and have no intrinsic meaning:
@@ -153,29 +155,30 @@ bindsym $mod+Shift+Escape exec "i3-nagbar -t warning -m 'You pressed the exit sh
 # ------------
 # Colors & bar
 
-set_from_resource $color0 i3wm.color0 #333333
-set_from_resource $color1 i3wm.color1 #8b3e2f
-set_from_resource $color2 i3wm.color2 #526f33
-set_from_resource $color3 i3wm.color3 #af865a
-set_from_resource $color4 i3wm.color4 #535C5C
-set_from_resource $color5 i3wm.color5 #775759
-set_from_resource $color6 i3wm.color6 #42717B
-set_from_resource $color7 i3wm.color7 #aaaaaa
-set_from_resource $color8 i3wm.color8 #4c4c4c
-set_from_resource $color9 i3wm.color9 #d75f00
-set_from_resource $color10 i3wm.color10 #7b8748
-set_from_resource $color11 i3wm.color11 #eee685
-set_from_resource $color12 i3wm.color12 #6095c5
-set_from_resource $color13 i3wm.color13 #9f79ee
-set_from_resource $color14 i3wm.color14 #a9cdcd
-set_from_resource $color15 i3wm.color15 #e8e9ca
-set_from_resource $color16 i3wm.color16 #111111
-set_from_resource $color17 i3wm.color17 #e8dfd6
+set_from_resource $color0   i3wm.color0   #393939
+set_from_resource $color1   i3wm.color1   #BF1E2D
+set_from_resource $color2   i3wm.color2   #9DBA3A
+set_from_resource $color3   i3wm.color3   #F5B915
+set_from_resource $color4   i3wm.color4   #1CA1DB
+set_from_resource $color5   i3wm.color5   #652F90
+set_from_resource $color6   i3wm.color6   #EA7D24
+set_from_resource $color7   i3wm.color7   #E7E8E9
+set_from_resource $color8   i3wm.color8   #AF875F
+set_from_resource $color9   i3wm.color9   #E7212A
+set_from_resource $color10  i3wm.color10  #A9C938
+set_from_resource $color11  i3wm.color11  #F7D325
+set_from_resource $color12  i3wm.color12  #00AFDA
+set_from_resource $color13  i3wm.color13  #894E9F
+set_from_resource $color14  i3wm.color14  #F79321
+set_from_resource $color15  i3wm.color15  #F3F3F4
+# background/foreground
+set_from_resource $color16  i3wm.color16 #151515
+set_from_resource $color17  i3wm.color17 #DDCCBB
 
 bar {
   font pango:Fira Code 14
   tray_output none
-  separator_symbol "<<<"
+  separator_symbol "<=="
 
   mode dock
   position top
