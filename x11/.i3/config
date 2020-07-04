@@ -4,9 +4,9 @@
 # vim:ft=i3
 # Peep http://i3wm.org/docs/userguide.html for a complete reference!
 
-font xft:Fantasque Sans Mono 16
+font pango:Fira Code 14
 
-set $primaryterminal xterm
+set $primaryterminal kitty
 set $secondaryterminal xterm
 set $mod Mod4
 set $alternate Mod1
@@ -173,6 +173,7 @@ set_from_resource $color16 i3wm.color16 #111111
 set_from_resource $color17 i3wm.color17 #e8dfd6
 
 bar {
+  font pango:Fira Code 14
   tray_output none
   separator_symbol "<<<"
 

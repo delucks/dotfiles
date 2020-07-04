@@ -7,9 +7,9 @@ xterm*background: #111111
 xterm*foreground: #e8dfd6
 
 ! Font
-xterm*font: xft:Fantasque\ Sans\ Mono:pixelsize=18
-urxvt*font: xft:Fantasque\ Sans\ Mono:pixelsize=18
-rofi.font: Fantasque\ Sans\ Mono 16
+xterm*font: xft:Fira\ Code:pixelsize=14:antialias=true
+urxvt*font: xft:Fira\ Code:pixelsize=14:antialias=true
+rofi.font: Fira\ Code 14
 Xft.antialias: 1
 Xft.dpi: 96
 ! Fallback font
