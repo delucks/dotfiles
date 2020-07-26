@@ -1,64 +1,69 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # give me basic system stats for tmux statusline
 
-if [[ "$OSTYPE" == "darwin"* ]]
-then
-  memcmd() {
-    PAGESZ=$(sysctl -n hw.pagesize)
-    FREE=$(( $(vm_stat | awk '/free/ {gsub(/\./, "", $3); print $3}') * PAGESZ))
-    TOTAL=$(sysctl -n hw.memsize)
-    RATIO=$(bc -l <<< "$FREE/$TOTAL*100")
-    printf '%3.1f' "$RATIO"
-    echo %
-  }
-  loadcmd() {
-    uptime | rev | cut -d' ' -f '1-3' | rev
-  }
-  cpucmd() {
-    sysctl -n hw.ncpu
-  }
-elif [[ "$OSTYPE" == "linux"* ]]
-then
-  memcmd() {
-    free | awk '/Mem/{PERC=$NF/$2*100.0; printf "%3.1f%\n", PERC}'
-  }
-  loadcmd() {
-    cut -d' ' -f '1-3' /proc/loadavg
-  }
-  cpucmd() {
-    grep -cE '^processor' /proc/cpuinfo
-  }
-else
-  # assume bsd
-  if [[ "$OSTYPE" == "openbsd"* ]]
-  then
+case "$(uname)" in
+  Darwin*)
     memcmd() {
-      vmstat | tail -1 | while read -sr _ _ act tot _; do
-        used="${act//M/}"
-        avail="${tot//M/}"
-        RATIO=$(bc -l <<< "$used/$avail*100")
+      PAGESZ=$(sysctl -n hw.pagesize)
+      FREE=$(( $(vm_stat | awk '/free/ {gsub(/\./, "", $3); print $3}') * PAGESZ))
+      TOTAL=$(sysctl -n hw.memsize)
+      RATIO=$(echo "$FREE/$TOTAL*100" | bc -l)
+      printf '%3.1f' "$RATIO"
+      echo %
+    }
+    loadcmd() {
+      uptime | rev | cut -d' ' -f '1-3' | rev
+    }
+    cpucmd() {
+      sysctl -n hw.ncpu
+    }
+  ;;
+  Linux*)
+    memcmd() {
+      free | awk '/Mem/{PERC=$NF/$2*100.0; printf "%3.1f%\n", PERC}'
+    }
+    loadcmd() {
+      cut -d' ' -f '1-3' /proc/loadavg
+    }
+    cpucmd() {
+      grep -cE '^processor' /proc/cpuinfo
+    }
+  ;;
+  OpenBSD*)
+    memcmd() {
+      vmstat | tail -1 | while read -r _ _ act tot _; do
+        used="${act%%M}"
+        avail="${tot%%M}"
+        RATIO=$(echo "$used/$avail*100" | bc -l)
         printf '%3.1f' "$RATIO"
       done
       echo %
     }
-  else
+    loadcmd() {
+      uptime | rev | cut -d' ' -f '1-3' | rev
+    }
+    cpucmd() {
+      sysctl -n hw.ncpu
+    }
+  ;;
+  FreeBSD*)
     # freebsd
     memcmd() {
       avail=$(sysctl -n hw.physmem)
       used=$(vmstat -H | tail -1 | awk '{print $5}')
-      RATIO=$(bc -l <<< "$used/$avail*100")
+      RATIO=$(echo "$used/$avail*100" | bc -l)
       printf '%3.1f' "$RATIO"
       echo %
     }
-  fi
-  loadcmd() {
-    uptime | rev | cut -d' ' -f '1-3' | rev
-  }
-  cpucmd() {
-    sysctl -n hw.ncpu
-  }
-fi
+    loadcmd() {
+      uptime | rev | cut -d' ' -f '1-3' | rev
+    }
+    cpucmd() {
+      sysctl -n hw.ncpu
+    }
+  ;;
+esac
 
 case $1 in
   load)
