@@ -1,8 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # common shell alias / functions
 # author: delucks
 # use freely, share and contribute
-# vi:syntax=sh
 
 cmd_exists() { test -f "$(command -v "$1")"; }
 export LS_COLORS=
@@ -14,36 +13,81 @@ else
   export EDITOR='vi'
 fi
 export PAGER='less -r'
+_OS_TYPE="$(uname)"  # For use in further OS detection instead of bash OSTYPE
 
 # add a directory to PATH, but only if it exists and if it's not already in PATH
 pathappend() {
   for pathname in "$@"; do
-    if test -d "$pathname" && [[ ":$PATH:" != *":$pathname:"* ]]; then
-      PATH="${PATH:+"$PATH:"}$pathname"
+    if ! test -d "$pathname"; then
+      continue
     fi
+    case "$PATH" in
+      *:$pathname:*)
+        # path exists in the middle
+        continue
+        ;;
+      *:$pathname)
+        # path exists on the end
+        continue
+        ;;
+      $pathname:*)
+        # path exists in the beginning
+        continue
+        ;;
+      $pathname)
+        # this is the only entry in PATH
+        continue
+        ;;
+      *)
+        # path does not yet exist in PATH
+        PATH="${PATH:+"$PATH:"}$pathname"
+        ;;
+    esac
   done
 }
 
 pathprepend() {
-  for ((i=$#; i>0; i--)); do
-    pathname=${!i}
-    if test -d "$pathname" && [[ ":$PATH:" != *":$pathname:"* ]]; then
-      PATH="${PATH:+"$PATH:"}$pathname"
+  for pathname in "$@"; do
+    if ! test -d "$pathname"; then
+      continue
     fi
+    case "$PATH" in
+      *:$pathname:*)
+        # path exists in the middle
+        continue
+        ;;
+      *:$pathname)
+        # path exists on the end
+        continue
+        ;;
+      $pathname:*)
+        # path exists in the beginning
+        continue
+        ;;
+      $pathname)
+        # this is the only entry in PATH
+        continue
+        ;;
+      *)
+        # path does not yet exist in PATH
+        PATH="${pathname}${PATH:+":$PATH"}"
+        ;;
+    esac
   done
 }
 
 # source a file, but only if it exists
 sourcep() {
-  if [[ $# -lt 1 ]]
+  if [ $# -lt 1 ]
   then
     echo "Usage: sourcep <path to source>"
     return 1
   fi
-  if [[ -f "$1" ]]
+  if test -f "$1"
   then
+    # This is intentionally sourcing a dynamic path, which we don't need shellcheck to cover
     # shellcheck disable=SC1090
-    source "$1"
+    . "$1"
     return 0
   fi
   return 1
@@ -69,32 +113,34 @@ then
 fi
 
 # platform detection
-if [[ "$OSTYPE" == "linux-gnu"* ]]
-then
-  # linux specific aliases
-  alias ls='ls --color=auto'
-  alias la='ls -aChkopl --group-directories-first --color=auto'
-  alias errno="grep '#define' /usr/include/asm-generic/errno.h"
-  ununix() {
-    date -d "@$1"
-  }
-  alias suspend='pm-suspend'  # I don't care about suspending my shell, what is this, 1980?
-elif [[ "$OSTYPE" == "darwin"* ]]
-then
-  # osx
-  alias ls='ls -G'
-  alias la='ls -aChGkopl --group-directories-first'
-  alias ununix='date -r'
-  alias errno="grep '#define' /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/errno.h"
-else
-  alias la='ls -aChkopl --group-directories-first'
-fi
+case "$_OS_TYPE" in
+  Linux*)
+    # linux specific aliases
+    alias ls='ls --color=auto'
+    alias la='ls -aChkopl --group-directories-first --color=auto'
+    alias errno="grep '#define' /usr/include/asm-generic/errno.h"
+    ununix() {
+      date -d "@$1"
+    }
+    alias suspend='pm-suspend'  # I don't care about suspending my shell, what is this, 1980?
+  ;;
+  Darwin*)
+    # osx
+    alias ls='ls -G'
+    alias la='ls -aChGkopl --group-directories-first'
+    alias ununix='date -r'
+    alias errno="grep '#define' /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/errno.h"
+    ;;
+  *)
+    alias la='ls -aChkopl --group-directories-first'
+    ;;
+esac
 alias l='exa -l --git -h'
 
 # This adds an argument to BSD paste to accept stdin by default
 # The only use case I have for paste is joining standard input
 mypaste() {
-  if [[ "$OSTYPE" == "linux-gnu"* ]]
+  if [ "$_OS_TYPE" = "Linux" ]
   then
     paste "$@"
   else
@@ -134,12 +180,9 @@ alias j='jrnl --edit -1'
 tx() {
   # Opens a tmux session named after the basename of a path
   DIR="${1:-.}"
-  # shellcheck disable=2086
-  RESOLVED="$(cd $DIR 2>/dev/null && pwd -P)"  # Cross-platform, readlink is Linux specific
-  # shellcheck disable=2086
-  SESSION_NAME="$(basename $RESOLVED)"
-  # shellcheck disable=2086
-  tmux new-session -A -c "$RESOLVED" -s "${SESSION_NAME//./_}"
+  RESOLVED="$(cd "$DIR" 2>/dev/null && pwd -P)"  # Cross-platform, readlink is Linux specific
+  SESSION_NAME="$(basename "$RESOLVED" | tr '.' '_')"
+  tmux new-session -A -c "$RESOLVED" -s "${SESSION_NAME}"
 }
 
 ta() {
@@ -166,7 +209,7 @@ then
 fi
 
 ssidgrep() {
-  if [[ $# -lt 1 ]]; then
+  if [ $# -lt 1 ]; then
     log "Usage: ssidgrep <Regex matching SSID from network management program" err
     return 1
   fi
@@ -181,21 +224,6 @@ ssidgrep() {
     return 1
   fi
 }
-
-if cmd_exists mplayer
-then
-  say() {
-    if [[ "${1}" =~ -[a-z]{2} ]]; then
-      local lang=${1#-};
-      local text="${*#$1}";
-    else
-      local lang=${LANG%_*};
-      local text="$*";
-    fi;
-    mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ;
-  }
-  alias wvud='mplayer http://128.175.76.123:8000/WVUD-FM123.mp3'
-fi
 
 if cmd_exists jq
 then
@@ -222,11 +250,9 @@ then
   iploc() {
     if cmd_exists jq
     then
-      # shellcheck disable=SC2086
-      curl -s "https://ipinfo.io/$(dig $1 +short)" | jq .
+      curl -s "https://ipinfo.io/$(dig "$1" +short)" | jq .
     else
-      # shellcheck disable=SC2086
-      curl -s "https://ipinfo.io/$(dig $1 +short)"
+      curl -s "https://ipinfo.io/$(dig "$1" +short)"
     fi
   }
   # wikipedia summary
@@ -264,10 +290,10 @@ alias pydoc='less_color_env pydoc'
 alias less='less_color_env less'
 
 histogram() {
-  if [[ $# -lt 1 ]]
+  if [ $# -lt 1 ]
   then
     sort | uniq -c | sort -n
-  elif [[ $# -lt 2 ]]
+  elif [ $# -lt 2 ]
   then
     COL="\$$1"
     awk "{print $COL}" | sort | uniq -c | sort -n
@@ -284,13 +310,14 @@ vimpipe() {
 
 vimf() {
   # vim find!
-  if [[ $# -lt 1 ]]; then
+  if [ $# -lt 1 ]; then
     echo "vimf needs at least one argument, the path to search for. Second argument specifies a directory"
     return 1
   fi
   PATTERN="$1"
   STARTPATH="${2:-.}"
   if hash fd >/dev/null; then
+    # We want words to be split in the output of the next command
     # shellcheck disable=SC2046
     vim $(fd --full-path "$PATTERN" "$STARTPATH")
   else
@@ -300,20 +327,24 @@ vimf() {
 }
 
 _external_ip() {
-  if [[ "$OSTYPE" == "linux-gnu"* ]]
+  if [ "$_OS_TYPE" = "Linux" ]
   then
-    IP=$(ip a | awk '/inet\ /{print $2}' | grep -v 127)
+    IP=$(ip a | awk '/inet /{print $2}' | grep -v 127)
   else
-    IP=$(ifconfig | awk '/inet\ /{print $2}' | grep -v 127)
+    IP=$(ifconfig | awk '/inet /{print $2}' | grep -v 127)
   fi
   echo "$IP"
 }
 
 serve() {
   echo "External IP $(_external_ip)"
-  PORT="${1:-8000}"
-  DIR="${2:-.}"
-  cd "$DIR"
+  DIR="${1:-.}"
+  if ! test -d "$DIR"; then
+    echo "$DIR does not exist" >&2
+    return 1
+  fi
+  PORT="${2:-8000}"
+  cd "$DIR" || return 1
   if hash python3; then
     python3 -m http.server "$PORT"
   elif hash python2; then
@@ -325,10 +356,10 @@ serve() {
   else
     python -m http.server "$PORT"
   fi
-  cd - >/dev/null
+  cd - >/dev/null || return
 }
 
-flip-the-multitool() {
+flip_the_multitool() {
   case "$(uname -m)" in
     arm*)
       ARCH=arm
