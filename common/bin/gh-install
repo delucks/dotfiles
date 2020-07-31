@@ -50,7 +50,7 @@ select release_option in Exit $(awk -F'/' '{print $NF}' <<< "$DOWNLOAD_URLS"); d
       else
         unzip -d "$TMP_PATH" "$CACHE_PATH"
       fi
-      BINARY=$(find "$TMP_PATH" -type f -executable)
+      BINARY=$(find "$TMP_PATH" -type f -perm +111)
       if [ -z "$BINARY" ]; then
         error "There were no executables unpacked. Check $TMP_PATH for more details"
       else
