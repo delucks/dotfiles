@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# get me a damn license!
+COMMAND="$1"
+
+declare -A LICENSES
+LICENSES=(
+  ["gplv3"]="https://www.gnu.org/licenses/gpl-3.0.txt"
+  ["agplv3"]="https://www.gnu.org/licenses/agpl-3.0.txt"
+  ["lgplv3"]="https://www.gnu.org/licenses/lgpl-3.0.txt"
+  ["apache"]="https://www.apache.org/licenses/LICENSE-2.0.txt"
+  ["wtfpl"]="http://www.wtfpl.net/txt/copying/"
+  ["mit"]="https://mit-license.org/license.txt"
+  ["mozilla"]="https://www.mozilla.org/media/MPL/2.0/index.txt"
+)
+
+fail() {
+  echo "$1" >&2
+  exit 1
+}
+
+case $COMMAND in
+  list)
+    for k in "${!LICENSES[@]}"
+    do
+      echo "$k"
+    done
+    ;;
+  get)
+    if [ $# -lt 2 ]
+    then
+      fail "license get requires an argument, the name of license to download"
+    fi
+    REQUEST="$2"
+    if [[ "${LICENSES[$REQUEST]}" ]]
+    then
+      if hash curl
+      then
+        HTTP_METHOD="$(command -v curl) -s"
+      elif hash wget
+      then
+        HTTP_METHOD="$(command -v wget) -O -"
+      else
+        fail "Cannot find executables for curl or wget, install one"
+      fi
+      $HTTP_METHOD "${LICENSES[$REQUEST]}"
+    else
+      # shellcheck disable=SC2016
+      fail 'The argument you gave is not a recognized license name, try `license list`'
+    fi
+    ;;
+  help|*)
+    echo "Commands:"
+    echo "  list: list known licenses"
+    echo "  get: download a license locally"
+    echo "  help: view this help output"
+    ;;
+esac
