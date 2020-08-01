@@ -364,7 +364,7 @@ flip_the_multitool() {
     arm*)
       ARCH=arm
       ;;
-    x86_64)
+    x86_64|amd64)
       ARCH=amd64
       ;;
     i386)
@@ -382,7 +382,7 @@ flip_the_multitool() {
   mkdir -p ~/bin
   mkdir -p ~/.cache
   curl -sL "$DOWNLOAD_URL" > ~/.cache/multitool.tar.gz
-  tar -C ~/bin -xvf ~/.cache/multitool.tar.gz
+  tar -C ~/bin -xvzf ~/.cache/multitool.tar.gz
   ~/bin/multitool setup
 }
 
