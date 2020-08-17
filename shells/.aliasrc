@@ -182,7 +182,8 @@ tx() {
   DIR="${1:-.}"
   RESOLVED="$(cd "$DIR" 2>/dev/null && pwd -P)"  # Cross-platform, readlink is Linux specific
   SESSION_NAME="$(basename "$RESOLVED" | tr '.' '_')"
-  tmux new-session -A -c "$RESOLVED" -s "${SESSION_NAME}"
+  # Older versions of tmux do not support the "-c dir_for_session" flag
+  cd "$RESOLVED" && tmux new-session -A -s "${SESSION_NAME}"
 }
 
 ta() {
