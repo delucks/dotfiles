@@ -61,7 +61,7 @@ dynamic_prompt() {
   echo -e "$git$svn $chr"
 }
 
-FULL_PS1="\[${magentaf}\]\h\[${reset}\] ${bluef}\D{%T}${reset} \w\[\$(dynamic_prompt)\] "
+FULL_PS1="\[${magentaf}\]\h\[${reset}\] \[${bluef}\]\D{%T}\[${reset}\] \w\[\$(dynamic_prompt)\] "
 prompt_reset() { PS1="$FULL_PS1"; }
 prompt_minimal() { PS1="$ "; }
 prompt_flashy() { PS1="🌵 "; }
