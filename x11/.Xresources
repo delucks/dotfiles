@@ -1,4 +1,4 @@
-#include ".colors"
+!#include .colors
 
 ! Background & foreground colors
 urxvt*background: #111111
