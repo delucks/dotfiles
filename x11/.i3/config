@@ -9,7 +9,7 @@ font pango:Fira Code 14
 set $primaryterminal kitty
 set $secondaryterminal xterm
 set $mod Mod4
-set $alternate Mod1
+set $alt Mod1
 set $modr Mode_switch
 floating_modifier $mod
 
@@ -45,6 +45,69 @@ for_window [class="Firefox"] resize set width $near_screen_width height $near_sc
 # -----
 # Keymaps
 
+# Workspaces
+# My workspaces are set up on the home row and some easily pressable keys above it.
+# Workspaces correspond to each of the following letters and have no intrinsic meaning:
+# a s d f g q w e
+# Workspace management keybindings are prefaced by Meta
+
+bindsym $mod+a workspace 1:a
+bindsym $mod+s workspace 2:s
+bindsym $mod+d workspace 3:d
+bindsym $mod+f workspace 4:f
+bindsym $mod+g workspace 5:g
+bindsym $mod+q workspace 6:q
+bindsym $mod+w workspace 7:w
+bindsym $mod+e workspace 8:e
+
+bindsym $mod+p workspace prev
+bindsym $mod+semicolon workspace next
+bindsym $mod+comma exec rofi -show window
+
+bindsym $mod+Shift+a move workspace 1:a
+bindsym $mod+Shift+s move workspace 2:s
+bindsym $mod+Shift+d move workspace 3:d
+bindsym $mod+Shift+f move workspace 4:f
+bindsym $mod+Shift+g move workspace 5:g
+bindsym $mod+Shift+q move workspace 6:q
+bindsym $mod+Shift+w move workspace 7:w
+bindsym $mod+Shift+e move workspace 8:e
+
+# Layout is a property of a workspace and therefore gets a Meta keybind
+bindsym $mod+Shift+space layout toggle
+bindsym $mod+space layout toggle split
+bindsym $mod+Tab layout tabbed
+
+# Windows
+# Window management keybindings are prefaced by Alt
+
+# Change Focus, Move
+bindsym $alt+h focus left
+bindsym $alt+j focus down
+bindsym $alt+k focus up
+bindsym $alt+l focus right
+bindsym $alt+Shift+h move left 80px
+bindsym $alt+Shift+j move down 80px
+bindsym $alt+Shift+k move up 80px
+bindsym $alt+Shift+l move right 80px
+# These use the "Meh" key
+bindsym Ctrl+$alt+Shift+h resize shrink width 100px
+bindsym Ctrl+$alt+Shift+j resize grow height 100px
+bindsym Ctrl+$alt+Shift+k resize shrink height 100px
+bindsym Ctrl+$alt+Shift+l resize grow width 100px
+
+# Floating manipulation
+bindsym $alt+apostrophe fullscreen
+bindsym $alt+Shift+apostrophe resize set width $near_screen_width height $near_screen_height
+bindsym $alt+m floating toggle
+bindsym $alt+Shift+m resize set width 1000 height 600
+bindsym $alt+space move position mouse
+bindsym $alt+c move position center
+
+bindsym $alt+u split v
+bindsym $alt+o split h
+
+
 # Media & screen controls
 bindsym F3 exec ~/bin/dvol -i 5
 bindsym F2 exec ~/bin/dvol -d 5
@@ -57,86 +120,23 @@ bindsym F5 exec ~/bin/backlight down
 
 # Program and Menu Launchers
 bindsym $mod+t exec $primaryterminal
-bindsym $alternate+t exec $secondaryterminal
-bindsym $mod+comma exec rofi -show ssh
-bindsym $mod+Shift+comma exec rofi-remote-tmux
-bindsym $mod+slash exec $primaryterminal -e bash -c ranger
-bindsym $mod+Shift+b exec $primaryterminal -e bash -c broot
-bindsym $mod+Shift+slash exec rofi-documents
-bindsym $mod+semicolon exec rofi-tmux
-bindsym $mod+Shift+semicolon exec $primaryterminal -e bash -c fzf-tmux-attach
-bindsym $mod+F1 exec rofi-man
-bindsym $mod+Shift+F1 exec $primaryterminal -e bash -c fzf-man
-bindsym $mod+F2 exec rofi -show run
-bindsym $mod+F3 exec rofi-extension
-
-# Jump focus to program
-bindsym $alternate+s [class="Spotify"] focus
-bindsym $alternate+f [class="Firefox"] focus
-# ... with marks?
-bindsym $alternate+Shift+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
-bindsym $alternate+m exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
+bindsym $alt+t exec $secondaryterminal
+# TODO remap all of these
+#bindsym $mod+comma exec rofi -show ssh
+#bindsym $mod+Shift+comma exec rofi-remote-tmux
+#bindsym $mod+slash exec $primaryterminal -e bash -c ranger
+#bindsym $mod+Shift+b exec $primaryterminal -e bash -c broot
+#bindsym $mod+Shift+slash exec rofi-documents
+#bindsym $mod+semicolon exec rofi-tmux
+#bindsym $mod+Shift+semicolon exec $primaryterminal -e bash -c fzf-tmux-attach
+#bindsym $mod+F1 exec rofi-man
+#bindsym $mod+Shift+F1 exec $primaryterminal -e bash -c fzf-man
+#bindsym $mod+F2 exec rofi -show run
+#bindsym $mod+o exec rofi -show run
+#bindsym $mod+F3 exec rofi-extension
 
 # Kill Client
 bindsym $mod+Shift+r kill
-
-# Change Focus, Move
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-bindsym $mod+Shift+h move left 80px
-bindsym $mod+Shift+j move down 80px
-bindsym $mod+Shift+k move up 80px
-bindsym $mod+Shift+l move right 80px
-bindsym $mod+Control+h resize shrink width 20 px or 10 ppt
-bindsym $mod+Control+j resize grow height 20 px or 10 ppt
-bindsym $mod+Control+k resize shrink height 20 px or 10 ppt
-bindsym $mod+Control+l resize grow width 20 px or 10 ppt
-bindsym $mod+Shift+Control+h resize shrink width 10 px or 5 ppt
-bindsym $mod+Shift+Control+j resize grow height 10 px or 5 ppt
-bindsym $mod+Shift+Control+k resize shrink height 10 px or 5 ppt
-bindsym $mod+Shift+Control+l resize grow width 10 px or 5 ppt
-
-# Floating manipulation
-bindsym $mod+apostrophe fullscreen
-bindsym $mod+Shift+apostrophe resize set width $near_screen_width height $near_screen_height
-bindsym $mod+m floating toggle
-bindsym $mod+Shift+m resize set width 1000 height 600
-bindsym $alternate+space move position mouse
-bindsym $mod+c move position center
-
-bindsym $mod+u split v
-bindsym $mod+o split h
-
-bindsym $mod+Shift+space layout toggle
-bindsym $mod+space layout toggle split
-
-bindsym $mod+Tab layout tabbed
-
-# Workspaces
-# My workspaces are set up on the home row and some easily pressable keys above it.
-# Workspaces correspond to each of the following letters and have no intrinsic meaning:
-# a s d f g q w e
-
-bindsym $mod+a workspace 1:a
-bindsym $mod+s workspace 2:s
-bindsym $mod+d workspace 3:d
-bindsym $mod+f workspace 4:f
-bindsym $mod+g workspace 5:g
-bindsym $mod+q workspace 6:q
-bindsym $mod+w workspace 7:w
-bindsym $mod+e workspace 8:e
-
-bindsym $mod+Shift+a move workspace 1:a
-bindsym $mod+Shift+s move workspace 2:s
-bindsym $mod+Shift+d move workspace 3:d
-bindsym $mod+Shift+f move workspace 4:f
-bindsym $mod+Shift+g move workspace 5:g
-bindsym $mod+Shift+q move workspace 6:q
-bindsym $mod+Shift+w move workspace 7:w
-bindsym $mod+Shift+e move workspace 8:e
-
 # Scratchpad is one of the best i3 features
 
 bindsym $mod+period scratchpad show
@@ -148,7 +148,7 @@ bindsym $mod+Shift+period move scratchpad
 # Reload the configuration file
 bindsym $mod+Escape reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $alternate+Escape restart
+bindsym $alt+Escape restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+Escape exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
