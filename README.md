@@ -1,7 +1,17 @@
 dotfiles
 ========
 
-All of my configurations for various pieces of software, plus some scripts I cannot live without.
+Configuration for various pieces of software plus some useful scripts. On Linux, I use i3 for a window manager and kitty as a terminal emulator, on Mac Aqua and iTerm2. Everywhere, I run tmux for multiplexing, bash as shell and vim as editor.
+
+To use all the scripts and dotfiles in here, I'd recommend installing the following:
+
+- ripgrep
+- dzen2
+- i3
+- jq
+- rofi
+- kitty
+- vim
 
 Methodology
 -----------
@@ -12,7 +22,6 @@ Software
 --------
 
 - `common/`
-  - ack
   - git
   - tmux
 - `ipython/`
@@ -23,7 +32,6 @@ Software
   - abcde
   - gdb
   - input
-  - metasploit
   - ncmpcpp
   - ranger
 - `shells/`
@@ -49,6 +57,8 @@ I've included a couple of scripts in this repository that are so useful to me th
 
 - `common/bin/fileset.py`: compare the contents of two files as if each were a set. Super useful to find out if the lines you're about to add to a file are already in there without having to make an obscure `diff` invocation.
 - `common/bin/backlight`: adjust the monitor brightness of your Linux laptop
+- `common/bin/license`: retrieve one of a number of common open-source licenses
+- `common/bin/gh-install`: install a binary from the latest release of a project on Github
 - `x11/bin/block`: Blur-LOCK your Linux desktop
 
 Setup
@@ -81,40 +91,4 @@ I used to have a Makefile and an Ansible based setup option, but I decided both 
 X11
 ---
 
-I have spent *far* too long configuring x11.
-
-If you want to use my x11 configurations, first run `stow x11`. Once this is is done, symlink a colorscheme from `~/.config/colors/` to `~/.colors`. My perferred colorscheme is `zbrah`.
-
-The configurations for most of the window managers are simple, vim-keybound ones with sane defaults for terminals and menus. There is one exception to this- I have written a number of scripts (all in the `x11/bin` directory) that make my computing life with Linux much nicer. A lot of them revolve around the excellent `dvol` program from the suckless community, which is most likely in your package manager.
-
-#### Good Fonts
-
-```
--aaron-bitocra13-*-*-normal-*-13-*-*-*-*-*-*-*
--*-gohufont-medium-r-*-*-14-*-*-*-*-*-iso10646-1
--*-tamsyn-medium-r-*-*-17-*-*-*-*-*-iso8859-*
-xft:Hack:pixelsize=14:antialias=true
-xft:Envy\ Code\ R:normal:pixelsize=14
-xft:inconsolata:pixelsize=14
-```
-
-Recommended Software
---------------------
-
-To use these dotfiles to their full potential, I recommend installing these pieces of software which are essential to my terminal environment:
-```
-ack
-amixer
-curl
-dzen2
-git
-i3
-jq
-rofi
-stow
-urxvt
-vim
-wget
-xinit
-xterm
-```
+If you want to use my x11 configurations, first run `stow x11`. Once this is is done, symlink a colorscheme from `~/.config/colors/` to `~/.colors`.
