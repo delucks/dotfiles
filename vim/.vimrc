@@ -87,7 +87,6 @@ endif
 " Plugins
 
 call plug#begin('~/.vim/plugins')
-Plug 'w0rp/ale'                                       " contextual linting
 Plug 'fatih/vim-go', { 'for': 'go' }                  " enables gofmt on :w
 Plug 'vim-airline/vim-airline'                        " draws buffers in tabline and colorizes the statusline
 Plug 'ctrlpvim/ctrlp.vim'                             " fast fuzzy find buffer menu
@@ -97,6 +96,7 @@ Plug 'junegunn/limelight.vim'                         " syntax highlight only th
 Plug 'tpope/vim-fugitive'                             " I only use :Gblame but that is useful
 Plug 'benmills/vimux'                                 " send commands to tmux
 Plug 'PotatoesMaster/i3-vim-syntax'
+Plug 'gleam-lang/gleam.vim'
 "Plug 'vim-scripts/DrawIt'
 if executable("elixir")
   Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }  " better support
@@ -169,6 +169,8 @@ nnoremap <Tab> :b<space>
 " way better than default
 nmap <left> :bp<CR>
 nmap <right> :bn<CR>
+nnoremap <PageUp> :bn<CR>
+nnoremap <PageDown> :bp<CR>
 nmap <up> :%foldopen<CR>
 nmap <down> :%foldclose<CR>
 
