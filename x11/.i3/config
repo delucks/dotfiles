@@ -22,19 +22,13 @@ for_window [class="^.*"] border pixel 3
 # -----
 # Client-specific rules
 
-assign [class="net-minecraft-LauncherFrame"] 5:g
-assign [class="Steam"] 5:g
-
 for_window [class="net-minecraft-LauncherFrame"] floating enable
 for_window [class="MPlayer"] floating enable
-for_window [class="VMWare"] floating enable
 for_window [class="Lxappearance"] floating enable
 for_window [class="Steam"] floating enable
 for_window [class="Event Tester"] floating enable
 for_window [class="feh"] floating enable
 for_window [class="slack"] floating enable
-for_window [class="Spotify"] floating enable
-for_window [class="Firefox"] floating enable
 
 # Certain applications should launch at a resolution that takes up most of my screen but not all of my screen
 set $near_screen_width 1800
@@ -107,6 +101,8 @@ bindsym $alt+c move position center
 bindsym $alt+u split v
 bindsym $alt+o split h
 
+# Kill Client
+bindsym $alt+Shift+r kill
 
 # Media & screen controls
 bindsym F3 exec ~/bin/dvol -i 5
@@ -131,12 +127,10 @@ bindsym $alt+t exec $secondaryterminal
 #bindsym $mod+Shift+semicolon exec $primaryterminal -e bash -c fzf-tmux-attach
 #bindsym $mod+F1 exec rofi-man
 #bindsym $mod+Shift+F1 exec $primaryterminal -e bash -c fzf-man
-#bindsym $mod+F2 exec rofi -show run
+bindsym $mod+Shift+comma exec rofi -show run
 #bindsym $mod+o exec rofi -show run
 #bindsym $mod+F3 exec rofi-extension
 
-# Kill Client
-bindsym $mod+Shift+r kill
 # Scratchpad is one of the best i3 features
 
 bindsym $mod+period scratchpad show

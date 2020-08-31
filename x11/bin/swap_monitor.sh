@@ -32,11 +32,13 @@ hidpi() {
 swap_to_internal() {
   lowdpi
   xrandr --output "$EXTERNAL_DISPLAY" --off --output "$INTERNAL_DISPLAY" --auto
+  i3-msg restart
 }
 
 swap_to_external() {
   hidpi
   xrandr --output "$EXTERNAL_DISPLAY" --primary --mode 3840x2160 --pos 0x0 --rotate normal --output "$INTERNAL_DISPLAY" --off
+  i3-msg restart
 }
 
 right_of_external() {

@@ -1,5 +1,15 @@
 !#include .colors
 
+Xft.dpi: 192
+
+! These might also be useful depending on your monitor and personal preference:
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
 ! Background & foreground colors
 urxvt*background: #111111
 urxvt*foreground: #e8dfd6
@@ -10,8 +20,6 @@ xterm*foreground: #e8dfd6
 xterm*font: xft:Fira\ Code:pixelsize=14:antialias=true
 urxvt*font: xft:Fira\ Code:pixelsize=14:antialias=true
 rofi.font: Fira\ Code 14
-Xft.antialias: 1
-Xft.dpi: 96
 ! Fallback font
 !xterm*font: 9x15
 !xterm*boldFont: 7x13
