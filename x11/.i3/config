@@ -105,9 +105,9 @@ bindsym $alt+o split h
 bindsym $alt+Shift+r kill
 
 # Media & screen controls
-bindsym F3 exec ~/bin/dvol -i 5
-bindsym F2 exec ~/bin/dvol -d 5
-bindsym F1 exec ~/bin/dvol -t
+bindsym XF86AudioLowerVolume exec ~/bin/volume down
+bindsym XF86AudioRaiseVolume exec ~/bin/volume up
+bindsym XF86AudioMute exec ~/bin/dvol -t
 #bindsym XF86AudioMedia exec ~/bin/block
 #bindsym XF86AudioNext exec ~/bin/spotifyctrl.sh next
 #bindsym XF86AudioPrev exec ~/bin/spotifyctrl.sh prev

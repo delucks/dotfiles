@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# pulseaudio wrapper script
+
+set -e
+
+CARD_ID="$(pactl list short sinks | awk '/RUNNING/{print $1}')"
+if test -z "$CARD_ID"; then
+  CARD_ID="$(pactl list short sinks | sort | tail -1 | cut -f1)"
+fi
+STEP=2
+
+current() {
+  pactl list sinks | grep -A 9 RUNNING  | awk '/Volume/{print $5}'
+}
+
+case "$1" in
+  up)
+    pactl -- set-sink-volume "$CARD_ID" "+${STEP}%"
+    ;;
+  down)
+    pactl -- set-sink-volume "$CARD_ID" "-${STEP}%"
+    ;;
+  [0-9]?%)
+    pactl -- set-sink-volume "$CARD_ID" "$1"
+    ;;
+  *)
+    echo "Unrecognized command $1 try up/down nn%" >&2
+    ;;
+esac
+
+current
