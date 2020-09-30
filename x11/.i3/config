@@ -177,7 +177,7 @@ set_from_resource $color17  i3wm.color17 #DDCCBB
 
 bar {
   font pango:Fira Code 14
-  tray_output none
+  tray_output primary
   separator_symbol "<=="
 
   mode dock
