@@ -8,3 +8,6 @@
   l = log
   last = log -1 HEAD
   info = !cat .git/config
+[user]
+	email = ping@jamieluck.com
+	name = delucks

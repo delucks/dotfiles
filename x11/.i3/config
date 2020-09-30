@@ -17,6 +17,12 @@ new_window pixel 5
 new_float pixel 5
 hide_edge_borders none
 
+### i3-gaps
+gaps inner 14
+gaps outer -2
+smart_gaps on
+smart_borders on
+
 for_window [class="^.*"] border pixel 3
 
 # -----
