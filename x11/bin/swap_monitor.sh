@@ -16,8 +16,8 @@
 #fi
 #xrandr --output "$EXTERNAL_DISPLAY" --primary --mode "$MODENAME" --pos 0x0 --rotate normal --output "$INTERNAL_DISPLAY" --off
 
-INTERNAL_DISPLAY="eDP-1"
-EXTERNAL_DISPLAY="HDMI-2"
+INTERNAL_DISPLAY="eDP1"
+EXTERNAL_DISPLAY="HDMI2"
 
 lowdpi() {
   sed -i 's/^Xft.dpi: 192/Xft.dpi: 96/g' "$HOME/.Xresources"
