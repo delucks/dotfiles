@@ -13,18 +13,4 @@ xsetroot -bg "#8b3e2f" -mod 3 3
 xset s off
 xset s noblank
 
-# program init
-##############
-
-#sudo asus-kbd-backlight allowusers &
-#compton &
-#sxhkd &
-#dunst &
-
-# WM init
-#########
-
-#exec herbstluftwm
-#exec openbox
-#exec wmaker
 exec i3
