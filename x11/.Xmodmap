@@ -118,15 +118,17 @@ keycode 105 = Control_R NoSymbol Control_R
 keycode 106 = KP_Divide NoSymbol KP_Divide
 ! Print Screen
 keycode 107 = Print NoSymbol Print
-! Alt Right
-keycode 108 = Mode_switch NoSymbol Mode_switch
+! Right alt - on Manjaro this needs to be more literal
+!keycode 108 = Mode_switch NoSymbol Mode_switch
+keycode 108 = Alt_L NoSymbol Alt_L
 ! Not sure what this does
 !keycode 109 = Control_R NoSymbol Control_R
 ! Home above Keypad
 keycode 110 = Home NoSymbol Home
 ! Up Arrow
 keycode 111 = Up Execute Print Up
-keycode 112 = KP_Divide NoSymbol KP_Divide
+! XXX fix on Manjaro - 112 is pgup (Prior/Next)
+keycode 112 = Prior NoSymbol Prior
 ! Left Arrow
 keycode 113 = Left NoSymbol Left
 ! Right Arrow
