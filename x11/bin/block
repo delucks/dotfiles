@@ -1,35 +1,11 @@
 #!/usr/bin/env bash
 
-for i in convert i3lock; do
-  if ! hash $i; then
-    echo "Not all required executables are installed! Please install $i"
-    exit 1
-  fi
-done
-
-if hash scrot 2>/dev/null; then
-  SCREENSHOT_CMD="scrot"
-elif hash maim 2>/dev/null; then
-  SCREENSHOT_CMD="maim"
-else
-  echo "No good screenshot program found"
+if ! hash screenblur; then
+  echo "This script relies on github.com/delucks/screenblur, please install it in \$PATH"
   exit 1
 fi
 
-FILE="/tmp/screenshot.png"
-if cat /etc/*release* | grep -qi centos; then
-  BLUR="/tmp/screenshotblur.xpm"
-else
-  BLUR="/tmp/screenshotblur.png"
-fi
-if [ -f $FILE ];
-then
-  rm "$FILE"
-fi
-if [ -f $BLUR ];
-then
-  rm "$BLUR"
-fi
-$SCREENSHOT_CMD "$FILE"
-convert "$FILE" -blur 0x5 "$BLUR"
-i3lock -i "$BLUR"
+screenblur -out /tmp/screenblur.png
+i3lock -i /tmp/screenblur.png
+sleep 1
+rm /tmp/screenblur.png
