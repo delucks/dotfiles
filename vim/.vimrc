@@ -83,6 +83,8 @@ if v:version >= 703
   set undoreload=10000 "max number lines to save for undo on buffer reload
 endif
 
+let @p = 'o- [](:r!xclip -okJf(lxA) - '
+
 "--------
 " Plugins
 
@@ -97,7 +99,7 @@ Plug 'tpope/vim-fugitive'                             " I only use :Gblame but t
 Plug 'benmills/vimux'                                 " send commands to tmux
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'gleam-lang/gleam.vim'
-"Plug 'vim-scripts/DrawIt'
+Plug 'saltstack/salt-vim'
 if executable("elixir")
   Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }  " better support
 endif
