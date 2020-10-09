@@ -11,3 +11,5 @@
 [user]
 	email = ping@jamieluck.com
 	name = delucks
+[init]
+	defaultBranch = main
