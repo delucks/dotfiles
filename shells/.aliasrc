@@ -387,12 +387,17 @@ flip_the_multitool() {
   ~/bin/multitool setup
 }
 
-if test -d "$HOME/go/"
-then
-  export GOPATH="$HOME/dev/go"
-  export GOROOT="$HOME/go"
-  export GOBIN="$GOPATH/bin"
-  pathappend "$GOPATH/bin"
-fi
+randomstring() {
+  LENGTH="${1:-20}"
+  head -c "$LENGTH" /dev/urandom | base64 | sed 's/=//g'
+}
+
+globalsockets() {
+  # show sockets listening on all interfaces
+  sudo ss -tulpn | sort -k7,7 | grep -Fv -e '::1]' -e 127.0.
+}
+
+export GOROOT="/usr/local/go"
+pathappend "$GOROOT/bin"
 sourcep "$HOME/.localaliasrc"
 pathappend "$HOME/.local/bin"
