@@ -61,6 +61,4 @@ if [[ $# -gt 0 ]]; then
   exit 0
 fi
 
-if test -f "$HOME/.fehbg"; then
-  sh "$HOME/.fehbg"
-fi
+test -f "$HOME/.fehbg" && sh "$HOME/.fehbg"
