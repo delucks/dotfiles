@@ -135,6 +135,8 @@ bindsym $alt+t exec $secondaryterminal
 bindsym $mod+Shift+comma exec rofi -show run
 #bindsym $mod+o exec rofi -show run
 #bindsym $mod+F3 exec rofi-extension
+bindsym $mod+Shift+1 exec ~/bin/swap_monitor.sh -i
+bindsym $mod+Shift+2 exec ~/bin/swap_monitor.sh -e
 
 # Scratchpad is one of the best i3 features
 
@@ -213,4 +215,4 @@ exec --no-startup-id picom -b
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id clipit
-exec --no-startup-id xautolock -time 10 -locker blurlock
+exec --no-startup-id xautolock -time 30 -locker block
