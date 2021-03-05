@@ -24,6 +24,7 @@ fi
 #CARD_ID=$(($(aplay -l | awk '/^card/{print $2}' | sort -u | wc -l) -1))
 AMIXER="amixer" # -c $CARD_ID"
 CONTROL=$($AMIXER scontrols | grep -F -e Master -e PCM | awk -F"'" '{print $2}' | head -1)
+MUTED=$($AMIXER get "$CONTROL" | awk '/(Front|Mono).*Playback/{print $NF}' | tr -d '[]' | uniq)
 SECS="1"
 FONT='-*-fixed-medium-r-normal-*-16-*-*-*-*-*-iso8859-*'
 BG="#202020"
@@ -88,6 +89,10 @@ do
       ;;
     '-t'|'--toggle')
       $AMIXER set "$CONTROL" toggle >/dev/null
+      # Alsamixer mutes the Speaker control too... follow up on this later
+      if [[ "$MUTED" == "off" ]]; then
+        amixer set Speaker toggle >/dev/null
+      fi
       break
       ;;
     '-s'|'--show')
@@ -101,7 +106,6 @@ do
 done
 
 BAR_LABEL_MESSAGE="$CONTROL "
-MUTED=$($AMIXER get "$CONTROL" | awk '/(Front|Mono).*Playback/{print $NF}' | tr -d '[]' | uniq)
 if [[ "$MUTED" == "off" ]]; then
   VOLUME=0
   BAR_LABEL_MESSAGE="${BAR_LABEL_MESSAGE}Muted "
