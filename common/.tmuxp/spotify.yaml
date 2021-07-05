@@ -1,0 +1,14 @@
+session_name: spotify
+windows:
+- window_name: spt
+  layout: main-horizontal
+  shell_command_before:
+    - systemctl --user restart spotifyd && sleep 5
+  panes:
+    - shell_command:
+        - spt
+- window_name: restart_daemon
+  layout: main-horizontal
+  panes:
+    - shell_command:
+        - python /home/delucks/bin/spotifyrestartd.py
