@@ -1,0 +1,9 @@
+#!/bin/bash
+# Adapted from https://lobste.rs/s/yfgwjr/what_interesting_command_line_tools_do#c_svayt2
+
+[ -n "$1" ] && time="-d @$(date -d "$1" +%s)" || time=
+printf '%-15s' 'US West';     TZ='America/Los_Angeles' date '+%H:%M %z %Z' $time
+printf '%-15s' 'US East';     TZ='America/New_York'    date '+%H:%M %z %Z' $time
+printf '%-15s' 'UTC';         TZ='UTC'                 date '+%H:%M %z %Z' $time
+printf '%-15s' 'IST';         TZ='Asia/Kolkata'        date '+%H:%M %z %Z' $time
+printf '\n\x1b[1m%-15s' 'Current'; date '+%H:%M %z %Z' $time; printf '\x1b[0m'
