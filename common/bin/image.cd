@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+DEVICE=/dev/sr0
+OUTPUT_PATH=/home/delucks/Games/Win98_Archive/
+if [[ $# -gt 0 ]]; then
+  DESTNAME="$1"
+else
+  read -p 'What should the basename of the image be? ' DESTNAME
+fi
+
+BASEPATH="${OUTPUT_PATH}${DESTNAME}"
+echo "Ripping $DEVICE to path ${BASEPATH}.bin"
+cdrdao read-cd --read-raw --device "$DEVICE" --paranoia-mode 3 --datafile "${BASEPATH}.bin" "${BASEPATH}.toc" && toc2cue "${BASEPATH}.toc" "${BASEPATH}.cue" && eject && notify-send -a "image.cd" "Rip Done" "$DESTNAME" -u normal
