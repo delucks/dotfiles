@@ -27,7 +27,7 @@ case "$(uname)" in
       cut -d' ' -f '1-3' /proc/loadavg
     }
     cpucmd() {
-      grep -cE '^processor' /proc/cpuinfo
+      nproc
     }
   ;;
   OpenBSD*)
