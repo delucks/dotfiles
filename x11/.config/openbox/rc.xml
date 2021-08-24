@@ -40,8 +40,8 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>Carbon</name>
-    <titleLayout>LDIMC</titleLayout>
+    <name>Onyx</name>
+    <titleLayout>NLDIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
       N: window icon
@@ -55,25 +55,25 @@
     <keepBorder>yes</keepBorder>
     <animateIconify>yes</animateIconify>
     <font place="ActiveWindow">
-      <name>Droid Sans Mono</name>
-      <size>8</size>
+      <name>Terminus</name>
+      <size>9</size>
       <!-- font size in points -->
-      <weight>Normal</weight>
+      <weight>Bold</weight>
       <!-- 'bold' or 'normal' -->
       <slant>Normal</slant>
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="InactiveWindow">
-      <name>Droid Sans Mono</name>
-      <size>8</size>
+      <name>Terminus</name>
+      <size>9</size>
       <!-- font size in points -->
-      <weight>Normal</weight>
+      <weight>Bold</weight>
       <!-- 'bold' or 'normal' -->
       <slant>Normal</slant>
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="MenuHeader">
-      <name>Envy Code R</name>
+      <name>Terminus</name>
       <size>9</size>
       <!-- font size in points -->
       <weight>Normal</weight>
@@ -82,7 +82,7 @@
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="MenuItem">
-      <name>Envy Code R</name>
+      <name>Terminus</name>
       <size>9</size>
       <!-- font size in points -->
       <weight>Normal</weight>
@@ -91,7 +91,7 @@
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="ActiveOnScreenDisplay">
-      <name>Envy Code R</name>
+      <name>Terminus</name>
       <size>9</size>
       <!-- font size in points -->
       <weight>Normal</weight>
@@ -100,7 +100,7 @@
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="InactiveOnScreenDisplay">
-      <name>Envy Code R</name>
+      <name>Terminus</name>
       <size>9</size>
       <!-- font size in points -->
       <weight>Normal</weight>
@@ -205,31 +205,31 @@
     <keybind key="W-S-a">
       <action name="SendToDesktop">
         <to>1</to>
-				<follow>no</follow>
+        <follow>no</follow>
       </action>
     </keybind>
     <keybind key="W-S-s">
       <action name="SendToDesktop">
         <to>2</to>
-				<follow>no</follow>
+        <follow>no</follow>
       </action>
     </keybind>
     <keybind key="W-S-d">
       <action name="SendToDesktop">
         <to>3</to>
-				<follow>no</follow>
+        <follow>no</follow>
       </action>
     </keybind>
     <keybind key="W-S-f">
       <action name="SendToDesktop">
         <to>4</to>
-				<follow>no</follow>
+        <follow>no</follow>
       </action>
     </keybind>
     <keybind key="W-S-g">
       <action name="SendToDesktop">
         <to>5</to>
-				<follow>no</follow>
+        <follow>no</follow>
       </action>
     </keybind>
     <keybind key="W-a">
@@ -258,7 +258,7 @@
       </action>
     </keybind>
     <!-- Keybindings for windows -->
-    <keybind key="W-Shift-q">
+    <keybind key="W-Shift-r">
       <action name="Close"/>
     </keybind>
     <keybind key="W-Escape">
@@ -271,7 +271,7 @@
         <menu>client-menu</menu>
       </action>
     </keybind>
-    <keybind key="W-Shift-r">
+    <keybind key="W-Shift-Esc">
       <action name="Reconfigure"/>
     </keybind>
     <keybind key="W-Shift-e">
@@ -405,26 +405,26 @@
     <!-- Keybindings for running applications -->
     <keybind key="W-t">
       <action name="Execute">
-        <command>urxvt</command>
+        <command>xterm</command>
       </action>
     </keybind>
     <!-- Keybindings for audio and multimedia -->
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
-        <command>~/scripts/dvol -i 5</command>
+        <command>dvol -i 5</command>
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
-        <command>~/scripts/dvol -d 5</command>
+        <command>dvol -d 5</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMute">
       <action name="Execute">
-        <command>/home/jamie/scripts/togglemute.sh</command>
+        <command>dvol -t</command>
       </action>
     </keybind>
-    <keybind key="XF86AudioPlay">
+    <!--keybind key="XF86AudioPlay">
       <action name="Execute">
         <command>ncmpcpp toggle</command>
       </action>
@@ -451,9 +451,9 @@
     </keybind>
     <keybind key="W-F10">
       <action name="Execute">
-        <command>/home/jamie/scripts/dvol -t</command>
+        <command>dvol -t</command>
       </action>
-    </keybind>
+    </keybind-->
     <!-- Misc Keybindings -->
     <!-- Changed from gmrun 013013-->
     <keybind key="W-F1">
@@ -463,15 +463,15 @@
     </keybind>
     <keybind key="W-F2">
       <action name="Execute">
-        <command>/home/jamie/scripts/dmenu_run_enhanced</command>
+        <command>rofi -show run</command>
       </action>
     </keybind>
     <keybind key="W-F3">
       <action name="Execute">
-        <command>~/scripts/dmenu_ssh</command>
+        <command>rofi -show ssh</command>
       </action>
     </keybind>
-    <keybind key="W-F7">
+    <!--keybind key="W-F7">
       <action name="Execute">
         <command>~/scripts/mpc_dmenu_playlist</command>
       </action>
@@ -480,13 +480,13 @@
       <action name="Execute">
         <command>~/scripts/mpc_dmenu_search</command>
       </action>
-    </keybind>
+    </keybind-->
     <keybind key="XF86WebCam">
       <action name="Execute">
         <command>scrot -q 100 '%Y-%m-%d_$wx$h.png'</command>
       </action>
     </keybind>
-    <keybind key="XF86KbdBrightnessUp">
+    <!--keybind key="XF86KbdBrightnessUp">
       <action name="Execute">
         <command>asus-kbd-backlight up</command>
       </action>
@@ -500,7 +500,7 @@
       <action name="Execute">
         <command>/home/jamie/scripts/touchpadtoggle</command>
       </action>
-    </keybind>
+    </keybind-->
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>
@@ -557,7 +557,7 @@
         <action name="Move"/>
       </mousebind>
       <mousebind button="Left" action="DoubleClick">
-        <action xmlns="http://openbox.org/3.4/rc" name="ToggleMaximize"/>
+        <action name="ToggleMaximizeFull"/>
       </mousebind>
       <mousebind button="Up" action="Click">
         <action name="if">
@@ -860,7 +860,7 @@
   # order that they appear in this list
 
 
-    # each rule element can be left out or set to 'default' to specify to not 
+    # each rule element can be left out or set to 'default' to specify to not
     # change that attribute of the window
 
     <decor>yes</decor>
