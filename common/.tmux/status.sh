@@ -41,7 +41,7 @@ case "$(uname)" in
       echo %
     }
     loadcmd() {
-      uptime | rev | cut -d' ' -f '1-3' | rev
+      sysctl -n vm.loadavg
     }
     cpucmd() {
       sysctl -n hw.ncpu
