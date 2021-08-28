@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openbox_menu xmlns="http://openbox.org/3.4/menu">
 	<menu id="apps-term-menu" label="Terminals">
-		<item label="urxvt">
+		<item label="uxterm">
 			<action name="Execute">
-				<command>urxvt</command>
+				<command>uxterm</command>
 			</action>
 		</item>
 		<item label="xterm">
@@ -12,19 +12,7 @@
 			</action>
 		</item>
 	</menu>
-	<menu id="apps-media-menu" label="Class">
-		<item label="VMware">
-			<action name="Execute">
-				<execute>vmware</execute>
-			</action>
-		</item>
-		<item label="ZAP">
-			<action name="Execute">
-				<execute>/usr/bin/zaproxy</execute>
-			</action>
-		</item>
-	</menu>
-	<menu id="apps-net-menu" label="Internet">
+	<!--menu id="apps-net-menu" label="Internet">
 		<item label="Chromium">
 			<action name="Execute">
 				<execute>chromium</execute>
@@ -39,23 +27,15 @@
 				</startupnotify>
 			</action>
 		</item>
-	</menu>
+	</menu-->
 	<menu id="apps-fileman-menu" label="File Managers">
-		<item label="ranger (urxvt)">
+		<item label="ranger (uxterm)">
 			<action name="Execute">
-				<execute>urxvt -e &quot;ranger&quot;</execute>
-			</action>
-		</item>
-		<item label="Thunar">
-			<action name="Execute">
-				<command>Thunar</command>
-				<startupnotify>
-					<enabled>yes</enabled>
-				</startupnotify>
+				<execute>uxterm -e &quot;ranger&quot;</execute>
 			</action>
 		</item>
 	</menu>
-	<menu id="system-menu" label="System">
+	<menu id="system-menu" label="UI">
 		<item label="lxappearance">
 			<action name="Execute">
 				<execute>lxappearance</execute>
@@ -69,11 +49,12 @@
 				</startupnotify>
 			</action>
 		</item>
-		<item label="Openbox Menu Editor">
+		<!-- https://github.com/0x10/obmenu2 perhaps? -->
+		<!--item label="Openbox Menu Editor">
 			<action name="Execute">
 				<execute>obmenu</execute>
 			</action>
-		</item>
+		</item-->
 		<item label="Reconfigure Openbox">
 			<action name="Reconfigure"/>
 		</item>
