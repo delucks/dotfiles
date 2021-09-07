@@ -229,8 +229,8 @@ class CustomApplications(Applications):
 		if c.mode is 0 and len(c.files) is 1 and self.fm.env.cwd:
 			# view all files in the cwd
 			images = [f.basename for f in self.fm.env.cwd.files if f.image]
-			return 'feh', '--start-at', c.file.basename, images
-		return 'feh', c
+			return 'feh', '-Z', '--start-at', c.file.basename, images
+		return 'feh', '-Z', c
 
 	@depends_on('sxiv', 'X')
 	def app_sxiv(self, c):
