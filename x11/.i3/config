@@ -1,8 +1,27 @@
-# -----
-# delucks' i3 config file
-#
+# dark
 # vim:ft=i3
-# Peep http://i3wm.org/docs/userguide.html for a complete reference!
+set_from_resource  $black         i3wm.color0   #393939
+set_from_resource  $red           i3wm.color1   #393939
+set_from_resource  $green         i3wm.color2   #9DBA3A
+set_from_resource  $yellow        i3wm.color3   #F5B915
+set_from_resource  $blue          i3wm.color4   #1CA1DB
+set_from_resource  $magenta       i3wm.color5   #652F90
+set_from_resource  $cyan          i3wm.color6   #EA7D24
+set_from_resource  $white         i3wm.color7   #E7E8E9
+set_from_resource  $lightblack    i3wm.color8   #AF875F
+set_from_resource  $lightred      i3wm.color9   #E7212A
+set_from_resource  $lightgreen    i3wm.color10  #A9C938
+set_from_resource  $lightyellow   i3wm.color11  #F7D325
+set_from_resource  $lightblue     i3wm.color12  #00AFDA
+set_from_resource  $lightmagenta  i3wm.color13  #894E9F
+set_from_resource  $lightcyan     i3wm.color14  #F79321
+set_from_resource  $lightwhite    i3wm.color15  #F3F3F4
+set_from_resource  $background    i3wm.color16  #151515
+set_from_resource  $foreground    i3wm.color17  #DDCCBB
+
+# vim:ft=i3
+# Daemon features:
+# - autorestart i3 based on checksum of this file
 
 font pango:Fira Code 14
 
@@ -31,9 +50,12 @@ for_window [class="net-minecraft-LauncherFrame"] floating enable
 for_window [class="MPlayer"] floating enable
 for_window [class="Lxappearance"] floating enable
 for_window [class="Steam"] floating enable
+for_window [title="X3: Albion Prelude"] floating enable
+for_window [title="X3 - Albion Prelude"] border none
 for_window [class="Event Tester"] floating enable
 for_window [class="feh"] floating enable
 for_window [class="slack"] floating enable
+assign [class="Steam"] 5:games
 
 # Certain applications should launch at a resolution that takes up most of my screen but not all of my screen
 set $near_screen_width 1800
@@ -54,20 +76,21 @@ bindsym $mod+a workspace 1:a
 bindsym $mod+s workspace 2:s
 bindsym $mod+d workspace 3:d
 bindsym $mod+f workspace 4:f
-bindsym $mod+g workspace 5:g
+bindsym $mod+g workspace 5:games
 bindsym $mod+q workspace 6:q
 bindsym $mod+w workspace 7:w
 bindsym $mod+e workspace 8:e
 
-bindsym $mod+p workspace prev
+# Imitating vim's find scrolling motions
 bindsym $mod+semicolon workspace next
-bindsym $mod+comma exec rofi -show window
+bindsym $mod+comma workspace prev
+bindsym $mod+Shift+semicolon exec rofi -show window
 
 bindsym $mod+Shift+a move workspace 1:a
 bindsym $mod+Shift+s move workspace 2:s
 bindsym $mod+Shift+d move workspace 3:d
 bindsym $mod+Shift+f move workspace 4:f
-bindsym $mod+Shift+g move workspace 5:g
+bindsym $mod+Shift+g move workspace 5:games
 bindsym $mod+Shift+q move workspace 6:q
 bindsym $mod+Shift+w move workspace 7:w
 bindsym $mod+Shift+e move workspace 8:e
@@ -108,14 +131,16 @@ bindsym $alt+o split h
 
 # Kill Client
 bindsym $alt+Shift+r kill
+# Kill clients matching
+bindsym $mod+Shift+r exec i3-input -F 'exec killall %s' -P 'killall: '
 
 # Media & screen controls
 bindsym XF86AudioLowerVolume exec ~/bin/volume down
 bindsym XF86AudioRaiseVolume exec ~/bin/volume up
 bindsym XF86AudioMute exec ~/bin/dvol -t
 #bindsym XF86AudioMedia exec ~/bin/block
-#bindsym XF86AudioNext exec ~/bin/spotifyctrl.sh next
-#bindsym XF86AudioPrev exec ~/bin/spotifyctrl.sh prev
+bindsym XF86AudioNext exec ~/bin/spotifyctrl.sh next
+bindsym XF86AudioPrev exec ~/bin/spotifyctrl.sh prev
 bindsym F6 exec ~/bin/backlight up
 bindsym F5 exec ~/bin/backlight down
 
@@ -143,6 +168,8 @@ bindsym $mod+Shift+2 exec ~/bin/swap_monitor.sh -e
 bindsym $mod+period scratchpad show
 bindsym $mod+Shift+period move scratchpad
 
+bindsym $mod+slash sticky toggle
+
 # -----
 # General
 
@@ -153,66 +180,41 @@ bindsym $alt+Escape restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+Escape exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# ------------
-# Colors & bar
-
-set_from_resource $color0   i3wm.color0   #393939
-set_from_resource $color1   i3wm.color1   #BF1E2D
-set_from_resource $color2   i3wm.color2   #9DBA3A
-set_from_resource $color3   i3wm.color3   #F5B915
-set_from_resource $color4   i3wm.color4   #1CA1DB
-set_from_resource $color5   i3wm.color5   #652F90
-set_from_resource $color6   i3wm.color6   #EA7D24
-set_from_resource $color7   i3wm.color7   #E7E8E9
-set_from_resource $color8   i3wm.color8   #AF875F
-set_from_resource $color9   i3wm.color9   #E7212A
-set_from_resource $color10  i3wm.color10  #A9C938
-set_from_resource $color11  i3wm.color11  #F7D325
-set_from_resource $color12  i3wm.color12  #00AFDA
-set_from_resource $color13  i3wm.color13  #894E9F
-set_from_resource $color14  i3wm.color14  #F79321
-set_from_resource $color15  i3wm.color15  #F3F3F4
-# background/foreground
-set_from_resource $color16  i3wm.color16 #151515
-set_from_resource $color17  i3wm.color17 #DDCCBB
-
 bar {
   font pango:Fira Code 14
   tray_output primary
   separator_symbol "<=="
 
+  # mode hide
   mode dock
   position top
+  strip_workspace_numbers yes
 
   status_command i3status --config ~/.i3status.conf
+  i3bar_command i3bar --transparency
 
   colors {
     # These are set to single values
-    background $color16
-    statusline $color17
-    separator $color9
+    background #151515BB
+    #background $background
+    statusline $foreground
+    separator $lightred
 
-    # These are triplets of border, background, text
-    focused_workspace $color10 $color16 $color10
-    active_workspace $color16 $color2 $color16
-    inactive_workspace $color7 $color16 $color7
-    urgent_workspace $color1 $color16 $color1
+    # Class             border       background   text
+    focused_workspace   $lightgreen  $background  $lightgreen
+    active_workspace    $background  $green       $background
+    inactive_workspace  $white       $background  $white
+    urgent_workspace    $red         $background  $red
   }
 }
 
-# Class                     border          backgr.        text        indicator
-client.focused              $color16        $color10       $color0     $color0
-client.focused_inactive     $color16        $color0        $color3     $color0
-client.unfocused            $color16        $color0        $color3     $color4
-client.urgent               $color16        $color1        $color16    $color3
+# Class                     border          background   text           indicator
+client.focused              $background     $lightgreen  $black         $black
+client.focused_inactive     $background     $black       $yellow        $black
+client.unfocused            $background     $black       $yellow        $blue
+client.urgent               $background     $red         $background    $yellow
 
 # -----
 # Startup Program Execution
 exec sh ~/.fehbg
 exec xrdb ~/.Xresources
-exec --no-startup-id volumeicon
-exec --no-startup-id picom -b
-exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
-exec --no-startup-id clipit
-exec --no-startup-id xautolock -time 30 -locker block
