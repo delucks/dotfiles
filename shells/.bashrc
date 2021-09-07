@@ -33,6 +33,7 @@ redf="$(tput setaf 1)"
 greenf="$(tput setaf 2)"
 bluef="$(tput setaf 4)"
 magentaf="$(tput setaf 5)"
+cyanf="$(tput setaf 6)"
 reset="$(tput sgr0)"
 
 _prompt_git() {
@@ -61,7 +62,7 @@ dynamic_prompt() {
   echo -e "$git$svn $chr"
 }
 
-FULL_PS1="\[${magentaf}\]\h\[${reset}\] \[${bluef}\]\D{%T}\[${reset}\] \w\[\$(dynamic_prompt)\] "
+FULL_PS1="\[${magentaf}\]\h\[${reset}\] \[${cyanf}\]\D{%T}\[${reset}\] \w\[\$(dynamic_prompt)\] "
 prompt_reset() { PS1="$FULL_PS1"; }
 prompt_minimal() { PS1="$ "; }
 prompt_flashy() { PS1="🌵 "; }
