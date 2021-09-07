@@ -1,8 +1,9 @@
-!#include .colors
+!! This Xresources configures xterm, urxvt, and rofi
 
+!! Pixel scaling settings for 4K resolution support.
+! DPI is either 192 (2x) or 96 (1x) for pixel scaling
+! Settings after DPI change how text is rendered in different DPI settings
 Xft.dpi: 192
-
-! These might also be useful depending on your monitor and personal preference:
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintfull
@@ -10,40 +11,58 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-! Background & foreground colors
-urxvt*background: #111111
-urxvt*foreground: #e8dfd6
-xterm*background: #111111
-xterm*foreground: #e8dfd6
+!! Colorscheme
+! An update should also change .config/kitty/kitty.conf and WM configs
+! Colorscheme is based on "getfresh" from dotshare.it
+*foreground: #DDCCBB
+*background: #151515
+*color0: #393939
+*color1: #BF1E2D
+*color2: #9DBA3A
+*color3: #F5B915
+*color4: #1CA1DB
+*color5: #652F90
+*color6: #EA7D24
+*color7: #E7E8E9
+*color8: #AF875F
+*color9: #E7212A
+*color10: #A9C938
+*color11: #F7D325
+*color12: #00AFDA
+*color13: #894E9F
+*color14: #F79321
+*color15: #F3F3F4
 
-! Font
-xterm*font: xft:Fira\ Code:pixelsize=14:antialias=true
-urxvt*font: xft:Fira\ Code:pixelsize=14:antialias=true
-rofi.font: Fira\ Code 14
+!! Font
+XTerm.vt100.faceName: Fira Code:size=14:style=Retina:antialias=true
+XTerm.vt100.renderFont: true
+urxvt*font: xft:Fira Code:style=Retina:size=14:antialias=true
+rofi.font: Fira\ Code 17
 ! Fallback font
 !xterm*font: 9x15
 !xterm*boldFont: 7x13
 !urxvt*font:	-*-fixed-medium-r-normal-*-16-*-*-*-*-*-iso8859-*
 !urxvt*boldFont:	-*-fixed-medium-r-normal-*-16-*-*-*-*-*-iso8859-*
 
-! Independent
+!! Terminal configs
 *cursorUnderline: False
 *cursorColor: Chartreuse
 *cursorBlink: True
 
-! Xterm configuration
+!! Xterm configuration
 xterm*locale: True
 ! Do not use Alt for composition
 xterm*eightBitInput: False
 xterm*saveLines: 16384
-xterm*internalBorder: 4
+xterm*internalBorder: 0
 xterm*multiScroll: True
 
-! URxvt Configuration
+!! URxvt Configuration
 URxvt.url-launcher: /usr/bin/browser
 ! Must be 0 if you want image previews to work
 URxvt.depth: 0
-URxvt.transparent: False
+URxvt.transparent: True
+URxvt.tint: #151515
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 URxvt.letterSpace: -1
@@ -53,7 +72,7 @@ URxvt.internalBorder: 4
 URxvt.perl-ext-common: default,matcher
 URxvt.iso14755: False
 
-! rofi configuration
+!! rofi configuration
 rofi.modi:                           window,run,ssh
 ! "Window width" Set from: Default
 rofi.width:                          75
