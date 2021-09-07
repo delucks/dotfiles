@@ -122,7 +122,12 @@ case "$_OS_TYPE" in
     ununix() {
       date -d "@$1"
     }
-    alias suspend='pm-suspend'  # I don't care about suspending my shell, what is this, 1980?
+    # This uses systemd to start tmux on Linux systems. Using a
+    # temporary systemd unit, this is not killed by a systemd-managed
+    # xsession.
+    tmux() {
+      systemd-run --scope --user tmux "$@"
+    }
   ;;
   Darwin*)
     # osx
@@ -188,7 +193,9 @@ tx() {
 
 ta() {
   if cmd_exists fzf; then
-    fzf-tmux-attach
+    SESSION=$(tmux ls -F '#{session_name}' | fzf)
+    test -z "$SESSION" && return 1
+    tmux attach-session -t "$SESSION"
     return $?
   fi
   tmux a
@@ -395,6 +402,11 @@ randomstring() {
 globalsockets() {
   # show sockets listening on all interfaces
   sudo ss -tulpn | sort -k7,7 | grep -Fv -e '::1]' -e 127.0.
+}
+
+usbgrep() {
+  # fuzzy select a USB device and print its verbose information
+  sudo lsusb -v -s $(lsusb | fzf | awk '{print $2":"substr($4,0,3)}')
 }
 
 export GOROOT="/usr/local/go"
