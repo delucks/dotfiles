@@ -32,23 +32,16 @@ Software
   - abcde
   - gdb
   - input
-  - ncmpcpp
   - ranger
 - `shells/`
   - bash
-  - zsh
 - `x11/`
-  - compton
   - dunst
   - dwb
   - herbstluftwm
   - i3
   - i3bar
   - openbox
-  - qtile
-  - redshift
-  - xinit
-  - xmobar
 
 Scripts
 -------
