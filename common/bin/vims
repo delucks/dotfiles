@@ -3,8 +3,8 @@
 # vims
 #   Open things in vim
 # Usage:
-#   vims            : No arguments loads a Session.vim file, or predefined extensions if there's no Session.vim
-#   vims '.*txt.*'  : Single argument is a find regex
+#   vims            : No arguments loads a Session.vim file or all files recursively under the current dir
+#   vims '.*txt.*'  : Single argument is a find iregex
 #   vims go txt md  : Over one argument, all args are file extensions to open
 
 join_by() { local d=$1; shift; echo -n "$1"; shift; printf "%s" "${@/#/$d}"; }
@@ -18,11 +18,11 @@ elif [[ "$#"  -gt 1 ]]; then
   FRAG='.*\.\('$(join_by '\|' $@)'\)$'
   vim $(find . -type f -iregex $FRAG)
 else
-  # Other default no-arg case
+  # Other default no-arg case: open all files under the current directory
   if hash fd 2>/dev/null; then
     # fd respects .gitignore so is a better default case if it's installed (I usually install fd on my workstations)
     vim $(fd -t f)
   else
-    vim $(find . -type f -iname "*.py" -or -iname "*.md" -or -iname "*.go" -or -iname "*.json" -or -iname "*.gradle" -or -iname "*.java")
+    vim $(find . -type f -not -path './.git*' -and -not -path './.svn*')
   fi
 fi
