@@ -11,4 +11,4 @@ windows:
   layout: main-horizontal
   panes:
     - shell_command:
-        - python /home/delucks/bin/spotifyrestartd.py
+        - python ~/bin/spotifyrestartd.py
