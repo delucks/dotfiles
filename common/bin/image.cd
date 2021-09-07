@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 DEVICE=/dev/sr0
-OUTPUT_PATH=/home/delucks/Games/Win98_Archive/
+OUTPUT_PATH=/home/delucks/os/cd_archive/
 if [[ $# -gt 0 ]]; then
   DESTNAME="$1"
 else
