@@ -1,0 +1,10 @@
+[Unit]
+Description=picom Compositor for X11
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/picom
+
+[Install]
+WantedBy=graphical-session.target
+
