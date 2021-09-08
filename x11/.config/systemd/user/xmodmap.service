@@ -1,9 +1,11 @@
 [Unit]
-Description=Automatic blur screenlocker
+Description=xmodmap
 PartOf=graphical-session.target
 
 [Service]
-ExecStart=/usr/bin/xautolock -time 5 -locker block
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/xmodmap
 
 [Install]
 WantedBy=graphical-session.target

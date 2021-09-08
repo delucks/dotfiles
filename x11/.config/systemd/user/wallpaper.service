@@ -1,9 +1,11 @@
 [Unit]
-Description=Automatic blur screenlocker
+Description=feh Background
 PartOf=graphical-session.target
 
 [Service]
-ExecStart=/usr/bin/xautolock -time 5 -locker block
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/sh %h/.fehbg
 
 [Install]
 WantedBy=graphical-session.target

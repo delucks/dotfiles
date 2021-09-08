@@ -1,0 +1,10 @@
+[Unit]
+Description=redshift
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=redshift -l manual:lon=-75.748779:lat=39.721516 -t 6500:5000
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

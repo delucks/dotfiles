@@ -195,6 +195,7 @@ bar {
 
   colors {
     # These are set to single values
+    # The last two digits of this value specify the transparency
     background #151515BB
     #background $background
     statusline $foreground
@@ -213,8 +214,3 @@ client.focused              $background     $lightgreen  $black         $black
 client.focused_inactive     $background     $black       $yellow        $black
 client.unfocused            $background     $black       $yellow        $blue
 client.urgent               $background     $red         $background    $yellow
-
-# -----
-# Startup Program Execution
-exec sh ~/.fehbg
-exec xrdb ~/.Xresources
