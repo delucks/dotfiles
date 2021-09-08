@@ -1,5 +1,5 @@
 [global]
-    font = gohufont 11
+    font = fira code 14
 
     # <b>bold</b>
     # <i>italic</i>
@@ -25,7 +25,7 @@
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right"
-    alignment = center
+    alignment = left
 
     # The frequency with wich text that is longer than the notification
     # window allows bounces back and forth.
@@ -53,7 +53,7 @@
     # right side of the screen.  Y is measured from the top and down respectevly.
     # The width can be negative. In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "200x32-100+50"
+    geometry = "0x32-50+50"
 
     # The transparency of the window. range: [0; 100]
     # This option will only work if a compositing windowmanager is present (e.g. xcompmgr, compiz, etc..)

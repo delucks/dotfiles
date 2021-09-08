@@ -84,4 +84,11 @@ I used to have a Makefile and an Ansible based setup option, but I decided both 
 X11
 ---
 
-If you want to use my x11 configurations, first run `stow x11`. Once this is is done, symlink a colorscheme from `~/.config/colors/` to `~/.colors`.
+The `i3-buddy` companion daemon requires the following packages in user scope:
+
+```
+i3ipc
+dbussy
+xcffib
+systemd-python
+```

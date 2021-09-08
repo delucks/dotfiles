@@ -98,7 +98,6 @@ bindsym $mod+Shift+e move workspace 8:e
 # Layout is a property of a workspace and therefore gets a Meta keybind
 bindsym $mod+Shift+space layout toggle
 bindsym $mod+space layout toggle split
-bindsym $mod+Tab layout tabbed
 
 # Windows
 # Window management keybindings are prefaced by Alt
@@ -155,13 +154,21 @@ bindsym $alt+t exec $secondaryterminal
 #bindsym $mod+Shift+slash exec rofi-documents
 #bindsym $mod+semicolon exec rofi-tmux
 #bindsym $mod+Shift+semicolon exec $primaryterminal -e bash -c fzf-tmux-attach
-#bindsym $mod+F1 exec rofi-man
+bindsym $mod+F1 exec rofi-man
+bindsym $mod+F2 exec rofi -show drun
 #bindsym $mod+Shift+F1 exec $primaryterminal -e bash -c fzf-man
 bindsym $mod+Shift+comma exec rofi -show run
 #bindsym $mod+o exec rofi -show run
 #bindsym $mod+F3 exec rofi-extension
 bindsym $mod+Shift+1 exec ~/bin/swap_monitor.sh -i
 bindsym $mod+Shift+2 exec ~/bin/swap_monitor.sh -e
+
+# Commands implemented in the i3-buddy daemon
+bindsym $mod+i nop "container-info"
+bindsym $mod+Shift+i nop "workspace-info"
+# Quake console by vincentbernat
+bindsym $mod+grave nop "quake-console:$primaryterminal:primaryQC:0.4"
+bindsym $mod+Tab nop "previous-workspace"
 
 # Scratchpad is one of the best i3 features
 

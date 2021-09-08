@@ -1,0 +1,497 @@
+#!/usr/bin/env python
+
+"""i3 companion daemon, forked from https://github.com/vincentbernat/i3wm-configuration/blob/master/bin/i3-companion
+"""
+
+import argparse
+import asyncio
+import collections
+import contextlib
+import functools
+import getpass
+import html
+import logging
+import logging.handlers
+import shlex
+import subprocess
+import sys
+import types
+
+import i3ipc
+from i3ipc.aio import Connection
+from systemd import journal, daemon
+import ravel
+import dbussy
+import xcffib
+import xcffib.randr
+
+
+logger = logging.getLogger("i3-companion")
+
+# Events for @on decorator
+DBusSignal = collections.namedtuple(
+    "DBusSignal",
+    ["interface", "member", "signature", "system", "path", "onlyif"],
+    defaults=(True, "/", None),
+)
+StartEvent = object()
+I3Event = i3ipc.Event
+CommandEvent = collections.namedtuple("CommandEvent", ["name"])
+
+# Event helpers
+
+def static(**kwargs):
+    """Define static variables for the event handler."""
+
+    def decorator(fn):
+        fn.__dict__.update(kwargs)
+        return fn
+
+    return decorator
+
+
+@static(functions={})
+def on(*events):
+    """Tag events that should be provided to the function."""
+
+    def decorator(fn):
+        @functools.wraps(fn)
+        def wrapper(*args, **kwargs):
+            return fn(*args, **kwargs)
+
+        on.functions[fn] = events
+        return wrapper
+
+    return decorator
+
+
+def debounce(sleep, *, unless=None):
+    """Debounce a function call (batch successive calls into only one).
+    Optional immediate execution. Ensure only one instance is
+    executed. It is assumed the arguments provided to the debounced
+    function have no effect on its execution."""
+
+    def decorator(fn):
+        async def worker():
+            while True:
+                with contextlib.suppress(asyncio.TimeoutError):
+                    # Wait for an urgent work or until sleep is elapsed
+                    await asyncio.wait_for(workers[fn].urgent.wait(), timeout=sleep)
+                    logger.debug("urgent work received for %s", fn)
+                args, kwargs = workers[fn].queue
+                workers[fn].queue = None
+                workers[fn].urgent.clear()
+
+                # Execute the work
+                logger.debug("execute work for %s", fn)
+                try:
+                    await fn(*args, **kwargs)
+                except Exception as e:
+                    logger.debug("while running %s, worker got %s", fn, e)
+                    workers[fn] = None
+                    raise
+
+                # Do we still have something to do?
+                if workers[fn].queue is None:
+                    break
+
+            # No more work
+            logger.debug("no more work for %s", fn)
+            workers[fn] = None
+
+        @functools.wraps(fn)
+        async def wrapper(*args, **kwargs):
+            if workers[fn] is None:
+                logger.debug("create new worker for %s", fn)
+                workers[fn] = types.SimpleNamespace()
+                workers[fn].task = asyncio.create_task(worker())
+                workers[fn].urgent = asyncio.Event()
+                workers[fn].queue = (args, kwargs)
+            else:
+                logger.debug("enqueue new work for %s", fn)
+            if unless is not None and unless(*args, **kwargs):
+                logger.debug("wake up now for %s", fn)
+                workers[fn].urgent.set()
+            return await workers[fn].task
+
+        workers[fn] = None
+        return wrapper
+
+    workers = {}
+    return decorator
+
+# Other helpers
+
+async def notify(i3, **kwargs):
+    """Send a notification with notify-send."""
+    conn = i3.session_bus["org.freedesktop.Notifications"]
+    obj = conn["/org/freedesktop/Notifications"]
+    notifications = await obj.get_async_interface("org.freedesktop.Notifications")
+    parameters = dict(
+        app_name=logger.name,
+        replaces_id=0,
+        app_icon="dialog-information",
+        summary="",
+        actions=[],
+        hints={},
+        expire_timeout=5000,
+    )
+    parameters.update(kwargs)
+    return await notifications.Notify(**parameters)
+
+
+# Event handlers
+
+@on(CommandEvent("previous-workspace"), I3Event.WORKSPACE_FOCUS)
+@static(history=collections.defaultdict(list))
+async def previous_workspace(i3, event):
+    """Go to previous workspace on the same output."""
+    history = previous_workspace.history
+    if isinstance(event, i3ipc.WorkspaceEvent) and event.old:
+        data = event.old.ipc_data
+        output, num = data["output"], data["num"]
+        if history[output][-1:] != [num]:
+            history[output].append(num)
+            history[output] = history[output][-5:]
+            logger.debug("on %s, history is %s", output, history[output])
+    elif event == "previous-workspace":
+        workspaces = await i3.get_workspaces()
+        try:
+            focused = [w for w in workspaces if w.focused][0]
+        except IndexError:
+            return
+        output = focused.output
+        while True:
+            try:
+                previous = history[output].pop()
+                if [
+                    w
+                    for w in workspaces
+                    if w.num != focused.num and w.num == previous and w.output == output
+                ]:
+                    break
+            except IndexError:
+                logger.debug("no previous workspace on %s", output)
+                return
+        logger.debug("switching to workspace %d on %s", previous, output)
+        await i3.command(f"workspace number {previous}")
+
+
+@on(CommandEvent("quake-console"))
+async def quake_console(i3, event):
+    """Spawn a quake console or toggle an existing one."""
+    try:
+        _, term_exec, term_name, height = event.split(":")
+        height = float(height)
+    except Exception as exc:
+        logger.warn(f"unable to parse payload {event}: {exc}")
+        return
+    # Look for the terminal or spawn it
+    tree = await i3.get_tree()
+    try:
+        term = tree.find_instanced(term_name)[0]
+    except IndexError:
+        quake_window = asyncio.get_event_loop().create_future()
+        def wait_for_quake(i3, event):
+            w = event.container
+            if quake_window.done() or w.window_instance != term_name:
+                return
+            quake_window.set_result(w)
+        i3.on(I3Event.WINDOW_NEW, wait_for_quake)
+        try:
+            await i3.command(f"exec exec {term_exec} --name {term_name}")
+            done, pending = await asyncio.wait((quake_window,), timeout=1)
+        finally:
+            i3.off(wait_for_quake)
+        if not done:
+            raise RuntimeError("unable to spawn terminal")
+        term = quake_window.result()
+        await term.command("move window to scratchpad")
+    workspaces = await i3.get_workspaces()
+    workspace = [ws for ws in workspaces if ws.focused][0]
+    ws_x, ws_y = workspace.rect.x, workspace.rect.y
+    ws_width, ws_height = workspace.rect.width, workspace.rect.height
+    height = int(ws_height * height)
+    command = (
+        f"[instance={term_name}] "
+        "border none,"
+        f"resize set {ws_width} px {height} px,"
+        "scratchpad show,"
+        f"move absolute position {ws_x}px {ws_y}px"
+    )
+    logger.debug("QuakeConsole: %s", command)
+    await i3.command(command)
+
+
+@on(I3Event.OUTPUT, StartEvent)
+@static(last_setup=None)
+@debounce(2)
+async def output_update(i3, event):
+    """React to a XRandR change."""
+    # Grab current setup. Synchronous, but it's short enough
+    randr = i3.x11(xcffib.randr.key)
+    screen = i3.x11.get_setup().roots[0]
+    monitors = randr.GetMonitors(screen.root, 1).reply().monitors
+    current_setup = {
+        (
+            i3.x11.core.GetAtomName(m.name).reply().name.to_string(),
+            m.width,
+            m.height,
+            m.x,
+            m.y,
+        )
+        for m in monitors
+    }
+    # Compare to current setup
+    if current_setup == output_update.last_setup:
+        logger.debug("current xrandr setup unchanged")
+        return
+    output_update.last_setup = current_setup
+    logger.info("xrandr setup: %s", current_setup)
+    if event is StartEvent:
+        return
+    # Trigger changes
+    logger.info("xrandr change detected")
+    user = getpass.getuser()
+    cmds = (
+        f"/bin/sh /home/{user}/.fehbg",
+    )
+    for cmd in cmds:
+        proc = subprocess.run(shlex.split(cmd))
+        if proc.returncode != 0:
+            logger.warning(f"{cmd} exited with {proc.returncode}")
+
+
+@on(CommandEvent("workspace-info"))
+@static(last_id=0)
+async def workspace_info(i3, event):
+    """Show information about the focused workspace."""
+    workspaces = await i3.get_workspaces()
+    focused = [w for w in workspaces if w.focused]
+    if not focused:
+        return
+    workspace = focused[0]
+    summary = f"Workspace {workspace.num} on {workspace.output}"
+    tree = await i3.get_tree()
+    workspace = [w for w in tree.workspaces() if w.num == workspace.num]
+    def format(container):
+        if container.focused:
+            style = 'foreground="#ffaf00"'
+        elif not container.window:
+            style = 'foreground="#6c98ee"'
+        else:
+            style = ""
+        if container.window:
+            content = (
+                f"{(container.window_class or '???').lower()}: "
+                f"{(container.window_title or '???')}"
+            )
+        elif container.type == "workspace" and not container.nodes:
+            # Empty workspaces use workspace_layout, but when default,
+            # this is layout...
+            layout = container.ipc_data["workspace_layout"]
+            if layout == "default":
+                layout = container.layout
+            content = f"({layout})"
+        else:
+            content = f"({container.layout})"
+        root = f"<span {style}>{content.lower()}</span>"
+        children = []
+        for child in container.nodes:
+            if child == container.nodes[-1]:
+                first = "└─"
+                others = "  "
+            else:
+                first = "├─"
+                others = "│ "
+            content = format(child).replace("\n", f"\n{others}")
+            children.append(f"<tt>{first}</tt>{content}")
+        children.insert(0, root)
+        return "\n".join(children)
+    body = format(workspace[0]).lstrip("\n")
+    result = await notify(
+        i3,
+        app_icon="system-search",
+        expire_timeout=20000,
+        summary=summary,
+        body=body,
+        replaces_id=workspace_info.last_id,
+    )
+    workspace_info.last_id = result[0]
+
+
+@on(CommandEvent("container-info"))
+@static(last_id=0)
+async def container_info(i3, event):
+    """Show information about the focused container."""
+    tree = await i3.get_tree()
+    window = tree.find_focused()
+    if not window:
+        return
+    logger.info(f"window raw information: {window.ipc_data}")
+    summary = "About focused container"
+    r = window.rect
+    w = window
+    info = {
+        "name": w.name,
+        "title": w.window_title,
+        "class": w.window_class,
+        "instance": w.window_instance,
+        "role": w.window_role,
+        "type": w.ipc_data["window_type"],
+        "sticky": w.sticky,
+        "floating": w.floating,
+        "geometry": f"{r.width}×{r.height}+{r.x}+{r.y}",
+        "layout": w.layout,
+        "percent": w.percent,
+        "marks": ", ".join(w.marks) or "(none)",
+    }
+    body = "\n".join(
+        (
+            f"<tt>{k:10}</tt> {html.escape(str(v))}"
+            for k, v in info.items()
+            if v is not None
+        )
+    )
+    result = await notify(
+        i3,
+        app_icon="system-search",
+        expire_timeout=10000,
+        summary=summary,
+        body=body,
+        replaces_id=container_info.last_id,
+    )
+    container_info.last_id = result[0]
+
+# Main function
+
+async def main(options):
+    i3 = await Connection(auto_reconnect=True).connect()
+    i3.session_bus = await ravel.session_bus_async()
+    i3.system_bus = await ravel.system_bus_async()
+    i3.x11 = xcffib.connect()
+
+    # Regular events
+    for fn, events in on.functions.items():
+        for event in events:
+            if isinstance(event, I3Event):
+
+                def wrapping(fn, event):
+                    async def wrapped(i3, event):
+                        logger.debug("received i3 event %s for %s", event, fn)
+                        return await fn(i3, event)
+
+                    return wrapped
+
+                i3.on(event, wrapping(fn, event))
+
+    # React to some bindings
+    async def binding_event(i3, event):
+        """Process a binding event."""
+        # We only processes it when it is a nop command and we use
+        # this mechanism as an IPC mechanism. The alternative would be
+        # to use ticks but we would need to spawn an i3-msg process
+        # for that.
+        for cmd in event.binding.command.split(";"):
+            cmd = cmd.strip()
+            if not cmd.startswith("nop "):
+                continue
+            cmd = cmd[4:].strip(" \"'")
+            if not cmd:
+                continue
+            kind = cmd.split(":")[0]
+            for fn, events in on.functions.items():
+                for e in events:
+                    if isinstance(e, CommandEvent) and e.name == kind:
+                        logger.debug("received command event %s for %s", event, fn)
+                        await fn(i3, cmd)
+
+    i3.on(I3Event.BINDING, binding_event)
+
+    # React to ticks
+    async def tick_event(i3, event):
+        """Process tick events."""
+        kind = event.payload.split(":")[0]
+        for fn, events in on.functions.items():
+            for e in events:
+                if isinstance(e, CommandEvent) and e.name == kind:
+                    logger.debug("received command event %s for %s", event, fn)
+                    await fn(i3, event.payload)
+
+    i3.on(I3Event.TICK, tick_event)
+
+    # Listen to DBus events
+    for fn, events in on.functions.items():
+        for event in events:
+            if isinstance(event, DBusSignal):
+                bus = i3.system_bus if event.system else i3.session_bus
+
+                def wrapping(fn, event):
+                    @ravel.signal(
+                        name=event.member,
+                        in_signature=event.signature,
+                        path_keyword="path",
+                        args_keyword="args",
+                    )
+                    async def wrapped(path, args):
+                        if event.onlyif is not None and not event.onlyif(args):
+                            logger.debug(
+                                "received DBus event for %s, not interested", fn
+                            )
+                            return
+                        logger.debug("received DBus event %s for %s", event, fn)
+                        return await fn(i3, event, path, *args)
+
+                    return wrapped
+
+                bus.listen_signal(
+                    path=event.path,
+                    fallback=True,
+                    interface=event.interface,
+                    name=event.member,
+                    func=wrapping(fn, event),
+                )
+
+    # Run events that should run on start
+    start_tasks = []
+    for fn, events in on.functions.items():
+        for event in events:
+            if event is StartEvent:
+                start_tasks.append(asyncio.create_task(fn(i3, event)))
+
+    daemon.notify("READY=1")
+    await i3.main()
+
+
+if __name__ == "__main__":
+    # Parse
+    description = sys.modules[__name__].__doc__
+    for fn, events in on.functions.items():
+        description += f" {fn.__doc__}"
+    parser = argparse.ArgumentParser(description=description)
+    parser.add_argument(
+        "--debug",
+        "-d",
+        action="store_true",
+        default=False,
+        help="enable debugging",
+    )
+    options = parser.parse_args()
+
+    # Logging
+    root = logging.getLogger("")
+    root.setLevel(logging.WARNING)
+    logger.setLevel(options.debug and logging.DEBUG or logging.INFO)
+    if sys.stderr.isatty():
+        ch = logging.StreamHandler()
+        ch.setFormatter(logging.Formatter("%(levelname)s: %(message)s"))
+        root.addHandler(ch)
+    else:
+        root.addHandler(journal.JournalHandler(SYSLOG_IDENTIFIER=logger.name))
+
+    try:
+        asyncio.run(main(options))
+    except Exception as e:
+        logger.exception("%s", e)
+        sys.exit(1)
+    sys.exit(0)

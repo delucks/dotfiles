@@ -60,5 +60,3 @@ if [[ $# -gt 0 ]]; then
   esac
   exit 0
 fi
-
-test -f "$HOME/.fehbg" && sh "$HOME/.fehbg"
