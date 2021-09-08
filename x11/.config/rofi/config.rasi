@@ -3,12 +3,12 @@ configuration {
 	width: 75;
 	lines: 15;
 	columns: 1;
-	font: "Fira Code 17";
+	font: "Fira Code 20";
 	location: 2;
 	fixed-num-lines: true;
 	sort: true;
 	sidebar-mode: false;
 	combi-modi: "drun,run";
 	matching: "fuzzy";
-	theme: "/usr/share/rofi/themes/sidebar.rasi";
+	theme: "~/.config/rofi/sidecar.rasi";
 }
