@@ -71,28 +71,3 @@ URxvt.termName: rxvt-unicode
 URxvt.internalBorder: 4
 URxvt.perl-ext-common: default,matcher
 URxvt.iso14755: False
-
-!! rofi configuration
-rofi.modi:                           window,run,ssh
-! "Window width" Set from: Default
-rofi.width:                          75
-! "Number of lines" Set from: Default
-rofi.lines:                          10
-! "Number of columns" Set from: Default
-rofi.columns:                        2
-! "Location on screen": Top center
-rofi.location:                       2
-! "Always show number of lines" Set from: Default
-rofi.fixed-num-lines:                true
-! "Use sorting" Set from: Default
-rofi.sort:                           true
-! "Use levenshtein sorting also for fuzzy matching"
-rofi.levenshtein-sort:               true
-! "Enable sidebar-mode" Set from: Default
-rofi.sidebar-mode:                   false
-! "Set the modi to combine in combi mode" Set from: Default
-rofi.combi-modi:                     window,run
-! "Set the matching algorithm. (normal, regex, glob, fuzzy)" Set from: Default
-rofi.matching:                       fuzzy
-! "New style theme file" Set from: Default
-rofi.theme:                          gruvbox-dark
