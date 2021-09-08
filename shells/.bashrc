@@ -23,7 +23,7 @@ set -o emacs
 bind '"\C-k": "\C-atime \C-m"'
 # ideas for more of these: |less
 bind '"\C-j;": "\C-m"'
-shopt | grep -q autocd && shopt -s autocd # WOW THIS IS AWESOME
+shopt -s autocd
 stty -ixon  # diable XON/XOFF
 
 ### prompt
@@ -51,22 +51,20 @@ _prompt_svn() {
   fi
 }
 
-_prompt_char() {
-  if [[ $? == 0 ]]; then echo "\$"; else echo "${redf}$?${reset}"; fi
-}
-
-dynamic_prompt() {
-  local chr="$(_prompt_char)"
+__prompt_command() {
+  local lastExit="$?"
   cmd_exists git && local git="$(_prompt_git)" || local git=""
   cmd_exists svn && local svn="$(_prompt_svn)" || local svn=""
-  echo -e "$git$svn $chr"
+  # hostname HH:MM:SS ~
+  PS1="\[${magentaf}\]\h\[${reset}\] \[${cyanf}\]\D{%T}\[${reset}\] \w "
+  if [ "$lastExit" -eq 0 ]; then
+    PS1+='$ '
+  else
+    PS1+="${redf}${lastExit}${reset} "
+  fi
 }
 
-FULL_PS1="\[${magentaf}\]\h\[${reset}\] \[${cyanf}\]\D{%T}\[${reset}\] \w\[\$(dynamic_prompt)\] "
-prompt_reset() { PS1="$FULL_PS1"; }
-prompt_minimal() { PS1="$ "; }
-prompt_flashy() { PS1="🌵 "; }
-PS1="$FULL_PS1"
+PROMPT_COMMAND=__prompt_command
 
 ### spelling correction provided by delucks/multitool
 
@@ -81,7 +79,7 @@ fi
 ### completion
 
 _ssh_complete() {
-    COMPREPLY=( $(compgen -W "$(sshc hosts | paste -s)" -- ${COMP_WORDS[COMP_CWORD]}) )
+    COMPREPLY=( $(compgen -W "$(awk '/^Host/{print $2}' "$HOME/.ssh/config"| paste -s)" -- ${COMP_WORDS[COMP_CWORD]}) )
     return 0
 }
 complete -F _ssh_complete ssh
