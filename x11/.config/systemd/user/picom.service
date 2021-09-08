@@ -7,4 +7,3 @@ ExecStart=/usr/bin/picom
 
 [Install]
 WantedBy=graphical-session.target
-
