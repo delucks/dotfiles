@@ -56,7 +56,7 @@ __prompt_command() {
   cmd_exists git && local git="$(_prompt_git)" || local git=""
   cmd_exists svn && local svn="$(_prompt_svn)" || local svn=""
   # hostname HH:MM:SS ~
-  PS1="\[${magentaf}\]\h\[${reset}\] \[${cyanf}\]\D{%T}\[${reset}\] \w "
+  PS1="\[${magentaf}\]\h\[${reset}\] \[${cyanf}\]\D{%T}\[${reset}\] \w${git}${svn} "
   if [ "$lastExit" -eq 0 ]; then
     PS1+='$ '
   else
