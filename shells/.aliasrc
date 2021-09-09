@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # common shell alias / functions
 # author: delucks
 # use freely, share and contribute
@@ -34,7 +34,7 @@ pathappend() {
         # path exists in the beginning
         continue
         ;;
-      $pathname)
+      "$pathname")
         # this is the only entry in PATH
         continue
         ;;
@@ -64,7 +64,7 @@ pathprepend() {
         # path exists in the beginning
         continue
         ;;
-      $pathname)
+      "$pathname")
         # this is the only entry in PATH
         continue
         ;;
@@ -155,7 +155,6 @@ mypaste() {
 alias paste=mypaste
 
 alias lt='ls -lt'
-alias sx='ssh-agent startx'
 alias :q='exit'
 alias strings='strings -a'
 alias trace='mtr -rw4 -c 5'
@@ -177,6 +176,10 @@ if cmd_exists ncdu; then
 fi
 alias j='jrnl --edit -1'
 
+ssh-addall() {
+  ssh-add $(sed -n 's/^ *IdentityFile ~\/\([^ ]*\).*/\1/p' ~/.ssh/config | sort -u)
+}
+
 # tx and ta are my two tmux manipulation functions
 #
 # tx() creates a tmux session at a path, the current directory by default
@@ -193,6 +196,7 @@ tx() {
 
 ta() {
   if cmd_exists fzf; then
+    # shellcheck disable=SC2033
     SESSION=$(tmux ls -F '#{session_name}' | fzf)
     test -z "$SESSION" && return 1
     tmux attach-session -t "$SESSION"
@@ -292,7 +296,6 @@ less_color_env() {
       "$CMD" "$@"
 }
 
-alias man='less_color_env man'
 alias pydoc2='less_color_env pydoc2'
 alias pydoc='less_color_env pydoc'
 alias less='less_color_env less'
@@ -327,7 +330,7 @@ vimf() {
   if hash fd >/dev/null; then
     # We want words to be split in the output of the next command
     # shellcheck disable=SC2046
-    vim $(fd --full-path "$PATTERN" "$STARTPATH")
+    vim $(fd -H --full-path "$PATTERN" "$STARTPATH")
   else
     # shellcheck disable=SC2046
     vim $(find "$STARTPATH" -regextype grep -regex "$PATTERN")
