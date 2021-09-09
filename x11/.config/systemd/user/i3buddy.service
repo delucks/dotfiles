@@ -1,0 +1,9 @@
+[Unit]
+Description=i3 companion daemon
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=%h/.pyenv/shims/python %h/bin/i3-buddy
+
+[Install]
+WantedBy=graphical-session.target
