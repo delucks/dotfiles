@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 
-if ! hash screenblur; then
-  echo "This script relies on github.com/delucks/screenblur, please install it in \$PATH"
-  exit 1
+SCREENBLUR=$(type -p screenblur)
+if test -z "$SCREENBLUR"; then
+  if test -f "$HOME/bin/screenblur"; then
+    SCREENBLUR="$HOME/bin/screenblur"
+  else
+    echo "This script relies on github.com/delucks/screenblur, please install it in \$PATH"
+    exit 1
+  fi
 fi
 
-screenblur -out /tmp/screenblur.png
+"$SCREENBLUR" -out /tmp/screenblur.png
 i3lock -i /tmp/screenblur.png
 sleep 1
 rm /tmp/screenblur.png
