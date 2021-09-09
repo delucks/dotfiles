@@ -3,88 +3,44 @@ dotfiles
 
 Configuration for various pieces of software plus some useful scripts. On Linux, I use i3 for a window manager and kitty as a terminal emulator, on Mac Aqua and iTerm2. Everywhere, I run tmux for multiplexing, bash as shell and vim as editor.
 
-To use all the scripts and dotfiles in here, I'd recommend installing the following:
-
-- ripgrep
-- dzen2
-- i3
+Software recommendations/requirements:
+- stow (only required for setup)
 - jq
-- rofi
-- kitty
-- vim
-
-Methodology
------------
-
-The rule I use when making configs is "Don't make more magic than there needs to be". My configuration is long, but it does not touch (most) defaults that you'll find on any stock \*nix machine.
-
-Software
---------
-
-- `common/`
-  - git
-  - tmux
-- `ipython/`
-- `irc/`
-  - irssi
-  - weechat
-- `misc/`
-  - abcde
-  - gdb
-  - input
-  - ranger
-- `shells/`
-  - bash
-- `x11/`
-  - dunst
-  - dwb
-  - herbstluftwm
-  - i3
-  - i3bar
-  - openbox
-
-Scripts
--------
-
-I've included a couple of scripts in this repository that are so useful to me that I want them on every box I configure. If you're using my dotfiles, they will be symlinked into `$HOME/bin`. My favorites:
-
-- `common/bin/fileset.py`: compare the contents of two files as if each were a set. Super useful to find out if the lines you're about to add to a file are already in there without having to make an obscure `diff` invocation.
-- `common/bin/backlight`: adjust the monitor brightness of your Linux laptop
-- `common/bin/license`: retrieve one of a number of common open-source licenses
-- `common/bin/gh-install`: install a binary from the latest release of a project on Github
-- `x11/bin/block`: Blur-LOCK your Linux desktop
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
+- vim and emacs (gasp)
+- pyenv (with python 3.8+)
+- i3
+- xterm
+- [kitty](https://github.com/kovidgoyal/kitty)
+- [rofi](https://github.com/davatorium/rofi)
+- [dunst](https://github.com/dunst-project/dunst)
+- dzen2 (for `x11/bin/dvol`)
 
 Setup
 -----
 
-To bootstrap these dotfiles (will clone the git repo or download a zip of the contents):
+A bootstrap script is provided, which will clone this repo or unpack a zip of its contents. Otherwise just `git clone` the thing.
 
 ```
 $ curl -O https://raw.githubusercontent.com/delucks/dotfiles/master/setup.sh
 $ ./setup.sh
 ```
 
-This script is being actively tested. Let me know if you run into any issues!
+These dotfiles are organized into GNU Stow "packages" which correspond with different categories of items to install- this allows you to use shell configs without X11, for example. Stow overlays each package onto _$HOME_ or the parent directory using symlinks. Stow won't clobber your dotfiles if they already exist. You'll need to install `stow` from your local package manager.
 
-These dotfiles are organized expecting an installation of GNU Stow, which I have access to on all machines I usually provision these on.
-
-You can install any one of the sets of configs that are in this repo with a command like this (run from the checkout directory, will symlink to the parent directory which is usually $HOME):
+Using `stow`, you can install any of the packages with a command like this (run from the checkout directory):
 
 ```
 $ stow shells
-$ stow vim
+$ stow x11
 ```
 
-Stow won't clobber your files if they already exist. I have the configs separated out into sets because I use each for certain purposes, and mixing them together for the purpose of the machine I'm working on is handy.
-
-You can install them manually by symlinking the dotfiles in this directory to their respective locations under `$HOME`. This is recommended if you want fine-grained control over where they go, or want to cherrypick certain configurations.
-
-I used to have a Makefile and an Ansible based setup option, but I decided both were not very maintainable and required way too many dependencies. The best bikeshedding is done for fun.
+You can install them manually by symlinking the dotfiles in this directory to their respective locations under _$HOME_ (e.g. `ln -s ~/dotfiles/x11/.i3/ ~/.i3`). This is recommended if you want fine-grained control over where they go, or want to cherrypick certain configurations.
 
 X11
 ---
 
-The `i3-buddy` companion daemon requires the following packages in user scope:
+I use either i3 or Openbox depending on the graphical capacity of the machine. The i3 session configured here is started and managed using systemd user units, including all the software that makes up the "desktop environment" of sorts. This includes a companion daemon for i3, `i3-buddy`, which implements detection of xrandr changes, a Quake terminal, and other features. The `i3-buddy` companion daemon requires the following python packages in user scope and a python version greater than 3.8.
 
 ```
 i3ipc
@@ -92,3 +48,16 @@ dbussy
 xcffib
 systemd-python
 ```
+
+Scripts
+-------
+
+Some useful scripts are included in this repository. If you're using my dotfiles, they will be symlinked into `$HOME/bin`. My favorites:
+
+- `common/bin/fileset.py`: compare the contents of two files as if each were a set delinated by newlines.
+- `common/bin/backlight`: adjust the monitor brightness of your Linux laptop
+- `common/bin/license`: retrieve one of a number of common open-source licenses
+- `common/bin/gh-install`: install a binary from the latest release of a project on Github
+- `x11/bin/block`: Blur-LOCK your Linux desktop
+- `x11/bin/rofi-man`: Open manual pages in a new terminal using rofi.
+- `x11/bin/rofi-tmux`: Open an existing tmux session in a new terminal using rofi.
