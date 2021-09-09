@@ -26,7 +26,7 @@ import xcffib
 import xcffib.randr
 
 
-logger = logging.getLogger("i3-companion")
+logger = logging.getLogger("i3buddy")
 
 # Events for @on decorator
 DBusSignal = collections.namedtuple(
@@ -207,6 +207,7 @@ async def quake_console(i3, event):
             raise RuntimeError("unable to spawn terminal")
         term = quake_window.result()
         await term.command("move window to scratchpad")
+        logger.info('Quake window spawned')
     workspaces = await i3.get_workspaces()
     workspace = [ws for ws in workspaces if ws.focused][0]
     ws_x, ws_y = workspace.rect.x, workspace.rect.y
@@ -247,7 +248,7 @@ async def output_update(i3, event):
         logger.debug("current xrandr setup unchanged")
         return
     output_update.last_setup = current_setup
-    logger.info("xrandr setup: %s", current_setup)
+    logger.debug("xrandr setup: %s", current_setup)
     if event is StartEvent:
         return
     # Trigger changes
