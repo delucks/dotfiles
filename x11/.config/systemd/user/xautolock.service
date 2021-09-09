@@ -3,7 +3,7 @@ Description=Automatic blur screenlocker
 PartOf=graphical-session.target
 
 [Service]
-ExecStart=/usr/bin/xautolock -time 5 -locker block
+ExecStart=/usr/bin/xautolock -time 60 -locker %h/bin/block
 
 [Install]
 WantedBy=graphical-session.target
