@@ -110,10 +110,10 @@ bindsym $alt+Shift+j move down 80px
 bindsym $alt+Shift+k move up 80px
 bindsym $alt+Shift+l move right 80px
 # These use the "Meh" key
-bindsym Ctrl+$alt+Shift+h resize shrink width 100px
-bindsym Ctrl+$alt+Shift+j resize grow height 100px
-bindsym Ctrl+$alt+Shift+k resize shrink height 100px
-bindsym Ctrl+$alt+Shift+l resize grow width 100px
+bindsym Ctrl+$alt+Shift+h resize shrink width 50px
+bindsym Ctrl+$alt+Shift+j resize grow height 50px
+bindsym Ctrl+$alt+Shift+k resize shrink height 50px
+bindsym Ctrl+$alt+Shift+l resize grow width 50px
 
 # Floating manipulation
 bindsym $alt+apostrophe fullscreen
