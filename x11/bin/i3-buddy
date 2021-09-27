@@ -312,7 +312,6 @@ async def workspace_info(i3, event):
     body = format(workspace[0]).lstrip("\n")
     result = await notify(
         i3,
-        app_icon="system-search",
         expire_timeout=20000,
         summary=summary,
         body=body,
@@ -356,7 +355,6 @@ async def container_info(i3, event):
     )
     result = await notify(
         i3,
-        app_icon="system-search",
         expire_timeout=10000,
         summary=summary,
         body=body,
