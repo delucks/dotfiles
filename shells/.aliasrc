@@ -122,12 +122,6 @@ case "$_OS_TYPE" in
     ununix() {
       date -d "@$1"
     }
-    # This uses systemd to start tmux on Linux systems. Using a
-    # temporary systemd unit, this is not killed by a systemd-managed
-    # xsession.
-    tmux() {
-      systemd-run --scope --user tmux "$@"
-    }
   ;;
   Darwin*)
     # osx
@@ -177,7 +171,7 @@ fi
 alias j='jrnl --edit -1'
 
 ssh-addall() {
-  ssh-add $(sed -n 's/^ *IdentityFile ~\/\([^ ]*\).*/\1/p' ~/.ssh/config | sort -u)
+  ssh-add $(sed -n 's/^ *IdentityFile ~\/\([^ ]*\).*/\1/p' ~/.ssh/config | sort -u | while read line; do echo "${HOME}/$line"; done)
 }
 
 # tx and ta are my two tmux manipulation functions
