@@ -249,13 +249,12 @@ async def output_update(i3, event):
         return
     output_update.last_setup = current_setup
     logger.debug("xrandr setup: %s", current_setup)
-    if event is StartEvent:
-        return
     # Trigger changes
     logger.info("xrandr change detected")
     user = getpass.getuser()
     cmds = (
         f"/bin/sh /home/{user}/.fehbg",
+        f"/usr/local/bin/openrgb -p Orange",
     )
     for cmd in cmds:
         proc = subprocess.run(shlex.split(cmd))
