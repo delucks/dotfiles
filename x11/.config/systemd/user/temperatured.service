@@ -1,0 +1,9 @@
+[Unit]
+Description=OpenRGB temperature client
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=%h/.pyenv/shims/python %h/bin/openrgb-temperatured
+
+[Install]
+WantedBy=graphical-session.target
