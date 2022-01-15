@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+'''This script is designed to sychronize the color of the system's RGB colors with
+the temperature of the system sensors, as reported by lm_sensors, every N seconds
+
+Dependencies:
+- lm_sensors installed and the "sensors" CLI available
+- OpenRGB installed and the server running
+- py3nvml
+- openrgb-python
+
+Notes:
+- GPU temperature "load" at 50C and "utilized" at 75C
+- k10temp CPU readings "load" at 45 and "utilized" at 55
+- nvme-100 "load" at 45 and "utilized" at 55
+- nvme-400 "load" at 40 and "utilized" at 45 (this one is well cooled constantly and probably isn't a concern)
+'''
+import json
+import logging
+import subprocess
+from time import sleep
+from typing import Tuple
+
+from openrgb import OpenRGBClient
+from openrgb.utils import RGBColor
+from py3nvml.py3nvml import nvmlInit, nvmlDeviceGetHandleByIndex, nvmlDeviceGetTemperature, NVML_TEMPERATURE_GPU
+
+
+SECONDS_BETWEEN_RUNS = 2
+GPU_THRESHOLDS = (32, 50, 75)
+DEFAULT_THRESHOLDS = (35, 45, 55)
+log = logging.getLogger('openrgb-temperatured')
+logging.basicConfig(format='%(asctime)s %(name)s [%(levelname)s] %(message)s', level=logging.INFO)
+
+
+def temp_to_color(temp: int, thresholds: Tuple[int, int, int]) -> Tuple[int, int, int]:
+    '''Takes a temperature in Celsius for a system sensor and returns a RGB
+    temperature that corresponds with the "heat" of the system
+    The heat scales between three thresholds: the lowest temperature of the system at idle,
+    the temperature of a lightly loaded system, and the temperature of the system at full load.
+    Between the low and mid thresholds, color scales linearly between green and yellow. Between the mid
+    and high thresholds, it scales between yellow and red in the same fashion.
+    '''
+    low, mid, high = thresholds
+    if temp <= low:
+        return 0, 255, 0
+    elif low < temp < mid:
+        multiplier = 255/(mid - low)
+        return int((temp - low) * multiplier), 255, 0
+    elif mid <= temp < high:
+        multiplier = 255/(high - mid)
+        return 255, max(int(255 - ((temp - mid) * multiplier)), 0), 0
+    elif temp >= high:
+        return 255, 0, 0
+
+
+# Intentionally not handling the ConnectionRefusedError so this fails quickly if the server isn't available
+cli = OpenRGBClient()
+nvmlInit()
+handle = nvmlDeviceGetHandleByIndex(0)
+
+while True:
+    # Treat the GPU individually because it has different thermal characteristics
+    # aka it gets fuckin hot bud
+    gpu_c = nvmlDeviceGetTemperature(handle, NVML_TEMPERATURE_GPU)
+    # Get current temperatures for each sensor
+    measurements = []
+    process = subprocess.run(['sensors', '-j'], stdout=subprocess.PIPE)
+    sensors = json.loads(process.stdout)
+    for sensor_class, sensor_data in sensors.items():
+        for sensor_name, readings in sensor_data.items():
+            if sensor_name == 'Adapter':
+                continue
+            for reading_name in readings:
+                if reading_name.endswith('_input'):
+                    measurements.append(readings[reading_name])
+    # For the initial draft of this we're not being super scientific: the maximum current measured temperature sets the system temp color
+    highest_thermal_reading = max(measurements)
+    if gpu_c > highest_thermal_reading:
+        # Use the thresholds for the GPU
+        target_color = temp_to_color(gpu_c, GPU_THRESHOLDS)
+        log.info(f'Setting color tone {target_color} based on GPU temperature measurement {gpu_c}C')
+    else:
+        # Use the thresholds for the rest of the components
+        target_color = temp_to_color(highest_thermal_reading, DEFAULT_THRESHOLDS)
+        log.info(f'Setting color tone {target_color} based on lm_sensors measurement {highest_thermal_reading}C')
+    for device in cli.devices:
+        device.set_color(RGBColor(*target_color))
+    sleep(SECONDS_BETWEEN_RUNS)
