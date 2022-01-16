@@ -57,6 +57,7 @@ def temp_to_color(temp: int, thresholds: Tuple[int, int, int]) -> Tuple[int, int
 cli = OpenRGBClient()
 nvmlInit()
 handle = nvmlDeviceGetHandleByIndex(0)
+last_target_color = None
 
 while True:
     # Treat the GPU individually because it has different thermal characteristics
@@ -78,11 +79,14 @@ while True:
     if gpu_c > highest_thermal_reading:
         # Use the thresholds for the GPU
         target_color = temp_to_color(gpu_c, GPU_THRESHOLDS)
-        log.info(f'Setting color tone {target_color} based on GPU temperature measurement {gpu_c}C')
+        if target_color != last_target_color:
+            log.info(f'Adjusting color tone to {target_color} based on GPU temp {gpu_c}C')
     else:
         # Use the thresholds for the rest of the components
         target_color = temp_to_color(highest_thermal_reading, DEFAULT_THRESHOLDS)
-        log.info(f'Setting color tone {target_color} based on lm_sensors measurement {highest_thermal_reading}C')
+        if target_color != last_target_color:
+            log.info(f'Adjusting color tone to {target_color} based on lm_sensors temp {highest_thermal_reading}C')
+    last_target_color = target_color
     for device in cli.devices:
         device.set_color(RGBColor(*target_color))
     sleep(SECONDS_BETWEEN_RUNS)
