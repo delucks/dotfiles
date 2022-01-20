@@ -5,10 +5,42 @@ set -eo pipefail
 ###########
 # backlight
 #
-# This script changes the backlight of a monitor for a Linux laptop.
+# This script changes the backlight of a monitor for a Linux laptop, or external display via ddc.
 #
 # If you don't have permissions over the control file, add this to your sudoers file using "visudo", replacing "intel_backlight" with whatever symlink exists in /sys/class/backlight
 #   ALL ALL = (ALL) NOPASSWD: /usr/bin/tee /sys/class/backlight/intel_backlight/brightness
+
+# This determines whether to use the internal or external brightness control. Set to 0 to use an external monitor.
+LAPTOP=0
+
+# Look for a proper /sys control for us to use if this is a laptop
+SYS_DIR="$(find /sys/class/backlight -maxdepth 1 -type l)"
+
+setbacklight() {
+  if [ "$LAPTOP" -ne 0 ]; then
+    # Handle a laptop internal brightness control
+    echo "$1" | sudo /usr/bin/tee "$SYS_DIR/brightness"
+  else
+    # Handle a monitor via ddcutil
+    ddcutil --bus=$(ddcutil detect -t | awk -F'-' '/bus/{print $NF}') setvcp 10 "$1"
+  fi
+}
+
+getbacklight() {
+  if [ "$LAPTOP" -ne 0 ]; then
+    cat "$SYS_DIR/brightness"
+  else
+    ddcutil --bus=6 getvcp 10 | awk '{print $(NF-4)}' | tr -d ','
+  fi
+}
+
+getmaxbacklight() {
+  if [ "$LAPTOP" -ne 0 ]; then
+    cat "$SYS_DIR/max_brightness"
+  else
+    ddcutil --bus=6 getvcp 10 | awk '{print $NF}'
+  fi
+}
 
 usage() {
   echo "$0 Usage:"
@@ -21,15 +53,12 @@ usage() {
   echo "  backlight -h|--help     Display this message"
 }
 
-# Look for a proper /sys control for us to use
-SYS_DIR="$(find /sys/class/backlight -maxdepth 1 -type l)"
-
 # Parse arguments
 if [ $# -eq 0 ]; then
   # No args: show current brightness
-  cat "$SYS_DIR/brightness"
+  getbacklight
 else
-  MAX=$(cat "$SYS_DIR/max_brightness")
+  MAX=$(getmaxbacklight)
   case "$1" in
     max)
       NEW="$MAX"
@@ -37,7 +66,7 @@ else
     up|down)
       # Increase or decrease 10% at a time
       STEP=$((MAX / 10))
-      CURRENT=$(cat "$SYS_DIR/brightness")
+      CURRENT=$(getbacklight)
       if [ "$1" == "up" ]; then
         NEW=$((CURRENT + STEP))
       else
@@ -66,5 +95,5 @@ else
   if test "$NEW" -gt "$MAX"; then
     NEW=$MAX
   fi
-  echo "${NEW}" | sudo /usr/bin/tee "$SYS_DIR/brightness"
+  setbacklight "$NEW"
 fi
