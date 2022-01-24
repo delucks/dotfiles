@@ -13,8 +13,13 @@ set -eo pipefail
 # This determines whether to use the internal or external brightness control. Set to 0 to use an external monitor.
 LAPTOP=0
 
-# Look for a proper /sys control for us to use if this is a laptop
-SYS_DIR="$(find /sys/class/backlight -maxdepth 1 -type l)"
+if [ "$LAPTOP" -ne 0 ]; then
+  # Look for a proper /sys control for us to use if this is a laptop
+  SYS_DIR="$(find /sys/class/backlight -maxdepth 1 -type l)"
+else
+  # and a DDC bus to use if this isn't
+  DDC_BUS=$(ddcutil detect -t | awk -F'-' '/bus/{print $NF}')
+fi
 
 setbacklight() {
   if [ "$LAPTOP" -ne 0 ]; then
@@ -22,7 +27,7 @@ setbacklight() {
     echo "$1" | sudo /usr/bin/tee "$SYS_DIR/brightness"
   else
     # Handle a monitor via ddcutil
-    ddcutil --bus=$(ddcutil detect -t | awk -F'-' '/bus/{print $NF}') setvcp 10 "$1"
+    ddcutil --bus="$DDC_BUS" setvcp 10 "$1"
   fi
 }
 
@@ -30,7 +35,7 @@ getbacklight() {
   if [ "$LAPTOP" -ne 0 ]; then
     cat "$SYS_DIR/brightness"
   else
-    ddcutil --bus=6 getvcp 10 | awk '{print $(NF-4)}' | tr -d ','
+    ddcutil --bus="$DDC_BUS" getvcp 10 | awk '{print $(NF-4)}' | tr -d ','
   fi
 }
 
@@ -38,7 +43,7 @@ getmaxbacklight() {
   if [ "$LAPTOP" -ne 0 ]; then
     cat "$SYS_DIR/max_brightness"
   else
-    ddcutil --bus=6 getvcp 10 | awk '{print $NF}'
+    ddcutil --bus="$DDC_BUS" getvcp 10 | awk '{print $NF}'
   fi
 }
 
