@@ -52,6 +52,8 @@ def temp_to_color(temp: int, thresholds: Tuple[int, int, int]) -> Tuple[int, int
     elif temp >= high:
         return 255, 0, 0
 
+# This wait is to let the OpenRGB daemon startup on the first boot
+sleep(5)
 
 # Intentionally not handling the ConnectionRefusedError so this fails quickly if the server isn't available
 cli = OpenRGBClient()
@@ -59,21 +61,34 @@ nvmlInit()
 handle = nvmlDeviceGetHandleByIndex(0)
 last_target_color = None
 
+
+def _parse_sensors(sensor_data):
+    for sensor_name, readings in sensor_data.items():
+        if sensor_name == 'Adapter':
+            if readings != 'PCI adapter':
+                return
+            continue
+        for reading_name in readings:
+            if reading_name.endswith('_input'):
+                yield readings[reading_name]
+
+
+def get_sensor_measurements():
+    measurements = []
+    process = subprocess.run(['sensors', '-j'], stdout=subprocess.PIPE)
+    sensors = json.loads(process.stdout)
+    for sensor_class, sensor_data in sensors.items():
+        for measurement in _parse_sensors(sensor_data):
+            measurements.append(measurement)
+    return measurements
+
+
 while True:
     # Treat the GPU individually because it has different thermal characteristics
     # aka it gets fuckin hot bud
     gpu_c = nvmlDeviceGetTemperature(handle, NVML_TEMPERATURE_GPU)
     # Get current temperatures for each sensor
-    measurements = []
-    process = subprocess.run(['sensors', '-j'], stdout=subprocess.PIPE)
-    sensors = json.loads(process.stdout)
-    for sensor_class, sensor_data in sensors.items():
-        for sensor_name, readings in sensor_data.items():
-            if sensor_name == 'Adapter':
-                continue
-            for reading_name in readings:
-                if reading_name.endswith('_input'):
-                    measurements.append(readings[reading_name])
+    measurements = get_sensor_measurements()
     # For the initial draft of this we're not being super scientific: the maximum current measured temperature sets the system temp color
     highest_thermal_reading = max(measurements)
     if gpu_c > highest_thermal_reading:
