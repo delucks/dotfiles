@@ -28,13 +28,23 @@ stty -ixon  # diable XON/XOFF
 
 ### prompt
 
-# Initialize colors
-redf="$(tput setaf 1)"
-greenf="$(tput setaf 2)"
-bluef="$(tput setaf 4)"
-magentaf="$(tput setaf 5)"
-cyanf="$(tput setaf 6)"
+# Initialize colors. OpenBSD takes extra, seemingly useless, parameters to tput
+# https://marc.info/?l=openbsd-bugs&m=160951076227330&w=2
 reset="$(tput sgr0)"
+case "$OSTYPE" in
+  openbsd*)
+    redf="$(tput setaf 1 0 0)"
+    greenf="$(tput setaf 2 0 0)"
+    bluef="$(tput setaf 4 0 0)"
+    magentaf="$(tput setaf 5 0 0)"
+    cyanf="$(tput setaf 6 0 0)"
+  *)
+    redf="$(tput setaf 1)"
+    greenf="$(tput setaf 2)"
+    bluef="$(tput setaf 4)"
+    magentaf="$(tput setaf 5)"
+    cyanf="$(tput setaf 6)"
+esac
 
 _prompt_git() {
   local branch=$(git branch --no-color 2>/dev/null | awk '/\*/{print $NF}' | tr -d '()')
