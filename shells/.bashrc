@@ -38,12 +38,14 @@ case "$OSTYPE" in
     bluef="$(tput setaf 4 0 0)"
     magentaf="$(tput setaf 5 0 0)"
     cyanf="$(tput setaf 6 0 0)"
+    ;;
   *)
     redf="$(tput setaf 1)"
     greenf="$(tput setaf 2)"
     bluef="$(tput setaf 4)"
     magentaf="$(tput setaf 5)"
     cyanf="$(tput setaf 6)"
+    ;;
 esac
 
 _prompt_git() {
