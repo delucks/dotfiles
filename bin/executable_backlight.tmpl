@@ -11,7 +11,11 @@ set -eo pipefail
 #   ALL ALL = (ALL) NOPASSWD: /usr/bin/tee /sys/class/backlight/intel_backlight/brightness
 
 # This determines whether to use the internal or external brightness control. Set to 0 to use an external monitor.
+{{- if .laptop }}
+LAPTOP=1
+{{- else }}
 LAPTOP=0
+{{- end }}
 
 if [ "$LAPTOP" -ne 0 ]; then
   # Look for a proper /sys control for us to use if this is a laptop
