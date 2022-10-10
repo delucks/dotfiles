@@ -3,6 +3,13 @@ LICENSE
 {{- if eq .chezmoi.os "darwin" }}
 # Ignore Linux-specific files on MacOS
 .config/systemd
+.config/dwb
+.config/dunst
+.config/herbstluftwm
+.config/kitty
+.config/openbox
+.config/picom.conf
+.config/rofi
 .inputrc
 .i3
 .i3status.conf
