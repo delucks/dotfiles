@@ -9,6 +9,9 @@ general {
 {{ if ne .wifi_interface "" }}
 order += "wireless {{ .wifi_interface}}"
 {{- end }}
+{{- if ne .wired_interface "" }}
+order += "ethernet {{ .wired_interface }}"
+{{- end }}
 order += "volume master"
 order += "load"
 {{- if ne .cpu_thermal_path "" }}
