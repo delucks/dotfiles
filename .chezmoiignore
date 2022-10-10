@@ -1,11 +1,2 @@
 README.md
 LICENSE
-
-# These will be removed post-migration
-common/
-emacs/
-ipython/
-irc/
-misc/
-vim/
-x11/
