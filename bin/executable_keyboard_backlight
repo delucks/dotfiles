@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+####################
+# keyboard_backlight
+#
+# This script changes the keyboard brightness of a Linux laptop with the same interface as the "backlight" script.
+#
+# If you don't have permissions over the control file, add this to your sudoers file using "visudo", replacing "intel_backlight" with whatever symlink exists in /sys/class/backlight
+#   ALL ALL = (ALL) NOPASSWD: /usr/bin/tee /sys/class/backlight/intel_backlight/brightness
+
+SYS_DIR="$(find /sys/class/leds -maxdepth 1 -type l | grep kbd_backlight)"
+
+setbacklight() {
+  echo "$1" | sudo /usr/bin/tee "$SYS_DIR/brightness"
+}
+
+getbacklight() {
+  cat "$SYS_DIR/brightness"
+}
+
+getmaxbacklight() {
+  cat "$SYS_DIR/max_brightness"
+}
+
+usage() {
+  echo "$0 Usage:"
+  echo "  keyboard_backlight               Display the current brightness level"
+  echo "  keyboard_backlight max           Sets the monitor brightness to the highest value supported"
+  echo "  keyboard_backlight up            Increase monitor brightness by 10%"
+  echo "  keyboard_backlight down          Decrease monitor brightness by 10%"
+  echo "  keyboard_backlight N             Set monitor brightness to this integer value"
+  echo "  keyboard_backlight N%            Set monitor brightness to this percentage"
+  echo "  keyboard_backlight -h|--help     Display this message"
+}
+
+# Parse arguments
+if [ $# -eq 0 ]; then
+  # No args: show current brightness
+  getbacklight
+else
+  MAX=$(getmaxbacklight)
+  case "$1" in
+    max)
+      NEW="$MAX"
+    ;;
+    up|down)
+      # Increase or decrease 10% at a time
+      STEP=$((MAX / 10))
+      CURRENT=$(getbacklight)
+      if [ "$1" == "up" ]; then
+        NEW=$((CURRENT + STEP))
+      else
+        NEW=$((CURRENT - STEP))
+      fi
+    ;;
+    [0-9]*%)
+      PERCENTAGE=$(tr -d '%' <<< "$1")
+      NEW=$(bc <<< "scale=0; $MAX / 100*$PERCENTAGE")
+    ;;
+    [0-9]*)
+      NEW="${1}"
+    ;;
+    -h|--help)
+      usage
+      exit 0
+    ;;
+    *)
+      usage
+      exit 1
+    ;;
+  esac
+  if test "$NEW" -lt 0; then
+    NEW=0
+  fi
+  if test "$NEW" -gt "$MAX"; then
+    NEW=$MAX
+  fi
+  setbacklight "$NEW"
+fi
