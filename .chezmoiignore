@@ -1,2 +1,27 @@
 README.md
 LICENSE
+{{- if eq .chezmoi.os "darwin" }}
+# Ignore Linux-specific files on MacOS
+.config/systemd
+.inputrc
+.i3
+.i3status.conf
+.abcde.conf
+.irssi
+.ncmpcpp
+.pam_environment
+.xinitrc
+.Xmodmap
+.Xresources
+# Scripts that only really work on Linux
+bin/backlight
+bin/block
+bin/dvol
+bin/i3-buddy
+bin/image.cd
+bin/nm_toggle
+bin/openrgb-temperatured
+bin/rofi-*
+bin/swap_monitor.sh
+bin/volume
+{{- end }}
