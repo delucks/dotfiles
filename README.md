@@ -19,7 +19,20 @@ Software recommendations/requirements:
 Setup
 -----
 
-This repo uses [`chezmoi`](https://www.chezmoi.io/) to manage its installation. First, install chezmoi, then run `chezmoi init --apply https://github.com/delucks/dotfiles.git`.
+This repo uses [`chezmoi`](https://www.chezmoi.io/) to manage its installation. First, install chezmoi, then run `chezmoi init https://github.com/delucks/dotfiles.git`.
+
+Next, create a file `~/.config/chezmoi/chezmoi.toml` with the following contents, editing as necessary:
+
+```
+[data]
+	laptop = false
+	wifi_interface = "wlp3s0"
+	wired_interface = "enp4s0"
+	cpu_thermal_path = "/sys/devices/virtual/thermal/thermal_zone1/temp"
+```
+
+These variables will be interpolated into the templates in this repo to customize the current machine. After this file is created, run `chezmoi -v apply` to set up the configurations.
+
 
 X11
 ---
@@ -39,6 +52,8 @@ If you're using the `temperatured` script to set OpenRGB color, you'll also need
 py3nvml
 openrgb-python
 ```
+
+You can install all these requirements with `python -m pip install --local i3ipc dbussy xcffib systemd-python py3nvml openrgb-python`.
 
 Scripts
 -------
