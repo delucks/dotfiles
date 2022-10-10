@@ -1,32 +1,46 @@
 general {
-        colors = true
+        colors = false
         interval = 5
         color_good = "#9DBA3A"
         color_degraded = "#F5B915"
         color_bad = "#BF1E2D"
 }
 
-order += "ethernet enp9s0"
+{{ if ne .wifi_interface "" }}
+order += "wireless {{ .wifi_interface}}"
+{{- end }}
 order += "volume master"
 order += "load"
+{{- if ne .cpu_thermal_path "" }}
 order += "cpu_temperature 0"
+{{- end }}
+{{- if .laptop }}
+order += "battery all"
+{{- else }}
 order += "tztime utc"
+{{- end }}
 order += "tztime local"
 
+{{ if ne .cpu_thermal_path "" }}
 cpu_temperature 0 {
         format = "%degrees°C"
-        path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input"
+        path = "{{ .cpu_thermal_path }}"
 }
+{{- end }}
 
-wireless wlp8s0f3u3 {
-        format_up = "wlp8s0f3u3 %ip"
-        format_down = "wlp8s0f3u3 down"
+{{ if ne .wifi_interface "" }}
+wireless {{ .wifi_interface }} {
+        format_up = "{{ .wifi_interface }} %ip"
+        format_down = "{{ .wifi_interface }} down"
 }
+{{- end }}
 
-ethernet enp9s0 {
-        format_up = "enp9s0 %ip"
-        format_down = "enp9s0 down"
+{{ if ne .wired_interface "" }}
+ethernet {{ .wired_interface }} {
+        format_up = "{{ .wired_interface }} %ip"
+        format_down = "{{ .wired_interface }} down"
 }
+{{- end }}
 
 battery all {
         format = "%status%percentage (%remaining)"
