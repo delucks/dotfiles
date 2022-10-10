@@ -10,5 +10,5 @@ configuration {
 	sidebar-mode: false;
 	combi-modi: "drun,run";
 	matching: "fuzzy";
-	theme: "~/.config/rofi/sidecar.rasi";
 }
+@theme "~/.config/rofi/sidecar.rasi"
