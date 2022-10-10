@@ -26,13 +26,16 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default: (setq doom-theme 'doom-one)
 
+;;(setq doom-theme 'doom-outrun-electric)
+
 ;; The third option: change the color scheme depending on time of day
+;; For light themes: 'doom-solarized-light
 ;; For dark themes: 'doom-challenger-deep 'doom-outrun-electric 'doom-horizon
 (defun time-of-day-theme ()
   (let* ((light-theme 'doom-solarized-light)
-         (dark-theme 'doom-horizon)
+         (dark-theme 'doom-outrun-electric)
          (start-time-light-theme 6)
-         (end-time-light-theme 18)
+         (end-time-light-theme 15)
          (hour (string-to-number (substring (current-time-string) 11 13)))
          (next-theme (if (member hour (number-sequence start-time-light-theme end-time-light-theme))
                          light-theme dark-theme)))

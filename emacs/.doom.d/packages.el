@@ -10,6 +10,7 @@
 ;(package! some-package)
 
 (package! salt-mode)       ;; support for salt .sls files
+(package! fennel-mode)     ;; syntax and completion for the Fennel language
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
