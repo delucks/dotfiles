@@ -34,7 +34,7 @@ floating_modifier $mod
 
 new_window pixel 5
 new_float pixel 5
-hide_edge_borders none
+hide_edge_borders smart
 
 ### i3-gaps
 gaps inner 14
@@ -50,48 +50,62 @@ for_window [class="net-minecraft-LauncherFrame"] floating enable
 for_window [class="MPlayer"] floating enable
 for_window [class="Lxappearance"] floating enable
 for_window [class="Steam"] floating enable
+for_window [class="Spek"] floating enable
 for_window [title="X3: Albion Prelude"] floating enable
 for_window [title="X3 - Albion Prelude"] border none
 for_window [class="Event Tester"] floating enable
 for_window [class="feh"] floating enable
 for_window [class="slack"] floating enable
+for_window [class="openrgb"] floating enable
+for_window [class="xfburn"] floating enable
+assign [class="firefox"] 2:surf
+assign [class="Chromium"] 2:surf
 assign [class="Steam"] 5:games
+assign [class="emacs"] 8:e
+assign [class="discord"] 10:console
+assign [class="spotify"] 11:music
+
+# Don't flash on urgency
+focus_on_window_activation=none
 
 # Certain applications should launch at a resolution that takes up most of my screen but not all of my screen
 set $near_screen_width 1800
 set $near_screen_height 1000
-for_window [class="Spotify"] resize set width $near_screen_width height $near_screen_height
-for_window [class="Firefox"] resize set width $near_screen_width height $near_screen_height
+for_window [class="spotify"] resize set width $near_screen_width height $near_screen_height
+for_window [class="firefox"] resize set width $near_screen_width height $near_screen_height
 
 # -----
 # Keymaps
 
 # Workspaces
-# My workspaces are set up on the home row and some easily pressable keys above it.
-# Workspaces correspond to each of the following letters and have no intrinsic meaning:
-# a s d f g q w e
 # Workspace management keybindings are prefaced by Meta
 
 bindsym $mod+a workspace 1:a
-bindsym $mod+s workspace 2:s
+bindsym $mod+s workspace 2:surf
 bindsym $mod+d workspace 3:d
 bindsym $mod+f workspace 4:f
 bindsym $mod+g workspace 5:games
 bindsym $mod+q workspace 6:q
 bindsym $mod+w workspace 7:w
 bindsym $mod+e workspace 8:e
+bindsym $mod+r workspace 9:r
+bindsym $mod+c workspace 10:console
+bindsym $mod+m workspace 11:music
 
 # Imitating vim's find scrolling motions
 bindsym $mod+semicolon exec rofi -show window -display-window 'Jump to: '
 
 bindsym $mod+Shift+a move workspace 1:a
-bindsym $mod+Shift+s move workspace 2:s
+bindsym $mod+Shift+s move workspace 2:surf
 bindsym $mod+Shift+d move workspace 3:d
 bindsym $mod+Shift+f move workspace 4:f
 bindsym $mod+Shift+g move workspace 5:games
 bindsym $mod+Shift+q move workspace 6:q
 bindsym $mod+Shift+w move workspace 7:w
 bindsym $mod+Shift+e move workspace 8:e
+bindsym $mod+Shift+r move workspace 9:r
+bindsym $mod+Shift+c move workspace 10:console
+bindsym $mod+Shift+m move workspace 11:music
 
 # Layout is a property of a workspace and therefore gets a Meta keybind
 bindsym $mod+Shift+space layout toggle
@@ -129,7 +143,7 @@ bindsym $alt+o split h
 # Kill Client
 bindsym $alt+Shift+r kill
 # Kill clients matching
-bindsym $mod+Shift+r exec i3-input -F 'exec killall %s' -P 'killall: '
+#bindsym $mod+Shift+r exec i3-input -F 'exec killall %s' -P 'killall: '
 
 # Media & screen controls
 bindsym XF86AudioLowerVolume exec ~/bin/volume down
@@ -147,7 +161,6 @@ bindsym $alt+t exec $secondaryterminal
 #bindsym $mod+comma exec rofi -show ssh
 #bindsym $mod+Shift+comma exec rofi-remote-tmux
 #bindsym $mod+slash exec $primaryterminal -e bash -c ranger
-#bindsym $mod+Shift+b exec $primaryterminal -e bash -c broot
 #bindsym $mod+Shift+slash exec rofi-documents
 #bindsym $mod+semicolon exec rofi-tmux
 #bindsym $mod+Shift+semicolon exec $primaryterminal -e bash -c fzf-tmux-attach
