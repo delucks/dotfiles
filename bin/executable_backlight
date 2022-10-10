@@ -15,7 +15,7 @@ LAPTOP=0
 
 if [ "$LAPTOP" -ne 0 ]; then
   # Look for a proper /sys control for us to use if this is a laptop
-  SYS_DIR="$(find /sys/class/backlight -maxdepth 1 -type l)"
+  SYS_DIR="$(find /sys/class/backlight -maxdepth 1 -type l | head -1)"
 else
   # and a DDC bus to use if this isn't
   DDC_BUS=$(ddcutil detect -t | awk -F'-' '/bus/{print $NF}')
