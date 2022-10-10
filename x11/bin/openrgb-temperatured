@@ -25,9 +25,9 @@ from openrgb.utils import RGBColor
 from py3nvml.py3nvml import nvmlInit, nvmlDeviceGetHandleByIndex, nvmlDeviceGetTemperature, NVML_TEMPERATURE_GPU
 
 
-SECONDS_BETWEEN_RUNS = 2
+SECONDS_BETWEEN_RUNS = 5
 GPU_THRESHOLDS = (32, 50, 75)
-DEFAULT_THRESHOLDS = (35, 45, 55)
+DEFAULT_THRESHOLDS = (35, 45, 80)
 log = logging.getLogger('openrgb-temperatured')
 logging.basicConfig(format='%(asctime)s %(name)s [%(levelname)s] %(message)s', level=logging.INFO)
 
