@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Toggle the current state of a saved NetworkManager connection with fzf
+
+ALL_CONNECTIONS=$(nmcli -g uuid,type,active,name c show)
+SELECTED=$(echo "$ALL_CONNECTIONS" | awk -F':' '{print $NF}' | fzf)
+line=$(grep "$SELECTED" <<< "$ALL_CONNECTIONS")
+state=$(awk -F':' '{print $(NF-1)}' <<< "$line")
+id=$(awk -F':' '{print $1}' <<< "$line")
+
+case "$state" in
+  yes)
+    sudo nmcli c down "$id"
+    ;;
+  no)
+    sudo nmcli c up "$id"
+    ;;
+  *)
+    echo "Unexpected state $state: $line"
+    exit 1
+    ;;
+esac
