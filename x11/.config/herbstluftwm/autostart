@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #-------------------------------------------------------#
-#     __           __       __  __     _____             
-#    / /  ___ ____/ /  ___ / /_/ /_ __/ _/ /__    ____ _ 
+#     __           __       __  __     _____
+#    / /  ___ ____/ /  ___ / /_/ /_ __/ _/ /__    ____ _
 #   / _ \/ -_) __/ _ \(_-</ __/ / // / _/ __/ |/|/ /  ' \
 #  /_//_/\__/_/ /_.__/___/\__/_/\_,_/_/ \__/|__,__/_/_/_/
 #
@@ -11,19 +11,11 @@
 #-------------------------------------------------------#
 # Setup
 
-function hc() {
-    herbstclient "$@"
-}
+source "$HOME/.config/herbstluftwm/common.sh"
 
-hc emit_hook reload
-hc keyunbind --all
-
-#-------------------------------------------------------#
-# Variables
-
-source ~/.colors #get colors from xres
-mod=Mod4
-mod4=Mod1
+log "Configuring herbstluftwm for $(hostname)"
+herbstclient emit_hook reload
+herbstclient keyunbind --all
 
 #-------------------------------------------------------#
 # Tags
@@ -31,277 +23,184 @@ mod4=Mod1
 TAG_NAMES=( a s d f g q w e )
 TAG_KEYS=( a s d f g q w e )
 
-hc rename default "${TAG_NAMES[0]}" || true
 for i in ${!TAG_NAMES[@]} ; do
-    hc add "${TAG_NAMES[$i]}"
+    herbstclient add "${TAG_NAMES[$i]}"
     key="${TAG_KEYS[$i]}"
     if ! [ -z "$key" ] ; then
-        hc keybind "$mod-$key" use_index "$i"
-        hc keybind "$mod-Shift-$key" move_index "$i"
+        herbstclient keybind "$mod-$key" use_index "$i"
+        herbstclient keybind "$mod-Shift-$key" move_index "$i"
     fi
 done
+log "Set up tags"
 
 #-------------------------------------------------------#
 # Layouts
 
 # Dominant window on right, two split on left
-#hc keybind $mod-Shift-o load '(split horizontal:0.500000:0 (split vertical:0.500000:1 (clients vertical:0 0x80000b) (clients vertical:0 0xc0000b)) (clients vertical:0 0x100000b))'
+#herbstclient keybind $mod-Shift-o load '(split horizontal:0.500000:0 (split vertical:0.500000:1 (clients vertical:0 0x80000b) (clients vertical:0 0xc0000b)) (clients vertical:0 0x100000b))'
 # Dominant window on bottom, two split on top
-#hc keybind $mod-Shift-u load '(split vertical:0.500000:0 (split horizontal:0.500000:0 (clients vertical:0 0xc0000b) (clients vertical:0 0x100000b)) (clients vertical:0 0x80000b))'
-#hc keybind $mod-Shift-i load '(split horizontal:0.650000:0 (clients vertical:0 0x140000b) (split vertical:0.200000:1 (clients vertical:0 0x100000b) (clients vertical:0 0xa0000b)))'
-#hc keybind $mod-Shift-y load '(split horizontal:0.750000:0 (split vertical:0.700000:0 (clients vertical:0 0x80000b) (clients vertical:0 0xa0000b)) (clients vertical:0 0x100000b))'
+#herbstclient keybind $mod-Shift-u load '(split vertical:0.500000:0 (split horizontal:0.500000:0 (clients vertical:0 0xc0000b) (clients vertical:0 0x100000b)) (clients vertical:0 0x80000b))'
+#herbstclient keybind $mod-Shift-i load '(split horizontal:0.650000:0 (clients vertical:0 0x140000b) (split vertical:0.200000:1 (clients vertical:0 0x100000b) (clients vertical:0 0xa0000b)))'
+#herbstclient keybind $mod-Shift-y load '(split horizontal:0.750000:0 (split vertical:0.700000:0 (clients vertical:0 0x80000b) (clients vertical:0 0xa0000b)) (clients vertical:0 0x100000b))'
 
 #-------------------------------------------------------#
 # Keybindings
 
-hc keybind $mod-Shift-Escape quit
-hc keybind $mod-Escape reload
-hc keybind $mod-Shift-r close
-hc keybind $mod-n spawn ~/scripts/current
-hc keybind $mod-Menu spawn ~/scripts/getwindow
+herbstclient keybind $mod-Shift-Escape quit
+herbstclient keybind $mod-Escape reload
+herbstclient keybind $mod-Shift-r close
+#herbstclient keybind $mod-n spawn ~/scripts/current
+#herbstclient keybind $mod-Menu spawn ~/scripts/getwindow
 
 # Basics
-hc keybind $mod-h focus left
-hc keybind $mod-j focus down
-hc keybind $mod-k focus up
-hc keybind $mod-l focus right
+herbstclient keybind $mod-h focus left
+herbstclient keybind $mod-j focus down
+herbstclient keybind $mod-k focus up
+herbstclient keybind $mod-l focus right
 
-hc keybind $mod-Shift-h shift left
-hc keybind $mod-Shift-j shift down
-hc keybind $mod-Shift-k shift up
-hc keybind $mod-Shift-l shift right
+herbstclient keybind $mod-Shift-h shift left
+herbstclient keybind $mod-Shift-j shift down
+herbstclient keybind $mod-Shift-k shift up
+herbstclient keybind $mod-Shift-l shift right
 
 # Layouting
-hc keybind $mod-r remove
-hc keybind $mod-space chain , lock , rotate , unlock
-hc keybind $mod-Shift-space cycle_layout 1
-hc keybind $mod-u split vertical 0.5
-hc keybind $mod-Shift-u split vertical 0.25
-hc keybind $mod-o split horizontal 0.5
-hc keybind $mod-Shift-o split horizontal 0.25
-hc keybind $mod-m floating toggle
-hc keybind $mod-apostrophe fullscreen toggle
-hc keybind $mod-p pseudotile toggle
+herbstclient keybind $mod-r remove
+herbstclient keybind $mod-space chain , lock , rotate , unlock
+herbstclient keybind $mod-Shift-space cycle_layout 1
+herbstclient keybind $mod-u split vertical 0.5
+herbstclient keybind $mod-Shift-u split vertical 0.25
+herbstclient keybind $mod-o split horizontal 0.5
+herbstclient keybind $mod-Shift-o split horizontal 0.25
+herbstclient keybind $mod-m floating toggle
+herbstclient keybind $mod-apostrophe fullscreen toggle
+#herbstclient keybind $mod-p pseudotile toggle
+
+log "Layouting commands set"
 
 # Resizing
-RESIZESTEP=0.05
-SMALLERRESIZESTEP=0.025
-hc keybind $mod-Control-h resize left +$RESIZESTEP
-hc keybind $mod-Control-j resize down +$RESIZESTEP
-hc keybind $mod-Control-k resize up +$RESIZESTEP
-hc keybind $mod-Control-l resize right +$RESIZESTEP
+herbstclient keybind $mod-Control-h resize left +$RESIZESTEP
+herbstclient keybind $mod-Control-j resize down +$RESIZESTEP
+herbstclient keybind $mod-Control-k resize up +$RESIZESTEP
+herbstclient keybind $mod-Control-l resize right +$RESIZESTEP
 
-hc keybind $mod-Control-Shift-h resize left +$SMALLERRESIZESTEP
-hc keybind $mod-Control-Shift-j resize down +$SMALLERRESIZESTEP
-hc keybind $mod-Control-Shift-k resize up +$SMALLERRESIZESTEP
-hc keybind $mod-Control-Shift-l resize right +$SMALLERRESIZESTEP
+herbstclient keybind $mod-Control-Shift-h resize left +$SMALLERRESIZESTEP
+herbstclient keybind $mod-Control-Shift-j resize down +$SMALLERRESIZESTEP
+herbstclient keybind $mod-Control-Shift-k resize up +$SMALLERRESIZESTEP
+herbstclient keybind $mod-Control-Shift-l resize right +$SMALLERRESIZESTEP
 
 # Cycle through windows in current tag
-hc keybind $mod-Tab         cycle_all +1
-hc keybind $mod-Shift-Tab   cycle_all -1
+herbstclient keybind $mod-Tab         cycle_all +1
+herbstclient keybind $mod-Shift-Tab   cycle_all -1
+
+log "Resize/cycle set"
 
 # Program launchers
-hc keybind $mod-t spawn urxvt
-hc keybind $mod4-t spawn urxvt -e bash -c "ssh cluster"
-hc keybind $mod4-b spawn urxvt -e bash -c "ssh blinken"
-hc keybind $mod-comma spawn ~/scripts/dmenu_ssh
-hc keybind $mod-period spawn ~/scripts/dmenu_run_enhanced
-hc keybind $mod-slash spawn ~/scripts/dmenu_ranger
-hc keybind $mod-semicolon spawn ~/scripts/dmenu_ranger
+herbstclient keybind $mod-t spawn urxvt
+herbstclient keybind $mod4-t spawn xterm
+herbstclient keybind $mod-comma spawn rofi -show run -display-run 'Run: '
 
 # Mod+Fx
-hc keybind $mod-F1 spawn ~/scripts/dmenu_man
-hc keybind $mod-F2 spawn ~/scripts/dmenu_run_enhanced
-hc keybind $mod-F3 spawn ~/scripts/dmenu_ssh
-#hc keybind $mod-F4 spawn ~/scripts/
-#hc keybind $mod-F5 spawn ~/scripts/
-#hc keybind $mod-F6 spawn ~/scripts/
-#hc keybind $mod-F7 spawn ~/scripts/
-#hc keybind $mod-F8 
-#hc keybind $mod-F9
-hc keybind $mod-F10 spawn amixer set Speaker toggle
-#hc keybind $mod-F11
-#hc keybind $mod-F12
-#hc keybind $mod-Enter spawn 
-#hc keybind $mod-Up spawn ~/scripts/dmenu_mpc_selectPlaylist
-#hc keybind $mod-Down spawn ~/scripts/dmenu_mpc_selectPlaylist
-#hc keybind $mod-Left spawn ~/scripts/dmenu_mpc_selectPlaylist
-#hc keybind $mod-Right spawn ~/scripts/dmenu_mpc_selectPlaylist
+#herbstclient keybind $mod-F1 spawn ~/scripts/dmenu_man
+#herbstclient keybind $mod-F2 spawn ~/scripts/dmenu_run_enhanced
+#herbstclient keybind $mod-F3 spawn ~/scripts/dmenu_ssh
+#herbstclient keybind $mod-F4 spawn ~/scripts/
+#herbstclient keybind $mod-F5 spawn ~/scripts/
+#herbstclient keybind $mod-F6 spawn ~/scripts/
+#herbstclient keybind $mod-F7 spawn ~/scripts/
+#herbstclient keybind $mod-F8
+#herbstclient keybind $mod-F9
+#herbstclient keybind $mod-F10 spawn amixer set Speaker toggle
+#herbstclient keybind $mod-F11
+#herbstclient keybind $mod-F12
+#herbstclient keybind $mod-Enter spawn
+#herbstclient keybind $mod-Up spawn ~/scripts/dmenu_mpc_selectPlaylist
+#herbstclient keybind $mod-Down spawn ~/scripts/dmenu_mpc_selectPlaylist
+#herbstclient keybind $mod-Left spawn ~/scripts/dmenu_mpc_selectPlaylist
+#herbstclient keybind $mod-Right spawn ~/scripts/dmenu_mpc_selectPlaylist
 
 # Special Keys
-hc keybind XF86KbdBrightnessUp spawn asus-kbd-backlight up
-hc keybind XF86KbdBrightnessDown spawn asus-kbd-backlight down
-hc keybind XF86TouchpadToggle spawn ~/scripts/touchpadtoggle
-hc keybind XF86WebCam spawn byzanz-record --delay=3 -d 15 /home/jamie/recording.gif
-hc keybind XF86AudioRaiseVolume spawn ~/scripts/dvol -i 5
-hc keybind XF86AudioLowerVolume spawn ~/scripts/dvol -d 5
-hc keybind XF86AudioMute spawn ~/scripts/dvol -t
-hc keybind XF86AudioPlay spawn ~/scripts/spotifyctrl.py -t
-hc keybind XF86AudioNext spawn ~/scripts/spotifyctrl.py -n
-hc keybind XF86AudioPrev spawn ~/scripts/spotifyctrl.py -p
-hc keybind XF86AudioStop spawn ~/scripts/spotifyctrl.py -t
-hc keybind XF86Calculator spawn ~/scripts/dmenu_calc
-hc keybind XF86Launch1 spawn mplayer tv://
-hc keybind XF86Launch6 spawn ~/scripts/block
+herbstclient keybind $mod-F11 spawn /sbin/wsconsctl display.brightness-=5
+herbstclient keybind $mod-F12 spawn /sbin/wsconsctl display.brightness+=5
+#herbstclient keybind XF86KbdBrightnessUp spawn
+#herbstclient keybind XF86KbdBrightnessDown spawn
+#herbstclient keybind XF86TouchpadToggle spawn
+#herbstclient keybind XF86WebCam spawn
+#herbstclient keybind XF86AudioRaiseVolume spawn ~/scripts/dvol -i 5
+#herbstclient keybind XF86AudioLowerVolume spawn ~/scripts/dvol -d 5
+#herbstclient keybind XF86AudioMute spawn ~/scripts/dvol -t
+#herbstclient keybind XF86AudioPlay spawn
+#herbstclient keybind XF86AudioNext spawn
+#herbstclient keybind XF86AudioPrev spawn
+#herbstclient keybind XF86AudioStop spawn
+#herbstclient keybind XF86Calculator spawn
+#herbstclient keybind XF86Launch1 spawn
+#herbstclient keybind XF86Launch6 spawn
+
+log "Program launchers set"
 
 #-------------------------------------------------------#
 # Mousebinds
 
-hc mouseunbind --all
-hc mousebind $mod-Button1 move
-hc mousebind $mod-Shift-Button1 resize
-hc mousebind $mod4-Button1 zoom
+herbstclient mouseunbind --all
+herbstclient mousebind $mod-Button1 move
+herbstclient mousebind $mod-Shift-Button1 resize
+herbstclient mousebind $mod4-Button1 zoom
+
+log "Mousebinds set"
 
 #-------------------------------------------------------#
 # Theming
 
-# background
-#xsetroot -solid $COLOR16
-
-# base theme
-hc attr theme.reset 1
-hc attr theme.background_color
-hc attr theme.border_width							10
-hc attr theme.color											$COLOR16
-hc attr theme.inner_color								$COLOR16
-hc attr theme.inner_width								6
-hc attr theme.outer_color
-hc attr theme.outer_width
-hc attr theme.padding_bottom						0
-hc attr theme.padding_top								0
-hc attr theme.padding_left							0
-hc attr theme.padding_right							0
-
-# selected window
-hc attr theme.active.reset 1
-hc attr theme.active.background_color
-hc attr theme.active.border_width				10
-hc attr theme.active.color							$COLOR3
-hc attr theme.active.inner_color				$COLOR16
-hc attr theme.active.inner_width				5
-hc attr theme.active.outer_color
-hc attr theme.active.outer_width
-hc attr theme.active.padding_bottom			0
-hc attr theme.active.padding_top 				0
-hc attr theme.active.padding_left				0
-hc attr theme.active.padding_right			0
-
-# nonselected, nonurgent windows
-hc attr theme.normal.reset 1
-hc attr theme.normal.background_color
-hc attr theme.normal.border_width				10
-hc attr theme.normal.color							$COLOR0
-hc attr theme.normal.inner_color				$COLOR16
-hc attr theme.normal.inner_width				5
-hc attr theme.normal.outer_color
-hc attr theme.normal.outer_width
-hc attr theme.normal.padding_bottom			0
-hc attr theme.normal.padding_top				0
-hc attr theme.normal.padding_left				0
-hc attr theme.normal.padding_right			0
-
-# urgent windows
-hc attr theme.urgent.reset 1
-hc attr theme.urgent.background_color
-hc attr theme.urgent.border_width				20
-hc attr theme.urgent.color							$COLOR7
-hc attr theme.urgent.inner_color				$COLOR16
-hc attr theme.urgent.inner_width				6
-hc attr theme.urgent.outer_color
-hc attr theme.urgent.outer_width
-hc attr theme.urgent.padding_bottom			0
-hc attr theme.urgent.padding_top				0
-hc attr theme.urgent.padding_left				0
-hc attr theme.urgent.padding_right			0
-
-# not sure
-#hc attr theme.minimal.reset 1
-#hc attr theme.minimal.background_color
-#hc attr theme.minimal.border_width
-#hc attr theme.minimal.color
-#hc attr theme.minimal.inner_color
-#hc attr theme.minimal.inner_width
-#hc attr theme.minimal.outer_color
-#hc attr theme.minimal.outer_width
-#hc attr theme.minimal.padding_bottom
-#hc attr theme.minimal.padding_top
-#hc attr theme.minimal.padding_left
-#hc attr theme.minimal.padding_right
-
-# floating windows
-#hc attr theme.floating.reset 1
-#hc attr theme.floating.background_color
-#hc attr theme.floating.border_width
-#hc attr theme.floating.color
-#hc attr theme.floating.inner_color
-#hc attr theme.floating.inner_width
-#hc attr theme.floating.outer_color
-#hc attr theme.floating.outer_width
-#hc attr theme.floating.padding_bottom
-#hc attr theme.floating.padding_top
-#hc attr theme.floating.padding_left
-#hc attr theme.floating.padding_right
-
-# tiling windows
-#hc attr theme.tiling.reset 1
-#hc attr theme.tiling.background_color
-#hc attr theme.tiling.border_width
-#hc attr theme.tiling.color
-#hc attr theme.tiling.inner_color
-#hc attr theme.tiling.inner_width
-#hc attr theme.tiling.outer_color
-#hc attr theme.tiling.outer_width
-#hc attr theme.tiling.padding_bottom
-#hc attr theme.tiling.padding_top
-#hc attr theme.tiling.padding_left
-#hc attr theme.tiling.padding_right
-
-# frames
-hc attr settings.frame_border_normal_color $COLOR16
-hc attr settings.frame_border_active_color $COLOR16
-hc attr settings.frame_border_width 0
-hc attr settings.frame_bg_normal_color $COLOR16
-hc attr settings.frame_bg_active_color $COLOR16
-hc attr settings.frame_bg_transparent 1
+if [[ "$(herbstclient attr theme.active.color)" == "$COLOR9"	]]; then
+  log 'Skipping theme re-init, use `bash ~/.config/herbstluftwm/theme.sh` to reload manually'
+else
+  herbstclient attr theme.reset 1
+  bash "$HOME/.config/herbstluftwm/theme.sh"
+  log "Theme reset"
+fi
 
 #-------------------------------------------------------#
 # settings
 
-hc attr settings.frame_padding 30
-hc attr settings.snap_gap 10
-hc attr settings.snap_distance 30
-hc attr settings.always_show_frame 0
-hc attr settings.frame_gap 0
-hc attr settings.window_gap 0
-hc attr settings.update_dragged_clients 1
-hc attr settings.smart_window_surroundings 0
-hc attr settings.smart_frame_surroundings 1
-hc attr settings.mouse_recenter_gap 0
-hc attr settings.focus_follows_mouse 0
-hc attr settings.raise_on_click 0
-#hc attr settings.frame_active_opacity 100
-hc attr settings.tree_style '╾│ ├└╼─┐'
+herbstclient attr settings.frame_padding 0
+herbstclient attr settings.snap_gap 10
+herbstclient attr settings.snap_distance 30
+herbstclient attr settings.always_show_frame 0
+herbstclient attr settings.frame_gap 15
+herbstclient attr settings.window_gap 0
+herbstclient attr settings.update_dragged_clients 1
+herbstclient attr settings.smart_window_surroundings 0
+herbstclient attr settings.smart_frame_surroundings 1
+herbstclient attr settings.mouse_recenter_gap 0
+herbstclient attr settings.focus_follows_mouse 0
+herbstclient attr settings.raise_on_click 0
+#herbstclient attr settings.frame_active_opacity 100
+herbstclient attr settings.tree_style '╾│ ├└╼─┐'
+
+log "Settings for frames/windows set"
 
 #-------------------------------------------------------#
 # rules
 
-hc unrule -F
-hc rule focus=off # normally do not focus new clients
+herbstclient unrule -F
+herbstclient rule focus=off # normally do not focus new clients
 
-hc rule class=Steam tag=g
-hc rule class=Lxappearance pseudotile=on
+herbstclient rule class=Steam tag=g
+herbstclient rule class=Lxappearance pseudotile=on
 
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
-hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off
+herbstclient rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
+herbstclient rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+herbstclient rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off
+
+log "Rules set"
 
 #-------------------------------------------------------#
 # multi-monitor
 
 # do multi monitor setup here, e.g.:
-# hc set_monitors 1280x1024+0+0 1280x1024+1280+0
+# herbstclient set_monitors 1280x1024+0+0 1280x1024+1280+0
 # or simply:
-# hc detect_monitors
+# herbstclient detect_monitors
 
 #-------------------------------------------------------#
 # panel
@@ -312,15 +211,14 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off
 #    # start it on each monitor
 #    $panel $monitor &
 #done
-#hc spawn xmobar &
-hc pad ${1:-0} 0
+#herbstclient spawn xmobar &
+#herbstclient pad ${1:-0} 0
 
 #-------------------------------------------------------#
 # program launch
 
-#hc spawn compton &
-#hc spawn dropboxd &
-hc spawn sh ~/.fehbg &
-hc spawn unclutter -idle 1 -root
+herbstclient spawn sh ~/.fehbg &
 
-hc unlock
+herbstclient unlock
+
+log "Done!"
