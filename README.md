@@ -49,6 +49,13 @@ xcffib
 systemd-python
 ```
 
+If you're using the `temperatured` script to set OpenRGB color, you'll also need:
+
+```
+py3nvml
+openrgb-python
+```
+
 Scripts
 -------
 
