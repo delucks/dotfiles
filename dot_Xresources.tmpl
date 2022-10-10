@@ -3,7 +3,11 @@
 !! Pixel scaling settings for 4K resolution support.
 ! DPI is either 192 (2x) or 96 (1x) for pixel scaling
 ! Settings after DPI change how text is rendered in different DPI settings
+{{- if .laptop }}
+Xft.dpi: 96
+{{- else }}
 Xft.dpi: 192
+{{- end }}
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintfull
