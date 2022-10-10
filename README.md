@@ -29,9 +29,10 @@ Next, create a file `~/.config/chezmoi/chezmoi.toml` with the following contents
 	wifi_interface = "wlp3s0"
 	wired_interface = "enp4s0"
 	cpu_thermal_path = "/sys/devices/virtual/thermal/thermal_zone1/temp"
+	uses_wal = false
 ```
 
-These variables will be interpolated into the templates in this repo to customize the current machine. After this file is created, run `chezmoi -v apply` to set up the configurations.
+These variables will be interpolated into the templates in this repo to customize the current machine. After this file is created, run `chezmoi -v apply` to set up the configurations. If you're planning on using [`pywal`](https://github.com/dylanaraps/pywal) to manage colorschemes, set "uses_wal", install pywal, and generate a scheme based on your chosen background first.
 
 
 X11

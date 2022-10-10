@@ -7,6 +7,9 @@ cursor_shape      block
 shell_integration no-cursor
 background_opacity 0.90
 
+{{ if .uses_wal }}
+include ~/.cache/wal/colors-kitty.conf
+{{ else }}
 # getfresh on dotshare
 foreground #DDCCBB
 background #151515
@@ -26,7 +29,7 @@ color6     #EA7D24
 color14    #F79321
 color7     #E7E8E9
 color15    #F3F3F4
-
+{{- end }}
 
 scrollback_lines  10000
 

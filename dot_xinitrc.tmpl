@@ -47,4 +47,8 @@ xsetroot -bg "#8b3e2f" -mod 3 3
 xset s off
 xset s noblank
 
+{{ if .uses_wal }}
+wal -R
+{{- end }}
+
 exec i3

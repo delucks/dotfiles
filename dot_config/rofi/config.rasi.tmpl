@@ -11,4 +11,8 @@ configuration {
 	combi-modi: "drun,run";
 	matching: "fuzzy";
 }
+{{- if .uses_wal }}
+@import "~/.cache/wal/colors-rofi-dark"
+{{- else }}
 @theme "~/.config/rofi/sidecar.rasi"
+{{- end }}
