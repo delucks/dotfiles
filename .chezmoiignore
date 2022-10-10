@@ -30,5 +30,6 @@ bin/nm_toggle
 bin/openrgb-temperatured
 bin/rofi-*
 bin/swap_monitor.sh
+bin/touchpadtoggle
 bin/volume
 {{- end }}
