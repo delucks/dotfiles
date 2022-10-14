@@ -169,6 +169,9 @@ if cmd_exists ncdu; then
   alias ncdu='ncdu --color dark'
 fi
 alias j='jrnl --edit -1'
+copyjrnl() {
+  jrnl --ex md -1 | jrnl
+}
 
 ssh-addall() {
   ssh-add $(sed -n 's/^ *IdentityFile ~\/\([^ ]*\).*/\1/p' ~/.ssh/config | sort -u | while read line; do echo "${HOME}/$line"; done)
