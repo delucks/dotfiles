@@ -151,8 +151,15 @@ bindsym XF86AudioRaiseVolume exec ~/bin/volume up
 bindsym XF86AudioMute exec ~/bin/dvol -t
 bindsym XF86AudioNext exec ~/bin/spotifyctrl.sh next
 bindsym XF86AudioPrev exec ~/bin/spotifyctrl.sh prev
+bindsym XF86MonBrightnessUp exec ~/bin/backlight up
+bindsym XF86MonBrightnessDown exec ~/bin/backlight down
+
+# Equivalent on a laptop
 bindsym F6 exec ~/bin/backlight up
 bindsym F5 exec ~/bin/backlight down
+bindsym F10 exec ~/bin/dvol -t
+bindsym F11 exec ~/bin/volume down
+bindsym F12 exec ~/bin/volume up
 
 # Program and Menu Launchers
 bindsym $mod+t exec $primaryterminal
