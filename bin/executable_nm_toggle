@@ -10,10 +10,10 @@ id=$(awk -F':' '{print $1}' <<< "$line")
 
 case "$state" in
   yes)
-    sudo nmcli c down "$id"
+    doas nmcli c down "$id"
     ;;
   no)
-    sudo nmcli c up "$id"
+    doas nmcli c up "$id"
     ;;
   *)
     echo "Unexpected state $state: $line"

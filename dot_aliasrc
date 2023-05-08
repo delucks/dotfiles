@@ -409,7 +409,7 @@ usbgrep() {
   sudo lsusb -v -s $(lsusb | fzf | awk '{print $2":"substr($4,0,3)}')
 }
 
-export GOROOT="/usr/lib/go"
+export GOROOT="/usr/local/go"
 pathappend "$GOROOT/bin"
 sourcep "$HOME/.localaliasrc"
 pathappend "$HOME/.local/bin"
