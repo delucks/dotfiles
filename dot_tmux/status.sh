@@ -28,12 +28,19 @@ case "$(uname)" in
     }
   ;;
   FreeBSD*)
-    # freebsd
     loadcmd() {
       uptime | rev | cut -d' ' -f '1-3' | rev
     }
     cpucmd() {
       sysctl -n hw.ncpu
+    }
+  ;;
+  SunOS*)
+    loadcmd() {
+      uptime | awk -F: '{print $3}'
+    }
+    cpucmd() {
+      psrinfo -p
     }
   ;;
 esac
