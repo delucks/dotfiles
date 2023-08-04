@@ -174,7 +174,7 @@ copyjrnl() {
 }
 
 ssh-addall() {
-  ssh-add $(sed -n 's/^ *IdentityFile ~\/\([^ ]*\).*/\1/p' ~/.ssh/config | sort -u | while read line; do echo "${HOME}/$line"; done)
+  ssh-add $(grep IdentityFile ~/.ssh/config | sed 's/.*\///g' | awk -v dir="$HOME/.ssh/" '{print dir$NF}' | sort -u | while read line; do test -f "$line" && echo "$line"; done)
 }
 
 # tx and ta are my two tmux manipulation functions
