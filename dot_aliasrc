@@ -134,7 +134,7 @@ case "$_OS_TYPE" in
     alias la='ls -aChkopl --group-directories-first'
     ;;
 esac
-alias l='exa -l --git -h'
+alias l='exa -l -h'
 
 # This adds an argument to BSD paste to accept stdin by default
 # The only use case I have for paste is joining standard input
