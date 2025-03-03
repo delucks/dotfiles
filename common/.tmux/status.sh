@@ -37,7 +37,7 @@ case "$(uname)" in
   ;;
   SunOS*)
     loadcmd() {
-      uptime | awk -F: '{print $3}'
+      uptime | awk -F'average: ' '{print $2}'
     }
     cpucmd() {
       psrinfo -p
