@@ -1,29 +1,19 @@
 ###
-### ~/.bashrc
+### Solaris ~/.bashrc
 ###
 
 # Make sure we're in an interactive shell
 [[ $- != *i* ]] && return
 
-### aliases
-
-source $HOME/.aliasrc
-
-### history
-
-export HISTCONTROL=ignoredups
-shopt -s histappend
-export HISTFILESIZE=
-export HISTSIZE=
-export HISTFILE=$HOME/.shell_history
+HOME="${HOME:-/export/home/delucks}"
+export PATH="/usr/bin:/usr/sbin:/usr/openwin/bin:/usr/ucb:/usr/sfw/bin:/usr/local/bin"
+export EDITOR=vi
+hash vim 2>/dev/null && export EDITOR=vim
+export PAGER='less'
 
 ### exports / functions
 
 set -o emacs
-bind '"\C-k": "\C-atime \C-m"'
-# ideas for more of these: |less
-bind '"\C-j;": "\C-m"'
-shopt -s autocd
 stty -ixon  # diable XON/XOFF
 
 ### prompt
@@ -48,6 +38,69 @@ case "$OSTYPE" in
     ;;
 esac
 
+# add a directory to PATH, but only if it exists and if it's not already in PATH
+pathappend() {
+  for pathname in "$@"; do
+    if ! test -d "$pathname"; then
+      continue
+    fi
+    case "$PATH" in
+      *:$pathname:*)
+        # path exists in the middle
+        continue
+        ;;
+      *:$pathname)
+        # path exists on the end
+        continue
+        ;;
+      $pathname:*)
+        # path exists in the beginning
+        continue
+        ;;
+      "$pathname")
+        # this is the only entry in PATH
+        continue
+        ;;
+      *)
+        # path does not yet exist in PATH
+        PATH="${PATH:+"$PATH:"}$pathname"
+        ;;
+    esac
+  done
+}
+
+pathprepend() {
+  for pathname in "$@"; do
+    if ! test -d "$pathname"; then
+      continue
+    fi
+    case "$PATH" in
+      *:$pathname:*)
+        # path exists in the middle
+        continue
+        ;;
+      *:$pathname)
+        # path exists on the end
+        continue
+        ;;
+      $pathname:*)
+        # path exists in the beginning
+        continue
+        ;;
+      "$pathname")
+        # this is the only entry in PATH
+        continue
+        ;;
+      *)
+        # path does not yet exist in PATH
+        PATH="${pathname}${PATH:+":$PATH"}"
+        ;;
+    esac
+  done
+}
+
+
+
 _prompt_git() {
   local branch=$(git branch --no-color 2>/dev/null | awk '/\*/{print $NF}' | tr -d '()')
   local status="$(git status --porcelain --untracked-files=no 2>/dev/null)"
@@ -65,28 +118,19 @@ _prompt_svn() {
 
 __prompt_command() {
   local lastExit="$?"
-  cmd_exists git && local git="$(_prompt_git)" || local git=""
-  cmd_exists svn && local svn="$(_prompt_svn)" || local svn=""
+  hash git 2>/dev/null && local git="$(_prompt_git)" || local git=""
+  hash svn 2>/dev/null && local svn="$(_prompt_svn)" || local svn=""
   # hostname HH:MM:SS ~
-  PS1="\[${magentaf}\]\h\[${reset}\] \[${cyanf}\]\D{%T}\[${reset}\] \w${git}${svn} "
+  result="\[${magentaf}\]\h\[${reset}\] \[${cyanf}\]\t\[${reset}\] \w${git}${svn} "
   if [ "$lastExit" -eq 0 ]; then
-    PS1+='$ '
+    result=$result'$ '
   else
-    PS1+="${redf}${lastExit}${reset} "
+    result="${result}${redf}${lastExit}${reset} "
   fi
+  PS1="$result"
 }
 
 PROMPT_COMMAND=__prompt_command
-
-### spelling correction provided by delucks/multitool
-
-if hash multitool 2>/dev/null; then
-  command_not_found_handle() {
-    corr=$(suggest-fc "$1")
-    test -z "$corr" || echo "Did you mean ${redf}${corr}${reset}?" >&2
-    return 127
-  }
-fi
 
 ### completion
 
@@ -95,3 +139,37 @@ _ssh_complete() {
     return 0
 }
 complete -F _ssh_complete ssh
+
+### aliases
+
+# cd
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+
+alias gita='git add'
+alias gitd='git diff'
+alias gits='git status'
+alias gitl='git log --all --graph --pretty=format:"%Cred%h%Creset %C(bold blue)%an%Creset :%C(yellow)%d%Creset %s %Cgreen(%cr) %Creset"'
+
+alias search="w3m 'https://lite.duckduckgo.com'"
+alias mountusb="mount -F pcfs /dev/dsk/c7t0d0s0 /mnt"
+
+### path / software
+
+pathprepend "/opt/csw/bin"
+pathappend "/usr/openwin/bin"
+pathappend "/usr/ucb"
+pathappend "/usr/sfw/bin"
+pathappend "/usr/local/bin"
+
+export PHOTOSHOP_ROOT="${HOME}/AdobePhotoshop3"
+pathappend "/usr/adobe/Photoshop_3.0.1/bin"
+
+swd8() {
+  umount /mnt; lofiadm -d /dev/lofi/8; lofiadm -a "$1" /dev/lofi/8 && mount -F hsfs -o ro /dev/lofi/8 /mnt
+}
+
+alias x='export TERM=xterm'
