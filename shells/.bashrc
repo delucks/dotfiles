@@ -6,7 +6,7 @@
 [[ $- != *i* ]] && return
 
 HOME="${HOME:-/export/home/delucks}"
-export PATH="/usr/bin:/usr/sbin:/usr/openwin/bin:/usr/ucb:/usr/sfw/bin:/usr/local/bin"
+export PATH="/usr/bin:/usr/sbin:/usr/openwin/bin:/usr/ucb:/usr/sfw/bin"
 export EDITOR=vi
 hash vim 2>/dev/null && export EDITOR=vim
 export PAGER='less'
@@ -99,8 +99,6 @@ pathprepend() {
   done
 }
 
-
-
 _prompt_git() {
   local branch=$(git branch --no-color 2>/dev/null | awk '/\*/{print $NF}' | tr -d '()')
   local status="$(git status --porcelain --untracked-files=no 2>/dev/null)"
@@ -157,12 +155,34 @@ alias gitl='git log --all --graph --pretty=format:"%Cred%h%Creset %C(bold blue)%
 alias search="w3m 'https://lite.duckduckgo.com'"
 alias mountusb="mount -F pcfs /dev/dsk/c7t0d0s0 /mnt"
 
+# tx and ta are my two tmux manipulation functions
+#
+# tx() creates a tmux session at a path, the current directory by default
+# ta() attaches a tmux session (using fzf if available)
+
+tx() {
+  # Opens a tmux session named after the basename of a path
+  DIR="${1:-.}"
+  RESOLVED="$(cd "$DIR" 2>/dev/null && pwd -P)"  # Cross-platform, readlink is Linux specific
+  SESSION_NAME="$(basename "$RESOLVED" | tr '.' '_')"
+  # Older versions of tmux do not support the "-c dir_for_session" flag
+  cd "$RESOLVED" && tmux new-session -A -s "${SESSION_NAME}"
+}
+
+ta() {
+  if hash fzf 2>/dev/null; then
+    # shellcheck disable=SC2033
+    SESSION=$(tmux ls -F '#{session_name}' | fzf)
+    test -z "$SESSION" && return 1
+    tmux attach-session -t "$SESSION"
+    return $?
+  fi
+  tmux a
+}
+
 ### path / software
 
 pathprepend "/opt/csw/bin"
-pathappend "/usr/openwin/bin"
-pathappend "/usr/ucb"
-pathappend "/usr/sfw/bin"
 pathappend "/usr/local/bin"
 
 export PHOTOSHOP_ROOT="${HOME}/AdobePhotoshop3"
