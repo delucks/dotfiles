@@ -1,23 +1,7 @@
 # dark
 # vim:ft=i3
-set_from_resource  $black         i3wm.color0   #393939
-set_from_resource  $red           i3wm.color1   #393939
-set_from_resource  $green         i3wm.color2   #9DBA3A
-set_from_resource  $yellow        i3wm.color3   #F5B915
-set_from_resource  $blue          i3wm.color4   #1CA1DB
-set_from_resource  $magenta       i3wm.color5   #652F90
-set_from_resource  $cyan          i3wm.color6   #EA7D24
-set_from_resource  $white         i3wm.color7   #E7E8E9
-set_from_resource  $lightblack    i3wm.color8   #AF875F
-set_from_resource  $lightred      i3wm.color9   #E7212A
-set_from_resource  $lightgreen    i3wm.color10  #A9C938
-set_from_resource  $lightyellow   i3wm.color11  #F7D325
-set_from_resource  $lightblue     i3wm.color12  #00AFDA
-set_from_resource  $lightmagenta  i3wm.color13  #894E9F
-set_from_resource  $lightcyan     i3wm.color14  #F79321
-set_from_resource  $lightwhite    i3wm.color15  #F3F3F4
-set_from_resource  $background    i3wm.color16  #151515
-set_from_resource  $foreground    i3wm.color17  #DDCCBB
+set $black #393939
+set $white #e7e8e9
 
 # vim:ft=i3
 # Daemon features:
@@ -32,8 +16,7 @@ set $alt Mod1
 set $modr Mode_switch
 floating_modifier $mod
 
-new_window pixel 5
-new_float pixel 5
+default_border pixel 5
 hide_edge_borders smart
 
 ### i3-gaps
@@ -64,9 +47,6 @@ assign [class="Steam"] 5:games
 assign [class="emacs"] 8:e
 assign [class="discord"] 10:console
 assign [class="spotify"] 11:music
-
-# Don't flash on urgency
-focus_on_window_activation=none
 
 # Certain applications should launch at a resolution that takes up most of my screen but not all of my screen
 set $near_screen_width 1800
@@ -217,26 +197,26 @@ bar {
   strip_workspace_numbers yes
 
   status_command i3status --config ~/.i3status.conf
-  i3bar_command i3bar --transparency
+  #i3bar_command i3bar --transparency
 
   colors {
     # These are set to single values
     # The last two digits of this value specify the transparency
     background #151515BB
-    #background $background
-    statusline $foreground
-    separator $lightred
+    #background $black
+    statusline $white
+    separator $white
 
-    # Class             border       background   text
-    focused_workspace   $lightgreen  $background  $lightgreen
-    active_workspace    $background  $green       $background
-    inactive_workspace  $white       $background  $white
-    urgent_workspace    $red         $background  $red
+    # Class             border        background    text
+    focused_workspace   $white        $black        $white
+    active_workspace    $black        $white        $black
+    inactive_workspace  $white        $black        $white
+    urgent_workspace    $black        $white        $black
   }
 }
 
-# Class                     border          background   text           indicator
-client.focused              $background     $lightgreen  $black         $black
-client.focused_inactive     $background     $black       $yellow        $black
-client.unfocused            $background     $black       $yellow        $blue
-client.urgent               $background     $red         $background    $yellow
+# Class                     border    background   text      indicator
+client.focused              $black    $white       $black    $black
+client.focused_inactive     $black    $black       $white    $white
+client.unfocused            $black    $black       $white    $white
+client.urgent               $black    $white       $black    $black
