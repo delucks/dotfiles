@@ -3,6 +3,7 @@
 
 set -e
 
+TEMP_FILE="$HOME/.cache/prev.volume"
 CARD_ID="$(pactl list short sinks | awk '/RUNNING/{print $1}')"
 if test -z "$CARD_ID"; then
   CARD_ID="$(pactl list short sinks | sort | tail -1 | cut -f1)"
@@ -13,12 +14,27 @@ current() {
   pactl list sinks | grep -A 10 "Sink #${CARD_ID}"  | awk '/Volume/{print $5}'
 }
 
+mute() {
+  current > "$TEMP_FILE"
+  pactl -- set-sink-volume "$CARD_ID" "0%"
+}
+
+unmute() {
+  test -f "$TEMP_FILE" && pactl -- set-sink-volume "$CARD_ID" "$(cat $TEMP_FILE)" || pactl -- set-sink-volume "$CARD_ID" "20%"
+}
+
 case "$1" in
   up)
     pactl -- set-sink-volume "$CARD_ID" "+${STEP}%"
     ;;
   down)
     pactl -- set-sink-volume "$CARD_ID" "-${STEP}%"
+    ;;
+  mute)
+    mute
+    ;;
+  unmute)
+    unmute
     ;;
   [0-9]?%)
     pactl -- set-sink-volume "$CARD_ID" "$1"
