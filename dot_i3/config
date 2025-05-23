@@ -1,13 +1,67 @@
-# dark
 # vim:ft=i3
-set $black #393939
-set $white #e7e8e9
+#
+# flat white
+#
+# a black and white sway config designed for e-ink displays
+# serve with espresso
 
-# vim:ft=i3
-# Daemon features:
-# - autorestart i3 based on checksum of this file
+########
+# Styles
 
-font pango:Fira Code 14
+# Transparency can be specified with two digits after the hex color
+# but we aren't using that here, now are we :)
+set $black  #000000
+set $white  #ffffff
+set $grey   #bebebe
+set $fg     $black
+set $bg     $white
+
+output * background $white solid_color
+
+font pango:Fira Code 22
+
+bar {
+  font pango:Fira Code 22
+  tray_output primary
+  separator_symbol "<=="
+
+  mode dock
+  position top
+  strip_workspace_numbers yes
+
+  status_command i3status --config ~/.i3status.conf
+
+  colors {
+    background $bg
+    statusline $fg
+    separator $fg
+
+    # Class             border  bg    text
+    focused_workspace   $fg     $fg   $bg
+    active_workspace    $fg     $fg   $bg
+    inactive_workspace  $fg     $bg   $fg
+    urgent_workspace    $fg     $bg   $fg
+  }
+}
+
+# Window Colors: black border around active window, indicators are grey
+# Class                 border  bg   text  indicator
+client.focused          $fg     $fg  $bg   $grey
+client.focused_inactive $bg     $bg  $fg   $bg
+client.unfocused        $bg     $bg  $fg   $bg
+client.urgent           $fg     $fg  $bg   $bg
+
+default_border pixel 5
+hide_edge_borders smart
+
+gaps inner 14
+gaps outer -2
+smart_gaps on
+
+for_window [class="^.*"] border pixel 3
+
+#########
+# Keymaps
 
 set $primaryterminal kitty
 set $secondaryterminal xterm
@@ -15,47 +69,6 @@ set $mod Mod4
 set $alt Mod1
 set $modr Mode_switch
 floating_modifier $mod
-
-default_border pixel 5
-hide_edge_borders smart
-
-### i3-gaps
-gaps inner 14
-gaps outer -2
-smart_gaps on
-
-for_window [class="^.*"] border pixel 3
-
-# -----
-# Client-specific rules
-
-for_window [class="net-minecraft-LauncherFrame"] floating enable
-for_window [class="MPlayer"] floating enable
-for_window [class="Lxappearance"] floating enable
-for_window [class="Steam"] floating enable
-for_window [class="Spek"] floating enable
-for_window [title="X3: Albion Prelude"] floating enable
-for_window [title="X3 - Albion Prelude"] border none
-for_window [class="Event Tester"] floating enable
-for_window [class="feh"] floating enable
-for_window [class="slack"] floating enable
-for_window [class="openrgb"] floating enable
-for_window [class="xfburn"] floating enable
-assign [class="firefox"] 2:surf
-assign [class="Chromium"] 2:surf
-assign [class="Steam"] 5:games
-assign [class="emacs"] 8:e
-assign [class="discord"] 10:console
-assign [class="spotify"] 11:music
-
-# Certain applications should launch at a resolution that takes up most of my screen but not all of my screen
-set $near_screen_width 1800
-set $near_screen_height 1000
-for_window [class="spotify"] resize set width $near_screen_width height $near_screen_height
-for_window [class="firefox"] resize set width $near_screen_width height $near_screen_height
-
-# -----
-# Keymaps
 
 # Workspaces
 # Workspace management keybindings are prefaced by Meta
@@ -186,37 +199,30 @@ bindsym $alt+Escape restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+Escape exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-bar {
-  font pango:Fira Code 14
-  tray_output primary
-  separator_symbol "<=="
+# -----
+# Client-specific rules
 
-  # mode hide
-  mode dock
-  position top
-  strip_workspace_numbers yes
+for_window [class="net-minecraft-LauncherFrame"] floating enable
+for_window [class="MPlayer"] floating enable
+for_window [class="Lxappearance"] floating enable
+for_window [class="Steam"] floating enable
+for_window [class="Spek"] floating enable
+for_window [title="X3: Albion Prelude"] floating enable
+for_window [title="X3 - Albion Prelude"] border none
+for_window [class="Event Tester"] floating enable
+for_window [class="feh"] floating enable
+for_window [class="slack"] floating enable
+for_window [class="openrgb"] floating enable
+for_window [class="xfburn"] floating enable
+assign [class="firefox"] 2:surf
+assign [class="Chromium"] 2:surf
+assign [class="Steam"] 5:games
+assign [class="emacs"] 8:e
+assign [class="discord"] 10:console
+assign [class="spotify"] 11:music
 
-  status_command i3status --config ~/.i3status.conf
-  #i3bar_command i3bar --transparency
-
-  colors {
-    # These are set to single values
-    # The last two digits of this value specify the transparency
-    background #151515BB
-    #background $black
-    statusline $white
-    separator $white
-
-    # Class             border        background    text
-    focused_workspace   $white        $black        $white
-    active_workspace    $black        $white        $black
-    inactive_workspace  $white        $black        $white
-    urgent_workspace    $black        $white        $black
-  }
-}
-
-# Class                     border    background   text      indicator
-client.focused              $black    $white       $black    $black
-client.focused_inactive     $black    $black       $white    $white
-client.unfocused            $black    $black       $white    $white
-client.urgent               $black    $white       $black    $black
+# Certain applications should launch at a resolution that takes up most of my screen but not all of my screen
+set $near_screen_width 1800
+set $near_screen_height 1000
+for_window [class="spotify"] resize set width $near_screen_width height $near_screen_height
+for_window [class="firefox"] resize set width $near_screen_width height $near_screen_height

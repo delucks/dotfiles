@@ -20,14 +20,13 @@ set shortmess+=I
 " for :set list
 set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,eol:→
 " theming
-syntax on
-set synmaxcol=1000 " don't render lines > 300 chars
+" syntax on
+" set synmaxcol=1000 " don't render lines > 300 chars
 {{ if not .uses_wal -}}
-colorscheme delucks
+" colorscheme delucks
 {{- end }}
-if !has('gui_running')
-  set t_Co=256
-endif
+" fully disable colors
+set t_Co=0
 " enables a completion menu over the statusline
 set wildmenu
 set wildmode=full
@@ -92,6 +91,7 @@ let @p = 'o- [](:r!xclip -okJf(lxA) - '
 
 call plug#begin('~/.vim/plugins')
 Plug 'fatih/vim-go', { 'for': 'go' }                  " enables gofmt on :w
+" Not black and white compatible unless I configure it
 Plug 'vim-airline/vim-airline'                        " draws buffers in tabline and colorizes the statusline
 Plug 'ctrlpvim/ctrlp.vim'                             " fast fuzzy find buffer menu
 Plug 'deris/vim-shot-f'                               " highlights the first match of a character in a line for f/t commands
@@ -99,7 +99,7 @@ Plug 'mhinz/vim-signify'                              " display version control 
 Plug 'junegunn/limelight.vim'                         " syntax highlight only the current paragraph
 Plug 'benmills/vimux'                                 " send commands to tmux
 " Syntax Plugins
-Plug 'PotatoesMaster/i3-vim-syntax'
+"Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'gleam-lang/gleam.vim'
 Plug 'saltstack/salt-vim'
 Plug 'hashivim/vim-terraform'
@@ -143,16 +143,10 @@ let g:buftabline_separators=0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-let g:airline_theme='dark'
+let g:airline_theme='flatwhite'
 let g:airline_symbols_ascii = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
-
-" ale
-let g:airline#extensions#ale#enabled = 1
-"let g:ale_echo_msg_format = '[%linter%] %s'
-let g:ale_lint_delay = 2000
-let g:ale_lint_on_text_changed = 'never'
 
 " vim-go
 let g:go_fmt_command = "goimports"

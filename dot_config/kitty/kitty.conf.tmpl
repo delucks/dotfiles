@@ -2,17 +2,17 @@ font_family       Fantasque Sans Mono Regular
 # Other good fonts include:
 #font_family       PT Mono
 #font_family         Fira Code Bold
-font_size         14.0
+font_size         22.0
 cursor_shape      block
 shell_integration no-cursor
-background_opacity 0.90
+background_opacity 1.00
 
 {{ if .uses_wal }}
 include ~/.cache/wal/colors-kitty.conf
 {{ else }}
+foreground #000000
+background #ffffff
 # getfresh on dotshare
-foreground #DDCCBB
-background #151515
 color0     #393939
 color8     #AF875F
 color1     #BF1E2D
