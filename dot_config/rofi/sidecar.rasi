@@ -3,12 +3,13 @@
  * Modified from the stock "sidebar" theme:
  * - Background color 1c1c1c -> 151515
  * - Cyan updated to orange
+ * - Made background/foreground b&w
  */
 * {
-    text-color:  #ffeedd;
-    background-color:  rgba(0,0,0,0);
-    dark: #151515;
-    bgtrans: #151515ee;
+    text-color:  #000000;
+    background-color:  #ffffff;
+    dark: #000000;
+    bgtrans: #ffffff;
     // Black
     black:       #3d352a;
     lightblack:  #554444;
@@ -38,11 +39,11 @@
     lightcyan:     #F79321;
     //
     // White
-    white:      #bbaa99;
+    white:      #ffffff;
     lightwhite:     #ddccbb;
     //
     // Bold, Italic, Underline
-    highlight:     bold #ffffff;
+    highlight:     bold;
 }
 window {
     height:   100%;
@@ -50,7 +51,7 @@ window {
     location: west;
     anchor:   west;
     border:  0px 2px 0px 0px;
-    text-color: @lightwhite;
+    text-color: @lightblack;
 }
 
 mode-switcher {
@@ -60,7 +61,7 @@ mode-switcher {
 }
 button selected {
     border-color: @lightgreen;
-    text-color: @lightgreen;
+    text-color: @lightblack;
 }
 inputbar {
     background-color: @lightblack;
@@ -79,7 +80,7 @@ listview {
     lines: 0;
 }
 element selected  normal {
-    background-color: @lightcyan;
+    text-color: @lightblack;
 }
 element normal active {
     text-color: @lightblue;
@@ -96,12 +97,10 @@ element alternate urgent {
     text-color: @lightred;
 }
 element selected active {
-    background-color: @lightblue;
-    text-color: @dark;
+    text-color: @lightblack;
 }
 element selected urgent {
-    background-color: @lightred;
-    text-color: @dark;
+    text-color: @lightblack;
 }
 
 error-message {
