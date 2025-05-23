@@ -1,5 +1,6 @@
 README.md
 LICENSE
+root
 {{- if eq .chezmoi.os "darwin" }}
 # Ignore Linux-specific files on MacOS
 .config/systemd
