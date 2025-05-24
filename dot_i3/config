@@ -10,11 +10,13 @@
 
 # Transparency can be specified with two digits after the hex color
 # but we aren't using that here, now are we :)
-set $black  #000000
-set $white  #ffffff
-set $grey   #bebebe
-set $fg     $black
-set $bg     $white
+set {
+  $black  #000000
+  $white  #ffffff
+  $grey   #bebebe
+  $fg     $black
+  $bg     $white
+}
 
 output * background $white solid_color
 
@@ -54,20 +56,24 @@ client.urgent           $fg     $fg  $bg   $bg
 default_border pixel 5
 hide_edge_borders smart
 
-gaps inner 14
-gaps outer -2
 smart_gaps on
+gaps {
+  inner 14
+  outer -2
+}
 
 for_window [class="^.*"] border pixel 3
 
 #########
 # Keymaps
 
-set $primaryterminal kitty
-set $secondaryterminal xterm
-set $mod Mod4
-set $alt Mod1
-set $modr Mode_switch
+set {
+  $primaryterminal kitty
+  $secondaryterminal xterm
+  $mod Mod4
+  $alt Mod1
+  $modr Mode_switch
+}
 floating_modifier $mod
 
 # Workspaces
@@ -139,9 +145,9 @@ bindsym $alt+Shift+r kill
 #bindsym $mod+Shift+r exec i3-input -F 'exec killall %s' -P 'killall: '
 
 # Media & screen controls
-bindsym XF86AudioLowerVolume exec ~/bin/volume down
-bindsym XF86AudioRaiseVolume exec ~/bin/volume up
-bindsym XF86AudioMute exec ~/bin/dvol -t
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym XF86AudioNext exec ~/bin/spotifyctrl.sh next
 bindsym XF86AudioPrev exec ~/bin/spotifyctrl.sh prev
 bindsym XF86MonBrightnessUp exec ~/bin/backlight up
@@ -150,9 +156,9 @@ bindsym XF86MonBrightnessDown exec ~/bin/backlight down
 # Equivalent on a laptop
 bindsym F6 exec ~/bin/backlight up
 bindsym F5 exec ~/bin/backlight down
-bindsym F10 exec ~/bin/dvol -t
-bindsym F11 exec ~/bin/volume down
-bindsym F12 exec ~/bin/volume up
+bindsym F10 exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym F11 exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym F12 exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
 # Program and Menu Launchers
 bindsym $mod+t exec $primaryterminal
