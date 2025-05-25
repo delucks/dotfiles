@@ -65,6 +65,14 @@ gaps {
 
 for_window [class="^.*"] border pixel 3
 
+#######
+# Mouse
+
+input "20547:21570:Ploopy_Corporation_Trackball_Mouse" {
+  accel_profile "flat"
+  pointer_accel -0.60
+}
+
 #########
 # Keymaps
 
