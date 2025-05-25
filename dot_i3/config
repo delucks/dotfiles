@@ -19,11 +19,12 @@ set {
 }
 
 output * background $white solid_color
+output "DSC DASUNG 0x000062E0" scale 2.0
 
-font pango:Fira Code 22
+font pango:Fira Code 14
 
 bar {
-  font pango:Fira Code 22
+  font pango:Fira Code 14
   tray_output primary
   separator_symbol "<=="
 
