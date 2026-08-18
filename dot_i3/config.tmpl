@@ -1,12 +1,10 @@
 # vim:ft=i3
 #
+{{- if eq .colors "eink" }}
 # flat white
 #
 # a black and white sway config designed for e-ink displays
 # serve with espresso
-
-########
-# Styles
 
 # Transparency can be specified with two digits after the hex color
 # but we aren't using that here, now are we :)
@@ -17,9 +15,37 @@ set {
   $fg     $black
   $bg     $white
 }
+{{- else }}
+# dark
+set_from_resource  $black         i3wm.color0   #393939
+set_from_resource  $red           i3wm.color1   #393939
+set_from_resource  $green         i3wm.color2   #9DBA3A
+set_from_resource  $yellow        i3wm.color3   #F5B915
+set_from_resource  $blue          i3wm.color4   #1CA1DB
+set_from_resource  $magenta       i3wm.color5   #652F90
+set_from_resource  $cyan          i3wm.color6   #EA7D24
+set_from_resource  $white         i3wm.color7   #E7E8E9
+set_from_resource  $grey          i3wm.color8   #AF875F
+set_from_resource  $lightred      i3wm.color9   #E7212A
+set_from_resource  $lightgreen    i3wm.color10  #A9C938
+set_from_resource  $lightyellow   i3wm.color11  #F7D325
+set_from_resource  $lightblue     i3wm.color12  #00AFDA
+set_from_resource  $lightmagenta  i3wm.color13  #894E9F
+set_from_resource  $lightcyan     i3wm.color14  #F79321
+set_from_resource  $lightwhite    i3wm.color15  #F3F3F4
+set_from_resource  $bg            i3wm.color16  #151515
+set_from_resource  $fg            i3wm.color17  #DDCCBB
+{{- end }}
 
+########
+# Styles
+
+{{- if eq .colors "eink" }}
 output * background $white solid_color
 output "DSC DASUNG 0x000062E0" scale 2.0
+{{- else }}
+output * background $cyan solid_color
+{{- end }}
 
 font pango:Fira Code 14
 
@@ -35,6 +61,7 @@ bar {
   status_command i3status --config ~/.i3status.conf
 
   colors {
+{{- if eq .colors "eink" }}
     background $bg
     statusline $fg
     separator $fg
@@ -44,15 +71,34 @@ bar {
     active_workspace    $fg     $fg   $bg
     inactive_workspace  $fg     $bg   $fg
     urgent_workspace    $fg     $bg   $fg
+{{- else }}
+    background #151515BB
+    statusline $fg
+    separator $lightred
+
+    # Class             border      bg      text
+    focused_workspace   $lightgreen $bg     $bg
+    active_workspace    $bg         $green  $bg
+    inactive_workspace  $white      $bg     $white
+    urgent_workspace    $red        $bg     $red
+{{- end }}
   }
 }
 
+{{- if eq .colors "eink" }}
 # Window Colors: black border around active window, indicators are grey
 # Class                 border  bg   text  indicator
 client.focused          $fg     $fg  $bg   $grey
 client.focused_inactive $bg     $bg  $fg   $bg
 client.unfocused        $bg     $bg  $fg   $bg
 client.urgent           $fg     $fg  $bg   $bg
+{{- else }}
+# Class                 border  bg          text    indicator
+client.focused          $bg     $lightgreen $black  $black
+client.focused_inactive $bg     $black      $yellow $black
+client.unfocused        $bg     $black      $yellow $blue
+client.urgent           $fg     $red        $bg     $yellow
+{{- end }}
 
 default_border pixel 5
 hide_edge_borders smart
