@@ -18,8 +18,13 @@ Xft.rgba: rgb
 !! Colorscheme
 ! An update should also change .config/kitty/kitty.conf and WM configs
 ! Colorscheme is based on "getfresh" from dotshare.it
+{{- if eq .colors "eink" }}
+*foreground: #000000
+*background: #FFFFFF
+{{- else }}
 *foreground: #DDCCBB
 *background: #151515
+{{- end }}
 *color0: #393939
 *color1: #BF1E2D
 *color2: #9DBA3A
