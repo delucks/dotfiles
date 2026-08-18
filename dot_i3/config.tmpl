@@ -217,8 +217,8 @@ bindsym $alt+Shift+r kill
 bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
 bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bindsym XF86AudioNext exec ~/bin/spotifyctrl.sh next
-bindsym XF86AudioPrev exec ~/bin/spotifyctrl.sh prev
+#bindsym XF86AudioNext exec
+#bindsym XF86AudioPrev exec
 bindsym XF86MonBrightnessUp exec ~/bin/backlight up
 bindsym XF86MonBrightnessDown exec ~/bin/backlight down
 
@@ -297,10 +297,8 @@ assign [class="Chromium"] 2:surf
 assign [class="Steam"] 5:games
 assign [class="emacs"] 8:e
 assign [class="discord"] 10:console
-assign [class="spotify"] 11:music
 
 # Certain applications should launch at a resolution that takes up most of my screen but not all of my screen
 set $near_screen_width 1800
 set $near_screen_height 1000
-for_window [class="spotify"] resize set width $near_screen_width height $near_screen_height
 for_window [class="firefox"] resize set width $near_screen_width height $near_screen_height
