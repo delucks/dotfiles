@@ -6,10 +6,31 @@
  * - Made background/foreground b&w
  */
 * {
+{{- if eq .colors "eink" }}
     text-color:  #000000;
     background-color:  #ffffff;
     dark: #000000;
     bgtrans: #ffffff;
+    //
+    // White
+    white:      #ffffff;
+    lightwhite:     #ddccbb;
+    //
+    // Bold, Italic, Underline
+    highlight:     bold;
+{{- else }}
+    text-color:  #ffeedd;
+    background-color:  #ffffff;
+    dark: #151515;
+    bgtrans: #151515ee;
+    //
+    // White
+    white:      #bbaa99;
+    lightwhite:     #ddccbb;
+    //
+    // Bold, Italic, Underline
+    highlight:     bold #ffffff;
+{{- end }}
     // Black
     black:       #3d352a;
     lightblack:  #554444;
@@ -37,13 +58,6 @@
     // Cyan
     cyan:      #EA7D24;
     lightcyan:     #F79321;
-    //
-    // White
-    white:      #ffffff;
-    lightwhite:     #ddccbb;
-    //
-    // Bold, Italic, Underline
-    highlight:     bold;
 }
 window {
     height:   100%;
@@ -51,7 +65,11 @@ window {
     location: west;
     anchor:   west;
     border:  0px 2px 0px 0px;
+{{- if eq .colors "eink" }}
     text-color: @lightblack;
+{{- else }}
+    text-color: @lightwhite;
+{{- end }}
 }
 
 mode-switcher {
@@ -61,7 +79,11 @@ mode-switcher {
 }
 button selected {
     border-color: @lightgreen;
+{{- if eq .colors "eink" }}
     text-color: @lightblack;
+{{- else }}
+    text-color: @lightgreen;
+{{- end }}
 }
 inputbar {
     background-color: @lightblack;
@@ -80,7 +102,11 @@ listview {
     lines: 0;
 }
 element selected  normal {
+{{- if eq .colors "eink" }}
     text-color: @lightblack;
+{{- else }}
+    text-color: @lightcyan;
+{{- end }}
 }
 element normal active {
     text-color: @lightblue;
@@ -97,10 +123,20 @@ element alternate urgent {
     text-color: @lightred;
 }
 element selected active {
+{{- if eq .colors "eink" }}
     text-color: @lightblack;
+{{- else }}
+    background-color: @lightblue;
+    text-color: @dark;
+{{- end }}
 }
 element selected urgent {
+{{- if eq .colors "eink" }}
     text-color: @lightblack;
+{{- else }}
+    background-color: @lightred;
+    text-color: @dark;
+{{- end }}
 }
 
 error-message {

@@ -5,14 +5,20 @@ font_family       Fantasque Sans Mono Regular
 font_size         14.0
 cursor_shape      block
 shell_integration no-cursor
-background_opacity 1.00
 cursor_stop_blinking_after 5.0
 
-{{ if .uses_wal }}
+{{ if eq .colors "wal" }}
 include ~/.cache/wal/colors-kitty.conf
 {{ else }}
+{{ if eq .colors "eink" }}
+background_opacity 1.00
 foreground #000000
 background #ffffff
+{{ else }}
+background_opacity 0.75
+foreground #DDCCBB
+background #151515
+{{- end }}
 # getfresh on dotshare
 color0     #393939
 color8     #AF875F
