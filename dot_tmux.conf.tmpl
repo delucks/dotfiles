@@ -1,4 +1,5 @@
 ### tmux config
+### This file is managed by a chezmoi template
 
 # Set TMUX_VERSION
 run-shell 'tmux setenv -g TMUX_VERSION $(tmux -V | \
@@ -7,7 +8,11 @@ run-shell 'tmux setenv -g TMUX_VERSION $(tmux -V | \
 # server opts
 set -sg escape-time 0
 set -sg repeat-time 0
+{{- if eq .colors "eink" }}
+set -sg default-terminal "screen"
+{{- else }}
 set -sg default-terminal "screen-256color"
+{{- end }}
 set -sg message-command-style "fg=magenta"
 set -sg assume-paste-time 50  # if keys are entered faster than 50ms apart, don't process keybindings
 set -sg lock-command cmatrix
@@ -107,21 +112,33 @@ bind-key C-Down resizep -D 10
 setw -g window-status-activity-style fg=cyan,bg=default
 setw -g window-status-bell-style fg=red,blink
 
-set -g pane-border-style fg=#000000,bg=default
 set -g pane-active-border-style fg=black
+{{- if eq .colors "eink" }}
+set -g pane-border-style fg=#000000,bg=default
+{{- else }}
+set -g pane-border-style fg=red,bg=default
+{{- end }}
 
 # Statusbar Settings
 set -g window-status-style default
 set -g window-status-current-style default
 set -g window-status-separator ''
-set -g window-status-format '#[fg=#000000,bg=#ffffff] #I #[bg=#ffffff] #W #[default]'
-set -g window-status-current-format '#[bg=white,fg=#000000,bold] #I #[bg=#ffffff,fg=#000000] #W #[default]'
-
-set -g status-style bg=#ffffff
 set -g status-interval 30
 set -g status-position bottom
 set -g status-justify right
 set -g status-left-length 40
 set -g status-right-length 100
+
+{{ if eq .colors "eink" }}
+set -g window-status-format '#[fg=#000000,bg=#ffffff] #I #[bg=#ffffff] #W #[default]'
+set -g window-status-current-format '#[bg=white,fg=#000000,bold] #I #[bg=#ffffff,fg=#000000] #W #[default]'
+set -g status-style bg=#ffffff
 set -g status-left '#[fg=#000000,bold]#S#[none] on #H '
 set -g status-right '#[fg=#000000] #(sh ~/.tmux/status.sh load)#[fg=#000000][#(sh ~/.tmux/status.sh cpu)]'
+{{- else }}
+set -g window-status-format '#[fg=white,bg=black] #I #[bg=#232323] #W #[default]'
+set -g window-status-current-format '#[bg=magenta,fg=white,bold] #I #[bg=#232323,fg=magenta] #W #[default]'
+set -g status-style bg=black
+set -g status-left '#[fg=black,bg=cyan]#S#[none] on #H '
+set -g status-right '#[fg=magenta,bg=black] #(sh ~/.tmux/status.sh load)#[bg=black,fg=white][#(sh ~/.tmux/status.sh cpu)]'
+{{- end }}
