@@ -20,10 +20,15 @@ Next, edit the file `~/.config/chezmoi/chezmoi.toml` which should've been templa
 ```
 [data]
 	laptop = false
+	colors = "default"
 	wifi_interface = "wlp3s0"
 	wired_interface = "enp4s0"
 	cpu_thermal_path = "/sys/devices/virtual/thermal/thermal_zone1/temp"
-	colors = "default"
 ```
 
 These variables will be interpolated into the templates in this repo to customize the current machine. After this file is created, run `chezmoi -v apply` to set up the configurations. If you're planning on using [`pywal`](https://github.com/dylanaraps/pywal) to manage colorschemes, set `colors` to "wal", install pywal, and generate a scheme based on your chosen background first.
+
+e-ink
+-----
+
+These dotfiles support an e-ink display, specifically the Dasung Paperlike 253. This device, like other e-ink displays, operates best when swapping between pure black and pure white. This extends the life of the panel and reduces the amount of ghosting generated. Accordingly, setting the `colors` parameter in the config file to "eink" fully disables color in the operating system and outputs everything with a fully white background and black foreground. Shades of grey are used for emphasis throughout but the sway configuration sticks to black and white for the most part.
