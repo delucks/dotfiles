@@ -96,7 +96,7 @@ _ssh_complete() {
 }
 complete -F _ssh_complete ssh
 
-{{ if .uses_wal -}}
+{{ if eq .colors "wal" -}}
 # Begin pywal shell integration
 #(cat ~/.cache/wal/sequences &)
 {{- end }}
