@@ -1,20 +1,6 @@
-dotfiles
-========
+# "legacy" dotfiles
 
-Configuration for various pieces of software plus some useful scripts. On Linux, I use i3 for a window manager and kitty as a terminal emulator, on Mac Aqua and iTerm2. Everywhere, I run tmux for multiplexing, bash as shell and vim as editor.
-
-Software recommendations/requirements:
-- stow (only required for setup)
-- jq
-- [ripgrep](https://github.com/BurntSushi/ripgrep)
-- vim and emacs (gasp)
-- pyenv (with python 3.8+)
-- i3
-- xterm
-- [kitty](https://github.com/kovidgoyal/kitty)
-- [rofi](https://github.com/davatorium/rofi)
-- [dunst](https://github.com/dunst-project/dunst)
-- dzen2 (for `x11/bin/dvol`)
+This branch of my dotfiles is a simpler version, branched from when I started using chezmoi and tailored for more limited environments plus situations where I need X11. You may find something useful here if you're also running modern bash on Solaris.
 
 Setup
 -----
