@@ -49,10 +49,18 @@ output "DSC DASUNG 0x000062E0" scale 2.0
 output * background ~/.wallpaper.jpg fill $cyan
 {{- end }}
 
+{{- if .double_dpi }}
 font pango:Fira Code 14
+{{- else }}
+font pango:Fira Code 12
+{{- end }}
 
 bar {
+{{- if .double_dpi }}
   font pango:Fira Code 14
+{{- else }}
+  font pango:Fira Code 12
+{{- end }}
   tray_output primary
   separator_symbol "<=="
 

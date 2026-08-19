@@ -19,10 +19,17 @@ Next, edit the file `~/.config/chezmoi/chezmoi.toml` which should've been templa
 
 ```
 [data]
+	# Set to "true" if this machine has an internal battery and screen
 	laptop = false
+	# When true, double the scaling of X apps and increase text size accordingly
+	double_dpi = true
+	# Values are "default", "eink" (for black & white), and "wal" (for pywal)
 	colors = "default"
+	# The interface name for the primary wi-fi interface on this machine
 	wifi_interface = "wlp3s0"
+	# The interface name for the primary wired interface on this machine
 	wired_interface = "enp4s0"
+	# Path to the "temp" file for this machine's CPU temperature sensors
 	cpu_thermal_path = "/sys/devices/virtual/thermal/thermal_zone1/temp"
 ```
 

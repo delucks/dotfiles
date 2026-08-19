@@ -1,7 +1,13 @@
 [data]
-    laptop = false
-    # can be "default", "wal" (to use pywal), or "eink" (to use black and white only)
-    colors = "default"
-    wifi_interface = ""
-    wired_interface = ""
-    cpu_thermal_path = ""
+	# Set to "true" if this machine has an internal battery and screen
+	laptop = false
+	# When true, double the scaling of X apps and increase text size accordingly
+	double_dpi = true
+	# Values are "default", "eink" (for black & white), and "wal" (for pywal)
+	colors = "default"
+	# The interface name for the primary wi-fi interface on this machine
+	wifi_interface = ""
+	# The interface name for the primary wired interface on this machine
+	wired_interface = ""
+	# Path to the "temp" file for this machine's CPU temperature sensors
+	cpu_thermal_path = ""
