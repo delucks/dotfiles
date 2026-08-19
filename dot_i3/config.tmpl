@@ -17,24 +17,26 @@ set {
 }
 {{- else }}
 # dark
-set_from_resource  $black         i3wm.color0   #393939
-set_from_resource  $red           i3wm.color1   #393939
-set_from_resource  $green         i3wm.color2   #9DBA3A
-set_from_resource  $yellow        i3wm.color3   #F5B915
-set_from_resource  $blue          i3wm.color4   #1CA1DB
-set_from_resource  $magenta       i3wm.color5   #652F90
-set_from_resource  $cyan          i3wm.color6   #EA7D24
-set_from_resource  $white         i3wm.color7   #E7E8E9
-set_from_resource  $grey          i3wm.color8   #AF875F
-set_from_resource  $lightred      i3wm.color9   #E7212A
-set_from_resource  $lightgreen    i3wm.color10  #A9C938
-set_from_resource  $lightyellow   i3wm.color11  #F7D325
-set_from_resource  $lightblue     i3wm.color12  #00AFDA
-set_from_resource  $lightmagenta  i3wm.color13  #894E9F
-set_from_resource  $lightcyan     i3wm.color14  #F79321
-set_from_resource  $lightwhite    i3wm.color15  #F3F3F4
-set_from_resource  $bg            i3wm.color16  #151515
-set_from_resource  $fg            i3wm.color17  #DDCCBB
+set {
+  $black         #393939
+  $red           #393939
+  $green         #9DBA3A
+  $yellow        #F5B915
+  $blue          #1CA1DB
+  $magenta       #652F90
+  $cyan          #EA7D24
+  $white         #E7E8E9
+  $grey          #AF875F
+  $lightred      #E7212A
+  $lightgreen    #A9C938
+  $lightyellow   #F7D325
+  $lightblue     #00AFDA
+  $lightmagenta  #894E9F
+  $lightcyan     #F79321
+  $lightwhite    #F3F3F4
+  $bg            #151515
+  $fg            #DDCCBB
+}
 {{- end }}
 
 ########
@@ -44,7 +46,7 @@ set_from_resource  $fg            i3wm.color17  #DDCCBB
 output * background $white solid_color
 output "DSC DASUNG 0x000062E0" scale 2.0
 {{- else }}
-output * background $cyan solid_color
+output * background ~/.wallpaper.jpg fill $cyan
 {{- end }}
 
 font pango:Fira Code 14
@@ -77,7 +79,7 @@ bar {
     separator $lightred
 
     # Class             border      bg      text
-    focused_workspace   $lightgreen $bg     $bg
+    focused_workspace   $lightgreen $bg     $lightgreen
     active_workspace    $bg         $green  $bg
     inactive_workspace  $white      $bg     $white
     urgent_workspace    $red        $bg     $red
