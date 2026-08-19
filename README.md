@@ -9,6 +9,7 @@ Software requirements:
 - pyenv
 - sway
 - [kitty](https://github.com/kovidgoyal/kitty)
+- Fira Code font
 
 Setup
 -----
