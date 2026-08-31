@@ -60,8 +60,8 @@ usage() {
   echo "$0 Usage:"
   echo "  backlight               Display the current brightness level"
   echo "  backlight max           Sets the monitor brightness to the highest value supported"
-  echo "  backlight up            Increase monitor brightness by 10%"
-  echo "  backlight down          Decrease monitor brightness by 10%"
+  echo "  backlight up            Increase monitor brightness by 5%"
+  echo "  backlight down          Decrease monitor brightness by 5%"
   echo "  backlight N             Set monitor brightness to this integer value"
   echo "  backlight N%            Set monitor brightness to this percentage"
   echo "  backlight -h|--help     Display this message"
@@ -78,8 +78,8 @@ else
       NEW="$MAX"
     ;;
     up|down)
-      # Increase or decrease 10% at a time
-      STEP=$((MAX / 10))
+      # Increase or decrease 5% at a time
+      STEP=$((MAX / 20))
       CURRENT=$(getbacklight)
       if [ "$1" == "up" ]; then
         NEW=$((CURRENT + STEP))
