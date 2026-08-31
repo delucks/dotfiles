@@ -140,5 +140,5 @@ set -g window-status-format '#[fg=white,bg=black] #I #[bg=#232323] #W #[default]
 set -g window-status-current-format '#[bg=magenta,fg=white,bold] #I #[bg=#232323,fg=magenta] #W #[default]'
 set -g status-style bg=black
 set -g status-left '#[fg=black,bg=cyan]#S#[none] on #H '
-set -g status-right '#[fg=magenta,bg=black] #(sh ~/.tmux/status.sh load)#[bg=black,fg=white][#(sh ~/.tmux/status.sh cpu)]'
+set -g status-right '#[fg=cyan,bg=black] #(sh ~/.tmux/status.sh load)#[bg=black,fg=white][#(sh ~/.tmux/status.sh cpu)]'
 {{- end }}
