@@ -141,6 +141,11 @@ set {
 }
 floating_modifier $mod
 
+# Monitors
+
+bindsym $mod+m output "DSC DASUNG 0x000062E0" disable ; output "Samsung Display Corp. 0x41A0 Unknown" enable
+bindsym $mod+Shift+m output "DSC DASUNG 0x000062E0" enable ; output "Samsung Display Corp. 0x41A0 Unknown" disable
+
 # Workspaces
 # Workspace management keybindings are prefaced by Meta
 
@@ -153,9 +158,7 @@ bindsym {
   $mod+q workspace 6:q
   $mod+w workspace 7:w
   $mod+e workspace 8:e
-  $mod+r workspace 9:r
-  $mod+c workspace 10:console
-  $mod+m workspace 11:music
+  $mod+c workspace 9:console
 
   $mod+Shift+a move workspace 1:a
   $mod+Shift+s move workspace 2:surf
@@ -165,9 +168,7 @@ bindsym {
   $mod+Shift+q move workspace 6:q
   $mod+Shift+w move workspace 7:w
   $mod+Shift+e move workspace 8:e
-  $mod+Shift+r move workspace 9:r
-  $mod+Shift+c move workspace 10:console
-  $mod+Shift+m move workspace 11:music
+  $mod+Shift+c move workspace 9:console
 
   $alt+a workspace 1:a
   $alt+s workspace 2:surf
@@ -308,7 +309,7 @@ assign [class="firefox"] 2:surf
 assign [class="Chromium"] 2:surf
 assign [class="Steam"] 5:games
 assign [class="emacs"] 8:e
-assign [class="discord"] 10:console
+assign [class="discord"] 9:console
 
 # Certain applications should launch at a resolution that takes up most of my screen but not all of my screen
 set $near_screen_width 1800
