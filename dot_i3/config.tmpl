@@ -16,7 +16,10 @@ set {
   $bg     $white
 }
 {{- else }}
-# dark
+# redeye
+#
+# a tonally vibrant sway config with dark background,
+# designed for LCD panels
 set {
   $black         #393939
   $red           #393939
@@ -44,7 +47,6 @@ set {
 
 {{- if eq .colors "eink" }}
 output * background $white solid_color
-output "DSC DASUNG 0x000062E0" scale 2.0
 {{- else }}
 output * background ~/.wallpaper.jpg fill $cyan
 {{- end }}
@@ -121,8 +123,10 @@ gaps {
 
 for_window [class="^.*"] border pixel 3
 
-#######
-# Mouse
+##########
+# Hardware
+
+output "DSC DASUNG 0x000062E0" scale 2.0
 
 input "20547:21570:Ploopy_Corporation_Trackball_Mouse" {
   accel_profile "flat"

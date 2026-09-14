@@ -1,62 +1,89 @@
 #!/bin/bash -e
 
-# Swaps between the internal and external monitors.
-# My external monitor is a 4K display which should use scaled DPI, so this script also modifies ~/.Xresources
-
-# A previous version set a custom modeline for the new monitor, here is the procedure should I need it again:
-#RESOLUTION="2560 1080 44"
-#MODELINE=$(cvt $RESOLUTION | cut -f2 -d$'\n')
-#MODEDATA=$(echo "$MODELINE" | cut -f 3- -d' ')
-#MODENAME=$(echo "$MODELINE" | cut -f2 -d' ')
-#if ! xrandr --current | grep -q "$MODENAME"; then
-#  # External monitor doesn't have the correct resolution in this X session yet: create it
-#  echo "Adding mode - $MODENAME $MODEDATA"
-#  xrandr --newmode "$MODENAME" $MODEDATA
-#  xrandr --addmode "$EXTERNAL_DISPLAY" "$MODENAME"
-#fi
-#xrandr --output "$EXTERNAL_DISPLAY" --primary --mode "$MODENAME" --pos 0x0 --rotate normal --output "$INTERNAL_DISPLAY" --off
+# Swaps between internal and external displays
+# Now, on wayland with sway and dotfiles managed with chezmoi
 
 INTERNAL_DISPLAY="eDP-1"
-EXTERNAL_DISPLAY="HDMI-2"
+EXTERNAL_DISPLAY="DP-1"
 
-lowdpi() {
-  sed -i 's/^Xft.dpi: 192/Xft.dpi: 96/g' "$HOME/.Xresources"
-  xrdb "$HOME/.Xresources"
+error() {
+  >&2 echo "$1"
+  exit 1
 }
 
-hidpi() {
-  sed -i 's/^Xft.dpi: 96/Xft.dpi: 192/g' "$HOME/.Xresources"
-  xrdb "$HOME/.Xresources"
+
+for dependency in gawk swaymsg chezmoi; do
+  hash "$dependency" 2>/dev/null || error "$0 depends on $dependency"
+done
+
+CURRENT=$(gawk 'match($0, /colors.*"(eink|default|wal)"/, a) {print a[1]}' ~/.config/chezmoi/chezmoi.toml)
+
+set_chezmoi_config() {
+  sed -i "s/= \"$CURRENT/= \"$1/g" ~/.config/chezmoi/chezmoi.toml
 }
 
-swap_to_internal() {
-  lowdpi
-  xrandr --output "$EXTERNAL_DISPLAY" --off --output "$INTERNAL_DISPLAY" --auto
-  i3-msg restart
+toggle_chezmoi_config() {
+  local new="eink"
+  case "$CURRENT" in
+    eink)
+      new="default"
+      ;;
+    *)
+      new="eink"
+      ;;
+  esac
+  set_chezmoi_config "$new"
 }
 
-swap_to_external() {
-  hidpi
-  xrandr --output "$EXTERNAL_DISPLAY" --primary --mode 3840x2160 --pos 0x0 --rotate normal --output "$INTERNAL_DISPLAY" --off
-  i3-msg restart
+tolaptop() {
+  set_chezmoi_config "default"
+  chezmoi apply
+  swaymsg reload && sleep 1
+  swaymsg "output \"$EXTERNAL_DISPLAY\" disable ; output \"$INTERNAL_DISPLAY\" enable"
 }
 
-right_of_external() {
-  hidpi
-  xrandr --output "$INTERNAL_DISPLAY" --mode 1920x1080 --pos 3840x1080 --rotate normal --output "$EXTERNAL_DISPLAY" --primary --mode 3840x2160 --pos 0x0 --rotate normal
+tomonitor() {
+  set_chezmoi_config "eink"
+  chezmoi apply
+  swaymsg reload && sleep 1
+  swaymsg "output \"$INTERNAL_DISPLAY\" disable ; output \"$EXTERNAL_DISPLAY\" enable"
+}
+
+toggle() {
+  if [ $(swaymsg -t get_outputs | jq -r '.[]|select(.active)|.name' | wc -l) -gt 1 ]; then
+    error "both outputs are active, refusing to swap"
+  fi
+  toggle_chezmoi_config
+  chezmoi apply
+  local currentoutput=$(swaymsg -t get_outputs | jq -r '.[]|select(.active)|.name')
+  case "$currentoutput" in
+    "$INTERNAL_DISPLAY")
+      echo "internal is current"
+      swaymsg reload && sleep 1
+      swaymsg "output \"$INTERNAL_DISPLAY\" disable ; output \"$EXTERNAL_DISPLAY\" enable"
+      ;;
+    "$EXTERNAL_DISPLAY")
+      echo "external is current"
+      swaymsg reload && sleep 1
+      swaymsg "output \"$EXTERNAL_DISPLAY\" disable ; output \"$INTERNAL_DISPLAY\" enable"
+      ;;
+    *)
+      toggle_chezmoi_config
+      chezmoi apply
+      error "Cannot parse which display is active, refusing to swap"
+      ;;
+  esac
 }
 
 if [[ $# -gt 0 ]]; then
   case "$1" in
     '-i'|'--internal')
-      swap_to_internal
+      tolaptop
       ;;
     '-e'|'--external')
-      swap_to_external
-      ;;
-    '-r'|'--right')
-      right_of_external
+      tomonitor
       ;;
   esac
   exit 0
 fi
+toggle
