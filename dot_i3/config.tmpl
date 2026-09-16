@@ -147,8 +147,7 @@ floating_modifier $mod
 
 # Monitors
 
-bindsym $mod+m output "DSC DASUNG 0x000062E0" disable ; output "Samsung Display Corp. 0x41A0 Unknown" enable
-bindsym $mod+Shift+m output "DSC DASUNG 0x000062E0" enable ; output "Samsung Display Corp. 0x41A0 Unknown" disable
+bindsym $mod+m exec ~/bin/swap_monitor.sh
 
 # Workspaces
 # Workspace management keybindings are prefaced by Meta
@@ -268,6 +267,8 @@ bindsym $mod+Shift+comma exec rofi -show drun -display-drun 'Launch XDG Desktop:
 bindsym $mod+Shift+1 exec ~/bin/swap_monitor.sh -i
 bindsym $mod+Shift+2 exec ~/bin/swap_monitor.sh -e
 bindsym $mod+l exec ~/bin/block
+
+bindsym $mod+2 exec pkill -USR2 -x handy
 
 
 # Commands implemented in the i3-buddy daemon
