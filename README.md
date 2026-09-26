@@ -10,6 +10,7 @@ Configuration for various pieces of software plus some useful scripts. On Linux,
 - xterm
 - kitty
 - sway
+- i3status
 - fonts-firacode
 - pipx
 - ranger
